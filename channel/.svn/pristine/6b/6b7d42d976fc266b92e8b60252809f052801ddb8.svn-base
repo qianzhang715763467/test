@@ -1,0 +1,88 @@
+<?php
+
+namespace backend\models\search;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use backend\models\Profit;
+use backend\models\Agent;
+/**
+ * OrderSearch represents the model behind the search form about `backend\models\Order`.
+ */
+class ImproveSearch extends Profit
+{
+    public $buyer_name;
+    public $end_time;
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = Profit::find();
+        //查询
+        if($params){
+            if( !empty($params['ImproveSearch']['end_time']) ){
+                if($params['ImproveSearch']['end_time']==Profit::ONE_WEEK){
+                    $time = strtotime('+1 week');
+                    $this->end_time = Profit::ONE_WEEK;
+                }
+                if($params['ImproveSearch']['end_time']==Profit::ONE_MONTH){
+                    $time = strtotime('+1 month');
+                    $this->end_time = Profit::ONE_MONTH;
+                }
+                if($params['ImproveSearch']['end_time']==Profit::THREE_MONTH){
+                    $time = strtotime('+3 month');
+                    $this->end_time = Profit::THREE_MONTH;
+                }
+                $query->andFilterWhere(['>=', 'end_time', time()]);
+                $query->andFilterWhere(['<', 'end_time', $time]);
+            }
+            if( !empty($params['ImproveSearch']['buyer_name']) ){
+                $this->buyer_name = $params['ImproveSearch']['buyer_name'];
+                $query->andFilterWhere(['like', 'buyer_name', $params['ImproveSearch']['buyer_name']]);
+            }
+
+
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 1,
+            ],
+        ]);
+
+        if (!$this->validate()) {
+
+            return $dataProvider;
+        }
+        return $dataProvider;
+
+    }
+
+
+}

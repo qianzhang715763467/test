@@ -1,0 +1,175 @@
+<?php
+namespace api\modules\v1\controllers;
+
+use yii\rest\ActiveController;
+use common\models\Settlement;
+use Yii;
+use \common\models\Accounting;
+use yii\base\DynamicModel;
+/**
+ * @package api\modules\v1\controllers
+ */
+class ApplyController extends ActiveController
+{
+    public $modelClass = 'common\models\Admin';
+    /**
+     *
+     * 提现申请校验
+     */
+    public function actionVerification()
+    {
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+        if( $requestData ){
+            $accountId = $requestData['account_id'];
+            $amount = $requestData['amount'];
+            $data = \common\lib\Common::checkIsSettlement($accountId,$amount);
+            if( $data['flag'] )
+            {
+                $this->_responseData([],'校验成功',200);
+            }else{
+                $this->_responseData([],$data['mag'],501);
+            }
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+    }
+
+    /**
+     *
+     * 提现申请--初始化
+     *
+     */
+    public function actionApply()
+    {
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+        if( $requestData ) {
+            $accountId = $requestData['account_id'];
+            $data = Settlement::find()->select(['settlement_name','bank_name','bank_card'])->where('account_id = :account_id',['account_id'=>$accountId])->asArray()->orderBy('id desc')->one();
+            if( $data )
+            {
+                $this->_responseData($data,'',200);
+            }else{
+                $this->_responseData([],'无申请记录',501);
+            }
+
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+    }
+
+
+    /**
+     *
+     * 提现申请--数据提交
+     */
+
+    public function actionSubmit()
+    {
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+        if( $requestData )
+        {
+            $model = new DynamicModel( $requestData );
+            $model->addRule(['settlement_no','settlement_name', 'account_id','amount','income_tax','pay_amount','bank_name','bank_card','ask_status','pay_status','create_time'], 'required')
+                ->addRule(['settlement_no'], 'string', ['max' => '18'])
+                ->addRule(['settlement_name'], 'string', ['max' => '45'])
+                ->addRule('account_id', 'number')
+                ->addRule(['ask_status','pay_status','create_time'],'safe')
+                ->addRule(['amount','income_tax','pay_amount'],'string',['max'=>'25'])
+                ->addRule(['bank_name'],'string',['max'=>'255'])
+                ->addRule(['bank_card'],'match',['pattern' => '/^(\d{16}|\d{19})$/'])
+                ->validate();
+            if ($model->hasErrors())
+            {
+                // 验证失败
+                $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->_responseData([],$errorInfo[0],501);
+            } else {
+                $commonObj = new \common\lib\Common;
+                $returnData = $commonObj->checkIsSettlement($requestData['account_id'],$requestData['amount']);
+
+                if($returnData['flag']==true){
+                    $settlement_no = 'JS'.trim(date('ymdHis',time())).rand(1000,9999);
+
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try{
+
+                        $settlement=new Settlement();
+                        $settlement->settlement_no=$settlement_no;
+                        $settlement->settlement_name=$requestData['settlement_name'];
+                        $settlement->account_id=$requestData['account_id'];
+                        $settlement->amount=$requestData['amount'];
+                        $settlement->income_tax=$requestData['income_tax'];
+                        $settlement->pay_amount=$requestData['pay_amount'];
+                        $settlement->ask_status=Settlement::ASK_STATUS_WAIT;
+                        $settlement->pay_status=Settlement::ASK_STATUS_WAIT;
+                        $settlement->bank_name=$requestData['bank_name'];
+                        $settlement->bank_card=$requestData['bank_card'];
+                        $settlement->create_time=time();
+                        if($settlement->save()){
+                            $accounting = new Accounting();
+                            $accounting->account_id=$requestData['account_id'];
+                            $accounting->doc_type= Accounting::DOC_TYPE_OUTCOME;
+                            $accounting->doc_no=$settlement_no;
+                            $accounting->amount = '-'.$requestData['amount'];
+                            $accounting->status = Accounting::STATUS_RESERVE;
+                            $accounting->create_time = time();
+                            if($accounting->save()){
+                                if(\common\lib\Common::updateBalance($requestData['account_id']))
+                                {
+                                    $transaction->commit();
+                                    $this->_responseData([],'申请成功',200);
+                                }else{
+                                    $this->_responseData([],'申请失败',501);
+                                }
+
+                            }else{
+                                $transaction->rollBack();
+                                $this->_responseData([],$accounting->getErrors(),501);
+                            }
+
+                        }else{
+                            $transaction->rollBack();
+                            $this->_responseData([],$settlement->getErrors(),501);
+                        }
+                    }catch( \Exception $e){
+                        $transaction->rollBack();
+                        $this->_responseData([],'申请失败，请重新申请',501);
+                    }
+
+                }else{
+                    $this->_responseData([],$returnData['msg'],501);
+                }
+
+            }
+
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+
+    }
+    /**
+     *
+     * 提现进度
+     */
+    public function actionResult(){
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+        if( $requestData ) {
+            $accountId = $requestData['account_id'];
+            $data = Settlement::find()->select(['ask_status','pay_status'])->where('account_id = :account_id',['account_id'=>$accountId])->asArray()->orderBy('id desc')->one();
+            if( $data )
+            {
+                $this->_responseData($data,'',200);
+            }else{
+                $this->_responseData([],'查询失败',501);
+            }
+
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+    }
+}

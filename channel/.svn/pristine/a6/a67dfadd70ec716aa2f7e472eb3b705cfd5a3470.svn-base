@@ -1,0 +1,17 @@
+37dc151bcd14e8d32a4353cbc2aa7be5212462d7	not-for-merge	branch '4.0' of https://github.com/swiftmailer/swiftmailer
+3304927fe86466534a4a3e14a4741bda64a0eaef	not-for-merge	branch '4.1' of https://github.com/swiftmailer/swiftmailer
+51c6c8418af52f618c4e7141af056e801a550724	not-for-merge	branch '4.1-old' of https://github.com/swiftmailer/swiftmailer
+7f075aa497bc08559ea26350fa222492f40657f7	not-for-merge	branch '5.x' of https://github.com/swiftmailer/swiftmailer
+c696ac618e7cff3ca1a4587cd52322cec801db73	not-for-merge	branch 'cs-fixes' of https://github.com/swiftmailer/swiftmailer
+a0f2d95dad2d587d5fa9a668e000d6a86ff74241	not-for-merge	branch 'escaping-reverting' of https://github.com/swiftmailer/swiftmailer
+38d33267f63c26b495b0d4bb235313d4a5666f10	not-for-merge	branch 'getMock' of https://github.com/swiftmailer/swiftmailer
+d85e43195039493d0f8a2cdd1acdd7b201aa96a6	not-for-merge	branch 'has-fix' of https://github.com/swiftmailer/swiftmailer
+4cc3aa155684e062149b74c41537ddc8f10c1b44	not-for-merge	branch 'interfaces-removeal' of https://github.com/swiftmailer/swiftmailer
+7abf02431847a634114d93d9254ea0cb6c864e7c	not-for-merge	branch 'master' of https://github.com/swiftmailer/swiftmailer
+eb72bfceb37c42754c3f4dff755a9c3bb196aba1	not-for-merge	branch 'more-tests' of https://github.com/swiftmailer/swiftmailer
+8bab6d0ec95215cb4a98e6ab5bd620be0634bbe6	not-for-merge	branch 'opndkim-on-travis' of https://github.com/swiftmailer/swiftmailer
+a15af9c27bc58f0d3e085b9b81fdc01063d16e58	not-for-merge	branch 'php-return-php-docs' of https://github.com/swiftmailer/swiftmailer
+e552c3f35a8ed71ca3e25d0c364cd040d9ab3dd0	not-for-merge	branch 'php7-support' of https://github.com/swiftmailer/swiftmailer
+2601fa01198c39dbace74ec39c8d653543613d83	not-for-merge	branch 'protected-test-methods' of https://github.com/swiftmailer/swiftmailer
+46ab0bcc01ec3d1081d97ffd6d8d9b4645de69b1	not-for-merge	branch 'tmp-dir-tests' of https://github.com/swiftmailer/swiftmailer
+17158292c7f45bd3ee84b9220813fdc29de7f129	not-for-merge	branch 'version-compare' of https://github.com/swiftmailer/swiftmailer

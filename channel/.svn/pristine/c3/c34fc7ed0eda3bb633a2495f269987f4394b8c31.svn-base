@@ -1,0 +1,15 @@
+a282cfaebc78718b6b2380a5447befc037b85b82	not-for-merge	branch '2.0' of https://github.com/symfony/http-kernel
+b0fbc4d28fa9676a741f127c891eff73a36a338c	not-for-merge	branch '2.1' of https://github.com/symfony/http-kernel
+f32008b3c58607a4d4fe269fdf7dc47cc94b4250	not-for-merge	branch '2.2' of https://github.com/symfony/http-kernel
+57e0329236e8edf2b0e683043c604f7c9aba9398	not-for-merge	branch '2.3' of https://github.com/symfony/http-kernel
+84b1bd5433bc78cf78c19808abdd155edb4f1937	not-for-merge	branch '2.4' of https://github.com/symfony/http-kernel
+31652385d94eafc2103a98435d6d5bd7eea61736	not-for-merge	branch '2.5' of https://github.com/symfony/http-kernel
+cdd991d304fed833514dc44d6aafcf19397c26cb	not-for-merge	branch '2.6' of https://github.com/symfony/http-kernel
+624321f40aebbba20799fa7b9052d8f43157efaf	not-for-merge	branch '2.7' of https://github.com/symfony/http-kernel
+8a8fb97a90670d909b1be5ce188970c94d179987	not-for-merge	branch '2.8' of https://github.com/symfony/http-kernel
+03ac7bbc8fccbf002e0bea88dbe09262b29dc2a9	not-for-merge	branch '3.0' of https://github.com/symfony/http-kernel
+c830387dec1b48c100473d10a6a356c3c3ae2a13	not-for-merge	branch '3.1' of https://github.com/symfony/http-kernel
+c914062ca6dba051a5b9f765d991cc01a24a8ac1	not-for-merge	branch '3.2' of https://github.com/symfony/http-kernel
+7bbff955936f1b8298b8160b65c0d56f7540a9ca	not-for-merge	branch 'fix-11341' of https://github.com/symfony/http-kernel
+d95c776e4d51b86c249cc26ec69cdf9bbdcbdcc8	not-for-merge	branch 'master' of https://github.com/symfony/http-kernel
+afeef07e2b92e76475bbe91d089c567176dc76ed	not-for-merge	branch 'session-listeners' of https://github.com/symfony/http-kernel

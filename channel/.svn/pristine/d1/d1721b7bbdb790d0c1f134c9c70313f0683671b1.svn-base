@@ -1,0 +1,144 @@
+<?php
+
+namespace api\modules\v1\controllers;
+use Yii;
+use yii\rest\ActiveController;
+use common\models\Admin;
+use common\models\Agent;
+use common\models\AgentAprove;
+use yii\base\DynamicModel;
+/**
+ * @package api\modules\v1\controllers
+ */
+class AgentController extends ActiveController
+{
+    public $modelClass = 'common\models\Admin';
+   
+    public function actionL2init(){
+        $requestData['up_account_id'] = '823';
+        // $phpData = file_get_contents('php://input');
+        // $requestData = json_decode($phpData, 1);
+        $returnData['level0_id'] = '';
+        $returnData['level0_agent_name'] = '';
+        $returnData['level1_id'] = '';
+        $returnData['level1_agent_name'] = '';
+        if( isset($requestData['up_account_id']) ){
+            $where = [
+                'account_id' => $requestData['up_account_id'],
+                //'status' => Agent::STATUS_USED
+            ];
+            $agentInfo = Agent::find()->where($where)->asArray()->one();
+            if( $agentInfo ){
+                if( $agentInfo['level'] == Agent::LEVEL_ROOT ){
+                    $returnData['level0_id'] = $agentInfo['id'];
+                    $returnData['level0_agent_name'] = $agentInfo['agent_name'];
+                }elseif( $agentInfo['level']  == Agent::LEVEL_FIRST ){
+                    $where = [
+                        'id' => $agentInfo['level0_id'],
+                        //'status' => Agent::STATUS_USED
+                    ];
+                    $agentLevel0Info = Agent::find()->where($where)->asArray()->one();
+                    $returnData['level0_id'] = $agentLevel0Info['id'];
+                    $returnData['level0_agent_name'] = $agentLevel0Info['agent_name'];
+                    $returnData['level1_id'] = $agentInfo['id'];
+                    $returnData['level1_agent_name'] = $agentInfo['agent_name'];
+                }else{
+                    //上级组织即非总代也非一代，直接归属于北京蓝页
+                    $returnData['level0_id'] = Yii::$app->params['lanye_agent_id'];
+                    $returnData['level0_agent_name'] = Yii::$app->params['lanye_company_name'];
+                }
+            }else{
+                //如果没有查到，直接归属于北京蓝页
+                $returnData['level0_id'] = Yii::$app->params['lanye_agent_id'];
+                $returnData['level0_agent_name'] = Yii::$app->params['lanye_company_name'];
+            }
+        }else{
+            $returnData['level0_id'] = Yii::$app->params['lanye_agent_id'];
+            $returnData['level0_agent_name'] = Yii::$app->params['lanye_company_name'];
+        }
+        $this->_responseData($returnData, '', 200);
+    }
+
+    /**
+     * 添加二级代理商
+     **/
+    public function actionAddlevel2(){
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+        if( $requestData ){
+            // $requestData['contacts'] = '张三';
+            // $requestData['telephone'] = '13111111111';
+            // $requestData['account_id'] = '32a';
+            // $requestData['level0_id'] = '1';
+            // $requestData['level1_id'] = '';
+            // $requestData['person_id_card'] = '310101';
+            // $requestData['reason'] = '我想做代理';
+            // $requestData['bank_name'] = '中国人民银行';
+            // $requestData['bank_card'] = '6222xxx';
+
+            $requestData['level'] = AgentAprove::LEVEL_2;
+            $requestData['person_status'] = AgentAprove::PERSON_STATUS_WAIT;
+            $requestData['create_time'] = time();
+            $model = new DynamicModel( $requestData );
+            $model->addRule(['contacts', 'telephone','level','account_id','level0_id','person_id_card','reason','bank_name','bank_card'], 'required')
+            ->addRule(['contacts'], 'string', ['max' => '45'])
+            ->addRule('telephone','match',['pattern' => '/^1\d{10}$/'])
+            ->addRule('account_id', 'number')
+            ->addRule(['level1_id'],'safe')
+            ->addRule('person_id_card','string',['max'=>'255'])
+            ->addRule(['bank_name'],'string',['max'=>'255'])
+            ->addRule(['bank_card'],'string',['max'=>'255'])
+            ->validate();
+
+            if ($model->hasErrors()) {
+                // 验证失败
+                $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->_responseData([],$errorInfo[0],501);
+            } else {
+                // 验证成功
+                $agentAproveModel = new AgentAprove();
+                $agentAproveModel->contacts = $requestData['contacts'];
+                $agentAproveModel->telephone = $requestData['telephone'];
+                $agentAproveModel->account_id = $requestData['account_id'];
+                $agentAproveModel->level0_id = $requestData['level0_id'];
+                $agentAproveModel->level1_id = isset($requestData['level1_id']) ? $requestData['level1_id'] : '';
+                $agentAproveModel->person_id_card = $requestData['person_id_card'];
+                $agentAproveModel->reason = $requestData['reason'];
+                $agentAproveModel->bank_name = $requestData['bank_name'];
+                $agentAproveModel->bank_card = $requestData['bank_card'];
+                $agentAproveModel->level = $requestData['level'];
+                $agentAproveModel->person_status = $requestData['person_status'];
+                $agentAproveModel->create_time = $requestData['create_time'];
+                $agentAproveModel->setAttributes($requestData);
+                if ($agentAproveModel->save()) {
+                    $this->_responseData([],'申请成功',200);
+                }else{
+                    $this->_responseData([],'操作失败，请稍后再试',500);
+                }
+            }
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+        
+    }
+
+    /**
+     *
+     * 二级代理审核进度
+     *
+     */
+
+    public function actionAgentaprove(){
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+
+        if( $requestData ){
+            $data = AgentAprove::find()->where('account_id = :account_id',[':account_id'=>$requestData['account_id']])->one();
+            $param['status'] = $data['person_status'];
+            $this->_responseData($param,'',200);
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+    }
+}

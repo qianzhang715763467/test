@@ -1,0 +1,196 @@
+<?php
+namespace backend\controllers;
+
+use Yii;
+use yii\web\Controller;
+use yii\filters\AccessControl;
+use backend\models\LoginForm;
+use yii\helpers\Url;
+use yii\filters\VerbFilter;
+
+/**
+ * 后台登录控制器
+ * @author longfei <phphome@qq.com>
+ */
+class LoginController extends Controller
+{
+
+    public $layout = false;
+
+    public $enableCsrfValidation=false;
+
+    public $defaultAction = 'login';
+
+    /**
+     * ---------------------------------------
+     * 行为控制
+     * ---------------------------------------
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'signup','login'],
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error', 'captcha'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                     [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['get'],
+                ],
+            ],
+
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+
+    public function actions()
+    {
+        return  [
+
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+//                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'backColor'=>0x000000,//背景颜色
+                'maxLength' => 6, //最大显示个数
+                'minLength' => 5,//最少显示个数
+                'padding' => 5,//间距
+                'height'=>40,//高度
+                'width' => 130,  //宽度
+                'foreColor'=>0xffffff,     //字体颜色
+                'offset'=>4,        //设置字符偏移量 有效果
+                //'controller'=>'login',        //拥有这个动作的controller
+                'testLimit'=>999,
+            ],
+        ];
+    }
+
+    /**
+     * ---------------------------------------
+     * 登录页
+     * ---------------------------------------
+     */
+    public function actionLogin()
+    {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome(); // 默认 index/index
+        }
+
+        $model = new LoginForm();
+        if (Yii::$app->request->isPost) {
+
+            if ($model->load(Yii::$app->request->post(),'info') && $model->login()) {
+            //if ( false ) {
+                $where = [ 'id' => Yii::$app->user->identity->agent_id ];
+                $agentInfo = \common\models\Agent::find()->where( $where )->asArray()->one();
+                if( $agentInfo ){
+                    //登录后写入代理商级别session
+                    Yii::$app->session->set('level', $agentInfo['level']);
+                    //蓝页账户初始化id为1
+                    if( $agentInfo['id'] == 1 ){
+                        Yii::$app->session->set('isLanYe',true);
+                    }else{
+                        Yii::$app->session->set('isLanYe',false);
+                    }
+                }    
+                //系统管理员
+                Yii::$app->session->set('isManager', true);
+                return 1;
+            } else {
+                 //获取数据验证错误信息
+                $errors = $model->getErrors();
+                if( !empty($errors) ){
+                    if( isset($errors['verifyCode']) ){
+                        return 2;
+                    }
+                }
+                //调用魔页接口判断用户是不是从魔页来的
+                $postData = Yii::$app->request->post('info');
+                $curl =  new \yii\linslin\Curl;
+                $apiUrl = Yii::$app->params['magic_api_domain'] . 'user/jsxlogin';
+                $response = $curl->setRequestBody(json_encode($postData))
+                 ->setHeaders([
+                    'Content-Type' => 'application/json',
+                    'Content-Length' => strlen(json_encode($postData))
+                 ])->post($apiUrl);
+                $responseData = json_decode($response,1);
+                if( $responseData['flag'] == true ){
+                    $adminInfo = \common\models\Admin::find()->where([ 'account_id' => $responseData['userInfo']['id'] ])->one();
+                    //封装登录信息
+                    $_POST['info']['username'] = $adminInfo->username;
+                    $_POST['info']['password'] = \common\models\Admin::encrypt;
+                    $_POST['info']['rememberMe'] = $postData['rememberMe'];
+                    if ($model->load($_POST,'info') && $model->login2()) {
+                        //查找账户对应的代理商是否是启用状态
+                        $where['id'] = $adminInfo->agent_id;
+                        $where['status'] = \common\models\Agent::STATUS_USED;
+                        $agentInfo = \common\models\Agent::find()->where( $where )->asArray()->one();
+                        if( $agentInfo ){
+                            //登录后写入代理商级别session
+                            Yii::$app->session->set('level', $agentInfo['level']);
+                            //蓝页账户初始化id为1
+                            if( $agentInfo['id'] == 1 ){
+                                Yii::$app->session->set('isLanYe',true);
+                            }else{
+                                Yii::$app->session->set('isLanYe',false);
+                            }
+                            //非系统管理员
+                            Yii::$app->session->set('isManager', false);
+                            $adminInfo->last_login_time = time();
+                            $adminInfo->last_login_ip = Yii::$app->request->userIP;
+                            if( $adminInfo->save() ){
+                                return 1;
+                            }else{
+
+                            }
+
+                        }else{
+
+                        }
+                        
+                    }else{
+                        
+                    }
+                }else{
+                    
+                }
+                return 0;
+            }
+        }else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * ---------------------------------------
+     * 注销页
+     * ---------------------------------------
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->redirect(Url::toRoute('/login/login'));
+    }
+
+}

@@ -1,0 +1,263 @@
+<?php
+
+namespace api\modules\v1\controllers;
+use Yii;
+use yii\rest\ActiveController;
+use common\models\Admin;
+use common\models\Accounting;
+use common\models\Orders;
+use common\models\Profit;
+use common\models\Agent;
+use common\lib\Api;
+use yii\base\DynamicModel;
+/**
+ * @package api\modules\v1\controllers
+ */
+class OrderController extends ActiveController
+{
+    public $modelClass = 'common\models\Admin';
+   
+    /**
+     * 创建订单分成
+     **/
+    public function actionCreateprofit(){
+        $phpData = file_get_contents('php://input');
+//        $requestData = json_decode($phpData, 1);
+        $requestData['account_id'] = '532';
+        $requestData['order_no'] = 'AS193149570451816800';
+        $requestData['buyer_name'] = '上海呼啦啦网络科技有限公司';
+        $requestData['ver_type'] = '2';
+        $requestData['order_price'] = '900';
+        $requestData['referral_code'] = 'MG1497844042';
+        $requestData['c1_account_id'] = '823';
+        $requestData['referral_up_account_id'] = '823';
+        if( $requestData ){
+            //数据验证
+            $model = new DynamicModel( $requestData );
+            $model->addRule('account_id','required')
+            ->addRule('account_id','number')
+            ->addRule('order_no','required')
+            ->addRule('buyer_name','required')
+            ->addRule('ver_type','required')
+            ->addRule('ver_type','number')
+            ->addRule('order_price','required')
+            ->addRule('order_price','number')
+            ->validate();
+            if ($model->hasErrors()) {
+                // 验证失败
+                $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->_responseData([],$errorInfo[0],501);
+            } else {
+                //推荐码非空验证推荐码魔页用户c-1
+                if( !empty($requestData['referral_code']) && empty($requestData['c1_account_id']) ){
+                    $this->_responseData([],'推荐码用户不能为空',501);
+                }
+                //对应版本价格
+                $where = [
+                    'ver_type' => $requestData['ver_type']
+                ];
+                $salePrice = \backend\models\SalePrice::find()->where($where)->asArray()->one();
+                if( empty($salePrice) ){
+                    $this->_responseData([],'没有找到版本对应的分成', 501);
+                }
+//debug($salePrice);
+                //推荐码没有
+                if( empty($requestData['referral_code']) ){
+                    $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'],$salePrice, null, null);
+                }else{
+                    //查推荐码用户是否是经销商
+                    $where = [
+                        'account_id' => $requestData['c1_account_id'],
+                        'status' => Agent::STATUS_USED
+                    ];
+                    $c1Agent = Agent::find()->where($where)->asArray()->one();
+                    if( $c1Agent ){
+                        //是 根据该经销商级别设置分成链路
+                        $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'], $salePrice,$requestData['c1_account_id'],$c1Agent);
+                    }else{
+                        //否 查该推荐码用户所属的上级组织 
+                        $where['account_id'] = $requestData['referral_up_account_id'];
+                        $c1UpAgent = Agent::find()->where($where)->asArray()->one();
+                        if( $c1UpAgent ){
+                            //推荐码用户是经销商 进行设置分成链路 
+                            $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'], $salePrice, $requestData['c1_account_id'],$c1UpAgent);
+                        }else{
+                            //否 仅设置c1分成 其余归蓝页
+                            $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'], $salePrice, $requestData['c1_account_id'], null);
+                        }
+                    }
+                }
+debug($profitInfo);
+                //利润分配
+
+                //orders分配
+
+                //accounting分配
+                
+
+                if ($agentAproveModel->save()) {
+                    $this->_responseData([],'申请成功',200);
+                }else{
+                    $this->_responseData([],'操作失败，请稍后再试',500);
+                }
+            }
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+        
+    }
+    /**
+     * 利润分配
+     * @param $orderNo  订单号
+     * @param $orderPrice 订单价格
+     * @param $pricePercent 分成比例
+     * @param $c1AccountId 推荐用户account_id 默认为空 属于蓝页
+     * @param $agentInfo 代理商信息 默认为空 属于蓝页
+     * @return array
+     */
+    protected function setProfit($orderNo,$orderPrice,$pricePercent,$c1AccountId = '',$agentInfo = ''){
+        $orderPrice = floatval($orderPrice);
+        $returnData['lanye_id'] = '';
+        $returnData['lanye_name'] = '';
+        $returnData['lanye_margin'] = '';
+        $returnData['level0_id'] = '';
+        $returnData['level0_name'] = '';
+        $returnData['level0_margin'] = '';
+        $returnData['level1_id'] = '';
+        $returnData['level1_name'] = '';
+        $returnData['level1_margin'] = '';
+        $returnData['level2_id'] = '';
+        $returnData['level2_name'] = '';
+        $returnData['level2_margin'] = '';
+        $returnData['levelc1_id'] = '';
+        $returnData['levelc1_name'] = '';
+        $returnData['levelc1_margin'] = '';
+        $returnData['up_account_id'] = '';
+
+        
+        if( empty($c1AccountId) ){
+            //如果推荐人魔页账户id为空 所有利润都归蓝页
+            $returnData['lanye_id'] = Yii::$app()->params['lanye_agent_id'];
+            $returnData['lanye_name'] = Yii::$app()->params['lanye_company_name'];
+            $returnData['lanye_margin'] = $orderPrice;
+            return $returnData;
+        }else{
+            if( empty($agentInfo) ){
+                //如果代理商为空，那除了c-1 其余都贵蓝页
+                $returnData['lanye_id'] = Yii::$app()->params['lanye_agent_id'];
+                $returnData['lanye_name'] = Yii::$app()->params['lanye_company_name'];
+                $returnData['lanye_margin'] = (100 - floatval( $pricePercent['levelc1_price'] ) ) * $orderPrice;
+
+                $returnData['levelc1_id'] = $c1AccountId;
+                $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+            }else{
+                //代理存在 则按代理级别设置分成链路
+                if( $agentInfo['level']  == Agent::LEVEL_ROOT ){
+                    //蓝页  总代  c-1 
+                    //蓝页分成
+                    $returnData['lanye_id'] = Yii::$app()->params['lanye_agent_id'];
+                    $returnData['lanye_name'] = Yii::$app()->params['lanye_company_name'];
+                    $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                    //判断c1是否是和代理商是同一人
+                    if( $c1AccountId == $agentInfo['account_id'] ){
+                        //是 那总代分成包揽了一代、二代、c1
+                        $level0PricePercent =  floatval($pricePercent['level0_price']) + floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']) + floatval($pricePercent['levelc1_price']);
+                    }else{
+                        //不是 那总代只能包揽了一代、二代
+                        $level0PricePercent = floatval($pricePercent['level0_price']) + floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']);
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                    }
+                    //总代分成
+                    $returnData['level0_id'] = $agentInfo['id'];
+                    $returnData['level0_name'] = $agentInfo['agent_name'];
+                    $returnData['level0_margin'] = $level0PricePercent * $orderPrice;
+                    //上级组织
+                    $returnData['up_account_id'] = $agentInfo['account_id'];
+                }elseif( $agentInfo['level']  == Agent::LEVEL_FIRST ){
+                    //蓝页  总代  一代 c-1 
+                    //蓝页分成
+                    $returnData['lanye_id'] = Yii::$app->params['lanye_agent_id'];
+                    $returnData['lanye_name'] = Yii::$app->params['lanye_company_name'];
+                    $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                    //总代分成
+                    $level0AgentInfo = Agent::find()->where(['id'=>$agentInfo['level0_id']])->asArray()->one();
+                    $returnData['level0_id'] = $agentInfo['level0_id'];
+                    $returnData['level0_name'] = $level0AgentInfo['agent_name'];
+                    $returnData['level0_margin'] = floatval($pricePercent['level0_price']) * $orderPrice;
+                    //判断一代和c-1是否为同一人
+                    if( $c1AccountId == $agentInfo['account_id'] ){
+                        //是 那一代分成包揽了二代 c1
+                        $level1PricePercent = floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']) + floatval($pricePercent['levelc1_price']);
+                    }else{
+                        //不是 那一代分成包揽了二代
+                        $level1PricePercent = floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']);
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                    }
+                    $returnData['level1_id'] = $agentInfo['id'];
+                    $returnData['level1_name'] = $agentInfo['agent_name'];
+                    $returnData['level1_margin'] = $level1PricePercent * $orderPrice;
+                    //上级组织
+                    $returnData['up_account_id'] = $agentInfo['account_id'];
+                }else{
+                    //蓝页  总代  一代  二代 c-1 
+                    //蓝页分成
+                    $returnData['lanye_id'] = Yii::$app->params['lanye_agent_id'];
+                    $returnData['lanye_name'] = Yii::$app->params['lanye_company_name'];
+                    $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                    //总代分成
+                    $level0AgentInfo = Agent::find()->where(['id'=>$agentInfo['level0_id']])->asArray()->one();
+                    $returnData['level0_id'] = $agentInfo['level0_id'];
+                    $returnData['level0_name'] = $level0AgentInfo['agent_name'];
+                    $returnData['level0_margin'] = floatval($pricePercent['level0_price']) * $orderPrice;
+                    //一代分成
+                    $level1AgentInfo = Agent::find()->where(['id'=>$agentInfo['level1_id']])->asArray()->one();
+                    $returnData['level1_id'] = $agentInfo['level1_id'];
+                    $returnData['level1_name'] = $level1AgentInfo['agent_name'];
+                    $returnData['level1_margin'] = floatval($pricePercent['level1_price']) * $orderPrice;
+                    //判断二代和c-1是否为同一人
+                    if( $c1AccountId == $agentInfo['account_id'] ){
+                        //是 那二代分成包揽了c1
+                        $level2PricePercent =  floatval($pricePercent['level2_price']) + floatval($pricePercent['levelc1_price']);
+                    }else{
+                        //不是 那二代分只成包揽了二代
+                        $level2PricePercent = floatval($pricePercent['level2_price']);
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                    }
+                    $returnData['level2_id'] = $agentInfo['id'];
+                    $returnData['level2_name'] = $agentInfo['agent_name'];
+                    $returnData['level2_margin'] = $level2PricePercent * $orderPrice;
+                    //上级组织
+                    $returnData['up_account_id'] = $agentInfo['account_id'];
+                }
+            }
+        }
+        $returnData['lanye_margin'] =  !empty($returnData['lanye_margin']) ? $returnData['lanye_margin']/100 :'';
+        $returnData['level0_margin'] = !empty($returnData['level0_margin']) ? $returnData['level0_margin']/100 :'';
+        $returnData['level1_margin'] = !empty($returnData['level1_margin']) ? $returnData['level1_margin']/100 :'';
+        $returnData['level2_margin'] = !empty($returnData['level2_margin']) ? $returnData['level2_margin']/100 :'';
+        $returnData['levelc1_margin'] = !empty($returnData['levelc1_margin']) ? $returnData['levelc1_margin']/100 :'';
+        return $returnData;
+    }
+
+    
+    protected function getC1Username($accountId){
+        $apiObj = new Api();
+        $userInfo = $apiObj->getUserInfoById($accountId);
+        if( $userInfo ){
+            return $userInfo['personInfo']['persion_name'];
+        }else{
+            return '-';
+        }
+    }
+}

@@ -1,0 +1,501 @@
+<?php
+
+namespace api\modules\v1\controllers;
+use Yii;
+use yii\rest\ActiveController;
+use common\models\Admin;
+use common\models\Accounting;
+use common\models\Orders;
+use common\models\Profit;
+use common\models\Agent;
+use common\lib\Api;
+use yii\base\DynamicModel;
+/**
+ * @package api\modules\v1\controllers
+ */
+class OrderController extends ActiveController
+{
+    public $modelClass = 'common\models\Admin';
+   
+    /**
+     * 创建订单分成
+     **/
+    public function actionCreateprofit(){
+        $phpData = file_get_contents('php://input');
+        $requestData = json_decode($phpData, 1);
+        // $requestData['account_id'] = '532';
+        // $requestData['order_no'] = 'AS264149784390416114';
+        // $requestData['buyer_name'] = '孙某某';
+        // $requestData['ver_type'] = '2';
+        // $requestData['order_price'] = '900';
+        // $requestData['referral_code'] = 'MG1497844042';
+        // $requestData['c1_account_id'] = '211';
+        // $requestData['referral_up_account_id'] = '823';
+        // $requestData['order_time'] = time();
+        // $requestData['pay_time'] = time();
+        // $requestData['end_time'] = time();
+        writeLog('订单分成开始');
+        writeLog('请求原始数据');
+        writeLog($phpData);
+        writeLog('格式化后php数组');
+        writeLog($requestData);
+       
+        if( $requestData ){
+            //数据验证
+            $model = new DynamicModel( $requestData );
+            $model->addRule('account_id','required')
+            ->addRule('account_id','number')
+            ->addRule('order_no','required')
+            ->addRule('buyer_name','required')
+            ->addRule('ver_type','required')
+            ->addRule('ver_type','number')
+            ->addRule('order_price','required')
+            ->addRule('order_price','number')
+            ->addRule('order_time','required')
+            ->addRule('order_time','number')
+            ->addRule('end_time','required')
+            ->addRule('end_time','number')
+            ->validate();
+            if ($model->hasErrors()) {
+                // 验证失败
+                $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->_responseData([],$errorInfo[0],501);
+            } else {
+                //推荐码非空验证推荐码魔页用户c-1
+                if( !empty($requestData['referral_code']) && empty($requestData['c1_account_id']) ){
+                    $this->_responseData([],'推荐码用户不能为空',501);
+                }
+                //对应版本价格
+                $where = [
+                    'ver_type' => $requestData['ver_type']
+                ];
+                $salePrice = \backend\models\SalePrice::find()->where($where)->asArray()->one();
+                if( empty($salePrice) ){
+                    $this->_responseData([],'没有找到版本对应的分成', 501);
+                }
+//debug($salePrice);
+                //推荐码没有
+                if( empty($requestData['referral_code']) ){
+                    $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'],$salePrice, null, null);
+                }else{
+                    //查推荐码用户是否是经销商
+                    $where = [
+                        'account_id' => $requestData['c1_account_id'],
+                        'status' => Agent::STATUS_USED
+                    ];
+                    $c1Agent = Agent::find()->where($where)->asArray()->one();
+                    if( $c1Agent ){
+                        //是 根据该经销商级别设置分成链路
+                        $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'], $salePrice,$requestData['c1_account_id'],$c1Agent);
+                    }else{
+                        //否 查该推荐码用户所属的上级组织 
+                        $where['account_id'] = $requestData['referral_up_account_id'];
+                        $c1UpAgent = Agent::find()->where($where)->asArray()->one();
+                        if( $c1UpAgent ){
+                            //推荐码用户是经销商 进行设置分成链路 
+                            $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'], $salePrice, $requestData['c1_account_id'],$c1UpAgent);
+                        }else{
+                            //否 仅设置c1分成 其余归蓝页
+                            $profitInfo = $this->setProfit($requestData['order_no'], $requestData['order_price'], $salePrice, $requestData['c1_account_id'], null);
+                        }
+                    }
+                }
+                writeLog('利润分配结果');
+                writeLog($profitInfo);
+//debug($profitInfo);                
+                $transaction = Yii::$app->db->beginTransaction();
+                try{
+                    //profit分配
+                    $profitModel = new \common\models\Profit;
+                    $profitModel->order_no = $requestData['order_no'];
+                    $profitModel->buyer_name = $requestData['buyer_name'];
+                    $profitModel->ver_type = $requestData['ver_type'];
+                    $profitModel->order_price = $requestData['order_price'];
+                    $profitModel->lanye_id = $profitInfo['lanye_id'];
+                    $profitModel->lanye_name = $profitInfo['lanye_name'];
+                    $profitModel->lanye_margin = $profitInfo['lanye_margin'];
+                    $profitModel->level0_id = $profitInfo['level0_id'];
+                    $profitModel->level0_name = $profitInfo['level0_name'];
+                    $profitModel->level0_margin = $profitInfo['level0_margin'];
+                    $profitModel->level1_id = $profitInfo['level1_id'];
+                    $profitModel->level1_name = $profitInfo['level1_name'];
+                    $profitModel->level1_margin = $profitInfo['level1_margin'];
+                    $profitModel->level2_id = $profitInfo['level2_id'];
+                    $profitModel->level2_name = $profitInfo['level2_name'];
+                    $profitModel->level2_margin = $profitInfo['level2_margin'];
+                    $profitModel->levelc1_id = $profitInfo['levelc1_id'];
+                    $profitModel->levelc1_name = $profitInfo['levelc1_name'];
+                    $profitModel->levelc1_margin = $profitInfo['levelc1_margin'];
+                    $profitModel->create_time = time();
+                    $profitModel->order_time = $requestData['order_time'];
+                    $profitModel->pay_time = $requestData['pay_time'];  
+                    $profitModel->end_time = $requestData['end_time'];
+                    $profitInsertFlag = $profitModel->save();
+     //debug($profitInsertFlag);
+                    //orders分配
+                    //蓝页数据
+                    $lanyeObj = new \common\models\Orders;
+                    $lanyeObj->account_id = Yii::$app->params['lanye_account_id'];
+                    $lanyeObj->order_no = $requestData['order_no'];
+                    $lanyeObj->profit_amount = $profitInfo['lanye_margin'];
+                    $lanyeObj->create_time = time();
+                    $lanyeObj->save();
+                    if( !empty($profitInfo['level0_id']) && !empty($profitInfo['level0_margin']) ){
+                        //总代数据
+                        $l0Obj = new \common\models\Orders;
+                        $l0Obj->account_id = $profitInfo['level0_account_id'];
+                        $l0Obj->order_no = $requestData['order_no'];
+                        $l0Obj->profit_amount = $profitInfo['level0_margin'];
+                        $l0Obj->create_time = time();
+                        $l0Obj->save();
+                    }
+                    if( !empty($profitInfo['level1_id']) && !empty($profitInfo['level1_margin']) ){
+                        //一代数据
+                        $l1Obj = new \common\models\Orders;
+                        $l1Obj->account_id = $profitInfo['level1_account_id'];
+                        $l1Obj->order_no = $requestData['order_no'];
+                        $l1Obj->profit_amount = $profitInfo['level1_margin'];
+                        $l1Obj->create_time = time();
+                        $l1Obj->save();
+                    }
+                    if( !empty($profitInfo['level2_id']) && !empty($profitInfo['level2_margin']) ){
+                        //二代数据
+                        $l2Obj = new \common\models\Orders;
+                        $l2Obj->account_id = $profitInfo['level2_account_id'];
+                        $l2Obj->order_no = $requestData['order_no'];
+                        $l2Obj->profit_amount = $profitInfo['level2_margin'];
+                        $l2Obj->create_time = time();
+                        $l2Obj->save();
+                    }
+                    if( !empty($profitInfo['levelc1_id']) && !empty($profitInfo['levelc1_margin']) ){
+                        //c-1数据
+                        $c1Obj = new \common\models\Orders;
+                        $c1Obj->account_id = $profitInfo['levelc1_id'];
+                        $c1Obj->order_no = $requestData['order_no'];
+                        $c1Obj->profit_amount = $profitInfo['levelc1_margin'];
+                        $c1Obj->create_time = time();
+                        $c1Obj->save();
+                    }
+                    //根据系统设置计算记帐时间
+                    $sysSettingInfo = \common\models\ParamsSet::find()->asArray()->one();
+                    $incomeTime = time() + intval($sysSettingInfo['freeze_day']) * 86400;
+                    //accounting分配
+                    $lanyeAccObj = new \common\models\Accounting;
+                    $lanyeAccObj->account_id = Yii::$app->params['lanye_account_id'];
+                    $lanyeAccObj->doc_type = \common\models\Accounting::DOC_TYPE_INCOME;
+                    $lanyeAccObj->doc_no = $requestData['order_no'];
+                    $lanyeAccObj->amount = $profitInfo['lanye_margin'];
+                    $lanyeAccObj->status = \common\models\Accounting::STATUS_ACTUAL;
+                    $lanyeAccObj->account_date = $incomeTime;
+                    $lanyeAccObj->create_time = time();
+                    $lanyeAccObj->save();
+                    //更新汇总balance
+                    \common\lib\Common::updateBalance(Yii::$app->params['lanye_account_id']);
+                    if( !empty($profitInfo['level0_id']) && !empty($profitInfo['level0_margin']) ){
+                        //总代数据
+                        $l0AccObj = new \common\models\Accounting;
+                        $l0AccObj->account_id = $profitInfo['level0_account_id'];
+                        $l0AccObj->doc_type = \common\models\Accounting::DOC_TYPE_INCOME;
+                        $l0AccObj->doc_no = $requestData['order_no'];
+                        $l0AccObj->amount = $profitInfo['level0_margin'];
+                        $l0AccObj->status = \common\models\Accounting::STATUS_ACTUAL;
+                        $l0AccObj->account_date = $incomeTime;
+                        $l0AccObj->create_time = time();
+                        $l0AccObj->save();
+                        //更新汇总balance
+                        \common\lib\Common::updateBalance($profitInfo['level0_account_id']);
+                    }
+                    if( !empty($profitInfo['level1_id']) && !empty($profitInfo['level1_margin']) ){
+                        //一代数据
+                        $l1AccObj = new \common\models\Accounting;
+                        $l1AccObj->account_id = $profitInfo['level1_account_id'];
+                        $l1AccObj->doc_type = \common\models\Accounting::DOC_TYPE_INCOME;
+                        $l1AccObj->doc_no = $requestData['order_no'];
+                        $l1AccObj->amount = $profitInfo['level1_margin'];
+                        $l1AccObj->status = \common\models\Accounting::STATUS_ACTUAL;
+                        $l1AccObj->account_date = $incomeTime;
+                        $l1AccObj->create_time = time();
+                        $l1AccObj->save();
+                        //更新汇总balance
+                        \common\lib\Common::updateBalance($profitInfo['level1_account_id']);
+                    }
+                    if( !empty($profitInfo['level2_id']) && !empty($profitInfo['level2_margin']) ){
+                        //二代数据
+                        $l2AccObj = new \common\models\Accounting;
+                        $l2AccObj->account_id = $profitInfo['level2_account_id'];
+                        $l2AccObj->doc_type = \common\models\Accounting::DOC_TYPE_INCOME;
+                        $l2AccObj->doc_no = $requestData['order_no'];
+                        $l2AccObj->amount = $profitInfo['level2_margin'];
+                        $l2AccObj->status = \common\models\Accounting::STATUS_ACTUAL;
+                        $l2AccObj->account_date = $incomeTime;
+                        $l2AccObj->create_time = time();
+                        $l2AccObj->save();
+                        //更新汇总balance
+                        \common\lib\Common::updateBalance($profitInfo['level2_account_id']);
+                    }
+                    if( !empty($profitInfo['levelc1_id']) && !empty($profitInfo['levelc1_margin']) ){
+                        //c-1数据
+                        $c1AccObj = new \common\models\Accounting;
+                        $c1AccObj->account_id = $profitInfo['levelc1_id'];
+                        $c1AccObj->doc_type = \common\models\Accounting::DOC_TYPE_INCOME;
+                        $c1AccObj->doc_no = $requestData['order_no'];
+                        $c1AccObj->amount = $profitInfo['levelc1_margin'];
+                        $c1AccObj->status = \common\models\Accounting::STATUS_ACTUAL;
+                        $c1AccObj->account_date = $incomeTime;
+                        $c1AccObj->create_time = time();
+                        $c1AccObj->save();
+                        //更新汇总balance
+                        \common\lib\Common::updateBalance($profitInfo['levelc1_id']);
+                    }
+                    $transaction->commit();
+                    $reponseData['c1_account_id'] = $requestData['c1_account_id'];
+                    $reponseData['up_account_id'] = $profitInfo['up_account_id'];
+                    writeLog('返回结果');
+                    writeLog($reponseData);
+                    $this->_responseData($reponseData,'操作成功',200);
+                }catch(\Exception $e){
+                    $transaction->rollBack();
+                    $this->_responseData([],'事务回滚保存失败',500);
+                } 
+                if ($profitInsertFlag) {
+                    $this->_responseData([],'申请成功',200);
+                }else{
+                    $this->_responseData([],'操作失败，请稍后再试',500);
+                }
+            }
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+        
+    }
+    /**
+     * 利润分配
+     * @param $orderNo  订单号
+     * @param $orderPrice 订单价格
+     * @param $pricePercent 分成比例
+     * @param $c1AccountId 推荐用户account_id 默认为空 属于蓝页
+     * @param $agentInfo 代理商信息 默认为空 属于蓝页
+     * @return array
+     */
+    protected function setProfit($orderNo,$orderPrice,$pricePercent,$c1AccountId = '',$agentInfo = ''){
+        $orderPrice = floatval($orderPrice);
+        $returnData['lanye_id'] = '';
+        $returnData['lanye_name'] = '';
+        $returnData['lanye_margin'] = '';
+        $returnData['level0_id'] = '';
+        $returnData['level0_name'] = '';
+        $returnData['level0_margin'] = '';
+        $returnData['level1_id'] = '';
+        $returnData['level1_name'] = '';
+        $returnData['level1_margin'] = '';
+        $returnData['level2_id'] = '';
+        $returnData['level2_name'] = '';
+        $returnData['level2_margin'] = '';
+        $returnData['levelc1_id'] = '';
+        $returnData['levelc1_name'] = '';
+        $returnData['levelc1_margin'] = '';
+        $returnData['up_account_id'] = '';
+
+       
+        if( empty($c1AccountId) ){
+            //如果推荐人魔页账户id为空 所有利润都归蓝页
+            $returnData['lanye_id'] = Yii::$app()->params['lanye_agent_id'];
+            $returnData['lanye_name'] = Yii::$app()->params['lanye_company_name'];
+            $returnData['lanye_margin'] = $orderPrice;
+            return $returnData;
+        }else{
+            if( empty($agentInfo) ){
+                //如果代理商为空，那除了c-1 其余都贵蓝页
+                $returnData['lanye_id'] = Yii::$app()->params['lanye_agent_id'];
+                $returnData['lanye_name'] = Yii::$app()->params['lanye_company_name'];
+                $returnData['lanye_margin'] = (100 - floatval( $pricePercent['levelc1_price'] ) ) * $orderPrice;
+
+                $returnData['levelc1_id'] = $c1AccountId;
+                $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+            }else{
+                //代理存在 则按代理级别设置分成链路
+                if( $agentInfo['level']  == Agent::LEVEL_ROOT ){
+                    //蓝页  总代  c-1 
+                    //蓝页分成
+                    $returnData['lanye_id'] = Yii::$app()->params['lanye_agent_id'];
+                    $returnData['lanye_name'] = Yii::$app()->params['lanye_company_name'];
+                    $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                    //判断c1是否是和代理商是同一人
+                    if( $c1AccountId == $agentInfo['account_id'] ){
+                        //是 那总代分成包揽了一代、二代、c1
+                        $level0PricePercent =  floatval($pricePercent['level0_price']) + floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']) + floatval($pricePercent['levelc1_price']);
+                    }else{
+                        //不是 那总代只能包揽了一代、二代
+                        $level0PricePercent = floatval($pricePercent['level0_price']) + floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']);
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                    }
+                    //总代分成
+                    $returnData['level0_id'] = $agentInfo['id'];
+                    $returnData['level0_name'] = $agentInfo['agent_name'];
+                    $returnData['level0_margin'] = $level0PricePercent * $orderPrice;
+                    $returnData['level0_account_id'] = $agentInfo['account_id'];
+                    //上级组织
+                    $returnData['up_account_id'] = $agentInfo['account_id'];
+                }elseif( $agentInfo['level']  == Agent::LEVEL_FIRST ){
+                    //蓝页  总代  一代 c-1 
+                    //蓝页分成
+                    $returnData['lanye_id'] = Yii::$app->params['lanye_agent_id'];
+                    $returnData['lanye_name'] = Yii::$app->params['lanye_company_name'];
+                    $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                    //总代分成
+                    $level0AgentInfo = Agent::find()->where(['id'=>$agentInfo['level0_id']])->asArray()->one();
+                    $returnData['level0_id'] = $agentInfo['level0_id'];
+                    $returnData['level0_name'] = $level0AgentInfo['agent_name'];
+                    $returnData['level0_margin'] = floatval($pricePercent['level0_price']) * $orderPrice;
+                    $returnData['level0_account_id'] = $level0AgentInfo['account_id'];
+                    //判断一代和c-1是否为同一人
+                    if( $c1AccountId == $agentInfo['account_id'] ){
+                        //是 那一代分成包揽了二代 c1
+                        $level1PricePercent = floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']) + floatval($pricePercent['levelc1_price']);
+                    }else{
+                        //不是 那一代分成包揽了二代
+                        $level1PricePercent = floatval($pricePercent['level1_price']) + floatval($pricePercent['level2_price']);
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                    }
+                    $returnData['level1_id'] = $agentInfo['id'];
+                    $returnData['level1_name'] = $agentInfo['agent_name'];
+                    $returnData['level1_margin'] = $level1PricePercent * $orderPrice;
+                    $returnData['level1_account_id'] = $agentInfo['account_id'];
+                    //对总代进行鉴定是否停用
+                    if($level0AgentInfo['status'] == Agent::STATUS_STOP ){
+                        //停用 那它的利润都归上一级 蓝页
+                        $returnData['lanye_margin'] = $returnData['lanye_margin'] + $returnData['level0_margin'];
+                        //清空总代
+                        $returnData['level0_id'] = '';
+                        $returnData['level0_name'] = '';
+                        $returnData['level0_margin'] = '';
+                        $returnData['level0_account_id'] = '';
+                    }
+                    //上级组织
+                    $returnData['up_account_id'] = $agentInfo['account_id'];
+                }else{
+                    //蓝页  总代  一代  二代 c-1 
+                    if( !empty($agentInfo['level1_id']) ){
+                        //判断该二级代理是否有对应的一代
+                        //蓝页分成
+                        $returnData['lanye_id'] = Yii::$app->params['lanye_agent_id'];
+                        $returnData['lanye_name'] = Yii::$app->params['lanye_company_name'];
+                        $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                        //总代分成
+                        $level0AgentInfo = Agent::find()->where(['id'=>$agentInfo['level0_id']])->asArray()->one();
+                        $returnData['level0_id'] = $agentInfo['level0_id'];
+                        $returnData['level0_name'] = $level0AgentInfo['agent_name'];
+                        $returnData['level0_margin'] = floatval($pricePercent['level0_price']) * $orderPrice;
+                        $returnData['level0_account_id'] = $level0AgentInfo['account_id'];
+                        //一代分成
+                        $level1AgentInfo = Agent::find()->where(['id'=>$agentInfo['level1_id']])->asArray()->one();
+                        $returnData['level1_id'] = $agentInfo['level1_id'];
+                        $returnData['level1_name'] = $level1AgentInfo['agent_name'];
+                        $returnData['level1_margin'] = floatval($pricePercent['level1_price']) * $orderPrice;
+                        $returnData['level1_account_id'] = $level1AgentInfo['account_id'];
+                        //判断二代和c-1是否为同一人
+                        if( $c1AccountId == $agentInfo['account_id'] ){
+                            //是 那二代分成包揽了c1
+                            $level2PricePercent =  floatval($pricePercent['level2_price']) + floatval($pricePercent['levelc1_price']);
+                        }else{
+                            //不是 那二代分只成包揽了二代
+                            $level2PricePercent = floatval($pricePercent['level2_price']);
+                            //c1分成
+                            $returnData['levelc1_id'] = $c1AccountId;
+                            $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                            $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                        }
+                        $returnData['level2_id'] = $agentInfo['id'];
+                        $returnData['level2_name'] = $agentInfo['agent_name'];
+                        $returnData['level2_margin'] = $level2PricePercent * $orderPrice;
+                        $returnData['level2_account_id'] = $agentInfo['account_id'];
+                        //对一代进行鉴定是否停用
+                        if($level1AgentInfo['status'] == Agent::STATUS_STOP ){
+                            //停用 那它的利润都归上一级 蓝页
+                            $returnData['level0_margin'] = $returnData['level0_margin'] + $returnData['level1_margin'];
+                            //清空总代
+                            $returnData['level1_id'] = '';
+                            $returnData['level1_name'] = '';
+                            $returnData['level1_margin'] = '';
+                            $returnData['level1_account_id'] = '';
+                        }
+                        //对总代进行鉴定是否停用
+                        if($level0AgentInfo['status'] == Agent::STATUS_STOP ){
+                            //停用 那它的利润都归上一级 蓝页
+                            $returnData['lanye_margin'] = $returnData['lanye_margin'] + $returnData['level0_margin'];
+                            //清空总代
+                            $returnData['level0_id'] = '';
+                            $returnData['level0_name'] = '';
+                            $returnData['level0_margin'] = '';
+                            $returnData['level0_account_id'] = '';
+                        }
+                    }elseif( !empty($agentInfo['level0_id']) &&  $agentInfo['level0_id'] != Yii::$app->params['lanye_agent_id'] ){
+                        //该二级代理没有一代，只有总代并且总代不是蓝页
+                        //分成蓝页 总代 c1
+                        //蓝页分成
+                        $returnData['lanye_id'] = Yii::$app->params['lanye_agent_id'];
+                        $returnData['lanye_name'] = Yii::$app->params['lanye_company_name'];
+                        $returnData['lanye_margin'] = (100 - floatval( $pricePercent['lanye_price'] ) ) * $orderPrice;
+                        //总代分成 包含一代
+                        $level0AgentInfo = Agent::find()->where(['id'=>$agentInfo['level0_id']])->asArray()->one();
+                        $returnData['level0_id'] = $agentInfo['level0_id'];
+                        $returnData['level0_name'] = $level0AgentInfo['agent_name'];
+                        $returnData['level0_margin'] = ( floatval($pricePercent['level0_price']) + floatval($pricePercent['level1_price']) ) * $orderPrice;
+                        $returnData['level0_account_id'] = $level0AgentInfo['account_id'];
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                        //对总代进行鉴定是否停用
+                        if($level0AgentInfo['status'] == Agent::STATUS_STOP ){
+                            //停用 那它的利润都归上一级 蓝页
+                            $returnData['lanye_margin'] = $returnData['lanye_margin'] + $returnData['level0_margin'];
+                            //清空总代
+                            $returnData['level0_id'] = '';
+                            $returnData['level0_name'] = '';
+                            $returnData['level0_margin'] = '';
+                            $returnData['level0_account_id'] = '';
+                        }
+                    }else{
+                        //归蓝页 c1
+                        //蓝页分成
+                        $returnData['lanye_id'] = Yii::$app->params['lanye_agent_id'];
+                        $returnData['lanye_name'] = Yii::$app->params['lanye_company_name'];
+                        $returnData['lanye_margin'] = (100 - floatval( $pricePercent['levelc1_price'] ) ) * $orderPrice;
+                        //c1分成
+                        $returnData['levelc1_id'] = $c1AccountId;
+                        $returnData['levelc1_name'] = $this->getC1Username($c1AccountId);
+                        $returnData['levelc1_margin'] = floatval( $pricePercent['levelc1_price'] ) * $orderPrice;
+                    }
+                    //上级组织
+                    $returnData['up_account_id'] = $agentInfo['account_id'];
+                }
+            }
+        }
+        $returnData['lanye_margin'] =  !empty($returnData['lanye_margin']) ? $returnData['lanye_margin']/100 :'';
+        $returnData['level0_margin'] = !empty($returnData['level0_margin']) ? $returnData['level0_margin']/100 :'';
+        $returnData['level1_margin'] = !empty($returnData['level1_margin']) ? $returnData['level1_margin']/100 :'';
+        $returnData['level2_margin'] = !empty($returnData['level2_margin']) ? $returnData['level2_margin']/100 :'';
+        $returnData['levelc1_margin'] = !empty($returnData['levelc1_margin']) ? $returnData['levelc1_margin']/100 :'';
+        return $returnData;
+    }
+
+    
+    protected function getC1Username($accountId){
+        $apiObj = new Api();
+        $userInfo = $apiObj->getUserInfoById($accountId);
+        if( $userInfo ){
+            return $userInfo['personInfo']['persion_name'];
+        }else{
+            return '-';
+        }
+    }
+}

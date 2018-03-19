@@ -1,0 +1,218 @@
+<?php
+
+use yii\helpers\Html;
+use common\core\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model backend\models\Ad */
+/* @var $form common\core\ActiveForm */
+?>
+
+<?php $form = ActiveForm::begin([
+    'options'=>[
+        'class'=>"form-aaa "
+    ]
+]); ?>
+
+<?= $form->field($model, 'level')->selectList($model->getRootAndFirstAgentToView(),[
+    'class'=>'form-control c-md-4',
+    'placeholder' => '代理商类别'
+])->label('代理商类别') ?>
+
+<?= $form->field($model, 'level0_id')->selectList($model->getAllRootToView(),[
+    'class'=>'form-control c-md-4',
+    'placeholder' => '所属总代理'
+])->label('所属总代理') ?>
+<hr>
+
+<h3>关联魔页账号</h3>
+<?php if($showRelation):?>
+<?= $form->field($model, 'account_id')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'placeholder' => '魔页账号名称',
+    'readOnly' => 'true',
+    'id' => 'magic_name'
+])->label('所关联账号') ?>
+<?=Html::hiddenInput('Agent[account_id]', $model->account_id, ['name' => 'account_id','id' => 'account_id'])?>
+<?=Html::hiddenInput('Agent[magic_login_user]',null,['name' => 'magic_login_user','id' => 'magic_login_user'])?>
+<a data-target="#ajax" data-toggle="modal" class="btn btn-info">关联</a>
+
+<?php else:?>
+<input type="text" id="magic_name" class="form-control c-md-6" name="" value="<?=Html::encode($mgLoginAccount);?>   <?=Html::encode($model->agent_name);?>" iconpos="left"  readonly="true">
+<?=Html::hiddenInput('Agent[account_id]', $model->account_id, ['name' => 'account_id','id' => 'account_id'])?>
+<?=Html::hiddenInput('Agent[magic_login_user]',null,['name' => 'magic_login_user','id' => 'magic_login_user'])?>
+<?php endif;?>
+<!--<a id="showpop"  class="btn btn-info">搜索</a>-->
+
+<h3>账号信息</h3>
+<?= $form->field($model, 'agent_name')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'placeholder' => '代理商名称',
+    'id' => 'agent_name'
+])->label('代理商名称') ?>
+
+<button class="btn btn-info" style="margin-bottom: 20px">查看企业认证信息</button>
+
+<?= $form->field($model, 'contacts')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'placeholder' => '联系人'
+])->label('联系人') ?>
+
+<?= $form->field($model, 'telephone')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'iconClass' => 'fa fa-mobile',
+    'placeholder' => '联系电话'
+])->label('联系电话') ?>
+
+<?= $form->field($model, 'address')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'iconClass' => 'fa fa-mobile',
+    'placeholder' => '企业地址'
+])->label('企业地址') ?>
+
+<h3>渠道结算设置</h3>
+<?= $form->field($model, 'tax_number')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'iconClass' => 'fa fa-mobile',
+    'placeholder' => '税号'
+])->label('税号') ?>
+
+<?= $form->field($model, 'bank_name')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'iconClass' => 'fa fa-mobile',
+    'placeholder' => '开户银行'
+])->label('开户银行') ?>
+
+<?= $form->field($model, 'bank_card')->iconTextInput([
+    'class'=>'form-control c-md-6',
+    'iconPos' => 'left',
+    'iconClass' => 'fa fa-mobile',
+    'placeholder' => '银行账号'
+])->label('银行账号') ?>
+
+
+<div class="form-actions">
+    <?= Html::submitButton('确定', ['class' => 'btn blue ajax-post','target-form'=>'form-aaa']) ?>
+    <?= Html::button('取消', ['class' => 'btn', 'onclick' => 'history.back();']) ?>
+</div>
+<?php ActiveForm::end(); ?>
+
+
+
+<div class="modal fade in" id="ajax" role="basic" aria-hidden="true"   style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">关联魔页账号</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>请输入魔页相关账号</h4>
+                        <div class="col-md-10">
+                            <input type="text" class="col-md-8 form-control" id='keyword' name="keyword" />
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-info" id="seachMagicInfo">搜索</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                    <h4>选择所要关联的魔页账号</h4>
+                        <div id="searchContain" class="list-group">
+                          <!--<a href="#" class="list-group-item">Vestibulum at eros</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn blue" id='ok'>确定</button>
+				<button type="button" class="btn default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<script type="text/javascript">
+$(function(){
+    //所属总代显示隐藏
+    $("#agent-level").change(function(){
+         var selectedVal = $("#agent-level option:selected").val();
+         if( selectedVal == '0' ){
+            //如果是代理是总代，隐藏下面的所属总代select框
+            $('#agent-level0_id option[value=1]').attr('selected','selected').siblings().attr('selected',false);
+            $('.field-agent-level0_id').hide();
+         }else{
+            $('#agent-level0_id option:first').attr('selected','selected').siblings().attr('selected',false);
+             $('.field-agent-level0_id').show();
+         }
+    });
+
+    //搜索魔页账户
+    $('#seachMagicInfo').click(function(){
+        var keyword = $('#keyword').val();
+//alert('ajax请求查询接口 关键字' + keyword);
+        var url = '/admin/api/searchwords/';
+        var data = {keywords:$("#keyword").val()};
+        $.post(url,data,function(res){
+            if( res.code == 200 ){
+                if( res.data.length > 0){
+                    var html = '';
+                    for( var i = 0; i < res.data.length; i++){
+                        html += '<a href="javascript:;" data-id="'+ res.data[i]['id'] +'" data-login-user="'+ res.data[i]['user'] +'" data-approver_type="'+ res.data[i]['approver_type'] +'" data-company-name="' + res.data[i]['company_name'] + '"  data-company-address="'+ res.data[i]['company_address'] +'" data-company-manger="'+ res.data[i]['company_manger'] +'" data-company-telephone="'+ res.data[i]['company_telephone'] +'" class="list-group-item">'+res.data[i]['user'] +'  '+ res.data[i]['company_name']+'</a>';
+                    }
+                    $("#searchContain").html(html);
+                }else{
+                    $("#searchContain").html('未找到相关数据');
+                }
+            }else{
+                $("#searchContain").html('未找到相关数据');
+            }
+
+        },'json');
+        
+    });
+    //选择魔页账户
+    $('#searchContain').delegate("a","click",function(){
+        $(this).addClass('active').siblings().removeClass('active');
+    });
+    //关闭弹出框
+    $('#ok').click(function(){
+        var close = true;
+        $('#searchContain a').each(function(){
+            if( $(this).hasClass('active') ){
+                //验证账户是不是已经通过企业验证
+                if( $(this).attr('data-approver_type') != '2' ){
+                    alert( '该帐号未通过企业认证，不能成为经销商。' );
+                    close = false;
+                    return false;
+                }
+                $('#magic_name').val($(this).text());
+                $('#account_id').val( $(this).attr('data-id') );
+                $('#agent_name').val( $(this).attr('data-company-name') );
+                $('#magic_login_user').val($(this).attr('data-login-user')+parseInt(Math.random()*100000));
+                $('#agent-contacts').val( $(this).attr('data-company-manger')  );
+                $('#agent-telephone').val( $(this).attr('data-company-telephone')  );
+                $('#agent-address').val( $(this).attr('data-company-address')  );
+            }
+        });
+        if( !close ){
+            return false;
+        }
+        $('.close').click();
+    });
+
+    $('#ajax').modal({backdrop: 'static', keyboard: false,show:false});
+
+});
+
+
+</script>

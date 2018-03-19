@@ -1,0 +1,16 @@
+9a4ce8444c7a49f4f8cd29f05ba14f988b7727c3	refs/heads/master
+6777f007457b4f18597d03ac707581e59a3084b6	refs/remotes/origin/2.1
+9a4ce8444c7a49f4f8cd29f05ba14f988b7727c3	refs/remotes/origin/HEAD
+9a4ce8444c7a49f4f8cd29f05ba14f988b7727c3	refs/remotes/origin/master
+43739bc6f3844138e860f87e78d105084def6838	refs/remotes/origin/travis
+0ab5293df49246a2002210150fa22af37fd9b782	refs/tags/2.0.0
+7291ae4c4ff41113211418ed585ee427ebaa7b17	refs/tags/2.0.0-alpha
+25c74e5f8f5c75bc3d76c26c44bcd132cb3af212	refs/tags/2.0.0-beta
+f695ff6b5d7d963c069549f6a639ddd96dbb4d66	refs/tags/2.0.0-rc
+adbe1012ee62d44acfa734160170e416ea78c001	refs/tags/2.0.1
+81c5972de857aab908f92fdb2b979e8471d94b4c	refs/tags/2.0.2
+bb79aeafa8e3b89dd25e07ac895b269680e537a8	refs/tags/2.0.3
+8ebe6d0d7edf96bf7f0e869118aa3db861e46a00	refs/tags/2.0.4
+e5a023e8779bd774194842ec1b8fb4917cf04007	refs/tags/2.0.4^{}
+9bff8dc0398004f6785e7c79cdb485f580c1459a	refs/tags/2.0.5
+1bd6df6804ca077ec022587905a0d43eb286f507	refs/tags/2.0.5^{}

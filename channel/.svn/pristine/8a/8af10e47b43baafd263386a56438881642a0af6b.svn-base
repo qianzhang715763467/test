@@ -1,0 +1,82 @@
+<?php
+
+namespace backend\models\search;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use backend\models\Profit;
+use backend\models\Agent;
+/**
+ * OrderSearch represents the model behind the search form about `backend\models\Order`.
+ */
+class ImproveSearch extends Profit
+{
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = Profit::find();
+        //查询
+        if($params){
+            if( !empty($params['ImproveSearch']['end_time']) ){
+                if($params['ImpowerSearch']['end_time']==Profit::ONE_WEEK){
+                    $time = strtotime('+1 week');
+                }
+                if($params['ImproveSearch']['end_time']==Profit::ONE_MONTH){
+                    $time = strtotime('+1 month');
+                }
+                if($params['ImproveSearch']['end_time']==Profit::THREE_MONTH){
+                    $time = strtotime('+3 month');
+                }
+                $query->andFilterWhere(['>=', 'end_time', time()]);
+                $query->andFilterWhere(['<', 'end_time', $time]);
+            }
+            if( !empty($params['ImproveSearch']['username']) ){
+                $query->andFilterWhere(['like', 'buyer_name', $params['ImpowerSearch']['username']]);
+            }
+
+
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 1,
+            ],
+        ]);
+
+        if (!$this->validate()) {
+
+            return $dataProvider;
+        }
+        return $dataProvider;
+
+    }
+
+
+}

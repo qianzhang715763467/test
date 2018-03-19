@@ -1,0 +1,596 @@
+<?php
+
+namespace backend\controllers;
+
+use backend\models\Agent;
+use backend\models\search\AgentSearch;
+use backend\models\AgentAprove;
+use backend\models\search\AgentAproveSearch;
+use backend\models\Admin;
+use backend\models\search\IncomeSearch;
+use backend\models\search\ImpowerSearch;
+use common\models\AuthAssignment;
+
+use yii;
+use yii\data\Pagination;
+/**
+ * 渠道管理
+ * @author longfei <phphome@qq.com>
+ */
+class ChannelController extends BaseController
+{
+    /**
+     * @return string
+     *
+     * 代理商列表
+     */
+    public function actionIndex()
+    {
+        /* 添加当前位置到cookie供后续操作调用 */
+        $this->setForward();
+        $searchModel = new AgentSearch();
+        
+        //设置代理级别选项
+        $levelSelect = $searchModel->getAgentLevelMap();
+        //所属总代
+        $level0Select = $this->_getLevel0Select();
+        //所欲一级代理
+        $level1Select = $this->_getLevel1Select();
+        $searchParams = Yii::$app->request->queryParams;
+        if( isManager() ){
+            $levelSelect = [''=>'全部'] + $levelSelect;
+            $level0Select = [''=>'全部'] + $level0Select;
+            $level1Select = [''=>'全部'] + $level1Select;
+        }elseif( isLevel0() ){
+            //总代默认筛选条件
+            unset($levelSelect[0]);
+            $levelSelect = [''=>'全部'] + $levelSelect;
+            $level1Select = [''=>'全部'] + $level1Select;
+            //设置默认查询参数
+            $searchParams['AgentSearch']['level0_id'] = array_keys($level0Select)[0];
+            //debug($searchParams);
+        }elseif( isLevel1() ){
+            //一代默认筛选条件
+            unset($levelSelect[0]);
+            unset($levelSelect[1]);
+            $searchParams['AgentSearch']['level0_id'] = array_keys($level0Select)[0];
+            $searchParams['AgentSearch']['level1_id'] = array_keys($level1Select)[0];
+            //debug($searchParams);
+        }else{
+
+        }
+
+        $dataProvider = $searchModel->search( $searchParams );
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'levelSelect' => $levelSelect,
+            'level0Select' => $level0Select,
+            'level1Select' => $level1Select,
+        ]);
+    }
+
+    /**
+     * 获取所属总代理
+     */
+    protected function _getLevel0Select(){
+        //管理员获取所有总代理
+        if( isManager() ){
+            $where = [
+                'level' => Agent::LEVEL_ROOT,
+            ];
+            $list = Agent::find()->where($where)->asArray()->all();
+            $returnData = [];
+            foreach($list as $v){
+                $returnData[$v['id']] = $v['agent_name'];
+            }
+            return $returnData;
+        }
+        //总代理获取自己
+        if( isLevel0() ){
+            $where = [
+                'level' => Agent::LEVEL_ROOT,
+                'id' => Yii::$app->user->identity->agent_id,
+            ];
+            $list = Agent::find()->where($where)->asArray()->all();
+            $returnData = [];
+            foreach($list as $v){
+                $returnData[$v['id']] = $v['agent_name'];
+            }
+            return $returnData;
+        }
+        //一代获取总代理
+        if( isLevel1() ){
+            $where = [
+                'id' => Yii::$app->user->identity->agent_id,
+            ];
+            $agentInfo = Agent::find()->where($where)->asArray()->one();
+            $where = [
+                'level' => Agent::LEVEL_ROOT,
+                'id' => $agentInfo['level0_id'],
+            ];
+            $list = Agent::find()->where($where)->asArray()->all();
+            $returnData = [];
+            foreach($list as $v){
+                $returnData[$v['id']] = $v['agent_name'];
+            }
+            return $returnData;
+        }
+    }
+    /**
+     * 获取所属一代理
+     */
+    protected function _getLevel1Select(){
+        //管理员获取所有总代理
+        if( isManager() ){
+            $where = [
+                'level' => Agent::LEVEL_FIRST,
+            ];
+            $list = Agent::find()->where($where)->asArray()->all();
+            $returnData = [];
+            foreach($list as $v){
+                $returnData[$v['id']] = $v['agent_name'];
+            }
+            return $returnData;
+        }
+        //总代理获取自己
+        if( isLevel0() ){
+            $where = [
+                'level' => Agent::LEVEL_FIRST,
+                'level0_id' => Yii::$app->user->identity->agent_id,
+            ];
+            $list = Agent::find()->where($where)->asArray()->all();
+            $returnData = [];
+            foreach($list as $v){
+                $returnData[$v['id']] = $v['agent_name'];
+            }
+            return $returnData;
+        }
+        //一代获取总代理
+        if( isLevel1() ){
+            $where = [
+                'id' => Yii::$app->user->identity->agent_id,
+            ];
+            $list = Agent::find()->where($where)->asArray()->all();
+            $returnData = [];
+            foreach($list as $v){
+                $returnData[$v['id']] = $v['agent_name'];
+            }
+            return $returnData;
+        }
+    }
+
+    /**
+     * @return string
+     *
+     * 添加
+     */
+    public function actionAdd()
+    {
+        $model = new Agent();
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post('Agent');
+            /* 表单数据加载和验证，具体验证规则在模型rule中配置 */            
+            $data['create_time'] = time();
+            $data['status'] = Agent::STATUS_USED;
+            //print_r($data);die;
+            //数据验证
+            $validateModel = new \backend\models\validate\AgentValidate($data);
+            $validateModel->addRule('level','required',['message'=>'代理商类别必选'])
+            ->addRule('level0_id','required',['message'=>'所属总代必选'])
+            ->addRule('agent_name','required',['message'=>'代理商名称必填'])
+            ->addRule('contacts','required',['message'=>'联系人必填'])
+            ->addRule('telephone','required',['message'=>'联系电话必填'])
+            ->addRule('address','required',['message'=>'联系地址必填'])
+            ->addRule('tax_number','required',['message'=>'税号必填'])
+            ->addRule('bank_name','required',['message'=>'开户银行必填'])
+            ->addRule('bank_card','required',['message'=>'银行卡号必填'])
+            ->addRule('account_id','required',['message'=>'魔页账户id必须关联'])
+            ->addRule('level', 'string', ['min' => '1','message'=>'代理商类别'])
+            ->addRule('level0_id', 'string', ['min' => '1','message'=>'一级代理'])
+            ->addRule('account_id', 'string', ['min' => '1','message'=>'魔页账户id'])
+            ->addRule('account_id', 'string', ['min' => '1','message'=>'魔页账户id'])
+            ->addRule('agent_name','string',['length'=>[2,255]])
+            ->addRule('address','string',['length'=>[2,255]])
+            ->addRule('bank_name','string',['length'=>[2,255]])
+            ->addRule('contacts', 'string',['length'=>[2,45]])
+            ->addRule('tax_number', 'string',['length'=>[2,45]])
+            ->addRule('bank_card', 'string',['length'=>[2,45]])
+            ->addRule(['telephone'],'match',['pattern' => '/^1\d{10}$/','message'=>'联系电话格式不正确'])
+            ->addRule(['level2_id','create_time','update_time','status'],'safe')
+            ->validate();
+
+            if ($validateModel->hasErrors()) {
+                //debug($validateModel->errors);
+                // 验证失败
+                $errorInfo = $validateModel->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->error(array_shift($errorInfo));
+            } else {
+                //验证代理商唯一性
+                $isExists = Agent::find()->where(['account_id'=>$data['account_id']])->asArray()->one();
+                if( $isExists ){
+                    $this->error('该代理商已存在');
+                }
+                unset($data['magic_login_user']);
+                foreach($data as $key => $val){
+                    $model->{$key} = $val;
+                }
+                $transaction = Yii::$app->db->beginTransaction();
+                try{
+                    /* 保存用户数据到数据库 */
+                    if ($model->save()) {
+                        $agentId = $model->id;
+                        //往admin表中建立用户
+                        $adminModel = new Admin();
+                        //这个username需要存魔页账户手机号
+                        $adminModel->username = Yii::$app->request->post('Agent')['magic_login_user'];
+                        $adminModel->password = Admin::encrypt;
+                        $adminModel->email = $agentId . '@sina.com.cn';
+                        $adminModel->mobile = '';
+                        $adminModel->status = 1; 
+                        $adminModel->reg_time = time();
+                        $adminModel->reg_ip   = ip2long(Yii::$app->request->getUserIP());
+                        $adminModel->last_login_time = 0;
+                        $adminModel->last_login_ip   = ip2long('127.0.0.1');
+                        $adminModel->update_time     = 0;
+                        $adminModel->agent_id = $agentId;
+                        $adminModel->account_id = $data['account_id'];
+                        $adminModel->generateAuthKey();
+                        $adminModel->setPassword($adminModel->password);
+                        if($adminModel->save()){
+                            $uid = $adminModel->uid;
+                            //根据代理商级别设定权限是总代还是一级代理
+                            $authAssignmentModel = new AuthAssignment;
+                            $authAssignmentModel->user_id = (string) $uid;
+                            $authAssignmentModel->created_at = time();
+                            if( $data['level'] == Agent::LEVEL_ROOT ){
+                                //总代权限
+                                $authAssignmentModel->item_name = 'agent';
+                            }else{
+                                //一级代理权限
+                                $authAssignmentModel->item_name = 'first_agent';
+                            }
+                            if( $authAssignmentModel->save() ){
+                                //判断账户钱包是否已创建过
+                                $balanceInfo = \backend\models\Balance::find()->where(['account_id'=>$data['account_id']])->asArray()->one();
+                                if( $balanceInfo ){
+                                    $transaction->commit();
+                                    $this->success('操作成功', $this->getForward());
+                                }else{
+                                    //如果不存在创建
+                                    $balanceModel = new \backend\models\Balance();
+                                    $balanceModel->account_id = $data['account_id'];
+                                    $balanceModel->create_time = time();
+                                    if( $balanceModel->save() ){
+                                        $transaction->commit();
+                                        $this->success('操作成功', $this->getForward());
+                                    }else{
+                                        $transaction->rollBack();
+                                        $this->error('数据库操作失败，请稍后再试');
+                                    }
+                                }
+                            }else{
+                                $transaction->rollBack();
+                                $this->error('数据库操作失败，请稍后再试');
+                            }
+                        }else{
+                            $transaction->rollBack();
+                            $this->error('数据库操作失败，请稍后再试');
+                        }
+                    }else{
+                        $transaction->rollBack();
+                        $this->error('数据库操作失败，请稍后再试');
+                    }
+                }catch( \Exception $e){
+                    $transaction->rollBack();
+                    $this->error('数据库操作失败，请稍后再试');
+                }
+                
+            }
+        }
+        return $this->render('add',[
+            'model' => $model,
+            'showRelation' => true
+        ]);
+    }
+
+    /**
+     * ---------------------------------------
+     * 编辑
+     * ---------------------------------------
+     */
+    public function actionEdit($id){
+        $model = Agent::findOne($id);
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post('Agent');
+            $data['update_time'] = time();
+
+            //数据验证
+            $validateModel = new \backend\models\validate\AgentValidate($data);
+            $validateModel->addRule('level','required',['message'=>'代理商类别必选'])
+            ->addRule('level0_id','required',['message'=>'所属总代必选'])
+            ->addRule('agent_name','required',['message'=>'代理商名称必填'])
+            ->addRule('contacts','required',['message'=>'联系人必填'])
+            ->addRule('telephone','required',['message'=>'联系电话必填'])
+            ->addRule('address','required',['message'=>'联系地址必填'])
+            ->addRule('tax_number','required',['message'=>'税号必填'])
+            ->addRule('bank_name','required',['message'=>'开户银行必填'])
+            ->addRule('bank_card','required',['message'=>'银行卡号必填'])
+            ->addRule('account_id','required',['message'=>'魔页账户id必须关联'])
+            ->addRule('level', 'string', ['min' => '1','message'=>'代理商类别'])
+            ->addRule('level0_id', 'string', ['min' => '1','message'=>'一级代理'])
+            ->addRule('account_id', 'string', ['min' => '1','message'=>'魔页账户id'])
+            ->addRule('account_id', 'string', ['min' => '1','message'=>'魔页账户id'])
+            ->addRule('agent_name','string',['length'=>[2,255]])
+            ->addRule('address','string',['length'=>[2,255]])
+            ->addRule('bank_name','string',['length'=>[2,255]])
+            ->addRule('contacts', 'string',['length'=>[2,45]])
+            ->addRule('tax_number', 'string',['length'=>[2,45]])
+            ->addRule('bank_card', 'string',['length'=>[2,45]])
+            ->addRule(['telephone'],'match',['pattern' => '/^1\d{10}$/','message'=>'联系电话格式不正确'])
+            ->addRule(['level2_id','create_time','update_time','status'],'safe')
+            ->validate();
+
+            if ($validateModel->hasErrors()) {
+                //debug($validateModel->errors);
+                // 验证失败
+                $errorInfo = $validateModel->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->error(array_shift($errorInfo));
+            } else {
+                unset($data['magic_login_user']);
+                foreach($data as $key => $val){
+                    $model->{$key} = $val;
+                }
+                if ($model->save()) {
+                    $this->success('操作成功', $this->getForward());
+                }else{
+                    $this->error('操作失败，请稍后再试');
+                }
+            }
+            
+        }
+        $adminInfo = Admin::find()->where(['agent_id'=>$model['id']])->asArray()->one();
+        return $this->render('edit',[
+            'model' => $model,
+            'mgLoginAccount' => substr($adminInfo['username'],0,-5),
+            'showRelation' => false
+        ]);
+    }
+
+    /**
+     *
+     * 停用/启用
+     *
+     */
+    public function actionDelete($id,$status){
+
+        if($status==Agent::STATUS_STOP||$status==Agent::STATUS_USED){
+            $model = Agent::findOne($id);
+            $model->status = $status;
+            $model->update_time = time();
+            if($model->save()){
+                $this->success('操作成功');
+            }else{
+                debug($model->errors);
+                $this->error('操作失败');
+            }
+        }
+
+    }
+
+
+
+
+    /**
+     * @return string
+     *
+     * 二级代理审核列表
+     */
+    public function actionSecond()
+    {
+        /* 添加当前位置到cookie供后续操作调用 */
+        $this->setForward();
+        $searchModel = AgentAproveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->request->isPost) {
+            $data = Yii::$app->request->Post();
+//            debug($data);
+            $dataProvider=$searchModel->search($data);
+        }
+        return $this->render('second', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+    /**
+     * @return string
+     *
+     * 二级代理审核
+     */
+    public function actionPass($id)
+    {
+        $model = AgentAprove::findOne($id);
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post();
+            /*审核通过*/
+            if($data['person_status']==Agent::PERSON_STATUS_PASS) {
+                $agentcount = Agent::find()->where(['account_id' => $model->account_id])->count();
+                if ($agentcount <= 0) {
+                    /*运用事务进行两个数据库的操作*/
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try {
+                        /*二级代理数据库操作*/
+                        $model->person_status = $data['person_status'];
+                        $model->update_time = time();
+                        $agentAprove = $model->save();
+                        /*总代理数据库操作*/
+
+                        $agentData['create_time']=time();
+                        $agentData['status']=Agent::STATUS_USED;
+                        $agentData['agent_name']=$model->contacts;
+                        $agentData['contacts']=$model->contacts;
+                        $agentData['telephone']=$model->telephone;
+                        $agentData['bank_name']=$model->bank_name;
+                        $agentData['bank_card']=$model->bank_card;
+                        $agentData['level']="$model->level";
+                        $agentData['account_id']="$model->account_id";
+                        $agentData['level0_id']="$model->level0_id";
+                        $agentData['level1_id']=$model->level1_id;
+
+                        $validateModel = new \yii\base\DynamicModel($agentData);
+                        $validateModel->addRule('agent_name', 'string',['min' => '1'])
+                            ->addRule('contacts', 'string', ['min' => '1'])
+                            ->addRule('telephone', 'match',['pattern' => '/^1\d{10}$/'])
+                            ->addRule('bank_name', 'string', ['min' => '1'])
+                            ->addRule('bank_card', 'string', ['min' => '1'])
+                            ->addRule('level', 'string', ['min' => '1'])
+                            ->addRule('account_id', 'string', ['min' => '1'])
+                            ->addRule('level0_id', 'string', ['min' => '1'])
+                            ->addRule(['create_time','status'],'safe')
+                            ->validate();
+
+                        if ($validateModel->hasErrors()) {
+//                            debug($validateModel->errors);
+                            // 验证失败
+                            $errorInfo = $validateModel->firstErrors;
+                            $errorInfo = array_values($errorInfo);
+                            $this->error(array_shift($errorInfo));
+                        } else {
+                            $agentModel = new Agent();
+                            foreach($agentData as $key => $val){
+                                $agentModel->{$key} = $val;
+                            }
+                            $agentModel->setAttributes($agentData);
+                            $agent = $agentModel->save();
+
+                            if ($agentAprove && $agent) {
+                                $transaction->commit();
+                                $this->success('操作成功', $this->getForward());
+                            }else{
+                                $this->error('操作失败', $this->getForward());
+                            }
+                        }
+                    } catch (\Exception $e) {
+
+                        $transaction->rollBack();
+                        $this->error('操作失败，请重新操作！',$this->getForward());
+                    }
+
+                }else{
+
+                    $model->person_status = $data['person_status'];
+                    $model->update_time = time();
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try{
+
+                        $agentAprove=$model->save();
+
+                        $agentData['status'] = Agent::STATUS_USED;
+                        $agentData['update_time'] = time();
+                        $agentModel = new Agent();
+                        $agentModel->setAttributes($agentData);
+                        $agent = $agentModel->updateAll($agentData,'account_id='.$model->account_id);
+
+                        if($agentAprove&&$agent){
+                            $transaction->commit();
+                            $this->success('操作成功',$this->getForward());
+                        }
+
+                    }catch (\Exception $e) {
+
+                        $transaction->rollBack();
+                        $this->error('操作失败，请重新操作！',$this->getForward());
+                    }
+
+                }
+            }
+            /*审核驳回*/
+            if($data['person_status']==Agent::PERSON_STATUS_REJECT){
+                $agentcount = Agent::find()->where(['account_id' => $model->account_id])->count();
+                if ($agentcount <= 0){
+                    $model->person_status = $data['person_status'];
+                    $model->update_time = time();
+                    if($model->save()){
+                        $this->success('操作成功',$this->getForward());
+                    }else{
+                        $this->error('操作失败，请重新操作！',$this->getForward());
+                    }
+                }else{
+                    $model->person_status = $data['person_status'];
+                    $model->update_time = time();
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try{
+
+                        $agentAprove=$model->save();
+
+                        $agentData['status'] = Agent::STATUS_STOP;
+                        $agentData['update_time'] = time();
+                        $agentModel = new Agent();
+                        $agentModel->setAttributes($agentData);
+                        $agent = $agentModel->updateAll($agentData,'account_id='.$model->account_id);
+
+                        if($agentAprove&&$agent){
+                            $transaction->commit();
+                            $this->success('操作成功',$this->getForward());
+                        }
+
+                    }catch (\Exception $e) {
+
+                        $transaction->rollBack();
+                        $this->error('操作失败，请重新操作！',$this->getForward());
+                    }
+
+                }
+
+
+            }
+
+        }
+
+        return $this->render('pass',[
+            'model' => $model,
+        ]);
+
+    }
+
+
+    /**
+     * @return string
+     *
+     * 销售收入查询
+     */
+    public function actionIncome()
+    {
+        $searchModel = new IncomeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('income', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+    /**
+     * @return string
+     *
+     * 客户授权查询
+     */
+    public function actionImpower()
+    {
+        $searchModel = new ImpowerSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('impower', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+
+}

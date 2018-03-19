@@ -1,0 +1,43 @@
+<?php
+
+namespace backend\controllers;
+
+use Yii;
+
+/**
+ * 结算管理
+ * @author longfei <phphome@qq.com>
+ */
+class ClearingController extends BaseController
+{
+    /**
+     * @return string
+     *
+     * 收入结算查询
+     */
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
+
+    /**
+     * @return string
+     *
+     * 结算申请
+     */
+    public function actionApply()
+    {
+        return $this->render('apply');
+    }
+
+    /**
+     * @return string
+     *
+     * 待入账明细
+     */
+    public function actionIncome()
+    {
+        return $this->render('income');
+    }
+
+}

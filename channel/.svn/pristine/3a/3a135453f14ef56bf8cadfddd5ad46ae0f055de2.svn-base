@@ -1,0 +1,147 @@
+<?php
+
+namespace backend\controllers;
+use backend\models\SalePrice;
+use backend\models\ParamsSet;
+use backend\models\VatSettion;
+use Yii;
+
+/**
+ * 运营管理
+ * @author longfei <phphome@qq.com>
+ */
+class OperationController extends BaseController
+{
+    /**
+     * @return string
+     *
+     * 销售收入查询
+     */
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
+
+    /**
+     * @return string
+     *
+     * 客户授权查询
+     */
+    public function actionImprove()
+    {
+        return $this->render('improve');
+    }
+
+    /**
+     * @return string
+     *
+     * 结算申请查询
+     */
+    public function actionApply()
+    {
+        $searchModel = new \backend\models\search\SettlementSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('apply',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @return string
+     *
+     * 付款确认
+     */
+    public function actionInsure()
+    {
+        return $this->render('insure');
+    }
+
+    /**
+     * @return string
+     *
+     * 参数设置
+     */
+    public function actionSetting()
+    {
+        $model = ParamsSet::findOne(1);
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post('ParamsSet');
+            $data['update_time'] = time();
+            $model->setAttributes($data);
+            /* 保存用户数据到数据库 */
+            if ($model->save()) {
+                $this->success('操作成功');
+            }else{
+                var_dump($model->errors);die;
+                $this->error('操作错误');
+            }
+        }
+
+        return $this->render('setting', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return string
+     *
+     * 销售价格设置
+     */
+    public function actionPrice()
+    {
+        //$this->layout="main";
+        if(Yii::$app->request->isPost){
+            $postData = Yii::$app->request->post();
+//echo "<pre>";print_r($postData);die;
+            $list = SalePrice::find()->all();
+            foreach($list as $row){
+                $suffix = 'si' . $row->id . '_';
+                foreach( $postData as $pKey => $pValue ){
+                    if( strpos($pKey,$suffix) !== false ){
+                        $row->{str_replace($suffix,'',$pKey)} = $pValue;
+                    }
+                }
+                $row->update_time = time();
+                $row->save();
+            }
+            $response['code'] = 200;
+            $response['msg'] = '修改成功';
+            echo json_encode($response);die;
+        }else{
+            $list = SalePrice::find()->orderBy(['id' => SORT_ASC])->asArray()->all();
+            $magicTypeMap = SalePrice::getVerTypeMap();
+            return $this->render('price',[ 'list'=>$list,'magicTypeMap'=>$magicTypeMap ]);
+        }
+        
+    }
+
+
+    /**
+     * @return string
+     *
+     * 开票设置
+     */
+    public function actionInvoice()
+    {
+//        $model = new VatSettion();
+        $model = VatSettion::findOne(1);
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post('VatSettion');
+            $data['update_time'] = time();
+            $model->setAttributes($data);
+            /* 保存用户数据到数据库 */
+            if ($model->save()) {
+                $this->success('操作成功');
+            }else{
+                $this->error('操作错误');
+            }
+        }
+
+        return $this->render('invoice', [
+            'model' => $model,
+        ]);
+    }
+}

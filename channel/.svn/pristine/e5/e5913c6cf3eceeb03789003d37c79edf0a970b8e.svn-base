@@ -1,0 +1,288 @@
+<?php
+
+namespace backend\controllers;
+
+use backend\models\Agent;
+use backend\models\search\AgentSearch;
+use backend\models\AgentAprove;
+use backend\models\search\AgentAproveSearch;
+use backend\models\Admin;
+use common\models\AuthAssignment;
+use yii\linslin\curl;
+use Yii;
+use yii\base\DynamicModel;
+/**
+ * 渠道管理
+ * @author longfei <phphome@qq.com>
+ */
+class ChannelController extends BaseController
+{
+    /**
+     * @return string
+     *
+     * 代理商列表
+     */
+    public function actionIndex()
+    {
+        /* 添加当前位置到cookie供后续操作调用 */
+        $this->setForward();
+        $searchModel = new AgentSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @return string
+     *
+     * 添加
+     */
+    public function actionAdd()
+    {
+        $model = new Agent();
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post('Agent');
+            /* 表单数据加载和验证，具体验证规则在模型rule中配置 */            
+            $data['create_time'] = time();
+            $data['status'] = Agent::STATUS_USED;
+            //print_r($data);die;
+            $model->setAttributes($data);
+            /* 保存用户数据到数据库 */
+            if ($model->save()) {
+                $agentId = $model->id;
+                //往admin表中建立用户
+                $adminModel = new Admin();
+                //这个username需要存魔页账户手机号
+                $adminModel->username = Yii::$app->request->post('Agent')['magic_login_user'];
+                $adminModel->password = Admin::encrypt;
+                $adminModel->email = $agentId . '@sina.com.cn';
+                $adminModel->mobile = '';
+                $adminModel->status = 1; 
+                $adminModel->reg_time = time();
+                $adminModel->reg_ip   = ip2long(Yii::$app->request->getUserIP());
+                $adminModel->last_login_time = 0;
+                $adminModel->last_login_ip   = ip2long('127.0.0.1');
+                $adminModel->update_time     = 0;
+                $adminModel->agent_id = $agentId;
+                $adminModel->account_id = $data['account_id'];
+                $adminModel->generateAuthKey();
+                $adminModel->setPassword($adminModel->password);
+                $adminModel->save();
+                $uid = $adminModel->uid;
+
+                //根据代理商级别设定权限是总代还是一级代理
+                $authAssignmentModel = new AuthAssignment;
+                $authAssignmentModel->user_id = $uid;
+                $authAssignmentModel->created_at = time();
+                if( $data['level'] == Agent::LEVEL_ROOT ){
+                    //总代权限
+                    $authAssignmentModel->item_name = 'agent';
+                }else{
+                    //一级代理权限
+                    $authAssignmentModel->item_name = 'first_agent';
+                }
+                $authAssignmentModel->save();
+                $balanceModel = new \backend\models\Balance();
+                $balanceModel->account_id = $data['account_id'];
+                $balanceModel->create_time = time();
+                $balanceModel->save();
+
+                $this->success('操作成功', $this->getForward());
+            }else{
+                $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->error(array_shift($errorInfo));
+            }
+        }
+        return $this->render('add',[
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * ---------------------------------------
+     * 编辑
+     * ---------------------------------------
+     */
+    public function actionEdit($id){
+        $model = Agent::findOne($id);
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post('Agent');
+            $data['update_time'] = time();
+            $model->setAttributes($data);
+            /* 保存用户数据到数据库 */
+            if ($model->save()) {
+                $this->success('操作成功', $this->getForward());
+            }else{
+                 $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->error(array_shift($errorInfo));
+            }
+        }
+
+        return $this->render('edit',[
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return string
+     *
+     * 二级代理审核列表
+     */
+    public function actionSecond()
+    {
+        /* 添加当前位置到cookie供后续操作调用 */
+        $this->setForward();
+        $searchModel = new AgentAproveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->request->isPost) {
+            $data = Yii::$app->request->Post();
+//            debug($data);
+            $dataProvider=$searchModel->search($data);
+        }
+        return $this->render('second', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+    /**
+     * @return string
+     *
+     * 二级代理审核
+     */
+    public function actionPass($id)
+    {
+        $model = AgentAprove::findOne($id);
+        if (Yii::$app->request->isPost) {
+            /* 表单验证 */
+            $data = Yii::$app->request->post();
+            /*审核通过*/
+            if($data['person_status']==Agent::PERSON_STATUS_PASS) {
+                $agentcount = Agent::find()->where(['account_id' => $model->account_id])->count();
+                if ($agentcount <= 0) {
+                    /*运用事务进行两个数据库的操作*/
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try {
+                        /*二级代理数据库操作*/
+                        $model->person_status = $data['person_status'];
+                        $model->update_time = time();
+                        $agentAprove = $model->save();
+                        /*总代理数据库操作*/
+                        $agentModel = new Agent();
+                        $agentData['agent_name']=$model->contacts;
+                        $agentData['contacts']=$model->contacts;
+                        $agentData['telephone']=$model->telephone;
+                        $agentData['bank_name']=$model->bank_name;
+                        $agentData['bank_card']=$model->bank_card;
+                        $agentData['level']="$model->level";
+                        $agentData['address'] = '***';
+                        $agentModel['tax_number'] = '*****';
+                        $agentData['status']=Agent::STATUS_USED;
+                        $agentData['account_id']="$model->account_id";
+                        $agentData['level0_id']="$model->level0_id";
+                        $agentData['level1_id']=$model->level1_id;
+                        $agentData['create_time']=time();
+//                        $agentData['update_time']=time();
+                        $agentModel->setAttributes($agentData);
+                        $agent = $agentModel->insert();
+
+                        if($agentAprove&&$agent){
+                            $transaction->commit();
+                            $this->success('操作成功',$this->getForward());
+                        }
+
+                    } catch (\Exception $e) {
+
+                        $transaction->rollBack();
+                        $this->error('操作失败，请重新操作！',$this->getForward());
+                    }
+
+                }else{
+                    $agentModel = new Agent();
+                    $agentModel->status = Agent::STATUS_USED;
+                    $agentModel->update_time = time();
+                    if($agentModel->save()){
+                        $this->success('操作成功',$this->getForward());
+                    }else{
+                        debug($agentModel->errors);
+                    }
+                }
+            }
+            /*审核驳回*/
+            if($data['person_status']==Agent::PERSON_STATUS_REJECT){
+                $agentcount = Agent::find()->where(['account_id' => $model->account_id])->count();
+                if ($agentcount <= 0){
+
+                    
+                }
+
+                $model->person_status = $data['person_status'];
+                $model->update_time = time();
+                $transaction = Yii::$app->db->beginTransaction();
+                try{
+
+                    $agentAprove=$model->save();
+
+                    $agentData['status'] = Agent::STATUS_STOP;
+                    $agentData['update_time'] = time();
+                    $agentModel = new Agent();
+                    $agentModel->setAttributes($agentData);
+                    $agent = $agentModel->updateAll($agentData,'account_id='.$model->account_id);
+
+                    if($agentAprove&&$agent){
+                        $transaction->commit();
+                        $this->success('操作成功',$this->getForward());
+                    }
+
+                }catch (\Exception $e) {
+
+                    $transaction->rollBack();
+                    $this->error('操作失败，请重新操作！',$this->getForward());
+                }
+
+            }
+
+        }
+
+        return $this->render('pass',[
+            'model' => $model,
+        ]);
+
+    }
+
+
+    /**
+     * @return string
+     *
+     * 销售收入查询
+     */
+    public function actionIncome()
+    {
+        $this->setForward();
+
+        $searchModel = new OrderSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('income', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @return string
+     *
+     * 客户授权查询
+     */
+    public function actionImpower()
+    {
+        return $this->render('impower');
+    }
+
+
+}

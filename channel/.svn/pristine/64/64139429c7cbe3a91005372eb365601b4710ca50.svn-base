@@ -1,0 +1,53 @@
+<?php
+
+namespace backend\controllers;
+
+use Yii;
+use \common\models\Apply;
+use \common\models\VatSettion;
+/**
+ * 结算管理
+ * @author longfei <phphome@qq.com>
+ */
+class ClearingController extends BaseController
+{
+    /**
+     * @return string
+     *
+     * 收入结算查询
+     */
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
+
+    /**
+     * @return string
+     *
+     * 结算申请
+     */
+    public function actionApply()
+    {
+        $query = Apply::find();
+        $accountInfo = $query -> where(['account_id'=>Yii::$app->user->identity->account_id])-> one();
+        $model = VatSettion::find()->all();
+        return $this->render('apply',[
+            'data'=>$accountInfo,
+            'model'=>$model
+        ]);
+    }
+
+    /**
+     * @return string
+     *
+     * 待入账明细
+     */
+    public function actionIncome()
+    {
+        return $this->render('income');
+    }
+
+    public function actionResult(){
+        return $this->render('result');
+    }
+}

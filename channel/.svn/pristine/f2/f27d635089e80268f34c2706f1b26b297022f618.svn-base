@@ -1,0 +1,80 @@
+<?php
+
+namespace backend\models\search;
+
+use common\models\OperationApply;
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+
+/**
+ * AdSearch represents the model behind the search form about `backend\models\Ad`.
+ */
+class OperationApplySearch extends OperationApply
+{
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+//            [['status', 'level',  'create_time', 'update_time'], 'integer'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+
+
+        $query = OperationApply::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        $this->load($params);
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        debug($params);
+        if( !empty($params['OperationApplySearch']['create_time']) ){
+            $query->andFilterWhere(['>=', 'create_time', strtotime( $params['OperationApplySearch']['create_time'] . '00:00:00')]);
+        }
+
+        if( !empty($params['OperationApplySearch']['update_time']) ){
+            $query->andFilterWhere(['<=', 'create_time', strtotime( $params['OperationApplySearch']['update_time'] . '23:59:59')]);
+        }
+
+        $query->andFilterWhere(['like', 'ask_status', $this->ask_status])
+            ->andFilterWhere(['like', 'settlement_name', $this->settlement_name]);
+
+
+        /* 排序 */
+        $query->orderBy([
+            'id' => SORT_DESC,
+        ]);
+
+        return $dataProvider;
+    }
+}

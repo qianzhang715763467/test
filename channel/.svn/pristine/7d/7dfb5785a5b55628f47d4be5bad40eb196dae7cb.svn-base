@@ -1,0 +1,9 @@
+9c8e4be23d854f3a3aa4e120499eb67b6b024951	refs/heads/master
+9c8e4be23d854f3a3aa4e120499eb67b6b024951	refs/remotes/origin/HEAD
+9c8e4be23d854f3a3aa4e120499eb67b6b024951	refs/remotes/origin/master
+7e86db1260be50f5124efb8549172699ad52bed3	refs/tags/2.0.0
+dca9b508547906980f288c8ef92e5547ba61e364	refs/tags/2.0.0-beta
+858dd35d32acbad6385f79def1c4960c6ad35645	refs/tags/2.0.0-rc
+de82ea8f4a145c01f0fd7f1a91b87325ed876dfc	refs/tags/2.0.1
+5bc693c3f0c8b1f056427645253e46c9e5d5597c	refs/tags/2.0.2
+b88ca69ee226a3610b2c26c026c3203d7ac50f6c	refs/tags/2.0.3

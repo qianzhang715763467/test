@@ -1,0 +1,122 @@
+<?php
+namespace backend\controllers;
+
+use Yii;
+use yii\web\Controller;
+use yii\linslin\Curl;
+
+class AppController extends Controller{
+
+    public function actionApply(){
+
+        if(Yii::$app->request->isPost){
+            //进行校验
+            $url = 'http://channel.moye.com/api/v1/apply/verification';
+            $curl = new curl;
+            $params = [
+                'account_id' => Yii::$app->request->post('account_id'),
+            ];
+            $response = $curl->setRequestBody(json_encode($params))
+                ->setHeaders([
+                    'Content-Type' => 'application/json',
+                    'Content-Length' => strlen(json_encode($params))
+                ])
+                ->post($url);
+            $responseData=json_decode($response,1);
+            if($responseData['code']==200){
+                //取出对应的账号信息
+                $url = 'http://channel.moye.com/api/v1/apply/apply';
+                $curl = new curl;
+                $params = [
+                    'account_id' => Yii::$app->request->post('account_id'),
+                ];
+                $response = $curl->setRequestBody(json_encode($params))
+                    ->setHeaders([
+                        'Content-Type' => 'application/json',
+                        'Content-Length' => strlen(json_encode($params))
+                    ])
+                    ->post($url);
+                $responseData=json_decode($response,1);
+                if( $responseData['code'] == 200){
+                    return json_encode(array('data'=>$responseData['data'],'code'=>200,'account_id'=>Yii::$app->request->post('account_id')));
+                }else{
+                    return json_encode(['data'=>'','code'=>200,'account_id'=>Yii::$app->request->post('account_id')]);
+                }
+            }else{
+                return json_encode(array('data'=>$responseData['msg'],'code'=>$responseData['code']));
+            }
+
+        }
+        return $this->render('apply');
+    }
+
+
+    public function actionSubmit(){
+        if(Yii::$app->request->isPost){
+            $url = 'http://channel.moye.com/api/v1/apply/submit';
+            $curl = new curl;
+            $params = Yii::$app->request->post();
+            $response = $curl->setRequestBody(json_encode($params))
+                ->setHeaders([
+                    'Content-Type' => 'application/json',
+                    'Content-Length' => strlen(json_encode($params))
+                ])
+                ->post($url);
+            $responseData=json_decode($response,1);
+            if( $responseData['code'] == 200){
+                return json_encode(['data'=>$responseData['msg'],'code'=>200]);
+            }else{
+                return json_encode(['data'=>$responseData['msg'],'code'=>$responseData['code']]);
+            }
+        }
+
+
+        $data = json_decode(Yii::$app->request->get('data'),true);
+        return $this->render('submit',['data'=>$data,'account_id'=>Yii::$app->request->get('account_id')]);
+    }
+
+    public function actionFax(){
+
+        if(Yii::$app->request->isPost){
+            //进行校验
+            $url = 'http://channel.moye.com/api/v1/apply/verification';
+            $curl = new curl;
+            $params = [
+                'account_id' => Yii::$app->request->post('account_id'),
+            ];
+            $response = $curl->setRequestBody(json_encode($params))
+                ->setHeaders([
+                    'Content-Type' => 'application/json',
+                    'Content-Length' => strlen(json_encode($params))
+                ])
+                ->post($url);
+            $responseData=json_decode($response,1);
+            if($responseData['code']==200){
+                $url = 'http://channel.moye.com/api/v1/apply/fax';
+                $curl = new curl;
+                $params = [
+                    'money' => Yii::$app->request->post('money'),
+                ];
+                $response = $curl->setRequestBody(json_encode($params))
+                    ->setHeaders([
+                        'Content-Type' => 'application/json',
+                        'Content-Length' => strlen(json_encode($params))
+                    ])
+                    ->post($url);
+                $responseData=json_decode($response,1);
+
+                if( $responseData['code'] == 200){
+                    return json_encode(array('data'=>$responseData['data'],'code'=>200));
+                }else{
+                    return json_encode(array('data'=>$responseData['msg'],'code'=>$responseData['code']));
+                }
+
+            }else{
+                return json_encode(array('data'=>$responseData['msg'],'code'=>$responseData['code']));
+            }
+        }else{
+            return json_encode(['data'=>'非法操作','code'=>500]);
+        }
+    }
+
+}

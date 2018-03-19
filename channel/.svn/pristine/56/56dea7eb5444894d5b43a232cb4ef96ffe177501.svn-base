@@ -1,0 +1,80 @@
+<?php
+
+namespace api\modules\v1\controllers;
+
+use yii\rest\ActiveController;
+use common\models\Admin;
+use common\models\Accounting;
+use common\models\Orders;
+use common\models\Profit;
+use yii\base\DynamicModel;
+/**
+ * @package api\modules\v1\controllers
+ */
+class OrderController extends ActiveController
+{
+    public $modelClass = 'common\models\Admin';
+   
+    /**
+     * 创建订单分成
+     **/
+    public function actionCreateprofit(){
+        $phpData = file_get_contents('php://input');
+//        $requestData = json_decode($phpData, 1);
+        $requestData['account_id'] = '532';
+        $requestData['order_no'] = 'AS193149570451816800';
+        $requestData['buyer_name'] = '上海呼啦啦网络科技有限公司';
+        $requestData['ver_type'] = '3';
+        $requestData['order_price'] = '400';
+        $requestData['referral_code'] = 'MG1497844042';
+        $requestData['referral_account_id'] = '823';
+        if( $requestData ){
+            //数据验证
+            $model = new DynamicModel( $requestData );
+            $model->addRule('account_id','required')
+            ->addRule('account_id','number')
+            ->addRule('order_no','required')
+            ->addRule('buyer_name','required')
+            ->addRule('ver_type','required')
+            ->addRule('ver_type','number')
+            ->addRule('order_price','required')
+            ->addRule('order_price','number')
+            ->validate();
+            if ($model->hasErrors()) {
+                // 验证失败
+                $errorInfo = $model->firstErrors;
+                $errorInfo = array_values($errorInfo);
+                $this->_responseData([],$errorInfo[0],501);
+            } else {
+                //推荐码非空验证推荐码魔页用户
+                if( !empty($requestData['referral_code']) && empty($requestData['referral_account_id']) ){
+                    $this->_responseData([],'推荐码用户不能为空',501);
+                }
+                //计算分红比例
+                /*
+                直接用 referral_account_id 查agent l0 l1 l2
+            
+                    查到看代理级别 直到查到总代理
+                    
+                    没查到利润都归于蓝页
+                */
+
+                //利润分配
+
+                //orders分配
+
+                //accounting分配
+                
+
+                if ($agentAproveModel->save()) {
+                    $this->_responseData([],'申请成功',200);
+                }else{
+                    $this->_responseData([],'操作失败，请稍后再试',500);
+                }
+            }
+        }else{
+            $this->_responseData([],'操作失败，请稍后再试',500);
+        }
+        
+    }
+}

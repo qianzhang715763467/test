@@ -1,0 +1,1276 @@
+s2017-06-15 03:23:30 [127.0.0.1][-][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request: login/favicon.ico' in D:\work\channel\vendor\yiisoft\yii2\base\Controller.php:127
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('favicon.ico', Array)
+#1 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('login/favicon.i...', Array)
+#2 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#3 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#4 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'é¡µé¢æœªæ‰¾åˆ°ã€‚' in D:\work\channel\vendor\yiisoft\yii2\web\Application.php:114
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#1 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#2 {main}
+2017-06-15 03:23:30 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 't8se6ppn6k74alrnc99oh6fnp7'
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'image/webp,image/*,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=t8se6ppn6k74alrnc99oh6fnp7'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '52022'
+    'REDIRECT_URL' => '/admin/login/favicon.ico'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/favicon.ico'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497489810.044
+    'REQUEST_TIME' => 1497489810
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 03:55:20 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][error][yii\base\ErrorException:8] exception 'yii\base\ErrorException' with message 'Trying to get property of non-object' in D:\work\channel\backend\controllers\LoginController.php:70
+Stack trace:
+#0 D:\work\channel\backend\controllers\LoginController.php(70): yii\base\ErrorHandler->handleError(8, 'Trying to get p...', 'D:\\work\\channel...', 70, Array)
+#1 [internal function]: backend\controllers\LoginController->actionLogin()
+#2 D:\work\channel\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#3 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#4 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('login', Array)
+#5 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('login/login', Array)
+#6 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#7 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#8 {main}
+2017-06-15 03:55:20 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][info][application] $_POST = [
+    'info' => [
+        'username' => 'aaa'
+        'password' => 'aaa'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 't8se6ppn6k74alrnc99oh6fnp7'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=t8se6ppn6k74alrnc99oh6fnp7'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '54567'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497491720.364
+    'REQUEST_TIME' => 1497491720
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 04:29:13 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][error][yii\base\ErrorException:1] exception 'yii\base\ErrorException' with message 'Undefined constant 'yii\linslin\curl'' in D:\work\channel\backend\controllers\LoginController.php:74
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+2017-06-15 04:29:13 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][info][application] $_POST = [
+    'info' => [
+        'username' => 'aaa'
+        'password' => 'aaa'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 't8se6ppn6k74alrnc99oh6fnp7'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=t8se6ppn6k74alrnc99oh6fnp7'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '56989'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497493753.021
+    'REQUEST_TIME' => 1497493753
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 04:29:46 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][error][yii\base\ErrorException:1] exception 'yii\base\ErrorException' with message 'Undefined constant 'Yii\linslin\curl'' in D:\work\channel\backend\controllers\LoginController.php:74
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+2017-06-15 04:29:44 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][info][application] $_POST = [
+    'info' => [
+        'username' => 'aaa'
+        'password' => 'aaa'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 't8se6ppn6k74alrnc99oh6fnp7'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=t8se6ppn6k74alrnc99oh6fnp7'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '57033'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497493784.386
+    'REQUEST_TIME' => 1497493784
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 04:30:39 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][error][yii\base\ErrorException:1] exception 'yii\base\ErrorException' with message 'Class 'Yii\linslin\curl' not found' in D:\work\channel\backend\controllers\LoginController.php:74
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+2017-06-15 04:30:39 [127.0.0.1][-][t8se6ppn6k74alrnc99oh6fnp7][info][application] $_POST = [
+    'info' => [
+        'username' => 'aaa'
+        'password' => 'aaa'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 't8se6ppn6k74alrnc99oh6fnp7'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=t8se6ppn6k74alrnc99oh6fnp7'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '57115'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497493839.601
+    'REQUEST_TIME' => 1497493839
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 04:34:47 [127.0.0.1][-][-][error][yii\base\ErrorException:4] exception 'yii\base\ErrorException' with message 'syntax error, unexpected '$curl' (T_VARIABLE)' in D:\work\channel\backend\controllers\LoginController.php:74
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+2017-06-15 04:34:47 [127.0.0.1][-][-][info][application] $_POST = [
+    'info' => [
+        'username' => 'aaa'
+        'password' => 'aaa'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 't8se6ppn6k74alrnc99oh6fnp7'
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=t8se6ppn6k74alrnc99oh6fnp7'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '57471'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497494087.387
+    'REQUEST_TIME' => 1497494087
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 08:24:55 [127.0.0.1][-][sp10h1i77dvpf7l3hl556j1fq3][error][yii\db\Exception] exception 'PDOException' with message 'SQLSTATE[HY000] [2002] ÓÉÓÚÁ¬½Ó·½ÔÚÒ»¶ÎÊ±¼äºóÃ»ÓÐÕýÈ·´ð¸´»òÁ¬½ÓµÄÖ÷»úÃ»ÓÐ·´Ó¦£¬Á¬½Ó³¢ÊÔÊ§°Ü¡£
+' in D:\work\channel\vendor\yiisoft\yii2\db\Connection.php:630
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(630): PDO->__construct('mysql:host=123....', 'ggb', 'EehQWe*IB9PKf52...', NULL)
+#1 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(563): yii\db\Connection->createPdoInstance()
+#2 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(912): yii\db\Connection->open()
+#3 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(899): yii\db\Connection->getMasterPdo()
+#4 D:\work\channel\vendor\yiisoft\yii2\db\Schema.php(483): yii\db\Connection->getSlavePdo()
+#5 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(808): yii\db\Schema->quoteValue('13524224587')
+#6 D:\work\channel\vendor\yiisoft\yii2\db\Command.php(175): yii\db\Connection->quoteValue('13524224587')
+#7 D:\work\channel\vendor\yiisoft\yii2\db\Command.php(871): yii\db\Command->getRawSql()
+#8 D:\work\channel\vendor\yiisoft\yii2\db\Command.php(376): yii\db\Command->queryInternal('fetch', NULL)
+#9 D:\work\channel\vendor\yiisoft\yii2\db\Query.php(253): yii\db\Command->queryOne()
+#10 D:\work\channel\vendor\yiisoft\yii2\db\ActiveQuery.php(295): yii\db\Query->one(NULL)
+#11 D:\work\channel\vendor\yiisoft\yii2\db\BaseActiveRecord.php(107): yii\db\ActiveQuery->one()
+#12 D:\work\channel\backend\models\Admin.php(53): yii\db\BaseActiveRecord::findOne(Array)
+#13 D:\work\channel\backend\models\LoginForm.php(76): backend\models\Admin::findByUsername('13524224587')
+#14 D:\work\channel\backend\models\LoginForm.php(47): backend\models\LoginForm->getUser()
+#15 [internal function]: backend\models\LoginForm->validatePassword('password', NULL, Object(yii\validators\InlineValidator))
+#16 D:\work\channel\vendor\yiisoft\yii2\validators\InlineValidator.php(72): call_user_func(Array, 'password', NULL, Object(yii\validators\InlineValidator))
+#17 D:\work\channel\vendor\yiisoft\yii2\validators\Validator.php(270): yii\validators\InlineValidator->validateAttribute(Object(backend\models\LoginForm), 'password')
+#18 D:\work\channel\vendor\yiisoft\yii2\base\Model.php(358): yii\validators\Validator->validateAttributes(Object(backend\models\LoginForm), Array)
+#19 D:\work\channel\backend\models\LoginForm.php(61): yii\base\Model->validate()
+#20 D:\work\channel\backend\controllers\LoginController.php(68): backend\models\LoginForm->login()
+#21 [internal function]: backend\controllers\LoginController->actionLogin()
+#22 D:\work\channel\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#23 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#24 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('login', Array)
+#25 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('login/login', Array)
+#26 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#27 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#28 {main}
+
+Next exception 'yii\db\Exception' with message 'SQLSTATE[HY000] [2002] ÓÉÓÚÁ¬½Ó·½ÔÚÒ»¶ÎÊ±¼äºóÃ»ÓÐÕýÈ·´ð¸´»òÁ¬½ÓµÄÖ÷»úÃ»ÓÐ·´Ó¦£¬Á¬½Ó³¢ÊÔÊ§°Ü¡£
+' in D:\work\channel\vendor\yiisoft\yii2\db\Connection.php:568
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(912): yii\db\Connection->open()
+#1 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(899): yii\db\Connection->getMasterPdo()
+#2 D:\work\channel\vendor\yiisoft\yii2\db\Schema.php(483): yii\db\Connection->getSlavePdo()
+#3 D:\work\channel\vendor\yiisoft\yii2\db\Connection.php(808): yii\db\Schema->quoteValue('13524224587')
+#4 D:\work\channel\vendor\yiisoft\yii2\db\Command.php(175): yii\db\Connection->quoteValue('13524224587')
+#5 D:\work\channel\vendor\yiisoft\yii2\db\Command.php(871): yii\db\Command->getRawSql()
+#6 D:\work\channel\vendor\yiisoft\yii2\db\Command.php(376): yii\db\Command->queryInternal('fetch', NULL)
+#7 D:\work\channel\vendor\yiisoft\yii2\db\Query.php(253): yii\db\Command->queryOne()
+#8 D:\work\channel\vendor\yiisoft\yii2\db\ActiveQuery.php(295): yii\db\Query->one(NULL)
+#9 D:\work\channel\vendor\yiisoft\yii2\db\BaseActiveRecord.php(107): yii\db\ActiveQuery->one()
+#10 D:\work\channel\backend\models\Admin.php(53): yii\db\BaseActiveRecord::findOne(Array)
+#11 D:\work\channel\backend\models\LoginForm.php(76): backend\models\Admin::findByUsername('13524224587')
+#12 D:\work\channel\backend\models\LoginForm.php(47): backend\models\LoginForm->getUser()
+#13 [internal function]: backend\models\LoginForm->validatePassword('password', NULL, Object(yii\validators\InlineValidator))
+#14 D:\work\channel\vendor\yiisoft\yii2\validators\InlineValidator.php(72): call_user_func(Array, 'password', NULL, Object(yii\validators\InlineValidator))
+#15 D:\work\channel\vendor\yiisoft\yii2\validators\Validator.php(270): yii\validators\InlineValidator->validateAttribute(Object(backend\models\LoginForm), 'password')
+#16 D:\work\channel\vendor\yiisoft\yii2\base\Model.php(358): yii\validators\Validator->validateAttributes(Object(backend\models\LoginForm), Array)
+#17 D:\work\channel\backend\models\LoginForm.php(61): yii\base\Model->validate()
+#18 D:\work\channel\backend\controllers\LoginController.php(68): backend\models\LoginForm->login()
+#19 [internal function]: backend\controllers\LoginController->actionLogin()
+#20 D:\work\channel\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#21 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#22 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('login', Array)
+#23 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('login/login', Array)
+#24 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#25 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#26 {main}
+Additional Information:
+
+2017-06-15 08:24:32 [127.0.0.1][-][sp10h1i77dvpf7l3hl556j1fq3][info][application] $_POST = [
+    'info' => [
+        'username' => '13524224587'
+        'password' => 'abc123'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 'sp10h1i77dvpf7l3hl556j1fq3'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '79'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=sp10h1i77dvpf7l3hl556j1fq3'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '55942'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497507872.471
+    'REQUEST_TIME' => 1497507872
+]
+2017-06-15 08:32:33 [127.0.0.1][-][-][error][yii\base\ErrorException:4] exception 'yii\base\ErrorException' with message 'syntax error, unexpected ';'' in D:\work\channel\backend\controllers\LoginController.php:86
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+2017-06-15 08:32:33 [127.0.0.1][-][-][info][application] $_POST = [
+    'info' => [
+        'username' => 'aaa'
+        'password' => 'aaa'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 'lo2iccttth9jr4s6jclans9mj5'
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=lo2iccttth9jr4s6jclans9mj5'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '60094'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497508353.482
+    'REQUEST_TIME' => 1497508353
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 09:06:02 [127.0.0.1][-][bltnbpm0q19ollibrdlsfmjs17][error][yii\base\ErrorException:2] exception 'yii\base\ErrorException' with message 'Missing argument 1 for backend\models\LoginForm::login(), called in D:\work\channel\backend\controllers\LoginController.php on line 68 and defined' in D:\work\channel\backend\models\LoginForm.php:59
+Stack trace:
+#0 D:\work\channel\backend\models\LoginForm.php(59): yii\base\ErrorHandler->handleError(2, 'Missing argumen...', 'D:\\work\\channel...', 59, Array)
+#1 D:\work\channel\backend\controllers\LoginController.php(68): backend\models\LoginForm->login()
+#2 [internal function]: backend\controllers\LoginController->actionLogin()
+#3 D:\work\channel\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#4 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#5 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('login', Array)
+#6 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('login/login', Array)
+#7 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#8 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#9 {main}
+2017-06-15 09:06:02 [127.0.0.1][-][bltnbpm0q19ollibrdlsfmjs17][info][application] $_POST = [
+    'info' => [
+        'username' => '13524224581'
+        'password' => 'abc123'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 'bltnbpm0q19ollibrdlsfmjs17'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '79'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=bltnbpm0q19ollibrdlsfmjs17'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '53762'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497510362.153
+    'REQUEST_TIME' => 1497510362
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 09:06:11 [127.0.0.1][-][bltnbpm0q19ollibrdlsfmjs17][error][yii\base\ErrorException:2] exception 'yii\base\ErrorException' with message 'Missing argument 1 for backend\models\LoginForm::login(), called in D:\work\channel\backend\controllers\LoginController.php on line 68 and defined' in D:\work\channel\backend\models\LoginForm.php:59
+Stack trace:
+#0 D:\work\channel\backend\models\LoginForm.php(59): yii\base\ErrorHandler->handleError(2, 'Missing argumen...', 'D:\\work\\channel...', 59, Array)
+#1 D:\work\channel\backend\controllers\LoginController.php(68): backend\models\LoginForm->login()
+#2 [internal function]: backend\controllers\LoginController->actionLogin()
+#3 D:\work\channel\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#4 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#5 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('login', Array)
+#6 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('login/login', Array)
+#7 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#8 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#9 {main}
+2017-06-15 09:06:11 [127.0.0.1][-][bltnbpm0q19ollibrdlsfmjs17][info][application] $_POST = [
+    'info' => [
+        'username' => '13524224581'
+        'password' => 'abc123'
+        'rememberMe' => '1'
+    ]
+]
+
+$_COOKIE = [
+    'PHPSESSID' => 'bltnbpm0q19ollibrdlsfmjs17'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '79'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://channel.moye.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/login/login'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=bltnbpm0q19ollibrdlsfmjs17'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '53768'
+    'REDIRECT_URL' => '/admin/login/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/login/login'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497510371.762
+    'REQUEST_TIME' => 1497510371
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 09:07:09 [127.0.0.1][13][mnr0k29fq8unkl5gokhoahoe11][error][yii\base\UnknownPropertyException] exception 'yii\base\UnknownPropertyException' with message 'Getting unknown property: backend\models\search\AgentSearch::agent_lavel' in D:\work\channel\vendor\yiisoft\yii2\base\Component.php:147
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\db\BaseActiveRecord.php(285): yii\base\Component->__get('agent_lavel')
+#1 D:\work\channel\vendor\yiisoft\yii2\helpers\BaseHtml.php(2109): yii\db\BaseActiveRecord->__get('agent_lavel')
+#2 D:\work\channel\vendor\yiisoft\yii2\helpers\BaseHtml.php(1288): yii\helpers\BaseHtml::getAttributeValue(Object(backend\models\search\AgentSearch), 'agent_lavel')
+#3 D:\work\channel\vendor\yiisoft\yii2\helpers\BaseHtml.php(1337): yii\helpers\BaseHtml::activeInput('text', Object(backend\models\search\AgentSearch), 'agent_lavel', Array)
+#4 D:\work\channel\vendor\yiisoft\yii2\widgets\ActiveField.php(395): yii\helpers\BaseHtml::activeTextInput(Object(backend\models\search\AgentSearch), 'agent_lavel', Array)
+#5 D:\work\channel\backend\views\channel\_searchtwo.php(21): yii\widgets\ActiveField->textInput(Array)
+#6 D:\work\channel\vendor\yiisoft\yii2\base\View.php(328): require('D:\\work\\channel...')
+#7 D:\work\channel\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('D:\\work\\channel...', Array)
+#8 D:\work\channel\vendor\yiisoft\yii2\base\View.php(152): yii\base\View->renderFile('D:\\work\\channel...', Array, NULL)
+#9 D:\work\channel\backend\views\channel\second.php(101): yii\base\View->render('_searchtwo', Array)
+#10 D:\work\channel\vendor\yiisoft\yii2\base\View.php(328): require('D:\\work\\channel...')
+#11 D:\work\channel\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('D:\\work\\channel...', Array)
+#12 D:\work\channel\vendor\yiisoft\yii2\base\View.php(152): yii\base\View->renderFile('D:\\work\\channel...', Array, Object(backend\controllers\ChannelController))
+#13 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(381): yii\base\View->render('second', Array, Object(backend\controllers\ChannelController))
+#14 D:\work\channel\backend\controllers\ChannelController.php(142): yii\base\Controller->render('second', Array)
+#15 [internal function]: backend\controllers\ChannelController->actionSecond()
+#16 D:\work\channel\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#17 D:\work\channel\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#18 D:\work\channel\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('second', Array)
+#19 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('channel/second', Array)
+#20 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#21 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#22 {main}
+2017-06-15 09:07:09 [127.0.0.1][13][mnr0k29fq8unkl5gokhoahoe11][info][application] $_COOKIE = [
+    'BD_UPN' => '12314753'
+    'PHPSESSID' => 'mnr0k29fq8unkl5gokhoahoe11'
+    '_identity' => '66fc0d8dc6e50890b402671ebc92cf55d1434552bf50f0328c46b0f25108eda1a:2:{i:0;s:9:\"_identity\";i:1;s:49:\"[\"13\",\"F-xHI2PZPD_gx-T2TPfyt4WIBY8rrtGi\",2592000]\";}'
+]
+
+$_SESSION = [
+    '__flash' => [
+        '__forward__' => -1
+    ]
+    '__id' => '13'
+    '__forward__' => '/admin/channel/second'
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'BD_UPN=12314753; PHPSESSID=mnr0k29fq8unkl5gokhoahoe11; _identity=66fc0d8dc6e50890b402671ebc92cf55d1434552bf50f0328c46b0f25108eda1a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A49%3A%22%5B%2213%22%2C%22F-xHI2PZPD_gx-T2TPfyt4WIBY8rrtGi%22%2C2592000%5D%22%3B%7D'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '53867'
+    'REDIRECT_URL' => '/admin/channel/second'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/channel/second'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497510429.214
+    'REQUEST_TIME' => 1497510429
+    'YII_DEBUG' => 'true'
+    'YII_ENV' => 'dev'
+    'DB_DSN' => 'mysql:host=123.206.220.235;port=3306;dbname=channel'
+    'DB_USERNAME' => 'ggb'
+    'DB_PASSWORD' => 'EehQWe*IB9PKf52L'
+    'DB_TABLE_PREFIX' => 'channel_'
+    'DB_CHARSET' => 'utf8'
+    'FRONTEND_URL' => '/'
+    'BACKEND_URL' => '/admin'
+    'API_URL' => '/api'
+    'STORAGE_URL' => '/storage'
+    'REDIS_HOST' => '127.0.0.1'
+    'REDIS_PASSWORD' => 'null'
+    'REDIS_PORT' => '6379'
+    'MAIL_ADMIN' => 'phphome@qq.com'
+    'MAIL_DRIVER' => 'smtp'
+    'MAIL_HOST' => 'smtp.163.com'
+    'MAIL_PORT' => '25'
+    'MAIL_USERNAME' => 'your_mail_username'
+    'MAIL_PASSWORD' => 'your_mail_password'
+    'MAIL_ENCRYPTION' => 'null'
+    'FRONTEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'BACKEND_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'API_COOKIE_VALIDATION_KEY' => '<generated_key>'
+    'FRONTEND_PRETTY_URL' => 'true'
+    'BACKEND_PRETTY_URL' => 'true'
+    'API_PRETTY_URL' => 'true'
+]
+2017-06-15 09:07:09 [127.0.0.1][-][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "static/common/js/app.js".' in D:\work\channel\vendor\yiisoft\yii2\base\Module.php:532
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('static/common/j...', Array)
+#1 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#2 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'é¡µé¢æœªæ‰¾åˆ°ã€‚' in D:\work\channel\vendor\yiisoft\yii2\web\Application.php:114
+Stack trace:
+#0 D:\work\channel\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(common\core\Request))
+#1 D:\work\channel\web\admin\index.php(24): yii\base\Application->run()
+#2 {main}
+2017-06-15 09:07:09 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'mnr0k29fq8unkl5gokhoahoe11'
+    '_identity' => '66fc0d8dc6e50890b402671ebc92cf55d1434552bf50f0328c46b0f25108eda1a:2:{i:0;s:9:\"_identity\";i:1;s:49:\"[\"13\",\"F-xHI2PZPD_gx-T2TPfyt4WIBY8rrtGi\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'D:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'D:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'channel.moye.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_REFERER' => 'http://channel.moye.com/admin/channel/second'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_COOKIE' => 'PHPSESSID=mnr0k29fq8unkl5gokhoahoe11; _identity=66fc0d8dc6e50890b402671ebc92cf55d1434552bf50f0328c46b0f25108eda1a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A49%3A%22%5B%2213%22%2C%22F-xHI2PZPD_gx-T2TPfyt4WIBY8rrtGi%22%2C2592000%5D%22%3B%7D'
+    'PATH' => 'C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\AMD\\ATI.ACE\\Core-Static;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;D:\\Program Files\\TortoiseSVN\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Users\\sunqiang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sunqiang\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30 Server at channel.moye.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Win32) OpenSSL/1.0.2j PHP/5.6.30'
+    'SERVER_NAME' => 'channel.moye.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/work/channel/web'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'D:/work/channel/web/admin/index.php'
+    'REMOTE_PORT' => '53869'
+    'REDIRECT_URL' => '/admin/static/common/js/app.js'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/admin/static/common/js/app.js'
+    'SCRIPT_NAME' => '/admin/index.php'
+    'PHP_SELF' => '/admin/index.php'
+    'REQUEST_TIME_FLOAT' => 1497510429.725
+    'REQUEST_TIME' => 1497510429
+]

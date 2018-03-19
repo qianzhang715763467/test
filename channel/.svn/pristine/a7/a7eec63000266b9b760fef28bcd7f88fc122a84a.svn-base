@@ -1,0 +1,4 @@
+8e884e78f9f0eb1329e445619e04456e64d8051d	not-for-merge	branch '1.0.x' of https://github.com/doctrine/instantiator
+9d2925456314111b210efa167ee96a50932194ca	not-for-merge	branch 'cleanup/old-php-versions-compat-cleanup' of https://github.com/doctrine/instantiator
+1ff19181c60105328577d5ec2932de01e9ce512a	not-for-merge	branch 'hotfix/#9-fragile-internal-classes-check' of https://github.com/doctrine/instantiator
+5acd2bd8c2b600ad5cc4c9180ebf0a930604d6a5	not-for-merge	branch 'master' of https://github.com/doctrine/instantiator

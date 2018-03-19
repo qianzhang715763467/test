@@ -1,0 +1,22 @@
+<?php
+/* ===========================以下为本页配置信息================================= */
+/* 页面基本属性 */
+$this->title = '运营管理';
+$this->params['title_sub'] = '客户授权查询';
+
+/* 渲染其他文件 */
+//echo $this->renderFile('@app/views/public/login.php');
+
+/* 加载页面级别JS */
+//$this->registerJsFile('@web/static/common/js/app.js');
+
+?>
+
+<!-- 定义数据块 -->
+<?php $this->beginBlock('test'); ?>
+jQuery(document).ready(function() {
+    highlight_subnav('operation/improve'); //子导航高亮
+});
+<?php $this->endBlock() ?>
+<!-- 将数据块 注入到视图中的某个位置 -->
+<?php $this->registerJs($this->blocks['test'], \yii\web\View::POS_END); ?>

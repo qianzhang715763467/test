@@ -1,0 +1,81 @@
+<?php
+
+namespace backend\models\search;
+
+use common\models\AgentAprove;
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+
+/**
+ * AdSearch represents the model behind the search form about `backend\models\Ad`.
+ */
+class AgentAproveSearch extends AgentAprove
+{
+    public $create_time;
+    public $end_time;
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = AgentAprove::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+       
+        //设置前端显示数据
+        if($params){
+            $this->create_time = $params['AgentAproveSearch']['create_time'];
+            $this->end_time = $params['AgentAproveSearch']['end_time'];
+        }
+        
+
+       
+
+        if( !empty($params['AgentAproveSearch']['create_time']) ){
+            $query->andFilterWhere(['>=', 'create_time', strtotime( $params['AgentAproveSearch']['create_time'] . '00:00:00')]);
+        }
+
+        if( !empty($params['AgentAproveSearch']['end_time']) ){
+            $query->andFilterWhere(['<=', 'create_time', strtotime( $params['AgentAproveSearch']['end_time'] . '23:59:59')]);
+        }
+        
+        //$query->andFilterWhere(['like', 'status', $this->status])
+        //    ->andFilterWhere(['like', 'level', $this->level]);
+
+
+        /* 排序 */
+        $query->orderBy([
+            'id' => SORT_DESC,
+        ]);
+        
+        return $dataProvider;
+    }
+}

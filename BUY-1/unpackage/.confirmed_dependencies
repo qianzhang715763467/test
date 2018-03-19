@@ -1,0 +1,37 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"js/jquery-2.1.1.min.js",
+			"img/shuijiao.jpg",
+			"img/sellerBg-01.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"fonts/mui.ttf",
+			"js/my-slider.js",
+			"img/sellerHeadPortrait.jpg",
+			"css/icons-extra.css",
+			"fonts/mui-icons-extra.ttf",
+			"css/pull-loading.css",
+			"css/my-slider.css",
+			"css/custom.index.css",
+			"img/muwu.jpg",
+			"css/mui.min.css",
+			"css/my-extend.css",
+			"img/yuantiao.jpg",
+			"js/mui.js",
+			"img/cbd.jpg",
+			"img/sellerBg.jpg"
+		],
+		"refer": [
+			"page/location.html"
+		]
+	},
+	"page/location.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/mui.indexedlist.css",
+			"js/mui.indexedlist.js"
+		]
+	}
+}

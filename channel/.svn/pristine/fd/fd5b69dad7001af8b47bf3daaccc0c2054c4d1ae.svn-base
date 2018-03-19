@@ -1,0 +1,28 @@
+<?php
+
+namespace common\lib;
+
+use Yii;
+use yii\linslin\Curl;
+class Api{
+    
+    /**
+     * 获取c-1用户名
+     */
+    public function getUserInfoById($accountId){
+       $curl =  new Curl;
+       $apiUrl = Yii::$app->params['magic_api_domain'] . 'user/c1username';
+       $postData['account_id'] = $accountId;
+       $response = $curl->setRequestBody(json_encode($postData))
+            ->setHeaders([
+            'Content-Type' => 'application/json',
+            'Content-Length' => strlen(json_encode($postData))
+            ])->post($apiUrl);
+       $responseData = json_decode($response,1);
+       if( $responseData['code'] == 200){
+            return $responseData['data'];
+       }else{
+            return [];
+       }
+    }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>Hello MUI</title>
+		
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom.index.css"/>
+		<link rel="stylesheet" type="text/css" href="css/my-extend.css"/>
+		<link rel="stylesheet" type="text/css" href="css/my-slider.css"/>
+	</head>
+	<body>
+		<!--  滚动 -->
+		<div class="my-slider">
+			<section class="my-slider-warp">
+				<div class="scroll-item scroll1 scroll-active">
+					<ul class="scroll-item-content">
+						<li class="mui-table-view-cell">
+							<a href="javascript:;" class="mui-cardBox">
+								<div class="mui-card">
+									<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(img/cbd.jpg)"></div>
+									<div class="mui-card-content">
+										<div class="mui-card-content-inner">
+											<p>Posted on January 18, 2016</p>
+											<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+										</div>
+									</div>
+									<div class="mui-card-footer">
+										<span class="mui-card-link">1090￥</span>
+										<span class="mui-card-link">3980￥</span>
+									</div>
+								</div>
+							</a>
+							<a href="javascript:;" class="mui-cardBox">
+								<div class="mui-card">
+									<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(img/cbd.jpg)"></div>
+									<div class="mui-card-content">
+										<div class="mui-card-content-inner">
+											<p>Posted on January 18, 2016</p>
+											<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+										</div>
+									</div>
+									<div class="mui-card-footer">
+										<span class="mui-card-link">1090￥</span>
+										<span class="mui-card-link">3980￥</span>
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="scroll-item scroll2"></div>
+				<div class="scroll-item scroll3"></div>
+				<div class="scroll-item scroll4"></div>
+			</section>
+		</div>
+		
+	</body>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript">
+		var init = {
+				BLR:false,// 请求阻塞
+				requestData:function(paramets){// 请求数据 Url,Count,Cb,dom
+					var self = this;
+					$.ajax({
+						type:"get",
+						url:paramets.url,
+						data :{count : paramets.dataCount},
+						async:true,
+						success:function(data){
+							self.BLR = false;
+							self.templateMonster(paramets.dom,data);
+						},
+						complete:function(){
+							self.BLR = false;
+						},
+						error:function(){
+							alert("糟糕！ 网络不好再试一次吧...")
+							self.BLR = false;
+						}
+					});
+				},
+				templateMonster : function(dom,data){	// 根据请求到的数据构建商品模板
+					var size = dom.attr('data-count')+data.length;
+					dom.attr('data-count',size);
+				},
+				mountDom:function(parameter){   // 加载
+					var self = this;
+//					parameter = {
+//						refresh:false, // 上拉刷新请求
+//						dom : ,		   // 当前对象	
+//						url :		   
+//					}
+					if(self.BLR){// 已存在正在执行的请求
+						alert('请求中,稍等...');
+					}else{
+						self.BLR = true;
+						if(parameter.refresh){// 上拉刷新请求
+							if(parameter.dom.find().length > 0)$(parameter.dom).empty(); // 当前dom存在数据，清空重新加载
+							self.requestData({
+								url : parameter.url,
+								dom : $(parameter.dom),
+								dataCount : 0
+							});
+						}else{// 下拉加载请求
+							self.requestData({
+								url : parameter.url,
+								dom : $(parameter.dom),
+								dataCount : $(parameter.dom).attr('data-count')
+							});
+						}
+					}
+				}
+				
+		}
+	</script>
+</html>

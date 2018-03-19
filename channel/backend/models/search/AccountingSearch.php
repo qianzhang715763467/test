@@ -1,0 +1,137 @@
+<?php
+
+namespace backend\models\search;
+
+use common\models\Accounting;
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+
+/**
+ * AdSearch represents the model behind the search form about `backend\models\Ad`.
+ */
+class AccountingSearch extends Accounting
+{
+    public $create_time;
+    public $end_time;
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * 查询待入账明细
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params){
+        $query = Accounting::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        $this->load($params);
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+        if( isLanYe() ){
+            $query->andFilterWhere( ['account_id' => Yii::$app->user->identity->account_id] );
+        }else{
+            $query->andFilterWhere( ['account_id' => Yii::$app->user->identity->account_id] );
+        }
+
+        $query->andFilterWhere([
+            'doc_type' => Accounting::DOC_TYPE_INCOME,
+        ]);
+        $query->andFilterWhere(['>', 'account_date', strtotime(date("Y-m-d 23:59:59"))]);
+
+        if( !empty($params['AccountingSearch']['create_time']) ){
+            $query->andFilterWhere(['>=', 'account_date', strtotime( $params['AccountingSearch']['create_time'] . '00:00:00')]);
+            $this->create_time = $params['AccountingSearch']['create_time'];
+        }
+
+        if( !empty($params['AccountingSearch']['end_time']) ){
+            $query->andFilterWhere(['<=', 'account_date', strtotime( $params['AccountingSearch']['end_time'] . '23:59:59')]);
+            $this->end_time = $params['AccountingSearch']['end_time'];
+        }
+
+
+        /* 排序 */
+        $query->orderBy([
+            'id' => SORT_DESC,
+        ]);
+
+        return $dataProvider;
+    }
+
+    /**
+     * 查询收入明细
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function incomeAndOutcome($params){
+        $query = Accounting::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        $this->load($params);
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+        if( isManager() ){
+            //$query->andFilterWhere( ['account_id' => Yii::$app->user->identity->account_id] );
+        }else{
+            $query->andFilterWhere( ['account_id' => Yii::$app->user->identity->account_id] );
+        }
+
+        $query->andFilterWhere([
+            'status' => Accounting::STATUS_ACTUAL,
+        ]);
+        $query->andFilterWhere(['<=', 'account_date', strtotime(date("Y-m-d 23:59:59"))]);
+
+        if( !empty($params['AccountingSearch']['create_time']) ){
+            $query->andFilterWhere(['>=', 'account_date', strtotime( $params['AccountingSearch']['create_time'] . '00:00:00')]);
+            $this->create_time = $params['AccountingSearch']['create_time'];
+        }else{
+            //默认一个月前至今
+            $onMonthBefore =  date( "Y-m-d",strtotime( "-1 month" ) ). ' 00:00:00';
+            $query->andFilterWhere(['>=', 'account_date', strtotime( $onMonthBefore )]);
+        }
+
+        if( !empty($params['AccountingSearch']['end_time']) ){
+            $query->andFilterWhere(['<=', 'account_date', strtotime( $params['AccountingSearch']['end_time'] . '23:59:59')]);
+            $this->end_time = $params['AccountingSearch']['end_time'];
+        }
+
+//debug($query->createCommand()->getRawSql());
+        /* 排序 */
+        $query->orderBy([
+            'id' => SORT_DESC,
+        ]);
+
+        return $dataProvider;
+    }
+}

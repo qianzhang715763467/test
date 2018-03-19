@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 09aebc3dfa75367514ada6c48e992e7a2831e6bd Administrator <Administrator@PC201608252200.(none)> 1491017704 +0800	clone: from https://github.com/symfony/http-foundation.git
+09aebc3dfa75367514ada6c48e992e7a2831e6bd e2a76362c6c2a2b8cb2a5480826602ec27f9ae11 Administrator <Administrator@PC201608252200.(none)> 1491017709 +0800	checkout: moving from master to 2.8
+e2a76362c6c2a2b8cb2a5480826602ec27f9ae11 e2a76362c6c2a2b8cb2a5480826602ec27f9ae11 Administrator <Administrator@PC201608252200.(none)> 1491017710 +0800	reset: moving to e2a76362c6c2a2b8cb2a5480826602ec27f9ae11

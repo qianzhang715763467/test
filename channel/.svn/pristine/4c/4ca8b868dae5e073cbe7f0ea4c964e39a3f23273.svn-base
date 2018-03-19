@@ -1,0 +1,164 @@
+<?php
+/* ===========================以下为本页配置信息================================= */
+/* 页面基本属性 */
+$this->title = '结算管理';
+$this->params['title_sub'] = '结算申请';
+
+/* 渲染其他文件 */
+//echo $this->renderFile('@app/views/public/login.php');
+
+/* 加载页面级别JS */
+//$this->registerJsFile('@web/static/common/js/app.js');
+use yii\helpers\Url;
+?>
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption font-red-sunglo">
+            <i class="icon-settings font-red-sunglo"></i>
+            <span class="caption-subject bold uppercase"> 审核操作</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+
+        <div class="form-view">
+            <div style="font-weight: 600;font-size: 15px;">申请结算金额</div>
+            <br/>
+            <form enctype="multipart/form-data" id="apply">
+            <div class="form-group">
+                <div>
+                    <label>结算金额：</label>
+                </div>
+                <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+                <input type="text" id="money" class="form-control c-md-2" name="apply" placeholder="可结算金额<?=$data->balance_amount?>"/>
+            </div>
+            </form>
+            <br/>
+            <div style="font-weight: 600;font-size: 15px;">寄送发票信息</div>
+            <br/>
+            <div class="form-group">
+                <div>
+                    <label>企业名称：</label>
+                </div>
+                <input type="text" class="form-control c-md-2" name="param[name]" value="<?=$model[0]->company_name?>" readonly/>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>税号：</label>
+                </div>
+                <input type="text" class="form-control c-md-2" name="param[name]" value="<?=$model[0]->tax_num?>" readonly/>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>发票类型：</label>
+                </div>
+                <input type="text" class="form-control c-md-2" name="param[name]" value="<?=$model['invoice_type_name']?>" readonly/>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>寄送联系人：</label>
+                </div>
+                <input type="text" class="form-control c-md-2" name="param[name]" value="<?=$model[0]->contacts?>" readonly/>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>手机号：</label>
+                </div>
+                <input type="text" class="form-control c-md-2" name="param[name]" value="<?=$model[0]->telephone?>" readonly/>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>寄送地址：</label>
+                </div>
+                <input type="text" class="form-control c-md-2" name="param[name]" value="<?=$model[0]->address?>" readonly/>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>发票样式：</label>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn" value="取消">取消</button>
+                <button class="btn blue" value="提交申请" id="btn">提交申请</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade in" id="ajax" role="basic" aria-hidden="true"   style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content col-md-8" style="text-align: center;" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn default" data-dismiss="modal" id="sub">确定</button>
+                    <a href="<?=Url::to(['clearing/result'])?>"><button type="button" class="btn blue" id="ok" style="display: none;">查看进度</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a data-target="#ajax" data-toggle="modal" class="btn btn-info" id="cli" style="display: none;"></a>
+<script type="text/javascript">
+    $("#money").change(function(){
+        if($(this).val() > <?=$data->balance_amount?>){
+            $(".modal-title").html('您的余额不足！');
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("cli").dispatchEvent(e);
+            $("#money").val('');
+            return false;
+        }
+    })
+
+    $("#btn").click(function(){
+        if($("#money").val()==''){
+            $(".modal-title").html('请输入提现金额');
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("cli").dispatchEvent(e);
+            $("#money").val('');
+            return false;
+        }
+        $.ajax({
+            type:'post',
+            url:'apply',
+            data:$("#apply").serialize() ,
+            dataType:'json',
+            success:function (data){
+                if(data['flag']==false){
+                    $("#ok").hide();
+                    $("#sub").show();
+                }
+                if(data['flag']==true){
+                    $("#ok").show();
+                    $("#sub").hide();
+                }
+                $(".modal-title").html(data['msg']);
+                var e = document.createEvent("MouseEvents");
+                e.initEvent("click", true, true);
+                document.getElementById("cli").dispatchEvent(e);
+            },
+            error:function (){
+
+            }
+        })
+    })
+
+    $('#ajax').modal({backdrop: 'static', keyboard: false,show:false});
+    $('.close').click();
+
+</script>
+
+
+<!-- 定义数据块 -->
+<?php $this->beginBlock('test'); ?>
+jQuery(document).ready(function() {
+    highlight_subnav('clearing/apply'); //子导航高亮
+});
+<?php $this->endBlock() ?>
+<!-- 将数据块 注入到视图中的某个位置 -->
+<?php $this->registerJs($this->blocks['test'], \yii\web\View::POS_END); ?>

@@ -1,0 +1,61 @@
+<?php
+namespace common\models;
+use common\core\BaseActiveRecord;
+
+class Settlement extends BaseActiveRecord {
+    //申请状态-等待
+    const ASK_STATUS_WAIT = 'wait';
+    //申请状态-通过
+    const ASK_STATUS_PASS = 'pass';
+    //申请状态-拒接
+    const ASK_STATUS_REJECT = 'reject';
+    //付款状态-未付款
+    const PAY_STATUS_WAIT = 'wait';
+    //付款状态-已付款
+    const PAY_STATUS_PAY = 'pay';
+    
+    /**
+     * 获取申请状态
+     */
+    public static function getAskStatusMap(){
+        return [
+            self::ASK_STATUS_WAIT => '等待审核',
+            self::ASK_STATUS_PASS => '审核通过',
+            self::ASK_STATUS_REJECT => '审核失败',
+        ];
+    }
+    /**
+     * 获取付款状态
+     */
+    public static function getPayStatusMap(){
+        return [
+            self::PAY_STATUS_WAIT => '未付款',
+            self::PAY_STATUS_PAY => '已付款',
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%settlement}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [];
+    }
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+
+        ];
+    }
+}

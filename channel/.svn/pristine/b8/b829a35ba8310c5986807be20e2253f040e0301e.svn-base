@@ -1,0 +1,40 @@
+<?php
+namespace common\models;
+use common\core\BaseActiveRecord;
+
+class Profit extends BaseActiveRecord {
+    //版本等级：体验版
+    const LEVEL_EXPERIENCE = 0;
+    //版本等级：基础版
+    const LEVEL_BASICS = 1;
+    //版本等级：企业版
+    const LEVEL_ENTERPRISE = 2;
+    //版本等级：集团版
+    const LEVEL_GROUP = 3;
+
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%profit}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [];
+    }
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+
+        ];
+    }
+}

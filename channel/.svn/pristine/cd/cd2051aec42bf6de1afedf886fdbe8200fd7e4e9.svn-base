@@ -1,0 +1,26 @@
+<?php
+
+namespace api\modules\v1\controllers;
+
+use yii\rest\ActiveController;
+use common\models\Admin;
+/**
+ * @package api\modules\v1\controllers
+ */
+class AgentController extends ActiveController
+{
+    public $modelClass = 'common\models\Admin';
+
+    public function actionTest()
+    {
+        print_r(Admin::find()->one());
+        echo 1;die;
+    }
+
+    public function actionW(){
+        $a = Admin::find()->one() ;
+        $a->status = 1;
+        $a->save();
+        print_r(Admin::find()->asArray()->one());die;
+    }
+}
