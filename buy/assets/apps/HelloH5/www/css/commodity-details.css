@@ -1,0 +1,285 @@
+.icon.iconFont {
+  /* 通过设置 font-size 来改变图标大小 */
+  width: 1.5rem; height: 1.5rem;
+  /* 图标和文字相邻时，垂直对齐 */
+  vertical-align: -0.15em;
+  /* 通过设置 color 来改变 SVG 的颜色/fill */
+  fill: currentColor;
+  /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+     normalize.css 中也包含这行 */
+      overflow: hidden;
+    }
+	.icon.iconFont.Qzone{
+		width: 1.7rem; height: 1.7rem;
+	}
+	.icon.iconFont.weChart{
+		width: 1.6rem; height: 1.6rem;
+	}
+	.icon.iconFont.PengYouQuan{
+		width: 1.4rem; height: 1.4rem;
+	}
+	.FenXiang{
+		height: 1rem;
+		font-weight: bold;
+	}
+	.icon.iconFont.iconTime{
+		width: .75rem;
+		height: .75rem;
+	}
+
+#commodity-details .content {
+	top: 0;
+	bottom: 2.8rem;
+}
+
+#commodity-details .bar.bar-nav {
+	border: none;
+	background-color: rgba(255, 255, 255, .2);
+}
+
+#commodity-details .buttons-row {
+	max-width: 50%;
+	margin-left: 25%;
+}
+
+#commodity-details .buttons-row .button {
+	top: .1rem;
+	height: initial;
+	line-height: 2rem;
+	border: none;
+	color: #fff;
+	border-radius: 0;
+}
+
+#commodity-details .buttons-row .active {
+	background-color: transparent;
+	color: #f44336;
+	font-size: .8rem;
+	border-bottom: 2px solid #f44336;
+}
+
+#commodity-details .content-block {
+	padding: 0;
+	margin: 0;
+}
+/* swiper */
+
+#commodity-details .swiper-container {
+	height: calc(100vh - 12rem);
+	background-color: #fff;
+}
+
+.swiper-container .swiper-card {
+	height: 100%;
+}
+
+.swiper-card-content {
+	position: absolute;
+	bottom: -30px;
+	width: 100%;
+	background-color: white;
+	font-size: .5rem;
+}
+
+.swiper-card-content .card-content-inner {
+	padding: 0.3rem;
+	padding-left: .75rem;
+}
+
+.swiper-card-content .card-content-inner p {
+	margin: .1rem 0;
+}
+
+.swiper-card-content .card-content-inner .color-bold {
+	font-weight: 600;
+}
+
+.imgVW {
+	width: 100%;
+}
+
+#commodity-details .swiper2-pagination {
+	position: absolute;
+	bottom: -1rem;
+	left: calc(50% - 1.35rem);
+	z-index: 1;
+}
+
+#commodity-details .swiper2-pagination span {
+	margin: 0 .25rem;
+}
+/* footer */
+
+#commodity-details .bar-tab .icon {
+	font-size: 1rem;
+}
+
+#commodity-details .bar-tab .tab-label {
+	font-size: .5rem;
+}
+
+#commodity-details .bar-tab #purchase {
+	width: 4%;
+	color: #fff;
+	font-size: .8rem;
+	background-color: #f44336;
+}
+
+#commodity-details #parameters {
+	margin: 0;
+	text-align: center;
+}
+
+#commodity-details #parameters .card-header {
+	display: block;
+	min-height: initial;
+	border: none;
+	border-radius: initial;
+	padding-bottom: 0;
+	font-size: .7rem;
+	color: #333;
+	word-wrap: break-word;
+}
+
+#commodity-details #parameters .card-content-inner {
+	padding: 0;
+	line-height: 1.5rem;
+}
+
+#commodity-details #parameters .card-content-inner .card-content-inner-text {
+	width: calc(50% - 8px);
+	float: left;
+	margin: 0;
+}
+
+#commodity-details .card-content-inner .commodity-currentPrice {
+	text-align: right;
+	color: #ff008a;
+	font-size: 1rem;
+}
+
+#commodity-details .card-content-inner .commodity-originalPrice {
+	text-align: left;
+	text-decoration: line-through;
+	font-size: .6rem;
+}
+/* 标题  */
+#commodity-details .introduction {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#commodity-details .title-bar {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 1px;
+	background-color: #ccc;
+	padding: 0 1rem;
+}
+
+#commodity-details .title-bar p {
+	position: relative;
+	top: -.55rem;
+	margin: 0;
+	padding: 0 10px;
+	line-height: 1.1rem;
+	overflow: hidden;
+	font-size: .8rem;
+	color: #666;
+	text-align: center;
+	background-color: #fff;
+}
+
+/* content-comment  */
+.content-comment{
+	background-color: #fff;
+	margin: 0;
+}
+.comment-card .list-block{
+	margin:0;
+}
+.comment-card .list-block ul{
+	border-bottom: none;
+}
+.comment-card .list-block .item-content{
+	border-top: 1px solid #eee;
+	flex-flow: row wrap;
+}
+.comment-card .list-block .item-content .item-media img{
+	border-radius: 50%;
+}
+.comment-card .list-block .item-content .item-inner{
+	width: calc(100% - 3rem);
+	border: none;
+	padding-top: .7rem !important;
+	padding-bottom: 0 !important;
+}
+.comment-card .list-block .item-content .item-inner .item-title-row{
+	font-size: .7rem;
+	color: #333;
+}
+.comment-card .list-block .item-content .item-inner .item-subtitle{
+	font-size: .5rem;
+}
+
+.comment-card .list-block .item-content .card-footer{
+	top: -.3rem;
+	width: 100%;
+	padding: 0 .75rem .5rem 3rem;
+	font-size: .5rem;
+	border: none;
+	min-height: initial;
+}
+.comment-card .list-block .item-content .card-footer .card-footer-content{
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding-top: .3rem;
+	border-top:  1px solid #e1e1e1;
+}
+.comment-card .list-block .item-content .comment-time{
+	position: absolute;
+	top: .3rem;
+	right: .3rem;
+	color: #795548;
+	font-size: .5rem;
+	z-index: 2;
+}
+/* 分享 */
+.actions-modal {
+	background-color: #fff;
+}
+
+.group-head {
+	column-count: 3;
+	padding-top: .8rem;
+}
+
+.group-footer {
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+}
+
+.group-footer .actions-modal-button {
+	border-radius: 0 !important;
+}
+
+.actions-modal-button {
+	font-size: .8rem;
+}
+
+.group-head .actions-modal-button {
+	border: none;
+	background-color: #fff;
+	font-size: .5rem;
+}
+
+.link-icon {
+	height: 1.2rem;
+}
+
+.link-icon .icon {
+	font-size: 1rem;
+}

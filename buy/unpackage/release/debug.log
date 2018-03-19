@@ -1,0 +1,194 @@
+[0822/144313:ERROR:renderer_main.cc(203)] Running without renderer sandbox
+[0822/144319:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -103
+[0822/144319:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144320:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144320:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144320:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144321:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144322:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://222.73.132.152/variety.tc.qq.com/AMvMUK-p4bigVa0TQ3o1-OBn_ZVvdtyFCcifOHCeZ7Ys/b02002ph5n9.p201.1.mp4?vkey=C6E9E7DC73169482D3139B6854068A260AA4977B9BC27F7A9B066CF85BFDEAE513F2A33646CCFD3D9A6C812BE350343179365D63F55D9756893AAE5C493E199F8CFBC1424ACEE25C746C27526BDD79C56D670BC61FDB5F37&platform=&sdtfrom=&fmt=shd&level=0'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144323:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://222.73.132.152/variety.tc.qq.com/AMvMUK-p4bigVa0TQ3o1-OBn_ZVvdtyFCcifOHCeZ7Ys/b02002ph5n9.p201.1.mp4?vkey=C6E9E7DC73169482D3139B6854068A260AA4977B9BC27F7A9B066CF85BFDEAE513F2A33646CCFD3D9A6C812BE350343179365D63F55D9756893AAE5C493E199F8CFBC1424ACEE25C746C27526BDD79C56D670BC61FDB5F37&platform=&sdtfrom=&fmt=shd&level=0'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://222.73.132.159/variety.tc.qq.com/AMvMUK-p4bigVa0TQ3o1-OBn_ZVvdtyFCcifOHCeZ7Ys/v020005w8ji.p201.1.mp4?vkey=A2A35C80548A8BBF4355FBCB9BC26D4E4378DE012C6FDBFC69C10955F30D5CC831BA30CD29A28CCC666E458D6D3F99E08EDA80032F37682F87DA3DF76BB6D344B039436F5A42894ACD7688FA3C9103242C1DCA1F5F5D4826&platform=&sdtfrom=&fmt=shd&level=0'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144323:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://222.73.132.159/variety.tc.qq.com/AMvMUK-p4bigVa0TQ3o1-OBn_ZVvdtyFCcifOHCeZ7Ys/v020005w8ji.p201.1.mp4?vkey=A2A35C80548A8BBF4355FBCB9BC26D4E4378DE012C6FDBFC69C10955F30D5CC831BA30CD29A28CCC666E458D6D3F99E08EDA80032F37682F87DA3DF76BB6D344B039436F5A42894ACD7688FA3C9103242C1DCA1F5F5D4826&platform=&sdtfrom=&fmt=shd&level=0'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144323:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144324:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.151/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=1234B3CB14348B810CA607998FB2BA4A7E6AB7130EC6159E3BB867FF642E964A11E2E42845241DC637602524B293A0B649B11E0E444FAB8EE35A2B9D36CC3EBC621DE70E23CF0C1628744CBF2259B22C942C07D4ACAB8A4A0F79EA5564BBF3FEDF123E2ED6F2451B8EE69BE1BC3AC28F98BEBF8C5394AFDA&platform=2'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144325:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.151/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=1234B3CB14348B810CA607998FB2BA4A7E6AB7130EC6159E3BB867FF642E964A11E2E42845241DC637602524B293A0B649B11E0E444FAB8EE35A2B9D36CC3EBC621DE70E23CF0C1628744CBF2259B22C942C07D4ACAB8A4A0F79EA5564BBF3FEDF123E2ED6F2451B8EE69BE1BC3AC28F98BEBF8C5394AFDA&platform=2'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.150/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=AD23A9F413664DB5149ABAFC3B27459599EAB4D56EC86258986DCBDD444CA5C60537B0BB1BE4D7F2077FEF263FA590EC8DED241E29777BFA2B7476A1BFE7D3ADF6ED8BE3E1C69EBC2C21ABDF91C08DFA4807B7AB4D042B98E6E9AC132B71E1073B8573E182C1112FBA8B8BD0C0F8DD29371096EA5975F8F3'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144325:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.150/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=AD23A9F413664DB5149ABAFC3B27459599EAB4D56EC86258986DCBDD444CA5C60537B0BB1BE4D7F2077FEF263FA590EC8DED241E29777BFA2B7476A1BFE7D3ADF6ED8BE3E1C69EBC2C21ABDF91C08DFA4807B7AB4D042B98E6E9AC132B71E1073B8573E182C1112FBA8B8BD0C0F8DD29371096EA5975F8F3'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144325:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144325:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.154/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=D848A45D21CF969C24FABE0074B4486C9014CA9A47788BAF1C9CE22A029898C886078F251903CDAB6854704F2987501036BD6420C5AC12266AA024B69E79560A215679FF2F891E57F1F97A94872F331CA7D23989D3F811721D4F0D8868076CC9D9B20927638FD267304A50C363F6A26748A17A2DD941BEB5'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144325:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.154/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=D848A45D21CF969C24FABE0074B4486C9014CA9A47788BAF1C9CE22A029898C886078F251903CDAB6854704F2987501036BD6420C5AC12266AA024B69E79560A215679FF2F891E57F1F97A94872F331CA7D23989D3F811721D4F0D8868076CC9D9B20927638FD267304A50C363F6A26748A17A2DD941BEB5'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://video.dispatch.tc.qq.com/57893454/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=2791579E04DB6C9D3E5D4D5DDFC3649C7B56AD91A73AC6491434DC67DC475B34326F0A571A27640B812C47031638D54C4E357EB73B9353461F0335AE9F09DF4E9C0A88D528C95918D44795E5D0FFC4A0081599B2D5F9BC05121A79A421E5131AD5FC88DC4B8E808C6E3170BC1A5560944E47862EE74C69D3'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144326:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://video.dispatch.tc.qq.com/57893454/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=2791579E04DB6C9D3E5D4D5DDFC3649C7B56AD91A73AC6491434DC67DC475B34326F0A571A27640B812C47031638D54C4E357EB73B9353461F0335AE9F09DF4E9C0A88D528C95918D44795E5D0FFC4A0081599B2D5F9BC05121A79A421E5131AD5FC88DC4B8E808C6E3170BC1A5560944E47862EE74C69D3'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144326:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144327:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.151/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=FD72D714CEA18554E20B7E123D0F3B706E8BB704E70287975EFC8FA69AF379CB1B589DBDC39A59766C889E068F49639130A236E3CC7C2261897E53C9BFC3A7E31A63CA37CFBE724B61659FFB1EF5C5EE85AA9BA4BC97B1F22E90507F8A757258A7065236B6A07FEC19463545F4FE83379DF1936F0CF1CB3B'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144327:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure video 'http://183.131.48.151/vhot2.qqvideo.tc.qq.com/AY7pAUnZIOnF7YONz1eFKc5J1IwAp6ScTwQEDFpiDjlk/t0540h29rv6.p712.1.mp4?sdtfrom=v1010&guid=43a220e5c25e0909f0046e2a83a6db7a&vkey=FD72D714CEA18554E20B7E123D0F3B706E8BB704E70287975EFC8FA69AF379CB1B589DBDC39A59766C889E068F49639130A236E3CC7C2261897E53C9BFC3A7E31A63CA37CFBE724B61659FFB1EF5C5EE85AA9BA4BC97B1F22E90507F8A757258A7065236B6A07FEC19463545F4FE83379DF1936F0CF1CB3B'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144327:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144327:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0822/144327:ERROR:ssl_client_socket_openssl.cc(1014)] handshake failed; returned 0, SSL error code 1, net_error -157
+[0822/144327:INFO:CONSOLE(0)] "Mixed Content: The page at 'https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052' was loaded over HTTPS, but requested an insecure image 'http://127.0.0.1:11066/getversionjpg?hash=715200'. This content should also be served over HTTPS.", source: https://v.qq.com/x/cover/0nhl93wk0fpwnop/t0540h29rv6.html?pgv_ref=aio2015&ptlang=2052 (0)
+[0822/144327:INFO:CONSOLE(5)] "Uncaught (in promise) error", source: https://vm.gtimg.cn/tencentvideo/script/webtips/comp/webtips.min.js?v=3 (5)
+[0822/144443:ERROR:renderer_main.cc(203)] Running without renderer sandbox
+[0822/144444:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144446:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144446:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144447:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144454:ERROR:renderer_main.cc(203)] Running without renderer sandbox
+[0822/144455:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144456:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144837:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144837:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144837:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144838:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144838:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144845:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/144852:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145124:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145126:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145126:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145151:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145151:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145151:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0822/145152:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304

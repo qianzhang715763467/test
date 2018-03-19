@@ -1,0 +1,111 @@
+
+	<header class="bar bar-nav">
+		<a href="/" class="button button-link button-nav pull-left back ">
+	    <span class="icon icon-left"></span>
+	  </a>
+		<div class="buttons-row">
+			<a href="#tab1" class="tab-link active button">单品</a>
+			<a href="#tab2" class="tab-link button">详情</a>
+		</div>
+	</header>
+	<div class="content">
+		<div class="content-block">
+			<div class="tabs">
+				<div id="tab1" class="tab active">
+					<!-- 图片 介绍 -->
+					<div class="content-block">
+						<!-- commodity parameters -->
+						<div class="card" id="parameters">
+							<div class="card-header">
+								柔和一片式拼接上衣
+								<p style="margin: 0;color: #929292;font-size: .5rem;"></p>
+							</div>
+							<div class="card-content">
+								<div class="card-content-inner">
+									<p class="card-content-inner-text commodity-currentPrice">￥139</p>
+									<span id="" style="float: left;width: 15px;font-size: 1rem;color: #000;">/</span>
+									<p class="color-gray card-content-inner-text  commodity-originalPrice">￥201</p>
+									<p style="margin: 0;">
+										<span class="icon" style="color: #ff6fbd;">❤</span>
+										<span class="tab-label">143</span>
+									</p>
+								</div>
+							</div>
+							<div class="card-footer">COTRE 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣</div>
+						</div>
+						<!-- commodity parameters -->
+						<div class="card introduction">
+							<div class="card-header">
+								<div class="title-bar">
+									<p>商品介绍</p>
+								</div>
+							</div>
+							<div class="card-footer">
+								COTRE 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣
+							</div>
+						</div>
+						<!-- 评论  -->
+						<section class="card content-comment pages">
+							<div class="card-header">
+								<div class="title-bar">
+									<p>买家评论</p>
+								</div>
+							</div>
+							<div class="card-content comment-card infinite-scroll"  data-distance="100">
+								<div class="list-block media-list">
+									<ul class="list-container">
+									</ul>
+								</div>
+							</div>
+						</section>
+						<!-- preloader -->
+					    <div class="infinite-scroll-preloader">
+					        <div class="preloader"></div>
+					    </div>
+					</div>
+				</div>
+
+				<div id="tab2" class="tab">
+					<!-- 商品详情  -->
+					<div class="content-block">
+						<p>This is tab 2 content</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav class="bar bar-tab">
+		<a href="javascript:;" class="tab-item">
+			<span class="icon">❤</span>
+			<span class="tab-label">喜欢</span>
+		</a>
+		<a href="javascript:;" class="tab-item create-actions">
+			<span class="icon icon-share"></span>
+			<!--<svg class="icon iconFont FenXiang" aria-hidden="true">
+                <use xlink:href="#icon-fenxiang"></use>
+            </svg>-->
+			<span class="tab-label">分享</span>
+		</a>
+		<a href="##" class="tab-item" id="purchase">
+			去淘宝购买
+		</a>
+	</nav>
+</div>
+<script type="text/javascript">
+	index.swiper({
+		url:'js/01-01.json',
+		el:'#parameters',
+		spaceBetween:10,
+		pagination:'.swiper2-pagination',
+		autoplay:'1000',
+		opacity:'1'
+	});
+	
+	index.comments({
+		pageId	: '#commodity-details',
+		main	: '.list-container',
+		warp	: '.content',
+		heightDifference:160
+	});
+	index.share('click','#commodity-details .create-actions');
+</script>

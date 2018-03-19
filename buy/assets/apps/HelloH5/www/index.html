@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> E-buy</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="iconFont/demo.css">
+		<link rel="stylesheet" type="text/css" href="light7/light7.min.css" />
+		<link rel="stylesheet" type="text/css" href="light7/light7-swiper.min.css"/><!-- 扩展包组件对应文件-->
+		<link rel="stylesheet" type="text/css" href="css/index.css"/><!-- The independent style of my index.html -->
+		<script type="text/javascript" src="iconFont/iconfont.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script>
+			$.config = {
+				autoInit: true //no recommend
+			}
+		</script>
+		<script type="text/javascript"  src="light7/light7.js"></script>
+		<script type="text/javascript" src="light7/light7-swiper.min.js" ></script><!-- 扩展包组件对应文件-->
+		<style type="text/css">
+			a{
+				text-decoration: none !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-container">
+			<div class="page" id="page1">
+				<header class="bar bar-nav">
+					<div class="content-block <!--open-panel-->" id="home-sidebar" data-panel='#panel-left-demo'>
+						<a href="#" class=" icon icon-app pull-left button button-fill"></a>
+			      		<input type="text" class="cityName pull-left button" id='city-picker' value="浙江 杭州 拱墅区" />
+						<span class="icon icon-caret" style="font-size: .5rem;line-height: 2.2rem;"></span>
+					</div>
+					<div class="bar title-query">
+						<div class="searchbar">
+							<a class="searchbar-cancel">搜索</a>
+							<div class="search-input">
+								<label class="icon icon-search" for="search"></label>
+								<input type="search" id='search' placeholder='输入商品名、商家名、商圈...' />
+							</div>
+						</div>
+					</div>
+					<span class="icon icon-code" style="right: .5rem;position: absolute;color:#0894ec ;"></span>
+				</header>
+				<!-- start content -->
+				<div class="content">
+					<header class="recommend">
+						<h1 class="r-title">今日主推</h1>
+						<h6 class="title12">每日上新、精选好物、限时折扣</h6>
+						<div class="swiper-count">
+							<i class="swiper-show-count">1</i><!-- swiper.min.js 152 -->
+							<i class="swiper-count-old">/</i>
+							<i class="swiper-count-old">3</i>
+						</div>
+					</header>
+					
+					<!-- 导航 -->
+					<div class="list-block entry-nav" style="background-image: url(img/sellerBg.jpg);">
+						<h1 class="title12">品质、格调、一站搜罗</h1>
+						<nav class="bar bar-tab">
+							<a href="javascript:;" class="tab-item" data-page="infinite">
+								<span class="icon icon-gift"></span>
+								<span class="tab-label">精选好物</span>
+							</a>
+							<a href="javascript:;" class="tab-item">
+								<span class="icon icon-gift"></span>
+								<span class="tab-label">家居</span>
+							</a>
+							<a href="javascript:;" class="tab-item">
+								<span class="icon icon-gift"></span>
+								<span class="tab-label">下午茶</span>
+							</a>
+							<a href="javascript:;" class="tab-item">
+								<span class="icon icon-gift"></span>
+								<span class="tab-label">美妆</span>
+							</a>
+						</nav>
+					</div>
+					<div class="page-item" id='infinite'>
+						
+					</div>
+				</div>
+				<nav class="bar bar-tab">
+					<a href="javascript:;" class="tab-item active">
+						<span class="icon icon-home"></span>
+						<span class="tab-label">首页</span>
+					</a>
+					<a href="javascript:;" class="tab-item">
+						<span class="icon icon-me"></span>
+						<span class="tab-label">我</span>
+					</a>
+					<a href="javascript:;" class="tab-item">
+						<span class="icon icon-star"></span>
+						<span class="tab-label">收藏</span>
+					</a>
+					<a href="javascript:;" class="tab-item">
+						<span class="icon icon-settings"></span>
+						<span class="tab-label">设置</span>
+					</a>
+				</nav>
+			</div>
+			<div class="page" id="commodity-details"></div>
+		</div>
+		<!-- Left Panel with Reveal effect -->
+		<div class="panel panel-left panel-reveal theme-dark" id='panel-left-demo'>
+			<div class="content-block">
+				<p>这是一个侧栏</p>
+				<div class="list-block">
+					<div class="list-block contacts-block"></div>
+				</div>
+				<p>
+					<a href="#" class="close-panel">关闭</a>
+				</p>
+			</div>
+		</div>
+		
+		
+	</body>
+	<script src="js/city-picker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			index.init();
+			$('.tab-item:first').trigger('click');
+			$("#city-picker").cityPicker({
+		    	toolbarTemplate: '<header class="bar bar-nav">\
+		    		<button class="button button-link pull-right close-picker">OK</button>\
+		    		<h1 class="title">选择地址</h1>\
+		    	</header>'
+		  	});
+		});
+		/*  ============================  Invoke the events in the plug-in  ===============================  */
+		$(document).on("click", "#panel-left-demo .close-panel", function() {
+			$('.cityName').text($(this).text());
+		});
+	</script>
+</html>
