@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <!-- Site Properties -->
+        <title>HCharts</title>
+
+        <script src="/js/jquery.min.js"></script>
+
+        <style>
+            #left,#right{
+                float:left;
+                height: 600px;
+                border: 1px solid #aaa;
+            }
+            #left{
+                width:200px
+            }
+            #right{
+                width:600px
+            }
+
+            li{
+                cursor:pointer
+            }
+
+            .tags{
+                display: inline-block;
+                border:1px solid red
+            }
+            .group-wrapper{
+                width:100%;height:80px;
+                border:1px solid #aaa
+            }
+
+            .group-id{
+                float:left;
+                width:50px;height:100%;
+                border:1px solid blue
+            }
+
+            .group-del{
+                width:100px;height:100%;
+                float:right;
+                border:1px solid #000
+            }
+
+            .group{
+                width:auto;height:80px;
+                float:left;
+            }
+
+            .group-node{
+                border-radius:15px;
+                display: inline-block;
+                font-size:12px;
+                border:1px solid #aaa;
+                padding:5px 10px;
+                cursor: pointer
+            }
+
+            .group-node-tags{
+                width: auto;
+            }
+
+        </style>
+        <script>
+
+            var d = [{
+                    "id": 1,
+                    "text": "111",
+                    "children": [{
+                            "text": "1-1",
+                            "type": 'input',
+                            placeholder: '请输入'
+                        }]
+                }, {
+                    "id": 2,
+                    "text": "22",
+                    "children": [{
+                            "id": 21,
+                            "text": "222",
+                            "children": [{
+                                    "text": "2-1",
+                                    "type": 'text'
+                                }, {
+                                    "text": "2-2",
+                                    "type": 'text'
+                                }]
+                        }]
+                }];
+
+            var d11 = {"\u57fa\u672c\u4fe1\u606f": {"id": 0, "text": "\u57fa\u672c\u4fe1\u606f", "children": [{"text": "\u6027\u522b", "type": 2}, {"text": "\u5e74\u9f84", "type": 1}, {"text": "\u751f\u65e5\u6708\u4efd", "type": 2}, {"text": "\u751f\u65e5\u65e5\u671f", "type": 2}, {"text": "\u661f\u5ea7", "type": 2}]}, "\u8eab\u4efd\u7279\u5f81": {"id": 5, "text": "\u8eab\u4efd\u7279\u5f81", "children": [{"text": "\u662f\u5426\u6c34\u519b", "type": 2}, {"text": "\u662f\u5426\u9ed1\u540d\u5355", "type": 2}, {"text": "\u662f\u5426\u767d\u540d\u5355", "type": 2}, {"text": "\u662f\u5426\u51b0\u6cc9\u9884\u6ce8\u518c", "type": 2}, {"text": "\u662f\u5426\u624b\u52a8\u5bfc\u5165", "type": 2}, {"text": "\u662f\u5426\u6e2f\u6fb3\u53f0\u53ca\u5916\u7c4d", "type": 2}, {"text": "\u662f\u5426\u5458\u5de5", "type": 2}, {"text": "\u662f\u5426\u79bb\u804c\u5458\u5de5", "type": 2}, {"text": "\u662f\u5426\u5458\u5de5\u63a8\u8350\u6ce8\u518c", "type": 2}, {"text": "\u662f\u5426\u4e1a\u4e3b", "type": 2}, {"text": "\u662f\u5426\u4e1a\u4e3b\u63a8\u8350", "type": 2}, {"text": "\u662f\u5426\u51b0\u6cc9\u7528\u6237", "type": 2}, {"text": "\u662f\u5426\u51b0\u6cc9\u7528\u6237\u63a8\u8350", "type": 2}, {"text": "\u662f\u5426\u5730\u4ea7\u7528\u6237", "type": 2}, {"text": "\u662f\u5426\u5730\u4ea7\u7528\u6237\u63a8\u8350", "type": 2}, {"text": "\u662f\u5426\u7403\u8ff7\u7528\u6237", "type": 2}, {"text": "\u662f\u5426\u7403\u8ff7\u7528\u6237\u63a8\u8350", "type": 2}]}, "\u5730\u57df\u7279\u5f81": {"id": 22, "text": "\u5730\u57df\u7279\u5f81", "children": [{"text": "\u624b\u673a\u53f7\u7801\u8fd0\u8425\u5546", "type": 2}, {"text": "\u662f\u5426\u865a\u62df\u8fd0\u8425\u5546", "type": 2}, {"text": "\u624b\u673a\u53f7\u7801\u5f52\u5c5e\u57ce\u5e02", "type": 2}, {"text": "\u624b\u673a\u53f7\u7801\u5f52\u5c5e\u7701\u4efd", "type": 2}, {"text": "\u624b\u673a\u53f7\u7801\u5f52\u5c5e\u57ce\u5e02\u7ea7\u522b", "type": 2}, {"text": "\u8bc1\u4ef6\u53f7\u7801\u5f52\u5c5e\u57ce\u5e02", "type": 2}, {"text": "\u8bc1\u4ef6\u53f7\u7801\u5f52\u5c5e\u7701\u4efd", "type": 2}, {"text": "\u8bc1\u4ef6\u53f7\u7801\u5f52\u5c5e\u57ce\u5e02\u7ea7\u522b", "type": 2}]}, "\u884c\u4e3a\u7279\u5f81": {"id": 30, "text": "\u884c\u4e3a\u7279\u5f81", "children": [{"text": "\u6ce8\u518c\u65f6\u95f4", "type": 1}, {"text": "\u9996\u6b21\u767b\u9646\u65f6\u95f4", "type": 1}, {"text": "\u6700\u540e\u767b\u5f55\u65f6\u95f4", "type": 1}, {"text": "\u5b9e\u540d\u65f6\u95f4", "type": 1}, {"text": "\u7ed1\u5361\u65f6\u95f4", "type": 1}, {"text": "\u9996\u6b21\u4ea4\u6613\u65f6\u95f4", "type": 1}, {"text": "\u662f\u5426\u767b\u5f55\u7528\u6237", "type": 2}, {"text": "\u662f\u5426\u5b9e\u540d\u8ba4\u8bc1", "type": 2}, {"text": "\u662f\u5426\u5df2\u7ed1\u5361", "type": 2}, {"text": "\u662f\u5426\u4ea4\u6613\u7528\u6237", "type": 2}, {"text": "\u6ce8\u518c\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u9996\u6b21\u767b\u9646\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u6700\u540e\u767b\u5f55\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u5b9e\u540d\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u7ed1\u5361\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u9996\u6b21\u4ea4\u6613\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u4e8c\u6b21\u4ea4\u6613\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u6ce8\u518c\u81f3\u5b9e\u540d\u5929\u6570", "type": 1}, {"text": "\u6ce8\u518c\u81f3\u7ed1\u5361\u5929\u6570", "type": 1}, {"text": "\u6ce8\u518c\u81f3\u9996\u6b21\u4ea4\u6613\u5929\u6570", "type": 1}, {"text": "\u5b9e\u540d\u81f3\u7ed1\u5361\u5929\u6570", "type": 1}, {"text": "\u5b9e\u540d\u81f3\u9996\u6b21\u4ea4\u6613\u5929\u6570", "type": 1}, {"text": "\u7ed1\u5361\u81f3\u9996\u6b21\u4ea4\u6613\u5929\u6570", "type": 1}, {"text": "\u9996\u6b21\u4ea4\u6613\u81f3\u4e8c\u6b21\u4ea4\u6613\u5929\u6570", "type": 1}]}, "\u8d44\u4ea7\u7279\u5f81": {"id": 54, "text": "\u8d44\u4ea7\u7279\u5f81", "children": [{"text": "\u7ed1\u5b9a\u5361\u7247\u6240\u5c5e\u94f6\u884c", "type": 2}, {"text": "\u8bbe\u5907\u4e2a\u6570", "type": 2}, {"text": "\u5730\u4ea7\u5ba2\u6237\u623f\u4ea7\u5957\u6570", "type": 1}]}, "\u793e\u4ea4\u7279\u5f81": {"id": 57, "text": "\u793e\u4ea4\u7279\u5f81", "children": [{"text": "\u63a8\u8350\u6ce8\u518c\u5ba2\u6237\u6570", "type": 1}, {"text": "\u63a8\u8350\u5ba2\u6237\u603b\u4ea4\u6613\u989d", "type": 1}, {"text": "\u63a8\u8350\u6ce8\u518c\u8fd4\u5229\u91d1\u989d", "type": 1}]}, "\u4ea4\u6613\u7279\u5f81": {"id": 60, "text": "\u4ea4\u6613\u7279\u5f81", "children": [{"text": "\u7d2f\u8ba1\u4ea4\u6613\u6b21\u6570", "type": 1}, {"text": "\u7d2f\u8ba1\u4ea4\u6613\u91d1\u989d", "type": 1}, {"text": "\u662f\u5426\u8d2d\u4e70\u65b0\u624b\u6807", "type": 2}, {"text": "\u65b0\u624b\u6807\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u63d0\u73b0\u6b21\u6570", "type": 1}, {"text": "\u63d0\u73b0\u603b\u91d1\u989d", "type": 1}, {"text": "\u6700\u8fd1\u5230\u671f\u4ea7\u54c1\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u6700\u8fd1\u5230\u671f\u4ea7\u54c1\u91d1\u989d", "type": 1}]}, "\u5238\u884c\u4e3a\u7279\u5f81": {"id": 68, "text": "\u5238\u884c\u4e3a\u7279\u5f81", "children": [{"text": "\u73b0\u91d1\u5238\u53d1\u653e\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u73b0\u91d1\u5238\u4f7f\u7528\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5f53\u524d\u53ef\u7528\u73b0\u91d1\u5238\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u73b0\u91d1\u5238\u4ea4\u6613\u603b\u91d1\u989d\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u73b0\u91d1\u5238\u62b5\u7528\u603b\u91d1\u989d\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u52a0\u606f\u5238\u53d1\u653e\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u52a0\u606f\u5238\u4f7f\u7528\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5f53\u524d\u53ef\u7528\u73b0\u91d1\u5238\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u52a0\u606f\u5238\u4ea4\u6613\u603b\u91d1\u989d\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u52a0\u606f\u5238\u52a0\u606f\u603b\u91d1\u989d\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5238\u53d1\u653e\u603b\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5238\u8fc7\u671f\u603b\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5f53\u524d\u53ef\u7528\u5238\u5f20\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u5238\u4ea4\u6613\u6b21\u6570\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u5238\u4ea4\u6613\u91d1\u989d\uff08\u975e\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5238\u53d1\u653e\u603b\u5f20\u6570\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5238\u8fc7\u671f\u603b\u5f20\u6570\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u5f53\u524d\u53ef\u7528\u5238\u5f20\u6570\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u5238\u4ea4\u6613\u6b21\u6570\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u5238\u4ea4\u6613\u91d1\u989d\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u4f7f\u7528\u5238\u4ea4\u6613\u62b5\u7528\u91d1\u989d\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u6700\u8fd1\u5238\u53d1\u653e\u65f6\u95f4\u8ddd\u4eca\u5929\u6570\uff08\u65b0\u624b\u5927\u793c\u5305\uff09", "type": 1}, {"text": "\u65b0\u624b\u5927\u793c\u5305\u5230\u671f\u65f6\u95f4\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u662f\u5426\u4f7f\u7528\u8fc7\u65b0\u624b\u5927\u793c\u5305", "type": 2}, {"text": "\u65b0\u624b\u5927\u793c\u5305\u662f\u5426\u4ec5\u5269500\u5143\u9762\u989d", "type": 2}]}, "\u8d2d\u4e70\u4ea7\u54c1\u7279\u5f81": {"id": 93, "text": "\u8d2d\u4e70\u4ea7\u54c1\u7279\u5f81", "children": [{"text": "\u6295\u8d44\u5929\u6570(0\uff0c100]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(0\uff0c100]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(100\uff0c200]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(100\uff0c200]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(200\uff0c270]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(200\uff0c270]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(270\uff0c365]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(270\uff0c365]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(365\uff0c+inf]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6295\u8d44\u5929\u6570(365\uff0c+inf]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(0,5]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(0,5]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(5,6]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(5,6]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(6,7]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(6,7]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(7,8]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(7,8]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(8,9]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(8,9]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(9,10]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(9,10]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(10,+inf]\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u5e74\u5316\u6536\u76ca\u7387(10,+inf]\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u6700\u5c0f\u6295\u8d44\u91d1\u989d100\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6700\u5c0f\u6295\u8d44\u91d1\u989d100\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "\u6700\u5c0f\u6295\u8d44\u91d1\u989d10000\u4ea7\u54c1\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "\u6700\u5c0f\u6295\u8d44\u91d1\u989d10000\u4ea7\u54c1\u8d2d\u4e70\u91d1\u989d", "type": 1}, {"text": "8800\u4e13\u5c5e\u7406\u8d22\u8d2d\u4e70\u6b21\u6570", "type": 1}, {"text": "8800\u4e13\u5c5e\u7406\u8d22\u8d2d\u4e70\u91d1\u989d", "type": 1}]}, "\u63a5\u89e6\u7279\u5f81": {"id": 123, "text": "\u63a5\u89e6\u7279\u5f81", "children": [{"text": "\u6700\u8fd1\u4e00\u6b21\u6d3b\u52a8\u89e6\u8fbe\u8ddd\u4eca\u5929\u6570", "type": 1}, {"text": "\u6700\u8fd130\u5929\u6d3b\u52a8\u89e6\u8fbe\u6b21\u6570", "type": 1}, {"text": "\u6700\u8fd115\u5929\u6d3b\u52a8\u89e6\u8fbe\u6b21\u6570", "type": 1}, {"text": "\u6700\u8fd17\u5929\u6d3b\u52a8\u89e6\u8fbe\u6b21\u6570", "type": 1}]}, "\u5f00\u5b9d\u7bb1": {"id": 127, "text": "\u5f00\u5b9d\u7bb1", "children": [{"text": "\u5f00\u5b9d\u7bb1\u6b21\u6570", "type": 1}, {"text": "\u52a0\u606f\u603b\u91d1\u989d", "type": 1}, {"text": "\u5f00\u5927\u5b9d\u7bb1\u6b21\u6570", "type": 1}, {"text": "\u5927\u5b9d\u7bb1\u52a0\u606f\u603b\u91d1\u989d", "type": 1}, {"text": "\u8fd1N\u5929\u5f00\u5b9d\u7bb1\u6b21\u6570", "type": 1}, {"text": "\u8fd1N\u5929\u5f00\u5b9d\u7bb1\u52a0\u606f\u91d1\u989d", "type": 1}, {"text": "\u8fd1N\u5929\u5f00\u5927\u5b9d\u7bb1\u6b21\u6570", "type": 1}, {"text": "\u8fd1N\u5929\u5f00\u5927\u5b9d\u7bb1\u52a0\u606f\u91d1\u989d", "type": 1}]}, "\u91d1\u670d\u5229": {"id": 135, "text": "\u91d1\u670d\u5229", "children": [{"text": "\u7d2f\u79ef\u626b\u7801\u6b21\u6570", "type": 1}, {"text": "\u7d2f\u79ef\u53c2\u4e0e\u5f00\u5956\u6b21\u6570", "type": 1}, {"text": "\u7d2f\u79ef\u4e2d\u5956\u6b21\u6570", "type": 1}, {"text": "\u7d2f\u79ef\u4e2d\u5956\u91d1\u989d", "type": 1}, {"text": "\u8d2d\u4e70\u91d1\u670d\u5229\u4ea7\u54c1\u6b21\u6570", "type": 1}, {"text": "\u8d2d\u4e70\u91d1\u670d\u5229\u4ea7\u54c1\u91d1\u989d", "type": 1}, {"text": "\u9996\u6b21\u53c2\u4e0e\u65f6\u95f4", "type": 1}]}, "\u7403\u7c7b\u4ea7\u54c1": {"id": 142, "text": "\u7403\u7c7b\u4ea7\u54c1", "children": [{"text": "\u8d2d\u4e70\u7403\u8ff7\u4ea7\u54c1\u6b21\u6570", "type": 1}, {"text": "\u8d2d\u4e70\u7403\u8ff7\u4ea7\u54c1\u603b\u91d1\u989d", "type": 1}, {"text": "\u8d2d\u4e70\u593a\u91d1\u4ea7\u54c1\u6b21\u6570", "type": 1}, {"text": "\u8d2d\u4e70\u593a\u91d1\u4ea7\u54c1\u603b\u91d1\u989d", "type": 1}, {"text": "\u8d2d\u4e70\u5927\u8d62\u5bb6\u4ea7\u54c1\u6b21\u6570", "type": 1}, {"text": "\u8d2d\u4e70\u5927\u8d62\u5bb6\u4ea7\u54c1\u603b\u91d1\u989d", "type": 1}, {"text": "\u8d2d\u4e70\u5927\u8d62\u5bb6\u4ea7\u54c11000+\u6b21\u6570", "type": 1}, {"text": "\u8d2d\u4e70\u5927\u8d62\u5bb6\u4ea7\u54c11000-\u6b21\u6570", "type": 1}, {"text": "\u9996\u6b21\u8d2d\u4e70\u5927\u8d62\u5bb6\u4ea7\u54c1\u65f6\u95f4", "type": 1}, {"text": "\u9996\u6b21\u8d2d\u4e70\u593a\u91d1\u4ea7\u54c1\u65f6\u95f4", "type": 1}]}};
+
+            var d3 = [{
+                    groupId: 1
+                }];
+
+            var d2 = [{
+                    groupId: 1,
+                    nodes: [{
+                            title: "111",
+                            field: "",
+                            tags: ["1-1"]
+                        }]
+                }, {
+                    groupId: 2,
+                    nodes: [{
+                            title: "222",
+                            field: "",
+                            tags: ["2-1", "2-2", "2-3"]
+                        }]
+                }];
+
+            var hmenu = function (_id) {
+                var menu = function (id) {
+                    this.dataDomMap = {};
+                    this.id = id;
+                    this.clickHook;
+                };
+                menu.prototype = {
+                    constructor: menu,
+                    loadData: function (data) {
+                        this.data = data;
+                        this.render();
+                        return this;
+                    },
+                    render: function () {
+                        if (this.data.lenght <= 0) {
+                            console.debug("data is empty");
+                            return;
+                        }
+                        $("#" + this.id).append(this.makeUl(this.data, true));
+                        //console.debug($("#" + this.id).html());
+                    },
+                    makeUl: function (data, show, parentText) {
+                        //console.debug(data.length);
+                        var rootUl = $("<ul></ul>");
+                        for (var i = 0; i < data.length; i++) {
+                            var text = data[i].text;
+                            var li = $("<li></li>");
+                            var leaf;
+                            if (data[i].type === "input") {
+                                leaf = $("<input type='text' class='li-input-text' placeholder='" + data[i].placeholder + "' />");
+                                li.append(leaf);
+                                var oldText = leaf.attr("data-text");
+                                oldText.replace(text, "");
+                                leaf.attr("data-text", text + oldText);
+                                leaf.blur({hook: this.clickHook, a: leaf}, function (e) {
+                                    e.data.hook(e.data.a);
+                                });
+                            } else {
+                                leaf = $("<a>" + text + "</a>");
+
+                                li.append(leaf);
+                                var hasChildren = data[i].children;
+                                leaf.click({hook: this.clickHook, hasChildren: hasChildren, a: leaf}, function (e) {
+                                    var ul = $(this).parent().find("ul:first");
+                                    if (ul.length > 0) {
+                                        if (ul.css("display") === "none") {
+                                            $(this).parents("li").each(function () {
+                                                $(this).find("ul:first").slideDown();
+                                            });
+                                        } else {
+                                            $(this).parent().find("ul:first").slideUp();
+                                        }
+
+                                    }
+
+                                    if (e.data.hook && !e.data.hasChildren)
+                                        e.data.hook(e.data.a);
+
+                                });
+                                if (hasChildren) {
+                                    li.append(this.makeUl(data[i].children, false, text));
+                                } else {
+                                    leaf.attr("data-text", text);
+                                }
+                            }
+
+
+                            rootUl.append(li);
+                            this.dataDomMap[text] = leaf;
+
+                            if (parentText) {
+                                leaf.parentText = parentText;
+                            }
+
+
+                        }
+                        if (!show)
+                            rootUl.hide();
+                        return rootUl;
+                    },
+                    setClickHook: function (func) {
+                        this.clickHook = func;
+                    }
+                };
+                return new menu(_id);
+            };
+
+            var m, groups;
+            $(function () {
+                m = hmenu("menu");
+                m.setClickHook(aa);
+                m.loadData(d);
+                groups = htagGroups("right");
+                groups.setClickHook(bb);
+                groups.loadData(d2);
+
+                
+
+            });
+
+            var aa = function (a) {
+                if (!groups.activeGroup) {
+                    alert("先选择一个 group");
+                    return;
+                }
+                var text = a.text();
+                if (a[0].tagName === "INPUT") {
+                    var node = groups.dataDomMap[groups.activeGroup.id][a.parentText];
+                    if (node) {
+                        node.remove();
+                        delete groups.dataDomMap[groups.activeGroup.id][a.parentText];
+                    }
+                    text = a.val();
+                    if (text.length === 0)
+                        return;
+                    a.attr("data-text", text);
+                }
+                groups.addTag(groups.activeGroup.id, a.parentText, text);
+
+            };
+
+            var htagGroups = function (_id) {
+                var groups = function (id) {
+                    this.dataDomMap = {};
+                    this.root = $("#" + id);
+                    this.self = this;
+                    this.activeGroup = null;
+                };
+                groups.prototype = {
+                    constructor: groups,
+                    loadData: function (data) {
+                        this.data = data;
+                        this.render();
+                        return this;
+                    },
+                    render: function () {
+                        this.addGroups(this.data);
+                    },
+                    addGroups: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var groupWrapper = $("<div></div>");
+                            var groupId = $("<div>" + data[i]["groupId"] + "</div>");
+                            var delBut = $("<input type='button' value='删除' />");
+                            var groupDel = $("<div></div>").append(delBut);
+                            var group = $("<div></div>");
+                            //Object.getOwnPropertyNames(a).length
+                            this.dataDomMap[data[i]["groupId"]] = group;
+                            groupId.addClass("group-id").appendTo(groupWrapper);
+                            group.addClass("group").appendTo(groupWrapper);
+                            groupDel.addClass("group-del").appendTo(groupWrapper);
+                            groupWrapper.addClass("group-wrapper").appendTo(this.root);
+                            var nodes = data[i]["nodes"];
+
+                            groupWrapper.click({gs: this.self, gid: data[i]["groupId"], dm: this.dataDomMap}, function (e) {
+                                e.data.gs.activeGroup = e.data.dm[e.data.gid];
+                                e.data.gs.activeGroup.id = e.data.gid;
+                                $(this).css("background-color", "#ddd").siblings().css("background-color", "#fff");
+
+                                var pros = Object.getOwnPropertyNames(e.data.dm[e.data.gid]);
+                                for (var i = 0; i < pros.length; i++) {
+                                    if (pros[i] === "0" || pros[i] === "length" || pros[i] === "id")
+                                        continue;
+                                    console.debug(pros[i]);
+                                    var pros1 = Object.getOwnPropertyNames(e.data.dm[e.data.gid][pros[i]]);
+                                    for (var j = 0; j < pros1.length; j++) {
+                                        if (pros1[j] === "0" || pros1[j] === "length" || pros1[j] === "prevObject" || pros1[j] === "context")
+                                            continue;
+                                        //console.debug(pros1[j]);
+                                        //console.debug(m.dataDomMap[pros[i]]);
+                                        var n = m.dataDomMap[pros[i]].parent().find("[data-text='" + pros1[j] + "']").first();
+                                        //console.debug(n[0].tagName);
+                                        if (n[0] && n[0].tagName === "INPUT") {
+                                            n.val(pros1[j]);
+                                        }
+                                    }
+                                }
+
+                                //hmenu.dataDomMap[e.data.dm[e.data.gid]]
+                            });
+                            delBut.click({group: groupWrapper, gid: data[i]["groupId"], dm: this.dataDomMap}, function (e) {
+                                e.data.group.remove();
+                                console.debug(e.data.dm);
+                                delete e.data.dm[e.data.gid];
+                                console.debug(e.data.dm);
+                            });
+
+                            if (!nodes)
+                                continue;
+                            for (var j = 0; j < nodes.length; j++) {
+                                var node = $("<div class='group-node'></div>").appendTo(group);
+                                node.append($("<span class='group-node-tags'>" + nodes[j]["title"] + ": </span>"));
+                                this.dataDomMap[data[i]["groupId"]][nodes[j]["title"]] = node;
+                                for (var k = 0; k < nodes[j]["tags"].length; k++) {
+                                    //console.debug(nodes[j]["tags"][k]);
+                                    if (k === 0) {
+                                        var tag = $("<span class='group-node-tags'>" + nodes[j]["tags"][k] + "</span>");
+                                        node.append(tag);
+                                        this.dataDomMap[data[i]["groupId"]][nodes[j]["title"]][nodes[j]["tags"][k]] = tag;
+                                    } else {
+                                        var tag = $("<span class='group-node-tags'>, " + nodes[j]["tags"][k] + "</span>");
+                                        node.append(tag);
+                                        this.dataDomMap[data[i]["groupId"]][nodes[j]["title"]][nodes[j]["tags"][k]] = tag;
+                                    }
+                                }
+                                this.nodeClick(node, nodes[j]["title"]);
+                            }
+
+                        }
+                    },
+                    addTag: function (gid, parentText, text) {
+                        if (!parentText)
+                            return;
+
+                        var node = this.dataDomMap[gid][parentText];
+                        //console.debug(node);
+                        if (!node) {
+                            var div = $("<div class='group-node' data-title='" + parentText + "'></div>");
+                            div.append("<span>" + parentText + ": </span>");
+                            var tag = $("<span>" + text + "</span>");
+                            div.append(tag);
+                            this.activeGroup.append(div);
+                            this.dataDomMap[gid][parentText] = div;
+                            this.dataDomMap[gid][parentText][text] = tag;
+
+                            this.nodeClick(div, parentText);
+                        } else {
+                            var tag = this.dataDomMap[gid][parentText][text];
+                            //console.debug(text);
+                            if (!tag) {
+                                var tag = $("<span>, " + text + "</span>");
+                                node.append(tag);
+                                this.dataDomMap[gid][parentText][text] = tag;
+                            } else {
+                                tag.remove();
+                                this.dataDomMap[gid][parentText][text] = undefined;
+                                var third = this.dataDomMap[gid][parentText].children("span:eq(2)");
+                                var second = this.dataDomMap[gid][parentText].children("span:eq(1)");
+                                //console.debug(second.html());
+                                if (second.length > 0) {
+                                    second.text(second.text().replace(/, /g, ""));
+                                } else if (second.length == 0) {
+                                    node.remove();
+                                    this.dataDomMap[gid][parentText] = undefined;
+                                }
+                            }
+                        }
+                    },
+                    nodeClick: function (node, title) {
+                        node.click({title: title, hook: this.clickHook}, function (e) {
+                            console.debug(e.data.title);
+                            e.data.hook(e.data.title);
+                        });
+                    },
+                    setClickHook: function (func) {
+                        this.clickHook = func;
+                    },
+                    addGroup: function () {
+                        var group = $("<div></div>");
+                        var length = Object.getOwnPropertyNames(this.dataDomMap).length;
+                        this.dataDomMap[++length] = group;
+                        group.addClass("group").appendTo(this.root);
+                    }
+
+                }
+                return new groups(_id);
+            };
+
+            var bb = function (title) {
+                //console.debug(title);
+                m.dataDomMap[title].click();
+            };
+
+        </script>
+    </head>
+    <body>  
+        <div style="margin:0 auto;width: 804px;height:600px;">
+            <div id="left">
+                <div id="menu">
+
+                </div>
+            </div>
+            <div id="right">
+
+            </div>
+        </div>
+    </body>
+</html>

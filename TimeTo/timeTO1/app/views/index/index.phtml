@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>恒大金服报表系统</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <style>
+            body{margin:0}
+            .page{display: none;width:100%;height:100%;position: relative;background-color: yellow;}
+            .page-current{display: block;width:100%;height:100%;position: relative}
+            .u-nav{
+            	width: inherit;
+            	height: 50px;
+            }
+            ol{
+            	float: left;
+            	width: 33%;
+            	margin: 0;
+            	padding: 0;
+            }
+            ol>span{
+            	display: block;
+            	cursor:pointer;
+            	line-height: 50px;
+            	text-align: center;
+            	border: 1px solid #85B7D9;
+            }
+            ol>span:hover{
+            	background-color:#00B5AD ;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page-group" style="margin: 0 auto;position: relative">
+            <div id="pageIndex" class="page page-current" style="background-color:#fff">
+                <div class="content" style="margin:0;padding:0;margin-top: 20px">
+                    asdfasdfas
+                </div>
+            </div>
+            <!-- pages -->
+            <div class="page" id='aaa'></div>
+            <div class="page" id='bbb'></div>
+        </div>
+    </body>
+     <script type='text/javascript' src='/js/jquery.min.js' charset='utf-8'></script>
+     <script>
+            $(document).ready(function(){
+                $(".page-group").width($(window).width()).height($(window).height());
+                var l = String(document.location);    //获取URL
+               // URL值!=null ?
+                if(l.indexOf("#") > -1){
+                    var p = l.split("#")[1];
+                    // 截取当前 '#'的锚点值
+                    loadPage(p);
+                }
+                createNav();
+            });
+            // 当前 锚点值 对应的 node.html() 不存在 或者 为空时，发送请求加载对应 Dom 的页面；
+            function loadPage(url) {
+                var html = $("#" + url).html(); 
+                if (!html || html.length === 0) {
+                    $.ajax({
+                        url: "/pages/" + url,
+                        async: false,
+                        type: 'POST',
+                        success: function (text, status) {
+                            $("#" + url).html(text);
+                        }
+                    });
+                }
+                changeURL(url);
+            }
+            // 重新拼接新的 URL，并删除创建新的导航栏；
+            function changeURL(url){
+                var l = String(document.location);
+                l = l.split("#")[0];
+                if(url < 0 || !url){
+                	// 当前条件是为了返回首页
+                	document.location = l;
+                }else{
+                	document.location = l + "#" + url;
+                } 
+                $("#" + url).addClass("page-current").removeClass("page").siblings().removeClass("page-current").addClass("page");
+                createNav();
+            }
+            // 导航栏操作
+            function createNav(){
+				var navItem;
+				 $.ajax({
+                        url: "/pages/nav",
+                        async: false,
+                        type: 'POST',
+                        success: function (text, status) {
+                            navItem=text;
+                        }
+                    });			
+            	// 删除旧的导航栏
+            	if($('.u-nav').children().length>0){
+            		$('.u-nav').remove();
+            	}
+            	// 创建新的导航栏
+            	$('.page-current').children('.content').before(navItem);
+            }
+        </script>
+</html>

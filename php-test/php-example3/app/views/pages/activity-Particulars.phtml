@@ -1,0 +1,223 @@
+<style>
+#pre-sql2{position:absolute;right: 150px;top:20px}
+.pre-sql{float:left;font-size:30px;line-height:35px;color:#fff}
+.pre-sql:hover{color:#F2F6FB;cursor: pointer}
+#activity-Particulars th ,#activity-Particulars td{min-width: 130px;max-width: 130px;}
+</style>
+<div class="activity clearfix">
+    <div class="right_box  in_left clearfix"style="width: 100%;">
+    	<!--  start  lable header-->
+    	<section class="borders lableContent">
+            <div class="aleft_box01" style="position:relative">
+	            <ul class=" aleft_ul01 clearfix">
+	                <li class="in_left">活动ID：<i id="_id"></i></li>
+	                <li>活动名称：<i class="show ellipsis"id="_name">新手大礼包到期</i></li>               
+	            </ul>
+	            <ul class="aleft_ul02 clearfix">
+	                <li class="in_left">最新执行日期：<i id="_create_time">20160623</i></li>
+	                <li class="in_left" style="width: 25%;">活动状态：<i id="_task_status">执行中</i></li> 
+	                <li class="in_left" style="width: 25%;">人群数量：<i id="_list_count"></i></li>             	
+	            </ul>
+	            <ul class="aleft_ul03 clearfix">
+	            </ul>
+                    <div id="pre-sql2" class="pre-sql">
+                        HQL
+                    </div>
+	        </div> 
+	        <!--  end lable header-->
+	        <!--  start lable content-->
+	        <div class="lablegroup">  
+	            <div id="lableGroup"></div>     
+	        </div> 	        
+        </section>
+        <!--  end lable content-->
+        <!-- Filtering the Records -->   
+        <div class="entries_group">        
+        	<p id="exclude" class="borders"><i>排除活动名单：</i></p>
+        </div> 
+        <!-- Filtering the Records -->   
+        <div class="entries_group">  
+        	<p id="contain" class="borders"><i>包含活动名单：</i></p>
+        </div>      
+        <hr/>
+        <!--  start the Activities in query -->
+        <article class="borders Activities_in_query">
+	        <!--  table nav  -->       
+			<nav class="table_nav" style="padding: 0;padding-top: 5px;height: 45px;">
+				<ul class="clearfix bottom" style="position: relative;">
+					<li class="in_left ma markup" onclick="tabSwitchover(this)"><a href="javascript:;" class="active">定期情况</a></li>
+					<li class="in_left ma" onclick="tabSwitchover(this)"><a href="javascript:;">活期情况</a></li>
+					<li class="in_left ma" onclick="tabSwitchover(this)"><a href="javascript:;">交易情况</a></li>
+					<span id="numberEntries" class="numberEntries"></span>
+				</ul>
+			</nav>  
+			<div class="content_table">											
+				<!-- start use situation number  -->
+				<section class="table_content showTab"id="atFixedPeriod">
+					<!--  start table header  -->	
+					<section class="table_scroll">		    
+						<div class="table-head">
+						    <table>
+						        <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+						        <thead>
+						            <tr class="searchTR">
+						        		<th id="issue_stamps1"class="coupons issue_stamps" colspan="3">
+						        			<i>发放</i>
+						        			<input type="text" name="" id="ddd" value="" class="dt startTime" placeholder="开始时间" style="max-width:100px ;" />
+					        				<i>到</i>
+						        			<input type="text" name="" id="" value="" class="dt endTime" placeholder="结束时间"  style="max-width:100px ;" />	        		
+					        			</th>
+						        		<th id="Use_coupons1" class="dates coupons Use_coupons" colspan="3">
+						        			<i>使用</i>
+						        			<input type="text" name="" id="" value="" class="dt startTime" placeholder="开始时间"  style="max-width:100px ;" />
+					        				<i>到</i>
+						        			<input type="text" name="" id="" value="" class="dt endTime" placeholder="结束时间"   style="max-width:100px ;"/>			        			
+						        		</th>
+						        		<th colspan="2"><i>仅查看</i><input type="text" name=""id="coupos1" class="names" value="" style="text-align:left"/><i>券</i></th>
+						        		<th >
+						        			<a href="javascript:;"onclick="dateJudge(this)" id="inquire1" class="inquire">查询</a>
+						        		</th>
+						        		<th>
+						        			<a href="javascript:;" id="cancel_query1" class="cancel_query" onclick="cancelQuery(this)" style="background-color: #ccc;cursor: no-drop;">取消查询</a>
+						        		</th>
+						        		<th>
+						        			<label for="zclip-ZeroClipboardMovie_1"><a href="javascript:;" class="ticket" onclick="javascript:method1(ticket)">导出</a></label>
+						        		</th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        	</tr>
+						        </thead>
+						    </table>
+						</div>
+						<!--  end table header  -->
+						<!--  start table content  -->
+						<div class="table-body">
+						 	<table class="use_situation" id="ticket">
+						       	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col/></colgroup>
+						        <tbody>						        	
+						        </tbody>						            
+							</table>
+						</div>	 
+				  	</section>	
+					<!--  end table content  -->  		
+					<!-- end use situation number  -->
+				</section>
+				<!-- start trading situation amount -->
+				<section class="table_content "id="dueOnDemand">
+				<!--  start table header  -->	
+					<section class="table_scroll">	    
+						<div class="table-head">
+						    <table>
+						        <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+						        <thead>
+						        	<tr class="searchTR">
+						        		<th id="issue_stamps2"class="coupons issue_stamps" colspan="3">
+						        			<i>发放</i>
+						        			<input type="text" name="" id="ddd" value="" class="dt startTime" placeholder="开始时间" style="max-width:100px ;" />
+					        				<i>到</i>
+						        			<input type="text" name="" id="" value="" class="dt endTime" placeholder="结束时间"  style="max-width:100px ;" />	        		
+					        			</th>
+						        		<th id="Use_coupons2" class="dates coupons Use_coupons" colspan="3">
+						        			<i>使用</i>
+						        			<input type="text" name="" id="" value="" class="dt startTime" placeholder="开始时间"  style="max-width:100px ;" />
+					        				<i>到</i>
+						        			<input type="text" name="" id="" value="" class="dt endTime" placeholder="结束时间"   style="max-width:100px ;"/>			        			
+						        		</th>
+						        		<th colspan="2"><i>仅查看</i><input type="text" name=""id="coupos2" class="names" value="" style="text-align:left"/><i>券</i></th>
+						        		<th >
+						        			<a href="javascript:;"onclick="dateJudge(this)" id="inquire2" class="inquire">查询</a>
+						        		</th>
+						        		<th>
+						        			<a href="javascript:;" id="cancel_query2" class="cancel_query" onclick="cancelQuery(this)" style="background-color: #ccc;cursor: no-drop;">取消查询</a>
+						        		</th>
+						        		<th>
+						        			<label for="zclip-ZeroClipboardMovie_1"><a href="javascript:;" class="ticket" onclick="javascript:method1(ticket)">导出</a></label>
+						        		</th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        		<th></th>
+						        	</tr>
+						        </thead>
+						    </table>
+						</div>
+						<!--  end table header  -->
+						<!--  start table content  -->
+						<div class="table-body">
+						 	<table class="trading_situation" id="trading">
+						       	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col/></colgroup>
+						        <tbody></tbody>						            
+							</table>
+						</div>
+					</section>	   		
+					<!--  end table content  -->
+				</section>
+				<!-- end trading situation amount -->	
+				<!-- start trading situation amount -->
+				<section class="table_content "id="trading_situation">
+				<!--  start table header  -->	
+					<section class="table_scroll">	    
+						<div class="table-head">
+						    <table>
+						        <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+						        <thead>
+						        	<tr class="searchTR">
+						        		<th><i>从</i>
+						        			<input type="text" name="" id="" value=""class="dt startTime" placeholder="开始时间" />
+					        			</th>
+						        		<th class="dates">
+						        			<i>到</i>
+						        			<input type="text" name="" id="" value="" class="dt endTime" placeholder="结束时间" />			        			
+						        		</th>
+						        		<th colspan="3" ><i>仅查看</i><input type="text" name="" id="procs3" class="names" value="" style="width: 200px;"/><i>产品</i></th>
+						        		<th >
+						        			<a href="javascript:;" onclick="dateJudge(this)" id="inquire3" class="inquire">查询</a>
+						        		</th>
+						        		<th >
+						        			<a href="javascript:;" id="cancel_query3" class="cancel_query" onclick="cancelQuery(this)" style="background-color: #ccc;cursor: no-drop;">取消查询</a>
+						        		</th>
+						        		<th >
+						        			<label for="ZeroClipboardMovie_2"><a href="javascript:;" class="trading"onclick="javascript:method1(trading)">导出</a></label>
+						        		</th>
+						        	</tr>
+						        </thead>
+						    </table>
+						</div>
+						<!--  end table header  -->
+						<!--  start table content  -->
+						<div class="table-body">
+						 	<table class="trading_situation" id="trading">
+						       	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col/></colgroup>
+						        <tbody></tbody>						            
+							</table>
+						</div>
+					</section>	   		
+					<!--  end table content  -->
+				</section>
+				<!-- end trading situation amount -->	
+			</div>
+		</article>
+		<!--  end the Activities in query -->
+    </div>
+</div>
+<div id="activity_List"></div>
+<script type="text/javascript" src="/js/addtags2.js"></script>
+<script type="text/javascript" src="/js/event-detail.js"></script>

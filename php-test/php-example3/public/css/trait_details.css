@@ -1,0 +1,88 @@
+#trait_detail{
+	overflow-x:auto;
+}
+#trait_detail .content_table{
+  	overflow-x:hidden;
+}
+#trait_detail i{
+	width: 100%;
+	padding: 0 5px;
+	box-sizing: border-box;
+}
+#trait_detail table{
+   width:auto;
+}
+#trait_detail tr{
+	width: auto;
+	height:50px !important;
+	font-size: 14px;	        	
+}
+#trait_detail th, #trait_detail td{
+	position: relative;	        	
+	float: left;
+	width: 130px;
+	height:100%;
+	padding: 0 5px;
+	margin-left: -1px;
+	box-sizing: border-box;
+}
+#trait_detail tr,#trait_detail th,#trait_detail td{
+	display: block;
+	overflow: hidden;
+}	        
+#trait_detail .table-head th{
+	padding-right: 17px;	  
+	font-size: 15px;	       	
+}
+#trait_detail .table-head tr th:nth-child(1),#trait_detail tr td:nth-child(1){
+	width: 150px;
+	margin: 0;
+}  
+#trait_detail .table-head span{
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/* sort button */
+#trait_detail .sort_item,#trait_detail .sort img{
+   	position: absolute;
+    display: block;
+}
+#trait_detail .sort_item{
+	width: 30px;
+	height: 100%;
+	top: 0;
+	right: 0;
+	z-index: 2;
+}
+#trait_detail .sort{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 50%;
+	float: left;
+}
+#trait_detail .sort img{	        	
+	width: 14px;
+	height: 8px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+}
+#trait_detail .positiveSequence:before{
+    position: absolute;
+    content: "";
+	border: 10px solid transparent;
+	border-bottom: 1px solid white;
+	bottom: 0;
+	left: 5px;
+}
+#trait_detail .positiveSequence img{
+	top: 20%;
+}	 
+#trait_detail .Reverse_order img{
+	top: -20%;
+}       

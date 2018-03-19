@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <!-- Site Properties -->
+        <title>HChart</title>
+
+        <link rel="stylesheet" type="text/css" href="/js/c3.css">
+        <link rel="stylesheet" type="text/css" href="/js/semantic/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui.min.css">
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/jquery-ui.min.js"></script>
+        <script src="/js/semantic/semantic.min.js"></script>
+
+        <script src="/js/d3.v3.min.js"></script>
+        <script src="/js/c3.js"></script>
+
+        <script src="/js/semantic/semantic.min.js"></script>
+
+        <script src="/js/tools.js"></script>
+
+
+
+        <style type="text/css">
+            body{width:100%;height:100%;margin:0;padding:0;}
+
+            #monitor-main-sidebar, #monitor-main-content{float: left;}
+            #setting-main-sidebar, #setting-main-content{float: left;}
+
+            .active1{background-color: #0087ba;}
+
+            #nav span{display:inline-block;cursor: pointer;line-height:30px;height: 30px;text-align:center;margin:0 8px 0 8px}
+            #nav span b{padding-bottom: 3px;text-align: center;}
+
+            /*            .active-nav{color:#0E6EB8;background-color:#fff}
+                        .no-active-nav{color:#cccccc;background-color:#0E6EB8}*/
+            .active-nav{color:#fff;border-bottom: 2px solid red}
+            .no-active-nav{color:#cccccc;border:none}
+            
+        </style>
+        <script>
+            var links = [];
+            var mainHeight;
+            var mainWidth;
+            $(document).ready(function () {
+                var w = $(window).width();
+                var h = $(window).height();
+                
+                $("#top").width(w);
+                $("#top").height(100);
+
+                $("#main").width(w);
+                $("#main").height(h - $("#top").height());
+
+                mainHeight = $("#main").height();
+                mainWidth = w;
+
+                $("#nav span").click(function () {
+                    var link = $(this).attr("data-link");
+                    var linkNodes = $("#main").children("#" + link);
+                    if (linkNodes.length !== 0) {
+                        $("#" + link).show(300).siblings().hide(100);
+                    } else {
+                        $.ajax({
+                            url: "/phtml/" + link,
+                            async: true,
+                            type: 'POST',
+                            //data: $('#oracle-tab-panel-form').serialize(),
+                            beforeSend: function (XMLHttpRequest) {
+                            },
+                            success: function (text, textStatus) {
+                                $("#main>div").hide(100);
+                                $("#main").append(text);
+                            }
+                        });
+                    }
+                    $(this).addClass("active-nav").removeClass("no-active-nav");
+                    $(this).siblings().addClass("no-active-nav").removeClass("active-nav");
+                });
+                $("#default_span").trigger("click");
+            });
+            //new Date().format("yyyy-MM-dd");
+            //console.debug(new Date().add("d", -9));
+        </script>
+    </head>
+    <body>  
+        <div id="content">
+            <div id="top" style="background-color: #0E6EB8;">
+                <div style="font-weight:bold;font-size: 30px;color: #fff;padding: 35px;float:left;">
+                    恒大金服实时报表
+                </div>
+                <div id="nav" style="float:left;margin: 50px 0 0 100px;font-size: 15px;font-weight:bold;color:#cccccc;">
+                    <span data-link="amount" id="default_span"><b>交易额</b></span>
+                    <span data-link="dealcount"><b>交易人数</b></span>
+                    <span data-link="registercount"><b>注册人数</b></span>
+                    <span data-link="daysamount"><b>每日交易量</b></span>
+                    <span data-link="nightamount"><b>夜间交易量</b></span>
+                </div>
+            </div>
+            <div id="main" class="">
+                
+            </div>
+        </div>
+    </body>
+
+</html>
