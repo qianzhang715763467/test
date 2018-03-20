@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> E-buy</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="light7/light7.min.css" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			$.config = {
+				autoInit: true //no recommend
+			}
+		</script>
+		<script src="light7/light7.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 扩展包组件对应文件-->
+		<link rel="stylesheet" type="text/css" href="light7/light7-swiper.min.css"/>
+		<script type="text/javascript" charset="utf-8"src="light7/light7-swiper.min.js" ></script>
+		<style type="text/css">
+			/* 通用 */
+			.title12{
+				margin: 0;
+				margin-top: .2rem;
+				font-size: .5rem;
+				color: #999;
+				font-weight: 100;
+			}
+			.content{
+				bottom: 2.5rem;
+			}
+			
+			#home-sidebar {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				display: inline-block;
+			}
+			
+			#home-sidebar>a {
+				padding-top: .1rem;
+				padding-bottom: 0;
+				margin-right: .1rem;
+				background-color: transparent;
+				color: #3d4145;
+			}
+			
+			#home-sidebar .cityName {
+				font-size: .7rem;
+				color: #6d6d72;
+				border: none;
+				margin: 0;
+				padding: 0;
+				padding-top: .1rem;
+			}
+			
+			.title-query {
+				top: 0;
+				left: 5.5rem;
+				width: 60%;
+			}
+			
+			.title-query .searchbar {
+				background-color: transparent;
+			}
+			/* 地址选择 */
+			#home-sidebar #city-picker{
+				font-size: .5rem;
+				max-width: 2.4rem;
+			}
+			.picker-modal-inner.picker-items{
+				font-size: .9rem;
+			}
+			/* query btn*/
+			.title-query .searchbar .searchbar-cancel{
+				font-size: .7rem;
+				color: #0894ec;
+			}
+			/* query input*/
+			.title-query .searchbar #search{
+				border-radius: 50px;
+				border: 1px solid #dfdfdf;
+			}
+			/* 今日主推 */
+			.recommend{
+				width: 100%;
+				height: 3.7rem;
+				padding: .5rem;
+				background-color: #fff;
+			}
+			.recommend .r-title{
+				position: relative;
+				text-align: left;
+				font-size: .85rem;
+				margin-bottom: 0;
+			}
+			.recommend .swiper-count{
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 50px;
+				line-height: 3.2rem;
+				font-size: 1rem;
+			}
+			.recommend .swiper-count .swiper-count-old{
+				font-size: .5rem;
+				color: #999;
+			}
+			/* swiper */
+			.swiper-container{
+				height: calc(100vh - 15.5rem);
+			}
+			.swiper-container .swiper-card{
+				height: 100%;
+			}
+			.swiper-card-content{
+				position: absolute;
+			    bottom: -30px;
+			    width: 100%;
+			    background-color: white;
+			    font-size: .5rem;
+			}
+			.swiper-card-content .card-content-inner{
+				padding: 0.3rem;
+    			padding-left: .75rem;
+			}
+			.swiper-card-content .card-content-inner p{
+				margin: .1rem 0;
+			}
+			.swiper-card-content .card-content-inner .color-bold{
+				font-weight: 600;
+			}
+			.imgVW{
+				width: 100%;
+			}
+			
+			/* entry-nav */
+			.entry-nav{
+				position: relative;
+				background-color: white;
+				margin: 0;
+				padding: .75rem;
+				border-top: 1px solid #f2f2f2;
+			}
+			.entry-nav .title12{
+				text-align: center;
+				margin-top: .5rem;
+				margin-bottom: .75rem;
+			}
+			.entry-nav .bar-tab{
+				position: relative;
+				border: none;
+			}
+			.entry-nav .tab-item{
+				color: #0894ec;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page">
+			<header class="bar bar-nav">
+				<div class="content-block <!--open-panel-->" id="home-sidebar" data-panel='#panel-left-demo'>
+					<a href="#" class=" icon icon-app pull-left button button-fill"></a>
+		      		<input type="text" class="cityName pull-left button" id='city-picker' value="浙江 杭州 拱墅区" />
+					<span class="icon icon-caret" style="font-size: .5rem;line-height: 2.2rem;"></span>
+				</div>
+				<div class="bar title-query">
+					<div class="searchbar">
+						<a class="searchbar-cancel">搜索</a>
+						<div class="search-input">
+							<label class="icon icon-search" for="search"></label>
+							<input type="search" id='search' placeholder='输入商品名、商家名、商圈...' />
+						</div>
+					</div>
+				</div>
+				<span class="icon icon-code" style="right: .5rem;position: absolute;color:#0894ec ;"></span>
+			</header>
+			<!-- start content -->
+			<div class="content">
+				<header class="recommend">
+					<h1 class="r-title">今日主推</h1>
+					<h6 class="title12">每日上新、精选好物、限时折扣</h6>
+					<div class="swiper-count">
+						<i class="swiper-show-count">1</i><!-- swiper.min.js 152 -->
+						<i class="swiper-count-old">/</i>
+						<i class="swiper-count-old">3</i>
+					</div>
+				</header>
+				<!-- swiper -->
+				<div class="swiper-container" data-space-between='10' data-pagination='.swiper1-pagination' data-autoplay="1000">
+				  	<div class="swiper-wrapper">
+					    <div class="swiper-slide">
+					    	<div class=" demo-card-header-pic swiper-card">
+								<div valign="bottom" class="card-header color-white no-border no-padding">
+									<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
+								</div>
+								<div class="swiper-card-content">
+									<div class="card-content-inner">
+										<p class="color-bold">精选商品特卖上新 抄底价限时秒杀</p>
+										<p class="color-gray">超级福利限时24小时 满130减50、满240减100</p>
+									</div>
+								</div>
+							</div>
+					    </div>
+					    <div class="swiper-slide">
+					    	<div class=" demo-card-header-pic swiper-card">
+								<div valign="bottom" class="card-header color-white no-border no-padding">
+									<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
+								</div>
+								<div class="swiper-card-content">
+									<div class="card-content-inner">
+										<p class="color-bold">尖货秒杀 本周潮流速递</p>
+										<p class="color-gray">上新48小时 9折</p>
+									</div>
+								</div>
+							</div>
+					    </div>
+					    <div class="swiper-slide">
+					    	<div class=" demo-card-header-pic swiper-card">
+								<div valign="bottom" class="card-header color-white no-border no-padding">
+									<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
+								</div>
+								<div class="swiper-card-content">
+									<div class="card-content-inner">
+										<p class="color-bold">15°冰镇鲜瓜 你的身体现在就要 Hey Juice</p>
+										<p class="color-gray">满99减30 </p>
+									</div>
+								</div>
+							</div>
+					    </div>
+				  	</div>
+				  	<p class="swiper1-pagination"></p>
+				</div>
+				
+				<!-- 导航 -->
+				<div class="list-block entry-nav">
+					<h1 class="title12">品质、格调、一站搜罗</h1>
+					<nav class="bar bar-tab">
+						<a href="##" class="tab-item">
+							<span class="icon icon-gift"></span>
+							<span class="tab-label">精选好物</span>
+						</a>
+						<a href="##" class="tab-item">
+							<span class="icon icon-gift"></span>
+							<span class="tab-label">家居</span>
+						</a>
+						<a href="##" class="tab-item">
+							<span class="icon icon-gift"></span>
+							<span class="tab-label">下午茶</span>
+						</a>
+						<a href="##" class="tab-item">
+							<span class="icon icon-gift"></span>
+							<span class="tab-label">美妆</span>
+						</a>
+					</nav>
+				</div>
+				<div class="card">
+					<div class="card-header">新的公布:</div>
+					<div class="card-content">
+						<div class="list-block media-list">
+							<ul>
+								<li class="item-content">
+									<div class="item-media">
+										<img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
+									</div>
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">标题</div>
+										</div>
+										<div class="item-subtitle">子标题</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card-footer">
+						<span>2015/01/15</span>
+						<span>5 评论</span>
+					</div>
+				</div>
+				<div class="card">
+					<div style="background-image:url(http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg)" valign="bottom" class="card-header color-white no-border">旅途的山</div>
+					<div class="card-content">
+						<div class="card-content-inner">
+							<p class="color-gray">发表于 2015/01/15</p>
+							<p>此处是内容...</p>
+						</div>
+					</div>
+					<div class="card-footer">
+						<a href="#" class="link">赞</a>
+						<a href="#" class="link">更多</a>
+					</div>
+				</div>
+				<div class="card demo-card-header-pic">
+					<div valign="bottom" class="card-header color-white no-border no-padding">
+						<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" alt="">
+					</div>
+					<div class="card-content">
+						<div class="card-content-inner">
+							<p class="color-gray">发表于 2015/01/15</p>
+							<p>此处是内容...</p>
+						</div>
+					</div>
+					<div class="card-footer">
+						<a href="#" class="link">赞</a>
+						<a href="#" class="link">更多</a>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-content">
+						<div class="list-block media-list">
+							<ul>
+								<li class="item-content">
+									<div class="item-media">
+										<img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
+									</div>
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">标题</div>
+										</div>
+										<div class="item-subtitle">子标题</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card-footer">
+						<span>2015/01/15</span>
+						<span>5 评论</span>
+					</div>
+				</div>
+				<div class="card facebook-card">
+					<div class="card-header no-border">
+						<div class="facebook-avatar"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="34" height="34"></div>
+						<div class="facebook-name">夜萧</div>
+						<div class="facebook-date">星期一 3:47pm</div>
+					</div>
+					<div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"></div>
+					<div class="card-footer no-border">
+						<a href="#" class="link">赞</a>
+						<a href="#" class="link">评论</a>
+						<a href="#" class="link">分享</a>
+					</div>
+				</div>
+				...
+			</div>
+			<nav class="bar bar-tab">
+				<a href="##" class="tab-item active">
+					<span class="icon icon-home"></span>
+					<span class="tab-label">首页</span>
+				</a>
+				<a href="##" class="tab-item">
+					<span class="icon icon-me"></span>
+					<span class="tab-label">我</span>
+				</a>
+				<a href="##" class="tab-item">
+					<span class="icon icon-star"></span>
+					<span class="tab-label">收藏</span>
+				</a>
+				<a href="##" class="tab-item">
+					<span class="icon icon-settings"></span>
+					<span class="tab-label">设置</span>
+				</a>
+			</nav>
+		</div>
+		<!-- Left Panel with Reveal effect -->
+		<div class="panel panel-left panel-reveal theme-dark" id='panel-left-demo'>
+			<div class="content-block">
+				<p>这是一个侧栏</p>
+				<div class="list-block">
+					<div class="list-block contacts-block"></div>
+				</div>
+				<p>
+					<a href="#" class="close-panel">关闭</a>
+				</p>
+			</div>
+	</body>
+	<script src="city-picker.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var obj = {
+			sidebarBox: '.contacts-block',
+			sidebarData: {
+				"A": ['安庆', '安康', '安阳', '安顺', '鞍山', '澳门'],
+				"B": ['保定', '宝鸡', '包头', '巴中', '北京', '亳州'],
+				"C": ['长春', '长沙', '朝阳', '承德', '重庆', '滁州']
+			},
+			sidebarMount: function() {
+				var self = this;
+				for(var i in self.sidebarData) {
+					var div = '<div class="list-group"><ul><li class="list-group-title">' + i + '</li></ul></div>';
+					var dom = $(div);
+					for(var n = 0; n < self.sidebarData[i].length; n++) {
+						var li = '<li>' +
+							'<div class="item-content close-panel">' +
+							'<div class="item-inner">' +
+							'<div class="item-title">' + self.sidebarData[i][n] + '</div>' +
+							'</div>' +
+							'</div>' +
+							'</li>';
+						dom.children().append(li);
+					};
+					$(self.sidebarBox).append(dom);
+				}
+			}
+		};
+		obj.swiper = {
+			mondel : '<div class="swiper-slide">\
+				    	<div class=" demo-card-header-pic swiper-card">\
+							<div valign="bottom" class="card-header color-white no-border no-padding">\
+								<img class="card-cover" src="{{imgs}}" alt="">\
+							</div>\
+							<div class="swiper-card-content">\
+								<div class="card-content-inner">\
+									<p class="color-bold">{{title}}</p>\
+									<p class="color-gray">{{activity}}</p>\
+								</div>\
+							</div>\
+						</div>\
+				    </div>',
+		    dsipatch: function(){
+		    	var self = this;
+		    	function _Ajax (){
+		    		$.ajax({
+		    			type:"get",
+		    			url:"01-01.json",
+		    			async:true,
+		    			success:function(req){
+		    				if(!req)return;
+		    				doResult(req);
+		    			}
+		    		});
+		    	}
+		    	// callback , 处理数据
+		    	function doResult(data){
+		    		for(var i = 0;i < data.length; i++){
+		    			var obj = self.mondel;
+		    			for(var n in data[i]){
+		    				var str = "{{"+n+"}}";
+		    				obj = obj.replace(str,data[i][n]);
+		    			}
+		    		}
+		    		return console.log(data);
+		    	}
+		    	_Ajax();
+		    },
+		    
+		};
+		
+		$(function() {
+			obj.sidebarMount();
+			obj.swiper.dsipatch();
+			$("#city-picker").cityPicker({
+		    	toolbarTemplate: '<header class="bar bar-nav">\
+		    		<button class="button button-link pull-right close-picker">OK</button>\
+		    		<h1 class="title">选择地址</h1>\
+		    	</header>'
+		  	});
+		});
+
+		$(document).on("click", "#panel-left-demo .close-panel", function() {
+			$('.cityName').text($(this).text());
+		});
+	</script>
+
+</html>

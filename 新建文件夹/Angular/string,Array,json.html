@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-app="">
+			<p ng-init="firstName='Qian';lastName='Zhang'"></p>
+			姓名：<i>{{firstName+" "+lastName}}</i>
+			
+			<p ng-init="persons={firstName:'Qian',lastName:'Zhang'}"></p>
+			姓名：<i ng-bind='persons.firstName+" "+persons.lastName'></i>
+			
+			<p ng-init="person=['I','like','you']"></p>
+			<h1 ng-bind="person[0]+' '+person[1]+' '+person[2]"></h1>
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+</html>

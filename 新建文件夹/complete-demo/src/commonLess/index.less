@@ -1,0 +1,46 @@
+.h(@px){           //函数
+height:@px;
+}
+.w(@px){
+    width:@px;
+}
+.f-l(@f){
+    float:@f;
+}
+.l-h(@px){
+    line-height:@px;
+}
+.m-b(@px){
+    margin-bottom:@px;
+}
+.m-l(@px){
+    margin-left:@px;
+}
+.m(@px){
+    margin:@px;
+}
+.t-a(@t){
+    text-align:@t;
+}
+@colorBlue:#5d90c3;   //变量
+@colorDarkBlue:darkblue;
+@colorPink:pink;
+@colorWhite:#fff;
+@colorblack:#000;
+@colorred:red;
+
+html,body{
+    .h(100%);
+    .w(100%);
+}
+ul,li{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style:none;
+}
+a{
+    text-decoration:none;
+    color:@colorWhite;
+}

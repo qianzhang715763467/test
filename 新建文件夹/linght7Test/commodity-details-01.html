@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>商品详情</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="iconFont/demo.css">
+    	<script src="iconFont/iconfont.js"></script>
+		<link rel="stylesheet" type="text/css" href="light7/light7.min.css" />
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			$.config = {
+				autoInit: true //no recommend
+			}
+		</script>
+		<script type="text/javascript" src="light7/light7.js"></script>
+		<!-- 扩展包组件对应文件-->
+		<link rel="stylesheet" type="text/css" href="light7/light7-swiper.min.css" />
+		<script type="text/javascript" src="light7/light7-swiper.min.js"></script>
+		<!-- The independent style of my commodity-details.html -->
+		<link rel="stylesheet" type="text/css" href="css/commodity-details.css"/>
+	</head>
+	<body>
+		<div class="page" id="commodity-details">
+			<header class="bar bar-nav">
+				<button class="button button-link button-nav pull-left">
+			    <span class="icon icon-left"></span>
+			  </button>
+				<div class="buttons-row">
+					<a href="#tab1" class="tab-link active button">单品</a>
+					<a href="#tab2" class="tab-link button">详情</a>
+				</div>
+			</header>
+			<div class="content">
+				<div class="content-block">
+					<div class="tabs">
+						<div id="tab1" class="tab active">
+							<!-- 图片 介绍 -->
+							<div class="content-block">
+								<!-- swiper -->
+								<div class="swiper-container" data-space-between='10' data-pagination='.swiper2-pagination' data-autoplay="1000">
+									<div class="swiper-wrapper">
+										<div class="swiper-slide">
+											<div class=" demo-card-header-pic swiper-card">
+												<div valign="bottom" class="card-header color-white no-border no-padding">
+													<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="swiper-slide">
+											<div class=" demo-card-header-pic swiper-card">
+												<div valign="bottom" class="card-header color-white no-border no-padding">
+													<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="swiper-slide">
+											<div class=" demo-card-header-pic swiper-card">
+												<div valign="bottom" class="card-header color-white no-border no-padding">
+													<img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
+												</div>
+											</div>
+										</div>
+									</div>
+									<p class="swiper2-pagination"></p>
+								</div>
+								<!-- commodity parameters -->
+								<div class="card" id="parameters">
+									<div class="card-header">
+										柔和一片式拼接上衣
+										<p style="margin: 0;color: #929292;font-size: .5rem;"></p>
+									</div>
+									<div class="card-content">
+										<div class="card-content-inner">
+											<p class="card-content-inner-text commodity-currentPrice">￥139</p>
+											<span id="" style="float: left;width: 15px;font-size: 1rem;color: #000;">/</span>
+											<p class="color-gray card-content-inner-text  commodity-originalPrice">￥201</p>
+											<p style="margin: 0;">
+												<span class="icon" style="color: #ff6fbd;">❤</span>
+												<span class="tab-label">143</span>
+											</p>
+										</div>
+									</div>
+									<div class="card-footer">COTRE 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣</div>
+								</div>
+								<!-- commodity parameters -->
+								<div class="card introduction">
+									<div class="card-header">
+										<div class="title-bar">
+											<p>商品介绍</p>
+										</div>
+									</div>
+									<div class="card-footer">
+										COTRE 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣 独立设计 柔和肤粉 简洁一片式高领灵动拼纱小袖上衣
+									</div>
+								</div>
+								<!-- 评论  -->
+								<section class="card content-comment pages">
+									<div class="card-header">
+										<div class="title-bar">
+											<p>买家评论</p>
+										</div>
+									</div>
+									<div class="card-content comment-card infinite-scroll"  data-distance="100">
+										<div class="list-block media-list">
+											<ul class="list-container">
+											</ul>
+										</div>
+									</div>
+								</section>
+								<!-- preloader -->
+							    <div class="infinite-scroll-preloader">
+							        <div class="preloader"></div>
+							    </div>
+							</div>
+						</div>
+
+						<div id="tab2" class="tab">
+							<!-- 商品详情  -->
+							<div class="content-block">
+								<p>This is tab 2 content</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<nav class="bar bar-tab">
+				<a href="##" class="tab-item">
+					<span class="icon">❤</span>
+					<span class="tab-label">喜欢</span>
+				</a>
+				<a href="##" class="tab-item create-actions">
+					<span class="icon icon-share"></span>
+					<!--<svg class="icon iconFont FenXiang" aria-hidden="true">
+                        <use xlink:href="#icon-fenxiang"></use>
+                    </svg>-->
+					<span class="tab-label">分享</span>
+				</a>
+				<a href="##" class="tab-item" id="purchase">
+					去淘宝购买
+				</a>
+			</nav>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		// 分享
+		$(document).on('click', '.create-actions', function() {
+			var buttons1 = [{
+					text: '<div class="link-icon"><svg class="icon iconFont weChart" aria-hidden="true"><use xlink:href="#icon-weixin"></use></svg></div>微信',
+					bold: true,
+					color: 'decadence',
+					onClick: function() {
+						$.alert("你选择了“卖出“");
+					}
+				},
+				{
+					text: '<div class="link-icon"><svg class="icon iconFont PengYouQuan" aria-hidden="true"><use xlink:href="#icon-pengyouquan"></use></svg></div>朋友圈',
+					bold: true,
+					color: 'decadence',
+					onClick: function() {
+						$.alert("你选择了“卖出“");
+					}
+				},
+				{
+					text: '<div class="link-icon"><svg class="icon iconFont" aria-hidden="true"><use xlink:href="#icon-QQ"></use></svg></div>QQ',
+					onClick: function() {
+						$.alert("你选择了“买入“");
+					}
+				},
+				{
+					text: '<div class="link-icon"><svg class="icon iconFont Qzone" aria-hidden="true"><use xlink:href="#icon-qqkongjian"></use></svg></div>Qzone',
+					bold: true,
+					color: 'decadence',
+					onClick: function() {
+						$.alert("你选择了“卖出“");
+					}
+				},
+				{
+					text: '<div class="link-icon"><svg class="icon iconFont" aria-hidden="true"><use xlink:href="#icon-weibo"></use></svg></div>微博',
+					bold: true,
+					color: 'decadence',
+					onClick: function() {
+						$.alert("你选择了“卖出“");
+					}
+				},
+				{
+					text: '<div class="link-icon"><svg class="icon iconFont" aria-hidden="true"><use xlink:href="#icon-lianjie"></use></svg></div>复制链接',
+					bold: true,
+					color: 'decadence',
+					onClick: function() {
+						$.alert("你选择了“卖出“");
+					}
+				}
+			];
+			var buttons2 = [{
+				text: '取消',
+				bg: 'danger'
+			}];
+			var groups = [buttons1, buttons2];
+			$.actions(groups);
+		});
+		
+		
+		var loading = false;
+	    var maxItems = 100;
+	
+	    var itemsPerLoad = 20;
+	
+	    function addItems(number, lastIndex) {
+	            var html = '';
+	            for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
+	                html += '<li class="item-content">\
+								<div class="item-media">\
+									<img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">\
+								</div>\
+								<div class="item-inner">\
+									<div class="item-title-row">\
+										<div class="item-title">标题</div>\
+									</div>\
+									<div class="item-subtitle">☆☆☆☆☆</div>\
+								</div>\
+								<div class="card-footer">\
+									<section class="card-footer-content">\
+										<span>2015/01/15</span>\
+										<span>5 评论</span>\
+									</section>\
+								</div>\
+								<span class="comment-time">\
+									2015-01-15\
+									<svg class="icon iconFont iconTime" aria-hidden="true">\
+				                        <use xlink:href="#icon-shijian"></use>\
+				                    </svg>\
+			                    </span>\
+							</li>';
+	            }
+	            $('#commodity-details .list-container').append(html);
+	
+	        }
+	    addItems(itemsPerLoad, 0);
+	
+	
+	    var lastIndex = 20;
+	
+	    $('#commodity-details .content').scroll(function(){
+			if(!$('.pages').is(':hidden')){
+				var h = $('.pages').height()+160;
+				if($(this).scrollTop() > h){
+					// 如果正在加载，则退出
+			        if (loading) return;
+			        // 设置flag
+			        loading = true;
+			        setTimeout(function() {
+			            loading = false;
+			            if (lastIndex >= maxItems) {
+			                $.detachInfiniteScroll($('#commodity-details .infinite-scroll'));
+			                $('#commodity-details .infinite-scroll-preloader').remove();
+			                return;
+			            }
+			            addItems(itemsPerLoad, lastIndex);
+			            lastIndex = $('#commodity-details .list-container li').length;
+			        }, 1000);
+				}
+			}
+		})
+	</script>
+
+</html>

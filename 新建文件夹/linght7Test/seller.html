@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> 商户中心 </title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="iconFont/demo.css">
+		<link rel="stylesheet" type="text/css" href="light7/light7.min.css" />
+		<link rel="stylesheet" type="text/css" href="light7/light7-swiper.min.css" />
+		<!-- 扩展包组件对应文件-->
+
+		<script type="text/javascript" src="iconFont/iconfont.js"></script>
+		<script type="text/javascript" src="../jquery-2.1.1.min.js"></script>
+		<script>
+			$.config = {
+				autoInit: true //no recommend
+			}
+		</script>
+		<script type="text/javascript" src="light7/light7.js"></script>
+		<script type="text/javascript" src="light7/light7-swiper.min.js"></script>
+		<!-- 扩展包组件对应文件-->
+		<style type="text/css">
+			a {
+				text-decoration: none !important;
+			}
+			
+			#seller {
+				background: url(image/sellerBg.jpg) no-repeat;
+				background-size: cover;
+			}
+			
+			#seller .content {
+				max-width: 1100px;
+				margin: 0 auto;
+				padding-top: 7rem;
+				background-color: rgba(255, 255, 255, .4);
+			}
+			
+			#seller .HeadPortrait {
+				position: relative;
+				background-color: transparent;
+				box-shadow: none;
+				margin-bottom: 0;
+				z-index: 1;
+			}
+			
+			#seller .HeadPortrait .card-content {
+				position: relative;
+				bottom: -1px;
+				z-index: 2;
+			}
+			
+			#seller .HeadPortrait .card-content-inner {
+				padding: .7rem 6.7rem 0;
+			}
+			
+			#seller .HeadPortrait .card-content-inner img {
+				position: relative;
+				left: calc(50% - 2.25rem);
+				width: 4.5rem;
+				height: 4.5rem;
+				border-radius: 50%;
+				overflow: hidden;
+				z-index: 1;
+			}
+			
+			.HeadPortraitbg {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				height: 45%;
+				z-index: 0;
+				background-color: #fff;
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
+				-moz-border-radius-topleft: 8px;
+				-moz-border-radius-topright: 8px;
+			}
+			
+			#seller .HeadPortrait .card-footer {
+				display: block;
+				padding-bottom: 2.5rem;
+				text-align: center;
+				border: none;
+				background-color: #fff;
+				box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .3);
+			}
+			
+			#seller .HeadPortrait .card-footer .shopInformation {
+				margin: 0;
+				font-size: .6rem;
+			}
+			
+			#seller .HeadPortrait .card-footer .shopName {
+				font-size: .7rem;
+				color: #333;
+			}
+			
+			#seller .grossInformationContent {
+				position: relative;
+				top: -1.6rem;
+				margin: 0 1.2rem;
+				box-shadow: none;
+				border: 1px solid #CCCCCC;
+				border-radius: 5px;
+				overflow: hidden;
+				z-index: 3;
+			}
+			
+			#seller .grossInformationContent .card-header,
+			#seller .grossInformationContent .card-footer {
+				padding: .5rem 0rem;
+				border: none;
+				min-height: 1rem;
+			}
+			
+			#seller .grossInformationContent .card-header {
+				padding-bottom: 0;
+			}
+			
+			#seller .grossInformationContent .shopInformation {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				text-align: center;
+				font-size: .6rem;
+			}
+			
+			#seller .grossInformationContent .card-header .shopInformation {
+				font-size: .7rem;
+			}
+			
+			#seller .optionList{
+				position: absolute;
+				padding: .75rem;
+				padding-top: 2rem;
+				bottom: 0;
+				margin-top: 0;
+				margin-bottom: 0;
+				width: calc(100% - 1rem);
+				height: calc(100% - 18rem);
+				background-color: #fff;
+				z-index: 1;
+			}
+			#seller .optionList .grid-warp{
+				width: 100%;
+				height: 100%;
+				padding: .5rem;
+				overflow: hidden;
+			}
+			#seller .optionList .row{
+				width: 100%;
+				height: 50%;
+				margin: 0;
+			}
+			#seller .optionList .col-50{
+				margin: 0;
+				width: 50%;
+				height: 100%;
+				padding: .5rem;
+				color: #666;
+			}
+			#seller .optionList .icon-box{
+				position: relative;
+				width: 100%;
+				height: 4rem;
+			}
+			#seller .optionList .col-50 p{
+				line-height: 1rem;
+				font-size: .7rem;
+				margin: 0;
+				text-align: center;
+			}
+			#seller .optionList .col-50 img{
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto;
+				width: 2rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page" id="seller">
+			<!--<header class="bar bar-nav">
+			    <h1 class="title">商户中心</h1>
+		  	</header>-->
+			<!-- start content -->
+			<div class="content">
+				<div class="card HeadPortrait">
+					<div class="card-content">
+						<div class="card-content-inner">
+							<div class="HeadPortraitbg"></div>
+							<img src="image/sellerHeadPortrait.jpg" />
+						</div>
+					</div>
+					<div class="card-footer">
+						<p class="shopInformation shopName">全家便利店</p>
+						<p class="shopInformation shopAddress"><span class="icon icon-home"></span> 金陵中路店</p>
+					</div>
+				</div>
+				<!-- 总交易信息  -->
+				<div class="card grossInformationContent">
+					<div class="card-header">
+						<p class="shopInformation totalViews">2345346</p>
+						<p class="shopInformation totalCollection">32445</p>
+					</div>
+					<div class="card-footer">
+						<p class="shopInformation">总浏览量</p>
+						<p class="shopInformation">总收藏量</p>
+					</div>
+				</div>
+				<!-- nine 宫格 -->
+				<div class="content-padded grid-demo optionList">
+					<div class="grid-warp">
+						<div class="row">
+							<a href="javascript:;" class="col-50">
+								<div class="icon-box">
+									<img src="image/01.png"/>
+								</div>
+								<p>商品管理</p>
+							</a>
+							<a href="javascript:;" class="col-50">
+								<div class="icon-box">
+									<img src="image/01.png"/>
+								</div>
+								<p>活动管理</p>
+							</a>
+						</div>
+						<div class="row">
+							<a href="javascript:;" class="col-50">
+								<div class="icon-box">
+									<img src="image/01.png"/>
+								</div>
+								<p>评论记录</p>
+							</a>
+							<a href="javascript:;" class="col-50">
+								<div class="icon-box">
+									<img src="image/01.png"/>
+								</div>
+								<p>数据报表</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form action="" method="post" ng-app="myApp" ng-controller='myCtrl'>
+			名：<input type="text" value="ming" ng-model='firstName'/>
+			性：<input type="text" value="xing" ng-model='lastName'/>
+			<hr />
+			<p>
+				<i type="text" ng-bind="firstName+' '+lastName"></i>
+				名字：{{firstName+" "+lastName}}
+			</p>
+		</form>
+	</body>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript">
+		// 新建一个传递参数不止一个，且不依赖于其他模块的空数组模块。（空数组代表该模块不依赖于其他模块）
+		// module() 只有一个参数的话代表获取模块。这个模块必须是存在的，否则会抛出异常
+		var app=angular.module('myApp',[]);
+		app.controller('myCtrl',function($scope){
+			$scope.firstName='Qian';
+			$scope.lastName='Zhang';
+		})
+	</script>
+</html>

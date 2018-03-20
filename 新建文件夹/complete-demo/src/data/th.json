@@ -1,0 +1,9 @@
+{
+  "id":1,
+  "thDetails":[{
+    "name":"商品名称",
+    "quantity":"数量",
+    "price":"单价",
+    "amount":"小计"
+  }]
+}

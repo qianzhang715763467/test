@@ -1,0 +1,64 @@
+{
+	"index.html": {
+		"resources": [
+			"css/common.css",
+			"js/update.js",
+			"js/shortcut.js",
+			"js/immersed.js"
+		],
+		"refer": [
+			"plus/camera.html",
+			"plus/accelerometer.html",
+			"plus/barcode.html",
+			"plus/device.html",
+			"plus/downloader.html",
+			"plus/file.html",
+			"plus/events.html",
+			"plus/geolocation.html",
+			"plus/gallery.html",
+			"plus/oauth.html",
+			"plus/payment.html",
+			"plus/uploader.html",
+			"plus/share.html"
+		]
+	},
+	"plus/accelerometer.html": {
+		"resources": [
+			"js/common.js"
+		]
+	},
+	"plus/barcode.html": {
+		"resources": [
+			"img/barcode.png"
+		]
+	},
+	"plus/file.html": {
+		"resources": [
+			"img/fdisk.png",
+			"img/fup.png",
+			"img/ffile.png",
+			"img/fdir.png"
+		],
+		"refer": [
+			"plus/doc.html"
+		]
+	},
+	"plus/doc.html": {
+		"refer": [
+			"doc/io.html"
+		]
+	},
+	"doc/io.html": {
+		"resources": [
+			"doc/res/doc.css",
+			"doc/res/prettify.js",
+			"doc/res/prettify.sons.css",
+			"doc/res/doc.js"
+		]
+	},
+	"plus/share.html": {
+		"resources": [
+			"img/add.png"
+		]
+	}
+}

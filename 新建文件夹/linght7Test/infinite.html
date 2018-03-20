@@ -1,0 +1,20 @@
+<!-- 添加 class infinite-scroll 和 data-distaance -->
+<div class="pages" id="infinitePage">
+	<div class="infinite-scroll" data-distance="100">
+	    <div class="list-block">
+	        <ul class="list-container"></ul>
+	    </div>
+	    <!-- preloader -->
+	    <div class="infinite-scroll-preloader">
+	        <div class="preloader"></div>
+	    </div>
+	</div>
+</div>
+<script type="text/javascript">
+	index.comments({
+		pageId	: '#page1',
+		main	: '.list-container',
+		warp	: '.content',
+		heightDifference:-60
+	});
+</script>

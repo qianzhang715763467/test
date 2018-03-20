@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-app="myApp" ng-controller='myCtrl'>
+			<p ng-click="click($event)">点击</p>
+			<p ng-click="click($event.target)">点击</p>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript">
+	    angular.module('myApp',[]).controller('myCtrl',function($scope){
+	    	$scope.click = function($event){
+			         alert($event.target);
+			         //……………………
+			}
+	    })
+		　　
+	</script>
+</html>

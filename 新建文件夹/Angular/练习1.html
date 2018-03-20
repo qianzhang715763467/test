@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<div ng-app=""ng-init="names=[{name:'Jani',country:'Norway'},{name:'Hege',country:'Sweden'},{name:'Kai',country:'Denmark'}]"><!-- ng-app:作用域 -->
+			<p>名字:<input type="text" ng-model="name"/></p> <!-- ng-model:输入域 ，把元素的值绑定到应用程序-->
+			<h1>hello{{name}}</h1>  <!--  把应用程序数据绑定到 HTML 视图  -->
+			<p ng-bind='name'></p>  <!--  同上 ！  -->
+			<p>循环对象：</p>
+			<ul>
+				<li ng-repeat="x in names">
+					{{x.name}}
+				</li>
+			</ul>
+		</div>
+<div ng-style="{color:'red'}">ng-style测试</div>
+<div ng-style="style">ng-style测试</div>
+<p ng-click="click($event)">点击</p>
+<p ng-click="click($event.target)">点击</p>
+
+　
+	</body>
+	
+	</script>
+</html>

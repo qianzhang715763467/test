@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<table border="" cellspacing="" cellpadding="" id="tab">
+			
+		</table>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var str ='name:000,age:33/name:111,age:22'; 
+		var obj={};
+		str=str.split('/');
+		for(var i=0;i<str.length;i++){
+			str[i]=str[i].split(',');
+			for(var n=0;n<str[i].length;n++){
+				obj[str[i][n].split(":")[0]]=str[i][n].split(':')[1];
+			}
+		}
+		console.log(obj)
+		//console.log(objs)
+//		console.log(obj)
+//		function addTab(){
+//			for(var i=0;i<obj.length;i++){
+//				var html='<tr><td>'+obj[i].name+'</td><td>'+obj[i].age+'</td></tr>';
+//				$('#tab').append(html);
+//			}
+//		}
+//		addTab();
+	</script>
+</html>

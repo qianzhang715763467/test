@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> E-buy</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="light7/light7.min.css" />
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			$.config = {
+				autoInit: true //no recommend
+			}
+		</script>
+		<script type="text/javascript" src="light7/light7.js"></script>
+
+		<!-- 扩展包组件对应文件-->
+		<link rel="stylesheet" type="text/css" href="light7/light7-swiper.min.css" />
+		<script type="text/javascript" src="light7/light7-swiper.min.js"></script>
+		<style type="text/css">
+			.item-link.item-content.item-inner {
+				display: block;
+				overflow: hidden;
+				position: relative;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page page-current" id='router'>
+			<header class="bar bar-nav">
+				<h1 class='title'>路由</h1>
+			</header>
+			<div class="content">
+				<div class="content-block">
+					<ul>
+						<li>
+							<a href="/docs-demos/router2">ajax加载新页面</a>
+						</li>
+						<li>
+							<a href="#router3">内联的新页面</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="page" id='router3'>
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav pull-left back" href="/">
+					<span class="icon icon-left"></span> 返回
+				</a>
+				<h1 class='title'>路由</h1>
+			</header>
+			<div class="content">
+				<div class="content-block">
+					这是内联编写的页面，点击左上角的
+					<a href="#" class='back'>返回</a> 按钮返回上一页。
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

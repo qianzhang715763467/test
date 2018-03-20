@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title></title>
+<link rel="stylesheet" href="pi.css" >
+<script type="text/javascript" src="JS/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+
+<script type="text/javascript" src="imgpreloader.js"></script>
+
+<script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+	<div id="framecontianer"> 
+		<div id="framecontent" style="background-image: url(http://localhost:8085/test.php);">
+			<!--<div class="q1">
+				<div class="q2" ></div>
+				<div class="b01" data-picid="1" ></div>
+				<div class="b02" data-picid="2"></div>
+				<div class="b03" data-picid="3"></div>
+				<div class="b04" data-picid="4"></div>
+				<div class="q7"  ></div>
+				<input class="myBtn" type="text" neme="myText" />
+				<div></div>
+			</div>-->
+		</div>
+	</div>
+
+<script>
+	$(document).ready(function(){
+		var pic = 1;
+		$('.b01,.b02,.b03,.b04').click(function(){
+			$('.b01,.b02,.b03,.b04').removeClass('on');
+			$(this).addClass('on');
+			pic = $(this).data("picid");
+		});
+		$('.q7').click(function(){
+			window.location.href='1.html';
+		});
+		
+	});
+	
+	
+</script>
+
+</body>
+</html>

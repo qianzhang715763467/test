@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body ng-app="myApp">
+		<!--  <runoob>为自定义标签，directive则是用来声明这是一个自定义标签 -->
+		<runoob-directive></runoob-directive>
+		
+		<!--  自定义属性  -->
+		<div runoob-directive></div>
+		
+		<!--  自定义类名  -->
+		<div class="runoob-directive"></div>
+		
+		<!-- 注释可见  -->
+		<!-- directive: runoob-directive -->
+	</body>
+	<script src="js/angular.min.js"></script> 
+	<script>
+		/*   restrict 值可以是以下几种:
+		
+			    E 作为元素名使用
+			    A 作为属性使用
+			    C 作为类名使用
+			    M 作为注释使用
+		
+			restrict 默认值为 EA, 即可以通过元素名和属性名来调用指令。
+		 * */
+		var app = angular.module("myApp", []);
+		app.directive("runoobDirective", function() {
+		    return {
+		        template : "<h1>自定义指令!</h1>"
+		    };
+		});
+		/* 必须设置 restrict 的值为" C "才能通过类名来调用指令  */
+		app.directive("runoobDirective", function() {
+		    return {
+		        restrict : "C",
+		        template : "<p><i ng-style="+"color:'red'"+">我是通过类名调用的  </i>自定义指令!</p>"
+		    };
+		});
+		/* 必须设置 restrict 的值为" M ",且 replace 的值为"true " 才能通过类名来调用指令  */
+		app.directive("runoobDirective", function() {
+		    return {
+		        restrict : "M",
+		        replace : true,
+		        template : "<h1><i>我是注释可见的  </i>自定义指令!</h1>"
+		    };
+		});
+	</script>
+</html>
