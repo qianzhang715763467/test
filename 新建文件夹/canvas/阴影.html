@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,#canvas{
+				background-color: black;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="500px" height="500px" style="position: absolute;">
+			
+		</canvas>
+		<div class=""style="position: absolute;z-index: 2;width: 200px;height: 200px;background-color: white;top: 0;left: 0;">
+			
+		</div>
+	</body>
+	<script src="canvas-1/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var cans = document.getElementById('canvas');
+		var ctx  = cans.getContext("2d");
+			ctx.beginPath();
+			ctx.shadowOffsetX = 0; // 阴影Y轴偏移
+		  	ctx.shadowOffsetY = 0; // 阴影X轴偏移
+		  	ctx.shadowBlur 	  = 15; // 模糊尺寸
+		  	ctx.shadowColor   = "#9ff4ff";
+			ctx.lineWidth 	  = "2";
+			ctx.strokeStyle   = "hsla(192,100%,50%,1)";
+			ctx.moveTo(0,10);// 起点
+			ctx.lineTo(150,10);	
+			ctx.lineTo(180,100);	// 路径
+			ctx.lineTo(280,100);	// 路径
+			ctx.lineTo(280,200);	// 路径
+			ctx.lineTo(180,200);	// 路径
+			ctx.lineTo(150,290);	// 路径
+			ctx.lineTo(0,290);	// 路径
+			ctx.stroke();		// 结束
+			ctx.lineWidth 	  = "5";
+			ctx.strokeStyle   = "hsla(192,100%,50%,.5)";
+			ctx.moveTo(200,300);// 起点
+			ctx.lineTo(300,300);	
+			ctx.lineTo(400,400);
+			ctx.lineTo(500,0);
+			ctx.lineTo(500,100);
+			ctx.stroke();		// 结束
+			//ctx.closePath();	// 闭合
+	</script>
+</html>

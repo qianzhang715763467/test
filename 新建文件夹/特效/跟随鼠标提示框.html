@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#u-tip {
+				position: absolute;
+				top: 0;
+				padding: 5px;
+				font-size: 14px;
+				border-radius: 3px;
+				box-shadow: 0 2px 3px 1px #666;
+				background-color: rgba(31, 171, 189, 0.8);
+				color: white;
+				transition: all .3s;
+				opacity: 0;
+			}
+			
+			#u-tip:before {
+				content: "";
+				position: absolute;
+				top: 100%;
+				left: -webkit-calc(50% - 4.5px);
+				border: 8px solid transparent;
+				border-top: 9px solid #4bbbca;
+				z-index: 10;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 200px; margin: 50px auto;border: 1px solid blue;">只是一个提示框</div>
+		<div style="width: 200px; margin: 50px auto;border: 1px solid blue;">只是一个提示框</div>
+		<div style="width: 200px; margin: 50px auto;border: 1px solid blue;">只是一个提示框</div>
+
+		<div style="width: 200px; margin: 50px auto;border: 1px solid blue;">只是一个提示框</div>
+		<span id="u-tip"></span>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			unitTip($('div'))
+		})
+
+		function unitTip(e) {
+			e.each(function() {
+				var $e = $(this);
+				$e.hover(function() {
+					var Text = $e.html();
+					var offsetTop = $e.offset().top;
+					var offsetLeft = $e.offset().left;
+					var top = offsetTop - $e.outerHeight() - 20;
+					$('#u-tip').html(Text).css({
+						top: top,
+						left: offsetLeft,
+						'opacity': 1
+					});
+				}, function() {
+					//$('#u-tip').css({top:-10,'opacity':0});
+				})
+			})
+		}
+	</script>
+
+</html>

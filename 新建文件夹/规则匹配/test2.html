@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        .left{
+            width:50%;
+            height:100%;
+            background:lightyellow;
+            float:left;
+        }
+        .right{
+            width:50%;
+            height:100%;
+            background:lightblue;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="box"></div>
+    </div>
+    <div class="right">
+        <table>
+            <tr>
+                <th>key值</th>
+                <th>value值</th>
+            </tr>
+        </table>
+    </div>
+</body>
+<script src="jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+
+        var r = [
+            {
+                "item_id": 1,
+                "item_name": "身份证是否是一代身份证",
+                "risk_level": "low",
+                "group": "个人信息核查"
+            }, {
+                "item_id": 2,
+                "item_name": "身份证是否出现在信贷逾期名单",
+                "risk_level": "high",
+                "group": "不良信息扫描",
+                "item_detail": {
+                    "discredit_times": 1,
+                    "overdue_details": [
+                        {
+                            "overdue_amount": 3475,
+                            "overdue_count": 1,
+                            "overdue_day": 69
+                        }
+                    ],
+                    "type": "discredit_count"
+                }
+            }
+        ];
+        var a1=JSON.stringify(r,null,4);
+        $(".left>.box").html("<pre>"+a1+"</pre>");
+
+        var result={
+            obj:[],
+            getDataType:function(data){   //判断传入的数据的数据类型
+                if(typeof data=="object"){
+                    if(data.length){
+                        return 'Array';
+                    }else{
+                        return "Object";
+                    }
+                }else{
+                    return "String";
+                }
+            },
+            getData:function(data,dataName){   //依次循环展开数据，直到数据格式以字符串形式展开
+                var dataType=this.getDataType(data);
+                if(dataType=='Array'){
+                    for(var i=0;i<data.length;i++){
+                        this.getData(data[i],dataName+'['+i+']');
+                    }
+                }else if(dataType=='Object'){
+                    for(var i in data){
+                        this.getData(data[i],dataName+'.'+i);
+                    }
+                }else{
+                    this.obj.push(dataName+":"+data);
+                }
+            },
+            appendData:function(data){    //把循环的健值对数据展示在页面上
+                for(var i=0;i<data.length;i++){
+                    var aa=data[i].split(":");
+                    console.log($("<tr><td>" + aa[0] + "</td><td>" + aa[1] + "</td></tr>"));
+                    $(".right").find("table").append($("<tr><td>"+aa[0]+"</td><td>"+aa[1]+"</td></tr>"));
+                }
+            }
+        };
+        result.getDataType(r);
+        result.getData(r,"r");
+        result.appendData(result.obj);
+    })
+</script>
+</html>

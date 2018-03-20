@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="culture_btn1">
+			11111111111111
+		</div>
+		<div class="culture_btn2">
+			11111111111111
+		</div>
+		<div class="culture_btn3">
+			11111111111111
+		</div>
+		<div class="culture_btn4">
+			11111111111111
+		</div>
+		<a href="" id="culture">fettt</a>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+//		var obj = {
+//			id:$('#culture')
+//		}
+//		obj.slef.click(function(){
+//			var offsetH = obj.id.offset().top-176;
+//	        $("body").animate({"scrollTop":offsetH},800);
+//	       alert(obj.id.html())
+//		})
+//		obj.slef = $('.culture_btn1');
+//		obj.slef = $('.culture_btn2');
+//		obj.slef = $('.culture_btn3');
+//		obj.slef = $('.culture_btn4');
+//		
+
+		function changeClass(data){
+			data.a.onclick  = function(){
+				var offsetH = data.b.offset().top-176;
+	        	$("body").animate({"scrollTop":offsetH},800);
+			}
+		}
+		
+		
+		changeClass({'a':$('.culture_btn1'),'b':$('#culture')});
+		
+	</script>
+</html>

@@ -1,0 +1,182 @@
+/*plant/ascend/market/agriculture/symAdv/gxnIntro相同样式*/
+.gxnIntro_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.gxnIntro_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.gxnIntro_content2,.gxnIntro_content3,.gxnIntro_content4,.gxnIntro_content5,.gxnIntro_content6{
+	margin:20px 0;
+}
+/*=========种植业全产业链服务运营商=======================*/
+/*cont1*/
+.gxnIntro0 .gxnIntro_content1  .gxnIntro_content1_img img{
+	width: 100%;height:100%;display: block;
+}
+/*时间轴*/
+.timelinebox{position:relative; height: 100%;}
+/*兼容ie7 时间轴中线*/
+.timelinebox>em{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -1px;
+    height: 100%;
+    width: 2px;
+    background: #d3d3d3;}
+/*兼容ie8+  时间轴中线*/
+/*.timelinebox:before ,.timelinebox before{
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -1px;
+    height: 100%;
+    width: 2px;
+    background: #d3d3d3;}*/
+  .timelinebox   .timelineboxtop{height: 30px;}
+  .timelinebox   .timelineboxbottom{height: 12px;}
+  .timelinebox   .timelineboxtop>div{
+ 	width: 30px; height: 30px;left: 50%;margin-left: -15px;top:0;
+ }
+  .timelinebox  .timelineboxbottom>div{
+ 	width: 10px;
+    height: 10px;
+    left: 50%;
+    margin-left: -5px;
+    top: 3px;
+ }
+.timelinebox  .cd-timeline{height: 215px;}
+.timelinebox  .cd-timeline .lineimg{
+ 	width: 50%;
+ }
+ .timelinebox  .cd-timeline .lineicon{
+ 	width:20px; height: 20px;left: 50%;margin-left: -10px;top:50%;
+ }
+ .timelinebox  .cd-timeline .linebox{
+ 	width: 50%;height: 100%;
+ } 
+ .timelinebox   .cd-timeline .linebox .linerightbox, .lineleftbox{
+ 	border: 1px solid #e3e3e3;
+    line-height: 24px;
+    font-size: 14px;
+    padding: 15px 15px;
+    width: 90%;
+    *width: 80%;
+    position: absolute;
+    top: 34%;
+    border-radius: 5px;
+ }
+.timelinebox   .cd-timeline .linebox .linerightbox{
+ 	  left: 10%;
+    height: 98px;
+ }
+.timelinebox   .cd-timeline .linebox .lineleftbox{
+	 right: 10%;
+ }
+ /*/*兼容ie7 右边对话框三角尖角*/
+  .timelinebox .cd-timeline .linebox .linerightbox>i{
+ 	width: 0px;
+ 	height: 0px;
+    position: absolute;
+    left: -20px;
+    top: 18px;
+ 	border: 10px solid transparent;
+    border-right-color: #dfdfdf;
+ }
+ .timelinebox .cd-timeline .linebox .linerightbox>em{
+    width: 0px;
+ 	height: 0px;
+    position: absolute;
+    left: -17px;
+    top: 19px;
+ 	border: 9px solid transparent;
+    border-right-color: #fff;
+ }
+ /*/*兼容ie7 左边对话框三角尖角*/
+ .timelinebox .cd-timeline .linebox .lineleftbox>i{
+	width: 0px;
+ 	height: 0px;
+    position: absolute;
+    right: -20px;
+    top: 80px;
+ 	border: 10px solid transparent;
+    border-left-color: #dfdfdf;
+ }
+ .timelinebox .cd-timeline .linebox .lineleftbox>em{
+ 	width: 0px;
+ 	height: 0px;
+    position: absolute;
+    right: -17px;
+    top: 81px;
+ 	border: 9px solid transparent;
+    border-left-color: #fff;
+ }
+   /*兼容ie8+  右边对话框三角尖角*/
+/*.timelinebox .cd-timeline .linebox .linerightbox:before ,.linerightbox before{
+     content: '';
+    position: absolute;
+    left: -20px;
+    top: 18px;
+ 	border: 10px solid transparent;
+    border-right-color: #dfdfdf;
+ }*/
+
+ /*.timelinebox .cd-timeline .linebox .linerightbox:after,.linerightbox after {
+     content: '';
+    position: absolute;
+    left: -17px;
+    top: 19px;
+ 	border: 9px solid transparent;
+    border-right-color: #fff;
+ }*/
+/*兼容ie8+ 左边对话框三角尖角*/
+/*.timelinebox .cd-timeline .linebox .lineleftbox:before,.lineleftbox before{	
+     content: '';
+    position: absolute;
+    right: -20px;
+    top: 80px;
+ 	border: 10px solid transparent;
+    border-left-color: #dfdfdf;
+ }
+ .timelinebox .cd-timeline .linebox .lineleftbox:after,.lineleftbox after{ 	
+     content: '';
+    position: absolute;
+    right: -17px;
+    top: 81px;
+ 	border: 9px solid transparent;
+    border-left-color: #fff;
+ }*/
+.timelinebox  .linebox a:hover{border-bottom: 1px solid #C30D22;}
+ .mt-40{margin-top: 40px!important;}
+/*=========植兴农-GAP标准化种植======================*/
+/*公共top*/
+.gxnIntroBase  .gxnIntro_content1 p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.gxnIntroBase .gxnIntro_content1 .gxnIntro_content1_img{
+	padding-top: 10px;
+	border-top:3px solid #C30D22;
+}
+.gxnIntroBase .gxnIntro_content1  .gxnIntro_content1_img img{
+	width: 100%;height:100%;display: block;
+}
+.gxnIntroBase .gxnIntro_content_cont .pfonts_{
+    padding: 10px 15px;
+    background: #eee;
+    margin-top: 10px;
+}
+/*特性*/
+/*=========智兴农-农业设施与控制=======================*/
+/*=========安兴农-农产品溯源=======================*/
+.gxnIntro3 .gxnIntro_content2 .gxnIntro_content_cont .timeline{
+	width:206px;background: #efefef;padding: 10px;line-height: 24px;font-size:14px;display: inline-block;
+}
+
+/*=========创兴农-农产品策划=======================*/
+/*=========易兴农-农产品销售=======================*/

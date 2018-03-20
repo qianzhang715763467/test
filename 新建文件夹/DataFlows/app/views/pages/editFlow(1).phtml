@@ -1,0 +1,119 @@
+<style>
+.hidden{visibility: hidden}    
+</style>
+<script>
+    var f5 = {};
+//    page["edges"] = f3;
+//    f3.id = "edges-form-win";
+
+    f5.nodes = [];
+    f5.r = circle_r;
+    
+    f5.count = 0;
+    f5.circles = [];
+    f5.clickedTextId = null;
+
+
+    f5.random90 = function () {
+        var ran = Math.random() * 1000 % 90;
+        if (ran < 1)
+            return f5.random90();
+        else
+            return Math.round(ran);
+    };
+
+    f5.loadFlow = function (flowId) {
+
+        var r = f5.r;
+        var color = d3.scaleOrdinal()
+                .range(d3.schemeCategory20);
+
+        var cb = function (t, s) {
+
+            $("#main-content").find("svg").remove();
+            var svg = d3.select("#main-content").append("svg");
+
+            svg.attr("width", window.innerWidth)
+                    .attr("height", window.innerHeight - $("#toolbar").height() - 10);
+
+            var width = svg.attr("width");
+            var height = svg.attr("height");
+
+            var nodes = eval($.parseJSON(t).message[0].node_details);
+
+            for (var i = 0; i < nodes.length; i++) {
+
+                var cx = nodes[i].rcx * width;
+                var cy = nodes[i].rcy * height;
+                
+                var id = (nodes[i].text).split("-")[0];
+                var text = (nodes[i].text).split("-")[1];
+                
+                var node = svg.append("circle")
+                        .data([{x: cx, y: cy}])
+                        .attr("cx", function (d) {
+                            return d.x;
+                        })
+                        .attr("cy", function (d) {
+                            return d.y;
+                        })
+                        .attr("r", circle_r)
+                        .attr("id", "c-" + id)
+                        .attr("class", "trigger")
+                        .style("fill", function (d, i) {
+                            return color(Math.round(Math.random() * 255));
+                        }).call(d3.drag()
+                        .on("start", f5.dragstarted)
+                        .on("drag", f5.dragged)
+                        .on("end", f5.dragended));
+
+                var tmp = $("<a class='hidden' style='font-size:"+circle_r/2+"px'>" + text + "</a>").appendTo($("body"));
+                tmp.attr("id", "hidden-t-" + id);
+
+                var c = {};
+                c.text = svg.append("text")
+                        .attr("id", "t-" + id)
+                        .attr("x", cx - tmp.width() / 2)
+                        .attr("y", cy + tmp.height() / 3)
+                        .text(text).style("font-size", (circle_r/2) + "px");
+                //tmp.remove();
+                
+                f5.nodes.push("#" + id);
+                f5.circles["c-" + id] = c;
+
+            }
+        };
+
+        $.ajax({
+            url: "/query/flow",
+            async: true,
+            type: 'POST',
+            data: {id: flowId},
+            success: cb
+        });
+    };
+
+    f5.dragstarted = function (d) {
+        d3.select(this).raise().classed("active", true);//toFront()
+        f5.circles[d3.select(this).attr("id")].text.raise().classed("active", true);
+    };
+
+    f5.dragged = function (d) {
+        var circleId = d3.select(this).attr("id");
+        //alert($("#hidden-t-" + circleId.replace("c-", "")).height() / 2);
+        //console.debug(Math.round(d3.event.x - $("#t-" + circleId.replace("c-", "")).width()/2));
+        f5.circles[circleId].text.attr("x", Math.round(d3.event.x - $("#hidden-t-" + circleId.replace("c-", "")).width() / 2)).attr("y", d3.event.y+$("#hidden-t-" + circleId.replace("c-", "")).height() / 3);
+        //f5.circles[circleId].text.attr("x", d3.event.x).attr("y", d3.event.y);
+        d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+    };
+
+    f5.dragended = function (d) {
+        d3.select(this).classed("active", false);
+    };
+
+
+    f5.init = function (flowId) {
+        f5.loadFlow(flowId);
+    };
+
+</script>

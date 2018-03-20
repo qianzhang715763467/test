@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.father {
+			    width: 70%;
+			}
+			.daughter {
+			    width: 90%; height: 0;
+			    padding-top: 90%;
+			    background: black;
+			}
+		</style>
+	</head>
+	<body>
+		<div class = "father">
+		    <div class = "daughter"></div>    // 父女情深
+		</div>
+		<canvas id="aaa" width="500" height="500" style="margin-left: 100px;"></canvas>
+	</body>
+	<script type="text/javascript">
+		var c = document.getElementById('aaa');
+		var ct = c.getContext('2d');
+		ct.beginPath();
+		ct.strokeStyle = 'red';
+		ct.lineWidth   = 5;
+		ct.moveTo(0,0);
+		ct.lineTo(100,0);
+		ct.lineTo(120,20);
+		ct.lineTo(120,120);
+		ct.lineTo(20,120);
+		ct.lineTo(0,100);
+		ct.lineTo(0,0);
+		ct.stroke();
+		ct.closePath();
+	</script>
+</html>

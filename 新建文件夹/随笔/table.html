@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<table border="1" cellspacing="0" cellpadding="0">
+			
+		</table>
+	</body>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var dates='application_1471303506455_104222application_1471303506455_104222,'+
+			'www,insertintohawkeye.zpp_472selectt.*...)t(Stage-3),MAPREDUCE,root.default,'+
+			'1479809064838,0,RUNNING,UNDEFINED,130,130,1008640,49.7,49.7,,ApplicationMaster,0'+
+			'/application_1471303506455_104222application_1471303506455_104222,www,insertintohawkeye.'+
+			'zpp_472selectt.*...)t(Stage-3),MAPREDUCE,root.default,1479809064838,0,RUNNING,'+
+			'UNDEFINED,130,130,1008640,49.7,49.7,,ApplicationMaster,1';
+		$(function(){
+			parsing($('table'),$('<tr></tr>'),dates);
+
+		})
+		function parsing(dom,nodes,meg){
+			// 分割字符串；
+			meg=meg.split('/');
+			for(var i=0;i<meg.length;i++){
+				// 转换字符串；
+				var msg=meg[i].split(',');
+				var tr=nodes.clone();
+				for(var n=0;n<msg.length;n++){
+					var html='<td>'+msg[n]+'</td>';
+					tr.append(html);
+				}
+				tr.append("<td><a href='javascript:;'>删除</a></td>");
+				dom.append(tr);
+			}
+		}
+	</script>
+</html>

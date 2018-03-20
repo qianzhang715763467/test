@@ -1,0 +1,143 @@
+/*plant/ascend/market/agriculture相同样式*/
+.agriculture_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.agriculture_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.agriculture_content2,.agriculture_content3,.agriculture_content4,.agriculture_content5,.agriculture_content6{
+	margin:15px 0;
+}
+/*公用btn*/
+.content_cont  .noopsyche_morebtn{
+  	padding: 4px 22px 4px 5px;
+  	_padding:0;
+  	*padding:0;
+    margin-top: 10px;
+    outline: none;
+    border: 1px solid #666;
+    border-radius: 3px;
+    color: #666;
+    background: url(../img/agriculture/agri_jiantou.png) 94px center no-repeat #fff;
+  }
+  .content_cont  .noopsyche_morebtn:hover{
+  	color: #fff;
+    background: url(../img/agriculture/ww.png) 91px center no-repeat #666;
+  }
+  /*公共部分，有边框，白底灰边*/
+ .bor{
+	border: 1px solid #d3d3d3;
+    background: #fff;
+}
+.mr-14{margin-right: 14px;}
+/*cont1*/
+.agriculture_content_wrap .agriculture_content1 p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+
+.agriculture_content1 .agriculture_content1_img{
+	/*height:475px;*/
+	border-top:3px solid #C30D22;
+}
+.agriculture_content1  .agriculture_content1_img img{
+	width: 100%;height:100%;display: block;
+}
+/*cont2*/
+.agriculture_content2 .content_cont{padding: 20px 0 0 0;}
+.agriculture_content2 .content_cont .content_cont_ulist>li {
+	width: 32%;
+}
+/*遮罩层*/
+.agriculture_content2 .content_cont .mask-wrapper {
+position: relative;
+overflow: hidden;
+height: 100%;
+}
+.agriculture_content2 .content_cont .content_cont_ulist li a .mask-inner{	
+    height: 188px; 
+    *height:203px;   
+    padding:0 14%;
+}
+.agriculture_content2 .content_cont .noopsyche_main .tuijianbox .mask-inner {
+	height:259px;
+	*height:302px;		
+    padding:0 5%;
+    font-size: 14px;
+}
+.agriculture_content2 .content_cont .content_cont_ulist li a .mask-inner,
+.agriculture_content2 .content_cont .noopsyche_main .tuijianbox .mask-inner {
+	display: table;
+    width: 100%;
+    /*height: 100%;*/
+background: rgba(0,0,0,.5);
+/*background: #000\9;
+background: #000\0;
+*background: #000\9;
+opacity:0.3;
+filter:alpha(opacity=30);*/
+color: #fff;
+position: absolute;
+left: 0;
+top: 100%;
+-moz-transition: top ease 200ms;
+-o-transition: top ease 200ms;
+-webkit-transition: top ease 200ms;
+transition: top ease 200ms;
+}
+.agriculture_content2 .content_cont .content_cont_ulist li a .mask-inner .mask-innerul,
+.agriculture_content2 .content_cont .noopsyche_main .tuijianbox .mask-inner .mask-innerul{
+	display: table-cell;
+	vertical-align: middle;
+	position:relative;
+    *padding-top: 40px;
+	
+}
+.agriculture_content2 .content_cont .content_cont_ulist li a .mask-wrapper:hover .mask-inner,
+.agriculture_content2 .content_cont .noopsyche_main .tuijianbox .mask-wrapper:hover .mask-inner
+ {
+top: 0;
+}
+ .agriculture_content2 .content_cont .noopsyche_main {padding-top: 30px;}
+ .agriculture_content2 .content_cont .noopsyche_main .tuijianbox {
+ 	border: 1px solid #44c7e2;
+ 	position: relative;
+ }
+ .agriculture_content2 .content_cont .noopsyche_main .tuijianbox .pfirst{
+ 	color:#44c7e2;font-size: 18px;padding:5px 10px 5px 60px;line-height: 30px;
+ }
+ .agriculture_content2 .content_cont .noopsyche_main .tuijianbox  .tuijianbox_hand{
+ 	position: absolute;top: -2px;left: 0;
+ 	padding: 0 5px;z-index: 99;
+ }
+  .agriculture_content2 .content_cont .noopsyche_main .tuijianbox .ptwo{
+  	padding:5px 0;
+  }
+  
+/*cont3*/
+.agriculture_content3 .content_cont .content_cont_title{
+	padding: 2px 15px;border-radius: 30px;color: #fff;background: #06b4d9;font-size: 18px;
+}
+/*cont4*/
+.agriculture_content4 .content_cont{padding-top: 20px;}
+/************************agriculture2水肥一体化*********************************/
+.agriculture2 .agriculture_content1 .content_cont .content_cont_title{
+	padding: 3px 20px;border-radius: 30px;color: #fff;background: #06b4d9;font-size: 18px;	
+}
+.agriculture2 .agriculture_content1 .content_cont .cont_wrap_xitong{
+	
+}
+/************************agriculture3智能控制*********************************/
+.agriculture3 .agriculture_content1 .has_lines_box{margin: 20px 0;}
+.agriculture3 .agriculture_content1 .has_lines_box .setcion_wraps{padding-left: 32px;margin-left: 32px;border-left: 2px dotted #44c7e2;position: relative;}
+.agriculture3 .agriculture_content1 .has_lines_box .setcion_wraps .section_imgtab{position: absolute;top:-5px;left: -32px;}
+.agriculture3 .agriculture_content1 .has_lines_box .setcion_wraps .section_conts{padding-left: 15px;}
+.agriculture3 .agriculture_content1 .has_lines_box .setcion_wraps .section_conts .wrap_tabtitle {}
+.agriculture3 .agriculture_content1 .has_lines_box .setcion_wraps .section_conts .wrap_tabtitle .P2{color: #44c7e2;}
+.agriculture3 .agriculture_content1 .has_lines_box .setcion_wraps .section_conts .wrap_tabcont{padding: 10px 0 20px 0;}
+.agriculture3 .agriculture_content1 .has_lines_box .wrap7{height: 81px;width: 100%;*border: 1px solid #fff;}
+.agriculture3 .agriculture_content1 .has_lines_box .wrap7 .section_imgtab{height: 100%;width: 100%;padding-top: 15px;}

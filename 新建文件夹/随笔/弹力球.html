@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.aas:nth-child(1){background: yellow;
+				animation: ani1 .5s linear 2s  alternate;
+				top: 200px;
+				left: 20px;
+			}
+			.aas:nth-child(2){background: red;
+				animation: ani2  .7s linear 2s  alternate;
+				top: 160px;
+				left: 120px;
+			}
+			.aas:nth-child(3){background: blue;
+				animation: ani3  .9s linear 2s  alternate;
+				top: 120px;
+				left: 220px;
+			}
+			.aas:nth-child(4){background: violet;
+				animation: ani4  1.1s linear 2s  alternate;
+				top: 80px;
+				left: 320px;
+			}
+			.aas:nth-child(5){background: darkcyan;
+				animation: ani5  1.3s linear 2s  alternate;
+				top: 40px;
+				left: 420px;
+			}
+			.aas:nth-child(6){background: saddlebrown;
+				animation: ani6  1.5s linear 2s  alternate;
+				top: 10px;
+				left: 520px;
+			}
+			.aas{
+				position: relative;
+				top: 200px;
+				left: 20px;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				opacity: 0;
+			}
+			@keyframes  ani1{
+				0%{top: -300px;opacity: 1;}
+				30%{top: 700px; left: 20px;}
+				100%{top: 200px;left: 20px;}
+			}
+			@keyframes  ani2{
+				0%{top: -300px;opacity: 1;}
+				40%{top: 700px; left: 120px;}
+				100%{top: 160px;left: 120px;}
+			}
+			@keyframes  ani3{
+				0%{top: -300px;opacity: 1;}
+				50%{top: 700px; left: 220px;}
+				100%{top: 120px;left: 220px;}
+			}
+			@keyframes  ani4{
+				0%{top: -300px;opacity: 1;}
+				60%{top: 700px; left: 320px;}
+				100%{top: 80px;left: 320px;}
+			}
+			
+			@keyframes  ani5{
+				0%{top: -300px;opacity: 1;}
+				70%{top: 700px; left: 420px;}
+				100%{top: 40px;left: 420px;}
+			}@keyframes  ani6{
+				0%{top: -300px;opacity: 1;}
+				80%{top: 700px; left: 520px;}
+				100%{top: 0px;left: 520px;}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aas">
+			弹弹弹
+		</div>
+		<div class="aas">
+			弹弹弹
+		</div>
+		<div class="aas">
+			弹弹弹
+		</div>
+		<div class="aas">
+			弹弹弹
+		</div>
+		<div class="aas">
+			弹弹弹
+		</div>
+		<div class="aas">
+			弹弹弹
+		</div>
+	</body>
+</html>

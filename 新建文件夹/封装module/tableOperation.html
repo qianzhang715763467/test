@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+				margin:0;
+				padding:0;
+				/*border:0;
+				*/
+			    /*outline:0;
+				*/
+			    /*font-size:100%;
+				vertical-align:baseline;
+				background:transparent;
+				*/
+			}
+			h1,h2,h3,h4,h5,h6,em,i {
+				font-style:normal;
+			}
+			ul,ol,li {
+				list-style-type:none;
+			}
+			a {
+				color:#666;
+				text-decoration:none;
+				outline:0;
+			}
+			a:hover {
+				text-decoration:none;
+			}
+
+			html,body{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			.g-nav{
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			.g-nav .items{
+				width: 100%;
+				height: 100%;
+			}
+			.g-nav .item{
+				position: relative;
+				display: block;
+				border: 1px solid brown;
+				overflow: hidden;
+			}
+			.g-nav .item:nth-child(1){background-color: #FF9800;}
+			.g-nav .item:nth-child(2){background-color: #bf362c;}
+			.g-nav .item:nth-child(3){background-color: #2cbbcd;}
+			.g-nav .item:nth-child(4){background-color: forestgreen;}
+			.item .tab-name {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto;
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+			#currentItem .tab-name{
+				position: relative;
+			}
+			
+			/* table */
+			.main-tab{
+				position: relative;
+				display: none;
+				width: 100%;
+				height: 100%;
+				background-color: white;
+			}
+			/* table operation nav*/
+			.main-tab .tab-operation-nevL,
+			.main-tab .tab-operation-nevR{
+				padding: 5px 0;
+				box-sizing: border-box;
+			}
+			.main-tab .tab-operation-nevR{
+				float: right;
+				clear: right;
+			}
+			.tab-operation-nevL li {
+				display: inline-block;
+				float: left;
+				max-width: 100px;
+				line-height: 50px;
+				padding: 0 10px;
+				font-size: 14px;
+				text-align: center;
+			}
+			.tab-operation-nevL li:last-child{
+				text-align: right;
+				clear: right;
+			}
+			.main-tab .tab-operation-nevL input{
+				width: 15px;
+				height: 15px;
+				vertical-align:middle;
+				margin-top:-1px; 
+				margin-bottom:1px;
+			}
+			/* table content */
+			.main-tab .tab-content{
+				width: 100%;
+				height: calc(100% - 50px);
+			}
+			.main-tab .tab{
+				width: 100%;
+			}
+			.main-tab .head-tab{height: 50px;background-color: #00C1B3;margin-top: 50px;}
+			.main-tab .head-tab table{border-bottom: none;}
+			.main-tab .head-tab th{line-height: 50px;}
+			.main-tab .body-tab{height: calc(100% - 50px);overflow-y: auto;}
+			.main-tab .body-tab td{line-height: 40px;}
+			.main-tab table{width: 100%;text-align: center;}
+			.main-tab col{width: calc(100% / 5);}
+			.main-tab a:hover{
+				color: #1BCAC8;
+			}
+			
+			/* To change the input box of the table */
+			#import{
+				position: absolute;
+				display: block;
+				z-index: 3;
+				outline-color: #009688;
+				border: none;			
+				text-align: center;
+				opacity: 0;
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var items = $('.items');
+				var list  = items.children('li');
+				var size  = (items.height() / list.length)+'px';
+				list.css({'height':size});
+			}
+		</script>
+	</head>
+	<body>
+		<div class="g-nav">
+			<ul class="items">
+				<li class="item"><p class="tab-name">domo1</p></li>
+				<li class="item"><p class="tab-name">domo2</p></li>
+				<li class="item"><p class="tab-name">domo3</p></li>
+				<li class="item"><p class="tab-name">domo4</p></li>
+			</ul>
+		</div>
+		
+		
+		<div class="main-tab">
+			<ul class="tab-operation-nevL">
+				<li><input type="checkbox" name="" id="" value="" />全选</li>
+				<li><input type="checkbox" name="" id="" value="" />全不选</li>
+				<li><a href="javascript:;">删除</a></li>
+			</ul>
+			<ol class="tab-operation-nevR">
+				<li><input type="text" name="" id="" value="" /><a href="javascript:;" class="tabQuery">搜索</a></li>
+				<li><a href="javascript:;" class="tabSubmit">提交</a></li>
+			</ol>
+			<section class="tab-content">
+				<div class="head-tab tab">
+					<table border="1" cellspacing="0" cellpadding="0">
+						<colgroup>
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>ID</th>
+								<th>名字</th>
+								<th>性别</th>
+								<th>籍贯</th>
+								<th>操作</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="body-tab tab">
+					<table border="1" cellspacing="0" cellpadding="0">
+						<colgroup>
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>张三</td>
+								<td>男</td>
+								<td>中国</td>
+								<td><a href="javascript:;">删除</a></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>李四</td>
+								<td>男</td>
+								<td>中国</td>
+								<td><a href="javascript:;">增加</a>&nbsp;/&nbsp;<a href="javascript:;">删除</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+		<input type="text" name="" id="import" value="" />
+	</body>
+	<script type="text/javascript">
+		// pt: 对象直接量，这里方法体外面的this => window, 里面的是调用方法的对象；
+		var pt = {
+			index : 0, // 增加用ID
+			tr    : $('.body-tab tr'),
+			ipt   : $('#import'),
+			tagNameLi : 'li',
+			tagNameTd : 'td',		// Modify the target node of the text
+			tagNameA  : 'a',
+			item  : '.item',
+			items : $('.items'),	// 一级导航
+			current : 'currentItem', // 为点击的LI添加 id 
+			mainTab : '.main-tab',	// tab box
+			menuInitH : 40,
+			operation:{
+				handleEvent:function(self){
+					var self = self;
+					// 取单行TR长度
+					var trLength = $(self.tr).eq(0).children().length-1;
+					$(document).on({
+						'click':function(){
+							var tar = targetNode(event);
+							var className = self.item.substring('1',self.item.length);
+							// 首页li导航
+							if(tar.n == self.tagNameLi || $(tar.e).parent().prop('tagName').toLocaleLowerCase() == self.tagNameLi){
+								// 改变事件源指向,无论当前源是否为li都指向li
+								tar.n == self.tagNameLi ? tar.e = $(event.target) : tar.e = $(event.target).parent();
+								// 当前对象为一级菜单
+								if( tar.e.hasClass(className) ){
+									// 当前对象存在二级菜单
+									if( tar.e.hasClass('menu1') ){
+										
+									}else{
+										bottomMenu(tar.e,self);
+									}
+								}
+								// 当前对象为二级菜单
+								if( tar.e.hasClass('menu2') ){
+									
+								}
+							};
+							// last-child td => a
+							if(tar.n == self.tagNameA && $(event.target).parent().index() == trLength){
+								if($(event.target).text() == '删除'){
+									self.operation.remove($(event.target),self);
+								}else if($(event.target).text() == '增加'){
+									self.operation.add($(event.target),self);
+								}
+							}
+						},
+						'dblclick':function(){ // 可以改变值的td
+							var tar = targetNode(event);
+							if(tar.n == self.tagNameTd){
+								// 取第一个td之后，最后一个td之前 的兄弟节点；
+								if(tar.i > 0 && tar.i < trLength){
+									self.operation.change($(event.target),self);
+								}
+							}
+						},
+						'blur':function(){ // 用来改变td值input
+							var tar = targetNode(event);
+							if(tar.n == self.ipt){
+								self.operation.blur($(self.ipt));
+							}
+						}
+					})
+					
+					// 获取当前点击对象的 name & index; 
+					function targetNode(event){
+						var tar = {};
+						return tar = {
+							n : event.target.nodeName.toLocaleLowerCase(),
+							i : $(event.target).index(),
+							e : event.target 
+						};
+					}
+					// 手风琴 底层菜单
+					function bottomMenu(t,self){
+						// 给点击的li 增加宽度
+						var size = self.items.height() - (self.items.children(self.item).length-1) * self.menuInitH;
+						if(!t.attr('id')){
+							$(self.item).attr('id','');
+							self.items.find(self.mainTab).hide();
+							t.attr('id',self.current).animate({
+								'height':size
+							},500);
+							self.items.children(self.item).not('#'+self.current).animate({
+								'height':self.menuInitH
+							},500);
+							
+							// 创建TAB
+							if(t.children().length > 2)return t.children(self.mainTab).show();
+							var tab = $(self.mainTab).clone(true);
+							tab.show();
+							t.append(tab);
+						}
+					}
+				},
+				add : function(event,self){
+					self.index++; // 更新ID值
+					var clone = $(event).parents('tr').clone(true);
+					clone.children(':first').html(self.index);
+					$(event).parents('tbody').append(clone);
+					$(event).parent().html('<a href="javascript:;">删除</a>');// 新增按钮只在最后一个tr出现
+				},
+				// 删除
+				remove : function(event,self){
+					var Tr = $(event).parents('tr');
+					if(confirm("你确定要删除当前行？")){
+						// 如果删除的是最后一行，就修改上一行最后一个td的值；
+						if(Tr.index() == Tr.parent('tbody').children().length-1){
+							var cloneAdd = $(event).prev().clone(true);
+							var cloneRemove = $(event).clone(true);
+							Tr.prev().children(':last').html(cloneAdd);
+							Tr.prev().children(':last').children(':first-child').after('&nbsp;/&nbsp;');
+							Tr.prev().children(':last').append(cloneRemove);
+						}
+						Tr.remove();
+					}
+				},
+				// 改变值
+				change : function(event,self){
+					var thisT = $(event).offset().top+2,
+						thisL = $(event).offset().left+2,
+						thisW = $(event).innerWidth()-2,
+						thisH = $(event).innerHeight()-4;
+					// 如果存在正在改变内容的td,就修改当前值并删除现有的类名；
+					self.operation.blur($(self.ipt));
+					$(event).addClass('select');
+					// 定位input;
+					$(self.ipt).css({'top':thisT,'left':thisL,'width':thisW,'height':thisH,'opacity':'1'}).val($(event).html()).focus();
+				},
+				// 查询
+				query : function(){
+					
+				},
+				// input 失去焦点；
+				blur : function(ipt){
+					if($('.select')){
+						$('.select').text(ipt.val());
+						$('.select').removeClass('select');
+					}
+					ipt.css({'opacity':'0'});
+				}
+			},
+			init:function(){
+				var self = this;
+				// 这里的TR是数组，遍历获取tbody长度
+				self.index = $(self.tr).parent('tbody').length+1;
+				self.operation.handleEvent(self);
+			}
+		};
+		pt.init();
+		
+		
+		
+	</script>
+</html>

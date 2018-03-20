@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			
+		<!-- 1 -->
+		<!--
+			no-cache:强制缓存从服务器上获取新的页面，
+			no-store:在任何环境下缓存不保存任何页面
+		-->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,must-revaildate">
+		<meta http-equiv="expires" content="0">
+		<title>清除缓存的4种方式</title>
+	</head>
+	<!-- 2 -->
+	<body onload="javascript:document.yourFormName.reset()">
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		/* jquery ajax 清除缓存 一*/
+		$.ajax({
+			url:'',
+			dataType:'json',
+			data:{},
+			async:true,
+			beforeSend:function(xmlHttp){
+				xmlHttp.setRequestHeader('If-Modified-Since',"0");
+				xmlHttp.setRequestHeader("Cache-Control","no-cache");
+			},
+			success:function(responde){
+				
+			}
+		});
+		/* jquery ajax 清除缓存 二 ( cache:false )*/
+		$.ajax({
+			url:'',
+			dataType:'json',
+			data:{},
+			cache:false,
+			ifModified:true,
+			async:true,
+			success:function(responde){
+				
+			}
+		});
+		/* 方法三 */
+		document.location = '?ran='+Math.random();
+		/* 方法四*/
+		document.location = '?timeStamp='+new Date().getTime();
+	</script>
+</html>

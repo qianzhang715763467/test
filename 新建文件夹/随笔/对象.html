@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	   // 构造函数 
+		function createPerson(name,age,job){
+			var o = new Object();
+			o.name=name;
+			o.age=age;
+			o.job=job;
+			o.sayName=function(){
+				alert(this.name);
+			}
+			return o;
+		}
+		var person1=createPerson('wei',25,'spftware');
+		person1.sayName()
+		
+		//组合使用，构造函数模式+原型模式
+		//构造器
+		function Person(name,age){
+			this.name=name;
+			this.age=age;
+			this.friends=['乾隆','康熙'];
+		}
+		// 原型；所有共享属性及方法都存在于原型中
+		Person.prototype={
+			constructor:Person,
+			sayName:function(){
+				alert(this.name);
+			}
+		}
+		var person2 = new Person('甲',20);
+		var person3 = new Person('乙',28);
+		var person4 = new Person('丙',20);
+		person2.friends.push('陛下');
+		person4.friends.push('臣妾做不到啊');
+		console.log(person2.friends)
+		console.log(person3.friends)
+		console.log(person4.friends)
+		console.log(person2.age == person4.age);
+		
+		//动态原型模式
+		function Persons(name,age){
+			this.name=name;
+			this.age=age;
+			this.friends=['哼','哈'];
+			if(typeof this.sayName != 'function'){
+				Persons.prototype.sayName=function(){
+					alert(this.name);
+				}
+			}
+		}
+		var person5=new Persons('seven','30');
+		person5.friends.push('动作');
+		person5.sayName();
+		
+		// 寄生构造函数模式
+		function SpecialArray(){
+			// 创建数组
+			var values = new Array();
+			// 添加值
+			values.push.apply(values,arguments);
+			// 添加方法
+			values.toPipedString = function(){
+				return this.join('|');
+			}
+			// 返回数组
+			return values ;
+		}
+		var colors = new SpecialArray('red','blue','green');
+		console.log(colors.toPipedString())
+	</script>
+</html>

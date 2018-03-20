@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <!--<meta name="viewport" content="initial-scale=1, maximum-scale=1">-->
+        <script>
+            var circle_r = window.screen.availWidth > window.screen.availHeight ? 50 * window.screen.availWidth / 1440 : 50 * window.screen.availHeight / 1440;
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/icon-fonts/iconfont.css">
+        <link rel="stylesheet" href="/js/light7/light7.min.css">
+
+
+        <script type='text/javascript' src='/js/jquery.min.js' charset='utf-8'></script>
+        <script type="text/javascript" src="/js/tools.js" charset='utf-8'></script>
+        <script type="text/javascript" src="/js/bar.js" charset='utf-8'></script>
+        <script src="/js/jquery.cookie.js"></script>
+
+        <script>
+            $.config = {
+                autoInit: true
+            };
+        </script>
+
+        <script type='text/javascript' src='/js/light7/light7.js' charset='utf-8'></script>
+        <script type='text/javascript' src='/js/light7/light7-swiper.min.js' charset='utf-8'></script>
+
+        <script type="text/javascript" src="/js/d3.v4.min.js"></script>
+        <script type="text/javascript" src="/js/global.js"></script>
+
+        <style>
+
+        </style>
+        <script>
+
+//            $(document).on("pageInit", function (e, pageId, $page) {
+//                g.loadPage("assetFlow", false, 12);
+//            });
+//            alert($(window).width());
+//            alert(window.screen.availWidth);
+//            alert(window.innerWidth);
+            $(document).ready(function () {
+                g.loadPage("assetFlow", true, {flowId: 12});
+            });
+
+//            $(document).on("pageInit", function (e, pageId, $page) {
+//                //p[pageId].init();
+//            });
+            $(document).on("pageAnimationEnd", function (e, pageId, $page) {
+                if(p[pageId] && p[pageId].initPage)
+                    p[pageId].initPage();
+            });
+
+        </script>
+    </head>
+    <body>
+        <div class="page-group" style="margin: 0 auto;">
+            <div class="page" id='assetFlow'></div>
+            <div class="page" id='chartCommon'></div>
+        </div>
+    </body>
+</html>

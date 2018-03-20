@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- 优先使用最新版本IE & Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 360使用Chrome Frame -->
+		<meta name="renderer" content="webkit">
+		<!-- 360 使用 Chrome内核 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+		<meta name ="viewport" content ="width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+		<!-- 禁止数字识自动别为电话号码 -->
+		<meta name="format-detection" content="telephone=no"/> 
+		<title>季度KPI完成进度</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style type="text/css">
+			@charset "utf-8";
+			*{
+				margin:0;
+				padding:0;
+				box-sizing: border-box;
+				border: 0;
+			}
+			html,body{
+				width: 100%;	
+				height: 100%;	
+				background:white;
+				overflow: hidden;
+			}
+			body{
+				font: 12px/1.125 "微软雅黑",Tahoma,Helvetica,"宋体",san-serif;
+				background: -ms-linear-gradient(top, #dcf1ef,  #fff);        /* IE 10 */
+				background:-moz-linear-gradient(top,#dcf1ef,#fff);/*火狐*/ 
+				background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#fff), to(#dcf1ef));/*谷歌*/ 
+				background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#dcf1ef));      /* Safari 4-5, Chrome 1-9*/
+				background: -webkit-linear-gradient(top, #dcf1ef, #fff);   /*Safari5.1 Chrome 10+*/
+				background: -o-linear-gradient(top, #dcf1ef, #fff);  /*Opera 11.10+*/
+			}
+			header,article,section,footer,hgroup,aside{display: block;}
+			.g-container{
+				width: 100%;
+				height: 100%;
+				background-color: #000000;
+				overflow: hidden;
+			}
+			.g-container .titleName{
+				height: 75px;
+				line-height: 75px;
+				text-indent: 160px;
+				font-size: 27px;
+				font-weight: 100;
+				color: white;
+			}
+			.canvasLT,
+			.canvasRB{
+				position: absolute;
+				z-index: 0;
+				width: 150px;
+				height: 150px;
+			}
+			.canvasLT:before,
+			.canvasRB:before{
+				clear: both;
+			}
+			.canvasLT{
+				top: 2px;
+				left: 2px;
+			}
+			.canvasRB{
+				right: 2px;
+				bottom: 2px;
+			}
+			.m-warp{
+				position: relative;
+				width: calc(100% - 150px);
+				height: calc(100% - 150px);
+				border: 2px solid hsla(184,100%,49%,.3);
+				margin: 0 auto;
+				z-index: 1;
+			}
+			.m-warp:after,
+			.m-warp:before{
+				position: absolute;
+				content: "";
+				border: 50px solid transparent;
+				z-index: 2;
+			}
+			.m-warp:after{
+				right: -2px;
+				top: -2px;
+				border-right-color: black;
+				border-top-color: black;
+			}
+			.m-warp:before{
+				left: -2px;
+				bottom: -2px;
+				border-left-color: black;
+				border-bottom-color: black;
+			}
+			.canvasItems{
+				width: 100%;
+				height: 100%;
+				clear: both;
+			}
+			.canvasItems .item{
+				position: relative;
+				display: block;
+				float: left;
+				width: calc(100% / 3);
+				height: 100%;
+			}
+			.item div{
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			.item .item2{
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				right: -7.5vw;
+				width: 15vw;
+				height: 15vw;
+			}
+			#item4{
+				width: 100%;
+				height: 40%;
+			}
+			#item5{
+				width: 100%;
+				height: 60%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-container">
+			<h2 class="titleName">2017年度Q3季度KPI完成进度</h2>
+			<section class="canvasLT"id="canvasLT" ></section>
+			<div class="m-warp" id="warp">
+				<ul class="canvasItems">
+					<li class="item">
+						<div id="item1"></div>
+						<section class="item2">
+							<div id="item2">
+							</div>
+						</section>
+					</li>
+					<li class="item">
+						<div id="item3"></div>
+					</li>
+					<li class="item">
+						<div id="item4"></div>
+						<div id="item5"></div>
+					</li>
+					<!--<li id="item1" class="item">
+						<div id="item1">
+							
+						</div>
+					</li>
+					<li class="item">
+						<div id="item2">
+							
+						</div>
+					</li>
+					<li class="item">
+						<div id="item3">
+							
+						</div>
+					</li>
+					<li class="item">
+						<div id="item4">
+							
+						</div>
+					</li>
+					<li class="item">
+					</li>
+					<li class="item">
+						
+					</li>
+					<li class="item">
+						<div id="item5">
+							
+						</div>
+						<div id="item6">
+							
+						</div>
+					</li>-->
+				</ul>
+			</div>
+			<section class="canvasRB" id="canvasRB"></section>
+		</div>
+	</body>
+	<script src="../js/canvas.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var obj = null;
+		// 请求数据
+		function getJSON(cb){
+			$.getJSON('../json/canvas-02.json',function(res,callbackCanvas){
+				obj = res;
+				cb();
+			});
+		}
+		//callback
+		function callbackCanvas(){
+			var doms = ["canvasLT","canvasRB","warp","item3","item1","item2","item4","item5"];
+			for(var i = 0; i < doms.length; i++){
+				(function(i){
+					var n = i;
+					setTimeout(function(){
+						var name = doms[n];
+						myCanvas(name,obj[name]);
+					},1000*i)
+				})(i);
+			}
+		}
+		// 画图
+		function myCanvas(dom,data){
+			var self = document.getElementById(dom);
+				$(self).children('canvas').remove();
+			var myCanvas = new drawCanvas(self,data);
+			return myCanvas.draw();
+		}
+		//调用
+		getJSON(callbackCanvas);
+		
+		$(window).resize(callbackCanvas);
+	</script>
+</html>

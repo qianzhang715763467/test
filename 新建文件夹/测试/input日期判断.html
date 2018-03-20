@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style: none;
+			}
+			input{
+				padding: 5px 5px ;
+				cursor: pointer;
+			}
+			.date-item{
+				display: block;
+				width: 400px;
+				height: 40px;
+				margin: 20px auto;
+			}
+			#demo{
+				width: 390px ;
+				padding: 10px ;
+				position: absolute;
+				border: 1px solid #999;
+			}
+			#demo button{
+				width: 100%;
+				padding: 12px 0;
+				margin-top: 20px;
+				cursor: pointer;
+			}
+			#demo span{
+				color: white;
+				display: block;
+				position: absolute;
+				bottom: 65px;
+				right: -10px;
+				font-size: 22px;
+				padding:0 6px;
+				border-radius: 50%;
+				border-left:1px solid black ;
+				background-color:#6dbec0;
+				cursor: pointer;
+			}
+			/*#demo span:before{
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				content: "";
+				position: absolute;
+				border: 2px solid blue;
+				opacity: 0.3;
+				transform: translate(-12%,40%);
+				transition:0.3s all;			}
+			#demo span:hover span:before{
+				width: 30px;
+				height: 30px;
+			}*/
+			p{margin-top: 5px;}
+			/* date*/
+			#da{
+				padding-bottom: 50px;
+			}
+			#da:before{
+				border: 10px solid transparent;
+				border-bottom: 11px solid #EFEFEF;
+				content: "";
+				position: absolute;
+				top: -22px;
+			}
+			#da:after{
+				border: 8px solid transparent;
+				border-bottom: 10px solid white;
+				content: "";
+				position: absolute;
+				top: -18px;
+				left: 2px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/calendar.css"/>
+	</head>
+	<body>			
+		<input type="text" name=""class="date-item" readOnly="true" value="[2016-08-20,2016-09-20][2016-11-23,2016-12-23]"placeholder="选择活动日期" />
+		<!--<div id="dd"style="padding-bottom: 20px;"></div>-->       
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/calendar.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		 $('#ca').calendar({
+	        width: 320,
+	        height: 320,
+	        data: [
+	            {
+	                date: '2015/12/24',
+	                value: 'Christmas Eve'
+	            },
+	            {
+	                date: '2015/12/25',
+	                value: 'Merry Christmas'
+	            },
+	            {
+	                date: '2016/01/01',
+	                value: 'Happy New Year'
+	            }
+	        ]
+	  });
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			formCreate();
+		})
+		//  create && remove form
+		function formCreate(){
+			$('.date-item').click(function(){
+				// is form exist ?
+				if($('#demo').length==0){
+					var html='<article id="demo">'+
+						'<form method="post"style="position: relative;"><div><p class="date-strip">'+
+						'<input type="text"class="dt" id="startTime" readOnly="true" placeholder="选择活动开始日期" onkeyup="checkEndTime()"/>'+
+						'<i style="padding: 0 6px;margin-right: 2px;">-</i>'+
+						'<input type="text"class="dt" id="endTime" readOnly="true" placeholder="选择活动结束日期" onkeyup="checkEndTime()"/>'+
+						'</p></div><span class="cloneTrue"onclick="cloneP()">+</span><button type="button"onclick="submitVal()">提交</button>'+
+						'</form></article>';
+					$('body').append(html);	
+					// 当前对象是否有一组日期
+					if($(this).val().length>22){
+						var cc=$(this).val();
+						var r = /\[(.+?)\]/g;
+		            	var m = cc.match(r);
+		            	var obj={"times":[]};
+						for(var i=0;i<m.length;i++){
+							var a=m[i].substring(m[i].indexOf("[")+1,m[i].indexOf(","));
+							var b=m[i].substring(m[i].indexOf(",")+1,m[i].indexOf("]"))
+							obj.times.push({"start_time":a,"end_time":b})
+						}
+						// 当前对象val()值 截取后转换为JSON类型，并以倒序循环添加到form中；
+						var Time=obj.times;
+						for(var n=Time.length-1;n>=0;n--){
+							var html='<p class="date-strip">'+
+								'<input type="text"class="dt" id="startTime" readOnly="true" value='+Time[n].start_time+' placeholder="选择活动开始日期" onclick="checkEndTime()"/>'+
+								'<i style="padding: 0 6px;margin-right: 2px;">-</i>'+
+								'<input type="text"class="dt" id="endTime" readOnly="true" value='+Time[n].end_time+' placeholder="选择活动结束日期" onclick="checkEndTime()"/>'+
+								'</p>';
+							$('#demo div').prepend(html);	
+						}
+					}										
+					formCoordinates();
+					createDate($('.dt'));
+				}else{
+					$('#demo').remove();
+				}				
+			})
+		}
+		// 表格coordinates
+		function formCoordinates (){
+			var left=$('.date-item').offset().left;
+			var top=$('.date-item').offset().top+60;
+			$('#demo').css({left:left,top:top});	
+		}
+		//  clone <p>
+		function cloneP(){
+			// 获取最后一个P元素子级INPUT的值；
+			var firstInput=$('#demo .date-strip:last').children("#startTime").val();
+			var lastInput=$('#demo .date-strip:last').children("#endTime").val();				
+			if(firstInput!="" && lastInput!=""){
+				var cloneP=$('.date-strip').eq(0).clone(true);
+				cloneP.children("input").val("");
+				$('#demo div').append(cloneP);						
+			}else{
+				alert('请填写完整日期')						
+				return false;
+			}
+		}
+		// submit
+		function submitVal(){
+			var list=$('#demo div').find('p');
+			var _list=[];
+			var count=true;
+			var isTime=true;
+			for(var i=0;i<list.length;i++){
+				var startTime=$(list).eq(i).children('#startTime').val();
+				var endTime=$(list).eq(i).children('#endTime').val();
+				// 过滤掉日期长度不达标的val()值；
+				if(startTime.length>9 && endTime.length >9){
+					list[i]="["+startTime+","+endTime+"]";
+					_list.push(list[i]);
+				}else{
+					//  1对日期只能都为空 || 都不为空；
+					if(startTime.length<1 && endTime.length <1){
+						count=true;
+					}else{
+						count=false;
+					}					
+				}
+				// 对比开始结束时间早晚；
+				endTime<startTime?isTime=false:true;
+			}
+			if(count==true && isTime==true){
+				$('.date-item').val(_list);
+				$('#demo').remove();
+			}else{
+				count!=true?alert("日期格式不正确！"):alert("结束时间必须晚于开始时间！");													
+			}			
+		}
+		//date
+		function createDate(event){
+			event.focus(function(){
+		  		$("<div id='da'></div>").calendar({
+			        trigger:$(this),
+			        zIndex: 999,
+			        format: 'yyyy-mm-dd'
+			    }).appendTo($("body"));
+		  	})
+		}
+		function checkEndTime(){  
+			var isTime=true
+		    var startTime=$("#startTime").val();  	    
+		    var endTime=$("#endTime").val();  
+		    if(endTime<startTime){  
+		        isTime=false;  
+		    } else{
+		    	isTime=true;  
+		    }
+		    
+		    if(isTime!=true){  
+			    alert("结束时间必须晚于开始时间！");   
+			}
+		}  
+		  
+	</script>
+</html>

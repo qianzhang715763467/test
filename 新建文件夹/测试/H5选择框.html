@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#Date li{
+				list-style: none;
+				float: left;
+				margin: 10px;
+				background-color: #8BC9E3;
+			}
+			#Date input{
+				position: relative;
+				left: -5px;
+				vertical-align: top;
+			}
+			#Date a{
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="Date">
+			<li>
+				<select name="" id="year">
+					<option value="">年</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+				</select>
+			</li>
+			<li>
+				<select name="" id="month">
+					<option value="">月</option>
+					<option>01</option>
+					<option>02</option>
+					<option>03</option>
+					<option>04</option>
+					<option>05</option>
+					<option>06</option>
+					<option>07</option>
+					<option>08</option>
+					<option>09</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+				</select>
+			</li>
+			<li><a href="javascript:;" id="submit">提交</a></li>
+		</ul>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var data ={};	
+			
+		$('select').click(function(){
+			if( !$(this).val() || $(this).val().length < 2 )return
+			data.Date = $('#year').val() + $('#month').val();
+		})
+		$('#submit').click(function(){
+			if( String(data.Date).length != 6 ) {
+				alert('请填写完整信息！');
+				return
+			}else{console.log(data.Date)}
+		})
+		$(function(){
+			var time = new Date();
+			var opt = $('#month option');
+			var aa = time.getFullYear()+'-'+(time.getMonth()>10 ? time.getMonth():'0'+time.getMonth())+'-'+time.getDate()+' '+time.getHours();
+			var bb = '2017-02-22';
+			var searchVal = {};
+			/*console.log($.trim(aa).length)
+			aa = aa.replace(/\s+/g, ""); 
+			searchVal[0] = aa.substring(0,10)+' '+aa.substring(10,13);*/
+			console.log( aa >bb)
+		})
+	</script>
+</html>

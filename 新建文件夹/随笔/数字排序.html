@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var a=[1,2,4,5,56,7,19,20,3];
+		a.sort(function(a,b){
+			return a-b;
+		});
+		a.join(',');
+		document.write(a[a.length-1])
+		document.write(a.pop())
+	</script>
+</html>

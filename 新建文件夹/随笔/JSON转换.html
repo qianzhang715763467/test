@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>JSON转换</title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var str='{"name":"ZhangQian","age":"24"}';
+		var A={"name":"ZhangQian","age":"24"}
+		// 字符串转换为JSON对象;
+		str=JSON.parse(str);
+		console.log(str);
+		// JSON对象转换为字符串;
+		str=JSON.stringify(str);
+		console.log(str);
+		//==============================  关于 stringify(value[,replacer][,space])  ===================
+		// value   :是必须要的字段（输入的对象）。如：数组，类等; 
+		// replacer:分为两种方式。一种是方法，一种是数组;
+		// space   :用来做分割符;
+		var students = new Array() ;
+		students[0] = "Lanny";
+		students[1] = "dong";
+		students[2] = "I love you";
+		var json = JSON.stringify(students,function (key, value) {
+			//  toString():转换为字符串; toUpperCase():将字符串转换为大写;
+			return value.toString().toUpperCase();
+		})
+		console.log(json);
+		
+	</script>
+</html>

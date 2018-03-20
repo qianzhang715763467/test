@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="nm">  
+
+    <title>后台管理系统 for Bootstrap</title>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    	.tablebox{min-height: 45px;}
+		.tablebox .table{margin: 0;}
+		.table-head{width:100%;overflow: hidden;background: #e6EEEE!important;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;}
+		.table-head.addbor{border-right: 1px solid #ddd;}	
+		.table-head table{float: left;}/*动态添加宽*/
+		.table-head table tr th{background-color:#e6EEEE;color:#000; padding: 5px 0;border:1px solid #ddd;vertical-align: middle!important; border-bottom: none;}   
+		.table-head table tr th.x{border-right:none!important;}	
+		.table-body{width:calc(100%); height:calc(100% - 30px);height:-moz-calc(100% - 30px);height:-webkit-calc(100% - 30px);overflow-y:auto;}
+		.table-body table tr td{border:1px solid #ddd;vertical-align: middle!important;border-top:none;}
+		.table-body table{width:100%;}
+		.table-body table tr:nth-child(2n){background-color:#F0F0F6;} 
+		.table-hover>tbody>tr:hover { background-color: #d9e7f8;}
+		.table-body table tr.highlight{background-color: #99bce8;}
+    </style>
+  </head>
+  <body>
+
+<div id="tablebox" class="tablebox">
+	<div class="table-head">
+		        <table class="table" >	              
+		            <thead>
+		            	<tr>
+						    <th  width="5%"  class="tc"><label for=""><input type="checkbox" class="ace" name="checkbox" value=""><i class="lbl"></i></label></th>
+							<th  width="12%" class="header tc"><span class="sort_asc">登录名称</span></th>
+							<th  width="15%" class="header tc"><span class="sort_able">用户名称</span></th>
+							<th  width="10%" class="tc">角色</th>
+							<th  width="10%" class="tc">状态</th>				
+							<th  width="10%" class="header tc"><span class="sort_able">手机号</span></th>
+							<th  width="13%" class="header tc"><span class="sort_able">创建时间</span></th>
+							<th  width="13%" class="header tc"><span class="sort_able">最后登录时间</span></th>				
+							<th  width="12%" class="tc">操作</th>
+						</tr>						
+		            </thead>		            
+	            </table>
+    </div>
+    <div class="table-body">
+		        <table  class="table  table-hover" id="tableid" >	               
+		            <tbody>
+		            	<tr class="tc">
+						    <td><label for=""><input type="checkbox" class="ace" name="checkbox" value=""><i class="lbl"></i></label></td>
+							<td><div class="ellipb">admin0</div></td>
+							<td><div class="ellipb">上海康明蔬果专业合作社</div></td>
+							<td><div class="ellipb">企业应用角色</div></td>	
+							<td class="td-status"><div class="ellipb"><span class="label label-success radius">已启用</span></div></td>				
+							<td><div class="ellipb">13256985569</div></td>
+							<td><div class="ellipb">2014-06-05 11:11:42</div></td>
+							<td><div class="ellipb">2014-06-11 11:11:42</div></td>
+							<td class="td-manage" >								
+								    <a title="停用" href="javascript:;" onClick="admin_stop(this,'10001')"  class="tab_stop" style="text-decoration:none" >	<i class="Hui-iconfont">&#xe631;</i></a>
+							    	<a title="查看" href="javascript:;" onclick="member_show('张三','blank.html','10001','360','400')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>					    					
+									<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','mask.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+									<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							    
+							</td>
+						</tr>
+						<tr class="tc">
+						    <td><label for=""><input type="checkbox" class="ace" name="checkbox" value=""><i class="lbl"></i></label></td>
+							<td><div class="ellipb">admin0</div></td>
+							<td><div class="ellipb">上海康明蔬果专业合作社</div></td>
+							<td><div class="ellipb">企业应用角色</div></td>	
+							<td class="td-status"><div class="ellipb"><span class="label label-success radius">已启用</span></div></td>				
+							<td><div class="ellipb">13256985569</div></td>
+							<td><div class="ellipb">2014-06-05 11:11:42</div></td>
+							<td><div class="ellipb">2014-06-11 11:11:42</div></td>
+							<td class="td-manage" >								
+								    <a title="停用" href="javascript:;" onClick="admin_stop(this,'10001')"  class="tab_stop" style="text-decoration:none" >	<i class="Hui-iconfont">&#xe631;</i></a>
+							    	<a title="查看" href="javascript:;" onclick="member_show('张三','blank.html','10001','360','400')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>					    					
+									<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','mask.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+									<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							    
+							</td>
+						</tr>
+						<tr class="tc">
+						    <td><label for=""><input type="checkbox" class="ace" name="checkbox" value=""><i class="lbl"></i></label></td>
+							<td><div class="ellipb">admin0</div></td>
+							<td><div class="ellipb">上海康明蔬果专业合作社</div></td>
+							<td><div class="ellipb">企业应用角色</div></td>	
+							<td class="td-status"><div class="ellipb"><span class="label label-success radius">已启用</span></div></td>				
+							<td><div class="ellipb">13256985569</div></td>
+							<td><div class="ellipb">2014-06-05 11:11:42</div></td>
+							<td><div class="ellipb">2014-06-11 11:11:42</div></td>
+							<td class="td-manage" >								
+								    <a title="停用" href="javascript:;" onClick="admin_stop(this,'10001')"  class="tab_stop" style="text-decoration:none" >	<i class="Hui-iconfont">&#xe631;</i></a>
+							    	<a title="查看" href="javascript:;" onclick="member_show('张三','blank.html','10001','360','400')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>					    					
+									<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','mask.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+									<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							    
+							</td>
+						</tr>		
+						<tr class="tc">
+						    <td><label for=""><input type="checkbox" class="ace" name="checkbox" value=""><i class="lbl"></i></label></td>
+							<td><div class="ellipb">admin0</div></td>
+							<td><div class="ellipb">上海康明蔬果专业合作社</div></td>
+							<td><div class="ellipb">企业应用角色</div></td>	
+							<td class="td-status"><div class="ellipb"><span class="label label-success radius">已启用</span></div></td>				
+							<td><div class="ellipb">13256985569</div></td>
+							<td><div class="ellipb">2014-06-05 11:11:42</div></td>
+							<td><div class="ellipb">2014-06-11 11:11:42</div></td>
+							<td class="td-manage" >								
+								    <a title="停用" href="javascript:;" onClick="admin_stop(this,'10001')"  class="tab_stop" style="text-decoration:none" >	<i class="Hui-iconfont">&#xe631;</i></a>
+							    	<a title="查看" href="javascript:;" onclick="member_show('张三','blank.html','10001','360','400')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>					    					
+									<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','mask.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+									<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							  
+							</td>
+						</tr>		
+						<tr class="tc">
+						    <td><label for=""><input type="checkbox" class="ace" name="checkbox" value=""><i class="lbl"></i></label></td>
+							<td><div class="ellipb">admin0</div></td>
+							<td><div class="ellipb">上海康明蔬果专业合作社</div></td>
+							<td><div class="ellipb">企业应用角色</div></td>	
+							<td class="td-status"><div class="ellipb"><span class="label label-success radius">已启用</span></div></td>				
+							<td><div class="ellipb">13256985569</div></td>
+							<td><div class="ellipb">2014-06-05 11:11:42</div></td>
+							<td><div class="ellipb">2014-06-11 11:11:42</div></td>
+							<td class="td-manage" >								
+								    <a title="停用" href="javascript:;" onClick="admin_stop(this,'10001')"  class="tab_stop" style="text-decoration:none" >	<i class="Hui-iconfont">&#xe631;</i></a>
+							    	<a title="查看" href="javascript:;" onclick="member_show('张三','blank.html','10001','360','400')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>					    					
+									<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','mask.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+									<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							    
+							</td>
+						</tr>		
+		            </tbody>		            
+	            </table>
+    </div>	
+</div>
+
+<script type="text/javascript">
+//滚动条初始状态;
+$(function(){
+	for (var i = 0; i < $(".tablebox").length; i++) {
+		var thisbox=$(".tablebox:eq("+i+")");
+		thisbox.height($(".cookie").height()-115);	//$(".page-topbtns").h50.pb20;$(".nav-page").h35.pt10 	  	
+	    tableSize(thisbox);
+	}
+})
+$(window).resize(function(){
+	for (var i = 0; i < $(".tablebox").length; i++) {
+		var thisbox=$(".tablebox:eq("+i+")");
+		thisbox.height($(".cookie").height()-115);
+        hasscroll(thisbox);
+      }
+})
+
+
+//****************table********************************************************************************************
+
+function tableSize(thisbox){
+	  clone(thisbox);
+      hasscroll(thisbox);
+      selectall(thisbox);
+      selectcol(thisbox);
+      sort(thisbox);
+}
+
+//table头身宽度一致
+function clone(thisbox){
+		var thlist=thisbox.find(".table-head table thead th");
+		var tdlist=thisbox.find(".table-body table tbody tr:first> td");
+		$.each(thlist,function(){
+			var i=$(this).index();
+			var w=$(this).attr("width");
+		 	$(tdlist[i]).attr("width",w);         
+		}); 
+}
+////判断滚动条事件
+function hasscroll(thisbox){
+	thisbox.find(".table-body").height(thisbox.height()-30);
+	if(thisbox.find(".table-body table").height()>thisbox.find(".table-body").height()){//当有滚动条时加那个
+//		console.log(1)
+		thisbox.find(".table-head table").css("width","calc(100% - 16px)");//有滚动保持头身一致宽【减去滚动条w，滚动条w单独加th最后一个】		
+		thisbox.find(".table-head table thead th:last").addClass("x");
+		thisbox.find(".table-head").addClass("addbor");
+	}else{
+//		console.log(0)
+		thisbox.find(".table-head table").css("width","100%");
+		thisbox.find(".table-head table thead th:last").removeClass("x");
+		thisbox.find(".table-head").removeClass("addbor");
+	}
+}
+
+//jq全选
+function selectall(thisbox){		
+   var trList =thisbox.find(".table-body tbody tr");
+   var checkedList =thisbox.find(".table-body tbody input");
+   var allcheck =thisbox.find(".table-head .table thead input");
+	allcheck.click(
+		function(){
+		    if(this.checked){
+		    checkedList.prop("checked", true).addClass("yx");
+		    trList.addClass("highlight");
+		    }else{
+			 checkedList.prop("checked", false).removeClass("yx");	
+			 trList.removeClass("highlight");
+		    } 
+	    }
+	);
+//反选//单选判断
+	checkedList.change(function(){	
+	    $(this).attr("checked", !$(this).attr("checked"));
+	    $(this).closest("tr").toggleClass("highlight");	    
+	    var stac= $(".table-body tbody") .find("input:checked");
+		 if(stac.length==checkedList.length){
+			 	allcheck.prop("checked",true);			 	
+		 } else{
+		 	    allcheck.prop("checked",false);		 	   
+		 };     
+	})
+}
+//当行高亮
+function selectcol(thisbox){
+   	var tbodytrList=thisbox.find(".table-body table tbody tr");
+   	$.each(tbodytrList,function(){
+   		$that=$(this).find("td:not(:first)");
+   		$.each($that, function() { 
+   			 $(this).click(function(){
+   			  var thischeck=$(this).parent("tr").find("input:checkbox");                     			
+   			  thischeck.trigger("change"); 
+   		     })            
+   		});
+   				
+    }); 
+ }
+//js全选
+//function selectall(thisbox){	
+//  var checkedList =thisbox.find(".table-body tbody input:checkbox");
+//  var allList =thisbox.find(".table-head .table thead input:checkbox");
+//	function isCheckAll(){
+//		for (var i = 0, n = 0; i < checkedList.length; i++){
+//			checkedList[i].checked && n++//ture/false&&			
+//		}
+//		allList[0].checked = n == checkedList.length;		
+//	};	
+//  allList[0].onclick = function (){	//点击全选复选框，遍历全选
+//		for (var i = 0; i < checkedList.length; i++){
+//			checkedList[i].checked = this.checked;
+//			checkedList[i].checked?$(checkedList[i]).closest("tr").addClass("highlight"):$(checkedList[i]).closest("tr").removeClass("highlight")			
+//		}
+//		isCheckAll();
+//	};	
+//  for (var i = 0; i < checkedList.length; i++){//反选判断
+//		checkedList[i].onclick = function (){
+//			$(this).closest("tr").toggleClass("highlight");
+//			isCheckAll();
+//		}
+//	}
+//}
+
+////排序
+//function sort(thisbox){
+//	var sortCol=thisbox.find(".table-head .table thead th.header>span");
+//	$.each(sortCol,function(){
+//		$(this).click(function(){	
+//			var sortType =$(this).attr("class");			
+//			sortType = (sortType == "sort_asc")?"sort_desc":"sort_asc";
+//			this.className =sortType;
+//			var sortTypeSibli =$(this).closest("th.header").siblings(".header").find("span")
+//			$.each(sortTypeSibli,function(){
+//				if(!$(this).attr("class","sort_able")){
+//					$(this).className="sort_able"
+//				}else{return}
+//			})
+//	   })
+//  })
+//}
+
+
+
+
+
+	
+</script>
+      
+  </body>
+</html>
+
+
+

@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+			.highlight{background:green;font-weight:bold;color:white;}
+			#content{ color: #333; line-height: 20px;}
+		</style>
+	</head>
+	<body>
+		<form onsubmit="highlight(this.s.value);return false;">
+			<p><input name="s" id="s" title="搜索内容："><input value="搜索" type="submit"></p>
+		</form>
+		<div id="content">
+			CSDN创立于1999年，是中国最大的IT社区和服务平台，为中国的软件开发者和IT从业者提供知识传播、职业发展、软件开发等全生命周期服务，满足他们在职业发展中学习及共享知识和信息、建立职业发展社交圈、通过软件开发实现技术商业化等刚性需求。<br />
+			拥有超过3000万注册会员（其中活跃会员800万）、50万注册企业及合作伙伴。<br /><br />
+			旗下拥有：<br />
+			全球最大中文IT技术社区：csdn<br />
+			权威IT专业技术期刊：《程序员》杂志<br />
+			IT人力资源服务：科锐福克斯<br />
+			IT技术学习平台：乐知教育<br />
+			代码托管+社交编程平台：code<br />
+			移动开发工具和服务聚合平台：mobilehub<br />
+			IT专属求职网站：job<br />
+			中文软件外包和项目交易平台：csto<br />
+			程序员深度交流社区：iteye[1] <br />
+			中国最大技术管理者平台：CTO俱乐部<br />
+			云计算产业人士沙龙：云计算俱乐部<br />
+			面向移动开发者的技术组织：移动开发者俱乐部<br />
+			面向全国大学生的技术组织：高校俱乐部<br />
+		</div>
+	</body>
+	<script type="text/javascript">
+		function encode(s){
+		  return s.replace(/&/g,"&").replace(/</g,"<").replace(/>/g,">").replace(/([\\\.\*\[\]\(\)\$\^])/g,"\\$1");
+		}
+		function decode(s){
+		  	return s.replace(/\\([\\\.\*\[\]\(\)\$\^])/g,"$1").replace(/>/g,">").replace(/</g,"<").replace(/&/g,"&");
+		}
+		function highlight(s){
+		  	if (s.length==0){
+			    alert('搜索关键词未填写！');
+			    return false;
+		  	}
+		  	s=encode(s);
+	  		var obj=document.getElementsByTagName("body")[0];
+		  	var t=obj.innerHTML.replace(/<span\s+class=.?highlight.?>([^<>]*)<\/span>/gi,"$1");
+		  	obj.innerHTML=t;
+		  	var cnt=loopSearch(s,obj);
+		  	t=obj.innerHTML
+		  	var r=/{searchHL}(({(?!\/searchHL})|[^{])*){\/searchHL}/g
+		  	t=t.replace(r,"<span class='highlight'>$1</span>");
+			obj.innerHTML=t;
+		  	alert("搜索到关键词"+cnt+"处")
+		}
+		function loopSearch(s,obj){
+		  	var cnt=0;
+		  	if (obj.nodeType==3){
+			    cnt=replace(s,obj);
+			    return cnt;
+		  	}
+		  	for (var i=0,c;c=obj.childNodes[i];i++){
+			    if (!c.className||c.className!="highlight")
+	      			cnt+=loopSearch(s,c);
+		  	}
+			  return cnt;
+		}
+		function replace(s,dest){
+		  	var r=new RegExp(s,"g");
+	  		var tm=null;
+		  	var t=dest.nodeValue;
+		  	var cnt=0;
+		  	if (tm=t.match(r)){
+			    cnt=tm.length;
+			    t=t.replace(r,"{searchHL}"+decode(s)+"{/searchHL}")
+			    dest.nodeValue=t;
+		  	}
+			  return cnt;
+		}
+	</script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		function where(collection, source) {
+		  	return collection.filter(function(item) {
+			    var index = 0;
+			    for (var key in source) {
+			      if (item[key] && source[key] === item[key]) {    
+			        index++;
+			      }
+			    }
+			    return index === Object.keys(source).length;
+		  	});
+		}
+		
+		var testCaseArray1 = [{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }],
+		    testCaseArray2 = [{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }];
+		    
+		var object1 = { "a": 1, "c": 2 },
+		    object2 = { last: "Capulet" };
+		
+		var testCase1 = where(testCaseArray1, object1),
+		    testCase2 = where(testCaseArray2, object2);
+		
+		console.log(testCase1);
+		console.log(testCase2);
+		
+	</script>
+</html>

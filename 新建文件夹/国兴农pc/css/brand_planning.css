@@ -1,0 +1,54 @@
+/*plant/ascend/market/agriculture/symAdv/gxnIntro/brandPlan相同样式*/
+.brandPlan_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.brandPlan_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.brandPlan_content2,.brandPlan_content3,.brandPlan_content4,.brandPlan_content5,.brandPlan_content6{
+	margin:15px 0;
+}
+/*cont1*/
+.brandPlan_content_wrap .brandPlan_content1> p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+/*cont2*/
+.brandPlan_content2 .brandPlan_content2_img1,.brandPlan_content2_img2 img{
+	display: block;
+	width: 100%;
+	text-align: center;
+    padding: 15px 0;
+}
+.brandPlan_content2 .brandPlan_content2_img2{margin-top: 15px;}
+/*cont3*/
+.brandPlan_content3 .brandPlan_content3_wraps .brandPlan_content3_wrap{
+margin-bottom: 30px;
+}
+.brandPlan_content3 .brandPlan_content3_wrap .brandPlan_content3_wrap_title{}
+.brandPlan_content3 .brandPlan_content3_wrap_title .case{
+background: #c30d22;padding:5px 6px;color: #fff;margin-right: 10px;
+}
+.brandPlan_content3 .brandPlan_content3_wrap .brandPlan_content3_wrap_sation{
+padding: 5px 0;line-height: 24px;
+}
+.brandPlan_content3 .brandPlan_content3_wrap_sation .sation_font{
+ line-height: 24px;
+}
+/***********Fruits*******************************************************************/
+.Fruits .brandPlan_content3  .production{padding: 20px 0;}
+.Fruits .brandPlan_content3  .production .case_title {
+	border-bottom:1px solid #d7d5d6;
+}
+.Fruits .brandPlan_content3  .production .case_font {
+	line-height: 24px;
+}
+.Fruits .brandPlan_content3  .production .case_boximg{}
+.Fruits .brandPlan_content3  .production .case_title img{
+     height: 100%;
+    display: block;
+}

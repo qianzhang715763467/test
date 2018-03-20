@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	// 计算并合并指定行
+	function Amount ($bodyTab,arr){
+		var size = $bodyTab.find("tr").eq(0).children().length;
+		$bodyTab.find("tr").each(function(){console.log($bodyTab.find("tr").length)
+			if($(this).children().length == size){
+				// 没有删过子元素 td 的 TR，获取其第一个子级的 rowspan 属性; 
+				var rowspan = $(this).children('td').eq(0).attr('rowspan');
+				// 判断rowspan 是否存在
+				if(rowspan == undefined || $(this).children().length < size) return true;
+				// 获取当前第一个tr的索引号;
+				var index = $(this).index();
+				for(n in arr){
+					// 当前tr 指定的子元素
+					var thisChild = $(this).children('td').eq($(this).length - arr[n]);
+					// 根据 rowspan 值遍历符合当前tr要求的的兄弟;
+					for(var i = 1; i < rowspan; i++){
+						// 当前TR的兄弟;
+						var $next = $(this).parent().children('tr').eq(index + i);
+						// html()值替换掉','并转成数值型,相加完成后再次格式化
+						var newText = Number((thisChild.html()).replace(/,/g,"")) + Number(($next.children('td').eq($(this).length - arr[n]).html()).replace(/,/g,""));
+						// 合并 thisChild 的下一个兄弟；
+						thisChild.html(parseFloat(newText).toLocaleString());
+						thisChild.attr('rowspan',(thisChild.attr("rowspan")==undefined)?2:(eval(thisChild.attr("rowspan"))+1));
+						$next.children('td').eq($(this).length - arr[n]).remove();
+					}
+				}
+			}
+		})
+	}
+	// 需合并的行
+	var arrIndex = ['6','4','2'];
+	Amount ($bodyTab,arrIndex);
+</script>

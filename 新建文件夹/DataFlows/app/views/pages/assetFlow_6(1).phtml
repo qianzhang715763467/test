@@ -1,0 +1,833 @@
+
+<style>
+    #assetFlow-toolbar{position: fixed;top:0;height:40px;color:#00effb;clear: both}
+    #assetFlow-toolbar div{display: inline-block;float:left;cursor: pointer;font-size: 16px}
+    #assetFlow-toolbar .calendar {margin-right: 5px}
+    #assetFlow-toolbar .calendar i{font-size: 32px;position:relative}
+    #assetFlow-toolbar .toolbar-but{margin-top:8px;color:#00effb;border: 1px solid #00effb;width:32px;height:23px;border-radius:3px;text-align: center;line-height:21px;margin-right:5px}
+    #assetFlow-toolbar .speed{}
+    #assetFlow-toolbar .one-speed{background-color:#135586;color:#f3df2e}
+    #assetFlow-toolbar .current_speed{background-color:#135586;color:#00effb}
+    #assetFlow-container{width:100%;background-color: #fff;clear: both}
+    assetFlow-container .text{font-size:14px;font-weight:bold}
+    #data_count_list{margin:0;padding:0;width:150px;border: 1px solid rgba(185,185,185,0.2);background-color:rgba(185,185,185,0.1);font-size:12px;-webkit-transform-origin-x: 0;-webkit-transform: scale(0.80);}
+    #data_count_list li{position:relative;margin-top:-1px;padding:0;height:20px;line-height:22px;width: 100%;color:#ff8f21;list-style:none;border-bottom: 1px dashed rgba(185,185,185,0.2)}
+    #data_count_list li:last-child{border-bottom:none}
+    #data_count_list li a{display: inline-block;position:absolute;right:0}
+    #data_count_list b{position:absolute;padding:3px;border-style: solid;border-color: #ccc;}
+    .li-b-1{border-width: 1px 0 0 1px;top:0px;left:0px;}
+    .li-b-2{border-width: 1px 1px 0 0;top:0px;right:0px;}
+    .li-b-3{border-width: 0 0 1px 1px;bottom:0px;left:0px;}
+    .li-b-4{border-width: 0 1px 1px 0;bottom:0px;right:0px;}
+</style>
+
+<script>
+
+//    var f0 = {};
+//    p.assetFlow = f0;
+
+    f0.flow_id = p["assetFlow"].param.flowId;
+//    $(document).on("pageAnimationEnd", "#assetFlow", function (e, pageId, $page) {
+//        
+//        f0.init();
+//    });
+
+    f0.init = function () {
+        //flow_idvar flow_id = $.getUrlParam('flow_id');
+        //console.debug(flow_id);
+        if (f0.flow_id) {
+            f0.readyLoadFlow();
+        }
+
+        $("#assetFlow-toolbar .speed").click(function () {
+            $(this).css("color", "#f3df2e")
+                    .siblings().css("color", "#00effb");
+            //$(this).addClass("current_speed").siblings().removeClass("current_speed");
+            f0.speed = $(this).attr("data-speed");
+            f0.interval();
+        });
+
+        $("#assetFlow-toolbar .speed .one-speed").trigger("click");
+
+        $("#assetFlow-toolbar .calendar-date").calendar();
+        
+        $("#assetFlow-toolbar .data-count").click(function(){
+            $("#data_count").toggle(300);
+        });
+
+    };
+
+    f0.nodes = [];
+    f0.r = circle_r;
+    f0.plus = 50;
+    f0.position = 0; //0:left or right; 1:up or down
+    f0.timers = [];
+    f0.query_count = 0;
+
+    f0.speed = 1;   // 1 5 10 second
+    f0.time_interval = [];
+    f0.time_interval[1] = 10;
+    f0.time_interval[5] = 5;
+    f0.time_interval[10] = 1;
+    //alert("2018-09-09 21:01:01" > "2018-09-09 11:01:01");
+    f0.date = g.fdate;
+    f0.data_time = null;
+
+    f0.query_interval_id = -1;
+    f0.time_cursor_interval_count = 0;
+    f0.data_count = {};
+
+    f0.random90 = function () {
+        var ran = Math.random() * 1000 % 90;
+        if (ran < 1)
+            return f0.random90();
+        else
+            return Math.round(ran);
+    };
+
+    f0.loadFlow = function (flow_id, func) {
+
+        var r = f0.r;
+        var color = d3.scaleOrdinal()
+                .range(d3.schemeCategory20);
+
+        var cb = function (t, s) {
+
+            var w = g.w;
+            var h = g.h;
+
+            $("#assetFlow-container").width(w);
+            $("#assetFlow-container").height(h);
+
+            svg = d3.select("#assetFlow-container svg")
+                    .attr("width", w)
+                    .attr("height", h)
+                    .style("background-color", "#135586");
+
+            if (g.terminal === "phone") {
+//                        w = g.h;
+//                        h = g.w;
+//                        svg.attr("transform", "rotate(90)");
+//                        svg.attr("width", h)
+//                                .attr("height", w);
+                //$("body").css("transform", "rotate(90deg)");
+            }
+
+            svg.append("defs").append("filter")
+                    .attr("id", "f0")
+                    .attr("x", "0")
+                    .attr("y", "0").append("feGaussianBlur")
+                    .attr("in", "SourceGraphic")
+                    .attr("stdDeviation", "2");
+
+            var width = svg.attr("width");
+            var height = svg.attr("height");
+
+            if ($.parseJSON(t).message.length === 0) {
+                alert("no flow");
+                return false;
+            }
+
+            var nodes = eval($.parseJSON(t).message[0].node_details);
+
+            for (var i = 0; i < nodes.length; i++) {
+
+                var cx = nodes[i].rcx * width;
+                var cy = nodes[i].rcy * height;
+                var col = color(Math.round(Math.random() * 255));
+
+                var node = svg.append("circle")
+                        ///.data([{x: cx, y: cy}])
+                        .attr("cx", cx)
+                        .attr("cy", 0)
+                        //.attr("filter", "url(#f0)")
+                        .attr("r", r)
+                        .attr("id", nodes[i].text)
+                        .attr("class", "trigger")
+                        .style("fill", col)
+                        .transition()
+                        .duration(200)
+                        .attr("cy", cy);
+
+                svg.append("circle")
+                        .data([{x: cx, y: cy}])
+                        .attr("cx", function (d) {
+                            return d.x;
+                        })
+                        .attr("cy", function (d) {
+                            return d.y;
+                        })
+                        .attr("r", 2)
+                        .attr("stroke", col)
+                        .attr("stroke-width", "2px")
+                        .attr("fill", "none")
+                        .transition()
+                        .duration(200)
+                        .attr("r", r - 2)
+                        .remove();
+
+                var text = (nodes[i].text).split("-")[1];
+                var tmp = $("<a style='font-size:" + r / 2 + "px'>" + text + "</a>").appendTo($("body"));
+
+                svg.append("text").attr("x", cx - tmp.width() / 2).attr("y", cy + tmp.height() / 3)
+                        .text(text).style("font-size", (r / 2) + "px");
+                tmp.remove();
+
+                f0.nodes.push("#" + nodes[i].text);
+            }
+            f0.slider();
+            func();
+        };
+
+        $.ajax({
+            url: "/query/flow",
+            async: true,
+            type: 'POST',
+            data: {id: f0.flow_id},
+            success: cb
+        });
+
+    };
+
+    f0.getX = function (cx, r, angle) {
+        return cx + r * Math.cos(angle * 2 * Math.PI / 360);
+    };
+
+    f0.getY = function (cy, r, angle) {
+        return cy - r * Math.sin(angle * 2 * Math.PI / 360);
+    };
+
+    f0.relative = function (cx1, cy1, cx2, cy2) {
+        var random = Math.round(Math.random() * 100) % 2;
+        //console.debug("random: " + random);
+        if (Math.abs(cx1 - cx2) >= 2 * f0.r) {
+            f0.position = 0;
+            if (Math.abs(cy1 - cy2) >= 2 * f0.r) {
+                f0.position = 2;
+                if (cx1 > cx2) {
+                    if (cy1 > cy2) {
+                        //return "2 4";
+                        f0.plus = -f0.r;
+                        return (90 + f0.random90()) + " " + (270 + f0.random90());
+                    } else {
+                        //return "2 2";
+                        f0.plus = -f0.r;
+                        return (120 + f0.random90()) + " " + (45 + f0.random90());
+                    }
+                } else {
+                    if (cy1 > cy2) {
+                        //return "1 3";
+                        f0.plus = -f0.r;
+                        return (f0.random90()) + " " + (180 + f0.random90());
+                    } else {
+                        //return "3 3";
+                        f0.plus = f0.r;
+                        return (210 + f0.random90()) + " " + (150 + f0.random90());
+                    }
+                }
+            } else {
+                if (cx1 > cx2) {
+                    //return "2 1,3 4";
+                    if (random) {
+                        f0.plus = -f0.r;
+                        return (90 + f0.random90()) + " " + (f0.random90());
+                    } else {
+                        f0.plus = f0.r;
+                        return (180 + f0.random90()) + " " + (270 + f0.random90());
+                    }
+                } else {
+                    //return "1 2,4 3";
+                    if (random) {
+                        f0.plus = -f0.r;
+                        return (f0.random90()) + " " + (90 + f0.random90());
+                    } else {
+                        f0.plus = f0.r;
+                        return (270 + f0.random90()) + " " + (180 + f0.random90());
+                    }
+                }
+            }
+        } else {//Math.abs(cy1 - cy2) >= 2 * f0.r
+            f0.position = 1;
+            if (Math.abs(cx1 - cx2) >= 2 * f0.r) {
+
+            } else {
+                if (cy1 > cy2) {
+                    //return "1 4,2 3";
+                    if (random) {
+                        f0.plus = f0.r;
+                        return (f0.random90()) + " " + (270 + f0.random90());
+                    } else {
+                        f0.plus = -f0.r;
+                        return (90 + f0.random90()) + " " + (180 + f0.random90());
+                    }
+
+                } else {
+                    //return "4 1,3 2";
+                    if (random) {
+                        f0.plus = f0.r;
+                        return (270 + f0.random90()) + " " + (f0.random90());
+                    } else {
+                        f0.plus = -f0.r;
+                        return (180 + f0.random90()) + " " + (90 + f0.random90());
+                    }
+                }
+            }
+        }
+    };
+
+
+    f0.controlXY = function (x1, y1, x2, y2) {
+
+        //console.debug(Math.round(x1 / x2));
+        var x, y;
+        if (f0.position === 1) {//up-down
+            if (y1 > y2) {
+                f0.plus = Math.ceil(y1 / y2) * f0.plus;
+                y = (y1 - y2) / 2 + y2;
+                x = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + f0.plus;
+            } else {
+                f0.plus = Math.ceil(y2 / y1) * f0.plus;
+                y = (y2 - y1) / 2 + y1;
+                x = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + f0.plus;
+            }
+        } else if (f0.position === 0) {//left-right
+            if (x1 > x2) {
+                f0.plus = Math.round(x1 / x2) * f0.plus;
+                x = (x1 - x2) / 2 + x2;
+                y = (x - x1) * (y2 - y1) / (x2 - x1) + y1 + f0.plus;
+            } else {
+                f0.plus = Math.round(x2 / x1) * f0.plus;
+                x = (x2 - x1) / 2 + x1;
+                y = (x - x1) * (y2 - y1) / (x2 - x1) + y1 + f0.plus;
+            }
+        } else if (f0.position === 2) {//skew
+            if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
+                if (x1 > x2) {
+                    //f0.plus = Math.round(x1 / x2) * f0.plus;
+                    // 余额->活期
+                    if (f0.plus > 0) {
+                        x = (3 * x1 + x2) / 4;
+                    } else {
+                        x = (x1 + 3 * x2) / 4;
+                    }
+
+                    y = f0.controlY(x1, y1, x2, y2, x);
+                    var xy = f0.fixControlX(x1, y1, x2, y2, x, y);
+                    x = xy.x;
+                    y = xy.y;
+
+                } else {
+                    // 活期->余额
+                    if (f0.plus > 0) {
+                        x = (3 * x1 + x2) / 4;
+                    } else {
+                        x = (x1 + 3 * x2) / 4;
+                    }
+                    y = f0.controlY(x1, y1, x2, y2, x);
+                    var xy = f0.fixControlX(x1, y1, x2, y2, x, y);
+                    x = xy.x;
+                    y = xy.y;
+                }
+            } else {
+                if (y1 > y2) {
+                    x = (x1 + 3 * x2) / 4 - Math.abs(y1 / y2 - 1) * f0.r;
+                    y = f0.controlY(x1, y1, x2, y2, x);
+                } else {
+                    f0.plus = Math.round(y2 / y1 + 0.5) * f0.plus;
+
+                    if (f0.plus > 0) {
+                        x = (3 * x1 + x2) / 4 - Math.abs(y2 / y1 - 1) * f0.r;
+                    } else {
+                        x = (x1 + 3 * x2) / 4 - Math.abs(y2 / y1 - 1) * f0.r;
+                    }
+                    y = f0.controlY(x1, y1, x2, y2, x);
+                }
+            }
+
+        }
+
+
+        return (x + " " + y);
+    };
+    
+    f0.controlY = function (x1, y1, x2, y2, x) {
+        return (x1 * x1 + y1 * y1 - x2 * x2 - y2 * y2 - 2 * x1 * x + 2 * x * x2) / (2 * y1 - 2 * y2);
+    };
+    
+    f0.fixControlX = function (x1, y1, x2, y2, x, y) {
+        var yy = y;
+        if (y1 > y2) {
+            if (y < y2)
+                y = y2 - f0.r;
+            if (y > y1)
+                y = y1 + f0.r;
+        } else if (y1 < y2) {
+            if (y > y2)
+                y = y2 + f0.r;
+            if (y < y1)
+                y = y1 - f0.r;
+        }
+        if (yy !== y) {
+            x = (y * (2 * y1 - 2 * y2) - x1 * x1 - y1 * y1 + x2 * x2 + y2 * y2) / (2 * x2 - 2 * x1);
+        }
+        return {x:x, y:y};
+    };
+
+    f0.loadEdges = function (func) {
+        $.ajax({
+            url: "/query/edges",
+            async: true,
+            type: 'POST',
+            data: {id: f0.flow_id},
+            success: function (t, s) {
+                f0.edges = JSON.parse(t).message;
+                func();
+            }
+        });
+    };
+
+    f0.init_timer = function () {
+//                if (f0.timers && f0.timers.length > 0) {
+//                    for (var i = 0; i < f0.timers.length; i++) {
+//                        window.clearInterval(f0.timers[i]);
+//                    }
+//                    f0.timers = [];
+//                }
+
+        f0.timers.splice(0, f0.timers.length);
+        var edge = f0.edges;
+
+        for (var i = 0; i < edge.length; i++) {
+
+            if (!edge[i].query_id)
+                continue;
+            f0.init_data_count(edge[i].start_node, edge[i].end_node);
+            var timer = f0.timer(edge[i].query_id, edge[i].start_node, edge[i].end_node);
+            timer();
+            //f0.timers.push(window.setInterval(timer, f0.time_interval[f0.speed] * 1000));
+            f0.timers.push(timer);
+        }
+    };
+
+    f0.timer = function (query_id, start_node, end_node) {
+
+        var p = {}; //query_params
+
+        p.start_time = f0.data_time;
+        p.end_time = new Date(f0.data_time).add('s', +10).format("yyyy-MM-dd hh:mm:ss");
+
+        p.count = f0.query_count;
+//                if (start_node === "1-银行" && end_node === "3-定期") {
+//                    console.debug(start_node + "--->" + end_node + "    " + p.start_time + "--->" + p.end_time);
+//                }
+
+        var timer = function () {
+            $.ajax({
+                url: "/query/list",
+                async: true,
+                type: 'POST',
+                data: {id: query_id, start: p.start_time, end: p.end_time},
+                success: function (t, s) {
+
+                    if (p.count === f0.query_count) {
+                        f0.readyDrawLine(t, s, start_node, end_node, p);
+                    } else {
+                        console.debug("p.count != f0.query_count");
+                        console.debug(p.count + "  " + f0.query_count);
+                    }
+                }
+            });
+        };
+        return timer;
+    };
+
+    f0.readyDrawLine = function (t, s, start_node, end_node, p) {
+
+        var list = JSON.parse(t).details.list.values;
+
+        if (list.length && list.length > 0) {
+
+            p.start_time = new Date(list[list.length - 1]["payment_time"] + 1000).format("yyyy-MM-dd hh:mm:ss");
+            //var stamp = list[list.length - 1]["payment_time"];
+            //console.debug("start:" + new Date(list[0]["payment_time"]).format("yyyy-MM-dd hh:mm:ss"));
+            //console.debug("end:" + new Date(list[list.length - 1]["payment_time"]).format("yyyy-MM-dd hh:mm:ss"));
+            p.end_time = new Date(p.start_time).add('s', +10).format("yyyy-MM-dd hh:mm:ss");
+//                    var now = new Date().format("yyyy-MM-dd hh:mm:ss");
+//                    if (now > p.start_time && now < p.end_time) {
+//                        f0.speed = 1;
+//                    }
+
+//            if (start_node === "1-银行" && end_node === "3-定期") {
+//                console.debug("has data: " + start_node + "--->" + end_node + "    " + p.start_time + "--->" + p.end_time);
+//            }
+
+            //if(list > 10){
+//            var tmp = {};
+//            tmp.list = list;
+//            console.debug(list.length);
+            var inner = window.setInterval(function () {
+
+                for (var i = 0; i < 10; i++) {
+                    var line = list.shift();
+                    //console.debug(line);
+                    if (!line) {
+                        window.clearInterval(inner);
+                        console.debug("~~~~~~~~");
+                        break;
+                    }
+
+                    if (p.count !== f0.query_count) {
+//                        console.debug("p.count != f0.query_count");
+//                        console.debug(p.count + "  " + f0.query_count);
+                        window.clearInterval(inner);
+                        console.debug("###############");
+                        break;
+                    }
+
+                    //0-100，100-1000，1000-10000，10000-50000，50000
+                    var amount;
+                    if (line.amount) {
+                        amount = line.amount;
+                    } else if (line.fund_transfer_amount) {
+                        amount = line.fund_transfer_amount;
+                    } else {
+                        console.debug(line);
+                    }
+
+                    var color;
+                    if (amount) {
+                        if (amount < 100) {
+                            color = "#ffe300";
+                        } else if (amount < 1000) {
+                            color = "#ffc000";
+                        } else if (amount < 10000) {
+                            color = "#ff9d00";
+                        } else if (amount < 50000) {
+                            color = "#ff6e00";
+                        } else {
+                            color = "#ff0000";
+                        }
+                    }
+
+                    var cx1 = Math.round($("#" + start_node).attr("cx"));
+                    var cy1 = Math.round($("#" + start_node).attr("cy"));
+                    var cx2 = Math.round($("#" + end_node).attr("cx"));
+                    var cy2 = Math.round($("#" + end_node).attr("cy"));
+
+                    f0.init_data_count_plus(start_node + end_node, line.payment_time);
+                    f0.drawLine(cx1, cy1, cx2, cy2, color);
+                }
+            }, 500);
+
+//            for (var i = 0; i < list.length; i++) {
+//                var cx1 = Math.round($("#" + start_node).attr("cx"));
+//                var cy1 = Math.round($("#" + start_node).attr("cy"));
+//                var cx2 = Math.round($("#" + end_node).attr("cx"));
+//                var cy2 = Math.round($("#" + end_node).attr("cy"));
+//
+//                f0.drawLine(cx1, cy1, cx2, cy2);
+//            }
+            //console.debug(start_node + "--->" + end_node + "    " + p.start_time + "--->" + p.end_time);
+        } else {
+
+            p.end_time = new Date(p.end_time).add('s', +10).format("yyyy-MM-dd hh:mm:ss");
+            if (start_node === "1-银行" && end_node === "3-定期") {
+                console.debug("no data: " + start_node + "--->" + end_node + "    " + p.start_time + "--->" + p.end_time);
+            }
+
+            //console.debug(start_node + "--->" + end_node + "    " + p.start_time + "--->" + p.end_time);
+        }
+
+    };
+
+    f0.drawLine = function (cx1, cy1, cx2, cy2, color) {
+
+        var path = d3.path();
+
+        for (var i = 0; i < 1; i++) {
+            var relative = f0.relative(cx1, cy1, cx2, cy2);
+            var ran = relative.split(",")[0].split(" ");
+
+            var ran1 = ran[0];
+            var ran2 = ran[1];
+
+            var x1 = f0.getX(cx1, f0.r, ran1);
+            var y1 = f0.getY(cy1, f0.r, ran1);
+            var x2 = f0.getX(cx2, f0.r, ran2);
+            var y2 = f0.getY(cy2, f0.r, ran2);
+            path.moveTo(x1, y1);//start xy
+            var control = f0.controlXY(x1, y1, x2, y2).split(" ");
+            path.quadraticCurveTo(control[0], control[1], x2, y2);
+
+        }
+
+        svg.append("path")
+                .attr("stroke-width", 1)
+                .style("fill", "none")
+                .style("stroke", color)//#8defe1
+                .style("stroke-dasharray", "1000, 1000")
+                .attr("d", path)
+                .attr("class", "edge")
+                //.attr("filter", "url(#f0)")
+                .transition()
+                .duration(5000)
+                .styleTween("stroke-dashoffset", function () {
+                    return d3.interpolateNumber(1000, 500);
+                });
+//                        .transition()
+//                        .delay(5000)
+//                        .duration(1000)
+//                        .attr("stroke-width", 0.2);
+
+//                .transition()
+//                .delay(600000)
+//                .duration(1000)
+//                .remove();
+        path.closePath();
+        path = null;
+    };
+
+    f0.readyLoadFlow = function (flow_id) {
+        //var mins = (x - f0.slider_x)/f0.slider_width * 1440;
+
+        var func = function () {
+            var hour = g.hour;
+            var mins = g.mins;
+            var x = (hour * 60 + mins) / 1440 * f0.slider_width + f0.slider_x;
+
+            if (hour < 10)
+                hour = "0" + hour;
+            if (mins < 10)
+                mins = "0" + mins;
+
+            f0.time_sign.text(hour + " : " + mins);
+
+            var x1 = x - $("#time_length").width() / 2;
+            f0.time_sign.transition()
+                    .duration(1000).attr("x", x1);
+
+            f0.start_slider.transition()
+                    .duration(1000).attr("cx", x);
+
+            //#fb0000        
+            f0.time_cursor.transition()
+                    .duration(1200)
+                    .attr("x1", x)
+                    .attr("x2", x);
+
+            f0.set_data_time(g.time);
+
+            f0.query();
+        };
+
+        f0.loadFlow(flow_id, func);
+        //window.setInterval(f0.times, 10000);
+    };
+
+    f0.slider = function () {
+
+        var width = f0.slider_width = g.w * 0.5;
+        //alert($(window).height());
+        var height = f0.slider_height = 20;
+        if (g.terminal === "phone") {
+            //var width = f0.slider_height = g.w * 0.5;
+            width = f0.slider_width = g.w * 0.9;
+        } else {
+            //var width = f0.slider_height = g.w * 0.5;
+        }
+
+        var x = f0.slider_x = (g.w - width) / 2;
+        var y = f0.slider_y = g.h - 50;
+
+        var step = width / 24;
+
+        for (var i = 0; i < 25; i++) {
+            if (i % 2 > 0)
+                continue;
+            svg.append("text").attr("y", y + height + 20)
+                    .attr("x", i * step + x)
+                    .text(i).style("font-size", "10px")
+                    .style("fill", "#00effb");
+        }
+
+        f0.time_sign = svg.append("text").attr("y", y + height - 25)
+                .attr("x", x)
+                .attr("id", "time_sign")
+                .text("").style("font-size", "10px")
+                .style("fill", "#00effb");
+
+        svg.append("rect")
+                .attr("fill", "#5c9fd0")
+                .attr("x", x)
+                .attr("y", y)
+                .attr("width", width)
+                .attr("height", height)
+                .attr("rx", height / 2)
+                .attr("ry", height / 2);
+
+        f0.start_slider = svg.append("circle")
+                .attr("cx", x + height / 2)
+                .attr("cy", y + height / 2)
+                .attr("r", height / 2)
+                .attr("id", "f0-start-slider")
+                .style("fill", "#00effb")
+                .call(d3.drag()
+                        .on("start", f0.slider_dragstarted)
+                        .on("drag", f0.slider_dragged)
+                        .on("end", f0.slider_dragended));
+
+        f0.time_cursor = svg.append("line")
+                .attr("x1", x + height / 2)
+                .attr("y1", y)
+                .attr("x2", x + height / 2)
+                .attr("y2", y + height)
+                .attr("stroke", "#fb0000")
+                .attr("stroke-width", 1);
+
+
+    };
+
+    f0.slider_dragstarted = function () {
+
+//                var s = d3.select(this);
+//                s.raise().classed("active", true);//toFront()
+//                console.debug("started");
+    };
+
+    f0.slider_dragged = function () {
+
+        var s = d3.select(this);
+        var x = d3.event.x;
+
+        if (x <= f0.slider_x) {
+            x = f0.slider_x;
+        } else if (x >= f0.slider_x + f0.slider_width) {
+            x = f0.slider_x + f0.slider_width;
+        }
+        s.attr("cx", x);
+        var mins = (x - f0.slider_x) * 1440 / f0.slider_width;
+        var hour = parseInt(mins / 60);
+        if (hour < 10)
+            hour = "0" + hour;
+
+        var min = parseInt(mins % 60);
+        if (min < 10)
+            min = "0" + min;
+        if (hour === 24)
+            min = "00";
+        f0.time_sign.text(hour + " : " + min);
+        f0.time_sign.attr("x", x - $("#time_length").width() / 2);
+
+        f0.set_data_time(f0.date + " " + hour + ":" + min + ":00");
+    };
+
+    f0.slider_dragended = function () {
+        f0.time_cursor_interval_count = 0;
+        f0.time_cursor_fix();
+        f0.query();
+    };
+
+    f0.set_data_time = function (time) {
+        f0.data_time = time;
+    };
+
+    f0.query = function () {
+
+        d3.selectAll(".edge").remove();
+        f0.query_count++;
+
+        if (f0.query_count === 1) {
+            f0.loadEdges(f0.init_timer);
+        } else {
+            f0.init_timer();
+        }
+
+        f0.interval();
+    };
+
+    f0.interval = function () {
+
+        if (f0.query_interval_id > 0) {
+            window.clearInterval(f0.query_interval_id);
+            //f0.query_interval_id = -1;
+        }
+
+        f0.query_interval_id = window.setInterval(function () {
+            for (var i = 0; i < f0.timers.length; i++) {
+                f0.timers[i]();
+            }
+        }, f0.time_interval[f0.speed] * 1000);
+
+    };
+
+    f0.time_cursor_interval = window.setInterval(function () {
+        f0.time_cursor_interval_count++;
+
+        f0.time_cursor_fix(true);
+    }, 1000 * 60);
+
+    f0.time_cursor_fix = function (add) {
+
+        if (add) {
+            var date = new Date(f0.data_time).add('n', +f0.time_cursor_interval_count);
+        } else {
+            var date = new Date(f0.data_time);
+        }
+        var hour = date.getHours();
+        var mins = date.getMinutes();
+        var x = (hour * 60 + mins) / 1440 * f0.slider_width + f0.slider_x;
+
+        //#fb0000        
+        f0.time_cursor.transition()
+                .attr("x1", x)
+                .attr("x2", x);
+    }
+    
+    f0.init_data_count = function(start_node, end_node){
+        
+        var id = start_node + end_node;
+        $("#" + id).remove();
+        f0.data_count[id] = 0;
+        start_node = start_node.split("-")[1];
+        end_node = end_node.split("-")[1];
+        var li = $("<li id='"+id+"'>" + start_node + "-" + end_node + "&nbsp;&nbsp;&nbsp;&nbsp;<span></span><a></a></li>");
+        $("#data_count_list").append(li);
+//        li.append("<b class='li-b-1'></b>");
+//        li.append("<b class='li-b-2'></b>");
+//        li.append("<b class='li-b-3'></b>");
+//        li.append("<b class='li-b-4'></b>");
+    };
+    
+    f0.init_data_count_plus = function(id, time){
+        f0.data_count[id] ++;
+        $("#" + id + " span").html(f0.data_count[id]);
+        $("#" + id + " a").html(new Date(time).format("hh:mm:ss"));
+    };
+
+</script>
+
+<div id="time_length" style="visibility:hidden;position: fixed;font-size:10px">67 : 89</div>
+<div id="data_count" style="display: none;position:fixed;font-size:10px;top:0px;right:-28px;">
+    <ul id="data_count_list">
+        <b class='li-b-1'></b>
+        <b class='li-b-2'></b>
+        <b class='li-b-3'></b>
+        <b class='li-b-4'></b>
+    </ul>
+</div>
+<div id="assetFlow-toolbar">
+    <div class="calendar">
+        <div style="position:absolute;">
+            <i class="iconfont icon-rili"></i>
+        </div>
+        <input class="calendar-date" type="text" style="width:30px;height:30px;font-size:20px;opacity:0" />
+    </div>
+    <div class="speed one-speed toolbar-but" data-speed="1">x1</div>
+    <div class="speed five-speed toolbar-but" data-speed="5">x5</div>
+    <div class="speed ten-speed toolbar-but" data-speed="10">x10</div>
+    <div class="toolbar-but data-count">C</div>
+</div>
+<div id="assetFlow-container">
+    <svg id="asset-flow">
+    </svg>
+</div>

@@ -1,0 +1,29 @@
+html,body,div,aside,article,section,ul,li,span,h1{margin: 0;padding: 0;}
+html,body{
+	width: 100%;
+	height:100%;
+	font:normal italic  normal 12px/1.5em "微软雅黑";
+}
+ul{padding-left: 20px;}
+li{list-style: none;font-size: .9vw;}
+h1{padding: 5px 10px;font-size: 1vw;background-color: cadetblue;}
+.homePage-g-container{
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	background-color: #f1f1f1;
+}
+.homePage-m-directory,.homePage-m-content{
+	height: 100%;
+	box-sizing: border-box;
+}
+.homePage-m-directory{
+	float: left;
+	border-right: 1px double #9e9e9e;
+}
+.homePage-m-directory .u-items{
+	padding-right: 20px;
+}
+.homePage-m-directory>.u-items{
+	padding-top: 5px;
+}

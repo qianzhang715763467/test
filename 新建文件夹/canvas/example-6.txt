@@ -1,0 +1,42 @@
+data : 单条数据含义；
+{
+	X : parseInt(self.W/2), 	// X轴原点
+	Y : parseInt(self.H/2), 	// Y轴原点
+	R : 60, 					// 半径
+ 	S : 0*Math.PI,				// 起始点 0 ~ 2
+ 	E : 2*Math.PI,				// 终点     0 ~ 2
+ 	W : 5,						// 弧线宽度
+ 	color: ,					// 颜色
+ 	text : "12442",         	// 文字,
+ 	font :' 12px/arial black',	// 文字大小/字体
+ 	status:false,				// 方向 :false = 顺时针
+ 	"type": "circle"			// 圆形
+ 	"type": 'arc',				// 绘制图案类型: arc = 圆弧
+ 	"type": 'line'				// 折线
+ 	"type": 'Text'              // 文字
+ 	
+ 	animate:false,          	// 默认没有动画 :'true' = 无限次播放，1 = 只播放一次，
+ 	// 下列 key 为方法内部创建的自用 键值对；
+ 	random :,                   // 随机数
+ 	count  :,					// 控制动画执行的起点，起点是不断递增的
+ 	size   :,					// 控制动画执行的终点
+ 	timer  :,       			// 动画执行完毕，清除循环定时器
+ 	zIndex :					// 执行顺序,同时也是动画的执行速度
+ 	"minR": 15,    				// 渐变色结束半径
+	"maxR":50,					// 渐变色开始半径
+	"color1":"hsla(184,100%,49%,.1)", // 外圈渐变色
+	"color2":"hsla(184,100%,49%,.7)", // 内圈渐变色
+}
+
+顶层对象 C;
+  c = {
+  	ctx  		： ，// 对象canvas
+  	H   		: , // 画布高度
+  	w   		: , // 画布宽度
+  	draw		: , // 初始化，循环 data 数据
+  	animation	: , // 动画 
+  	type		: , // 要绘制内容的类型
+  	arc			: , // 圆弧
+  	fill		: , // 文字
+	canvas		:   // 执行绘制程序
+  }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#aaa,
+			#bbb,
+			#ccc,
+			#ddd,
+			#eee{
+				position: relative;
+				border: 1px solid white;
+				float: left;
+				width: 500px;
+				height: 400px;
+				background-color: black;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="aaa">
+			
+		</div>
+		<div id="bbb">
+			
+		</div>
+		<div id="ccc">
+			
+		</div>
+		<div id="ddd">
+			
+		</div>
+		<div id="eee">
+			
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/canvas.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/*数据结构如下：
+		datas = [
+	 		{
+	 			// 数据类型。
+	 			//（"arc":圆弧，"circle":渐变圆形,"border":线段,"line":折线）。
+			 	"type"		: "arc", 
+			 	// 原点。不写默认为中心点! 
+			 	// 转义字符 w = 盒子宽度，h = 盒子高度、数据结构 ：["x,y"]、可直接运算如：["w/2*5+2,h"];
+			 	"centerDot"	: ["w/2,h/2"],  
+				// 绘制图像路径。存在两种格式！
+				// 圆形格式为：["0,2","0.1,0.2"],范围值为( 0~ 2 ). 
+				// 线段格式为：["S0,0 Ew/2,h/2 w,h"], S为起点，E为终点 （之间要有空格），如果是一条同一起点的线段 E可以设置多对值，每对值之间要有空格。如（E0,0 2,2 3,3）
+				"path"		: ["0,1.5","Sw/3,20 Ew/1.5,h/3+4 w/1.5,h/3"], 
+				// 宽度。 当前绘制图像的宽度
+				"width"		: ["10","10"],
+				// 半径。 圆心到边缘的距离 。存在两种格式
+				// 圆形格式为：["50"]
+				// line折线格式为：["10,100"],意思为最大半径&最小半径。大小值顺序随意，会自动处理
+				"radii"		: ["50","60,100"],
+				// 速度。与动画相关。没有动画可以不写
+				"speed"		: ["1","2"],
+				// 角度。 line折线专用,即在圆形上的位置。范围值（0 ~ 2）
+				"angle"		: ["0.5","1.2","2"],
+				// 长度，暂时未开发
+				"lineLength": ["50,70"],
+				// 文字。通用
+				"text"		: ["12345","阿芙"],
+				// 颜色。两种数据格式
+				// 渐变圆为：["red,yellow"]
+				// 其他        : ["red"]
+				"color"		: ["red"],
+				// 字体样式。 不写就是默认值
+				"font"		: ["400 12px arial black"],
+				// 动画。  三种状态 false:没有动画， 1:执行一次，true:无限循环(开发中。。。)
+				"animate"	: [false,"1","true"]
+		 	}
+		];*/
+		myCanvas("aaa",[{
+				"centerDot"	: ["w/2,h/2"],
+				"path"		: ["0,2","0,0.5","1,1.9"],
+				"width"		: ["4","10","5"],
+				"radii"		: ["50","60","80"],
+				"speed"		: ["1","50","100"],
+				"color"		: ["red","yellow","aqua"],
+				"animate"	: [false,"1","1"],
+				"type"		: "arc"
+			},{
+				"centerDot"	: ["w/2,h/2","w/3,h/3"],
+				"width"		: ["4","10","5"],
+				"color"		: ["red","yellow","aqua"],
+				"texts"		: ["2AAA","3BBB"],
+				"type"		: "Test"
+			}]
+		);
+		myCanvas("bbb",[{
+				"path"		: ["Sw/3,20 Ew/1.5,h/3+4 w/1.5,h/3","Sw/3,20 Ew/3,h"],
+				"width"		: ["10","10"],
+				"radii"		: ["50","60"],
+				"speed"		: ["1","2"],
+				"angle"		: ["0.5","1.2","2"],
+				"text"		: ["12345","阿芙"],
+				"color"		: ["red"],
+				"type"		: "border"
+			}]
+		);
+		myCanvas("ccc",[{
+				"angle"		: ["0.5","1.2","1.6"],
+				"radii"		: ["50,90","30,80","30,80"],
+				"texts"		: ["12345","阿芙啊啊啊啊","213"],
+				"color"		: ["red"],
+				"width"		: ["5","2"],
+				"type"		: "line"
+			},]
+		);
+		myCanvas("ddd",[{
+				"radii"		: ["10,40"],
+				"path"		: ["0,2"],
+				"width"		: ["10"],
+				"speed"		: ["1"],
+				"color"		: ["hsla(145,100%,40%,1),yellow"],
+				"type": "circle"
+			}]
+		);
+		myCanvas("eee",[{
+				"centerDot"	: ["w/2,h/2","w/3,h/3"],
+				"width"		: ["4","10","5"],
+				"color"		: ["red","yellow","aqua"],
+				"texts"		: ["2AAA","3BBB"],
+				"type"		: "Test"
+			}]
+		);
+	</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<td  >
+		<ul class="list-unstyled bgw-ul">
+			<li>
+				<p class="remove1">
+					<input type="text" >
+					<input type="button" value="添加" class="btn  btn-xs " onclick="show()">
+					<div class="height1"></div>
+					<span class="delete1 Add displayn"> 4fff<a class="close class_cate" type="button" href=" ">&times;</ a>
+			        </span>
+				</p >
+		        <div class="Black displayn" style="position: relative;">
+		        	<input type="text" placeholder=" 颜色值" onclick="show1()">
+		        	<span class="delete1 y1 displayn" >fff<a class="close class_cate" type="button" href="javascript:void(1)">&times;</ a>
+		             </span>
+		        	<input type="text" placeholder=" 颜色css类" onclick="show2()">
+		        	<span class="delete1 y2 displayn">fff<a class="close class_cate" type="button" href="javascript:void(1)">&times;</ a>
+		            </span>
+		        	<input type="text" placeholder=" 颜色名称" onclick="show3()">
+		        	<span class="delete1 y3 displayn">fff<a class="close class_cate" type="button" href="javascript:void(1)">&times;</ a>
+		            </span>
+		        	<input type="button" value="添加" class="btn  btn-xs " >
+		        </div>
+		    </li>
+		    <li>
+				<p class="remove1">
+						<input type="text" >
+					<input type="button" value="添加" class="btn  btn-xs " onclick="show()">
+					<div class="height1"></div>
+					<span class="delete1 Add displayn"> 4fff<a class="close class_cate" type="button" href="javascript:void(1)">&times;</ a>
+			        </span>
+				</p >
+		        <div class="Black displayn" style="position: relative;">
+		        	<input type="text" placeholder=" 颜色值" onclick="show1()">
+		        	<span class="delete1 y1 displayn" >fff<a class="close class_cate" type="button" href="javascript:"></a></span>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+			function show(){
+				$(".Add").toggleClass("displayn");
+		    }
+			function show1(){
+				$(".y1").toggleClass("displayn");
+		    }
+			function show2(){
+				$(".y2").toggleClass("displayn");
+		    }
+			function show3(){
+				$(".y3").toggleClass("displayn");
+		    }
+			
+			function show2(){
+				$(".y2").toggleClass("displayn");
+		    }
+
+		$(document).click(function(event){
+			var name = event.target.nodeName().toLocaleLowerCase();
+			if(name == 'input' && $(event.target).attr('type') == 'text'){
+				$(event.target).next('.delete1').toggleClass("displayn");
+			}else if(name == 'input' && $(event.target).attr('type') =='button'){
+				$(event.target).siblings('.delete1').toggleClass("displayn");
+			}
+		})
+
+	</script>
+</html>

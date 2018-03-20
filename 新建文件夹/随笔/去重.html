@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var paylist=[{nodeTree1:"注册用户",nodeTree2:"未交易用户",nodeTree3:"绑卡",nodeTree4:"人数",value:"注册用户现金券,满5000减300,30人使用加息券,1%,20人使用"},
+	  					{nodeTree1:"注册用户",nodeTree2:"未交易用户",nodeTree3:"绑卡",nodeTree4:"转化率",value:"0.05%"},
+	  					{nodeTree1:"注册用户",nodeTree2:"未交易用户",nodeTree3:"绑卡",nodeTree4:"转化率",value:"0.05%"},
+	  					{nodeTree1:"注册用户",nodeTree2:"未交易用户",nodeTree3:"推荐返佣",nodeTree4:"人数"}];
+  					
+ 			UniquePay(paylist)			
+		})
+		   
+function UniquePay(paylist){
+	//去重用于对比的基准对象；
+    var payArr = [paylist[0]];
+    // 循环去重对象
+    for(var i = 1; i < paylist.length; i++){
+        var payItem = paylist[i];
+        var repeat = false;
+        // 去重对象 KEY name 
+        var listArr=['nodeTree1','nodeTree2','nodeTree3','nodeTree4','value'];
+        // 循环 对象key name
+        for(var a=0;a<listArr.length;a++){
+        	// 循环 对比基准对象所有值
+        	for (var j = 0; j < payArr.length; j++) {
+    			var arr=listArr[a];
+	          	if (payItem[arr] == payArr[j][arr]) {
+	          		// 值相同跳出循环；
+      				repeat = true;
+         			break;	
+	          	}else{
+	          		repeat = false;
+	          	}
+	     	}
+        	// 将不相同的值循环添加到 基准对象
+		  	if (!repeat) {
+		      	payArr.push(payItem);
+		  	}
+        }
+    }
+    console.log(payArr);
+    return payArr;
+    
+}
+	</script>
+</html>

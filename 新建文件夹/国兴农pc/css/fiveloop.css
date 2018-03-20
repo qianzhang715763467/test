@@ -1,0 +1,94 @@
+.plantGxn_content_wrap,.wisdomGxn_content_wrap,.safetyGxn_content_wrap,.createGxn_content_wrap,.easyGxn_content_wrap{
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+/*.plantGxn_content_wrap .content_title{
+	font-size: 18px;
+    line-height: 30px;  
+    padding: 3px 10px;
+}*/
+
+.plantGxn_content2,.plantGxn_content3,.plantGxn_content4{
+	margin:15px 0;
+}
+.wisdomGxn_content2,.wisdomGxn_content3,.wisdomGxn_content4,.wisdomGxn_content5{
+	margin:20px 0;
+}
+.safetyGxn_content2,.safetyGxn_content3,.safetyGxn_content4,.safetyGxn_content5{
+	margin:20px 0;
+}
+.createGxn_content2,.createGxn_content3,.createGxn_content4,.createGxn_content5,.createGxn_content6{
+	margin:20px 0;
+}
+.easyGxn_content2,.easyGxn_content3,.easyGxn_content4,.easyGxn_content5,.easyGxn_content6{
+	margin:20px 0;
+}
+/*-------------fiveloop1_plant_gxn----植兴农----------------*/
+/*公共title公共font*/
+.plantGxn_content_wrap .plantGxn_cont>p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+ .plantGxn_cont .plantGxn_content_font{
+	padding: 20px 0;
+	font-size: 16px;
+	line-height: 24px;
+}
+/*cont1 cont2*/
+.plantGxn_content1 .plantGxn_content_font>p,.plantGxn_content2 .plantGxn_content_font>p{width: 74%;padding-top: 20px;}
+/*cont4*/
+.plantGxn_content4_anli{padding: 20px 0;}
+.plantGxn_content4_anli .smalltitle{padding: 20px 0;color: #6eb592;}
+.plantGxn_content4_anli >ul>li{width: 50%;}
+.plantGxn_content4_anli >ul>li>p{padding:0px 20px;box-sizing: border-box;line-height: 20px;}
+.plantGxn_content4_anli >ul>li:nth-of-type(2){padding-left: 20px;box-sizing: border-box;}
+
+/*-------------fiveloop1_wisdom_gxn---智兴农-------------------*/
+/*公共title公共font*/
+.wisdomGxn_content_wrap .wisdomGxn_cont>p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+ .wisdomGxn_cont .wisdomGxn_content_font{
+	padding:10px 0;
+	font-size: 16px;
+	line-height: 24px;
+}
+/*-------------fiveloop1_safety_gxn ---安兴农-------------------*/
+/*公共title公共font*/
+.safetyGxn_content_wrap .safetyGxn_cont>p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+ .safetyGxn_cont .safetyGxn_content_font{
+	padding:10px 0;
+	line-height: 24px;
+}
+.safetyGxn_content6 .timeline{
+	width: 206px;
+    background: #efefef;
+    padding: 10px;
+    line-height: 24px;
+    font-size: 14px;
+    display: inline-block;
+}
+/*-------------fiveloop1_create_gxn---创兴农-------------------*/
+/*公共title公共font*/
+.createGxn_content_wrap .createGxn_cont>p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.createGxn_cont .createGxn_content_font{
+	padding:15px 0;
+	line-height: 24px;
+}
+/*-------------fiveloop1_easy_gxn---易兴农-------------------*/
+/*公共title公共font*/
+.easyGxn_content_wrap .easyGxn_cont>p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.easyGxn_cont .easyGxn_content_font{
+	padding:10px 0;
+	line-height: 24px;
+}

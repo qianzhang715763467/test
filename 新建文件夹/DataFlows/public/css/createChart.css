@@ -1,0 +1,42 @@
+#chart-common{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	width: calc(100% - 40px);
+	height: 60%;
+	margin-left: 20px;
+	margin-right: 20px;
+	border-bottom: 1px solid #000;
+}
+#chart-common .chart-title{
+	position: absolute;
+	transform: translateY(-100px);
+}
+#chart-common .chart-unit{
+	position: absolute;
+	display: block;
+	font-size: 10px;
+	transform: translateY(-20px);
+	color: #666;
+}
+#chart-common .chart-main{
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.chart-main .main-contentX{
+	position: relative;
+}
+.chart-main .main-scaleX{
+	position: relative;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+}
+.main-contentX .pillar{
+	position: absolute;
+	display: block;
+	text-decoration: none;
+	bottom: 0;
+	text-align: center;
+	background-color: #3c93bd;
+}

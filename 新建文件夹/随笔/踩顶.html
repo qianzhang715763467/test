@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<style type="text/css">
+			#vote {
+			    /* margin: 0 auto; */
+			    text-align: center;
+			}
+			
+			.vote-btn {
+			    margin: 0 20px;
+			    display: inline-block;
+			    width: 60px;
+			    height: 54px;
+			    cursor: pointer;
+			}
+			
+			#dig {
+			    background: url("http://www.365mini.com/static/image/dig.gif");
+			}
+			
+			#bury {
+			    background: url("http://www.365mini.com/static/image/bury.gif");
+			}
+			
+			.vote-num {
+			    display: inline-block;
+			    font-size: 13px;
+			    margin-top: 34px;
+			    padding-right: 3px;
+			    color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vote" data_id="文章唯一key">
+		    <span id="dig" class="vote-btn"><span class="vote-num">顶的次数</span></span>
+		    <span id="bury" class="vote-btn"><span class="vote-num">踩的次数</span></span>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+			$("#vote .vote-btn").bind("click", function(){
+		        var me = $(this);
+		        var id = me.parent().attr("data_id");
+		        var type = this.id;
+		        $.post("请求地址", {'type': type, 'id': id }, function(data){
+		            data = $.trim(data);
+		            if(data == 'success'){      //如果投票成功
+		                $num = me.find(".vote-num");
+		                $num.html( parseInt($num.html()) + 1 ); //投票+1
+		                //取消绑定的点击事件，并还原鼠标指针样式
+		                $("#vote .vote-btn").unbind("click").css("cursor", "auto");
+		                if(type == 'bury'){
+		                    alert("您投了反对票，敬请在评论中留言告知您的意见，以便于我们改正!");                    
+		                }
+		            }else if(data == 'done'){   //如果已经投票过
+		                //取消绑定的点击事件，并还原鼠标指针样式
+		                $("#vote .vote-btn").unbind("click").css("cursor", "auto");
+		                alert("您已经投票过，无法再次投票!");
+		            }else{      //投票失败
+		                alert("由于系统或网络问题，投票没有成功，建议您稍后重新投票!");               
+		            }
+		        });
+		    });
+		
+	</script>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			.g-connaiter{
+				width: 100vw;
+				height: 100vh;
+				border: 1px solid #BB260D;
+				overflow: hidden;
+			}
+			.g-left,.g-right{
+				height: 100%;
+				float: left;
+			}
+			.g-left{
+				width: 20%;
+				background-color: #993359;
+			}
+			.g-right{
+				width: 80%;
+				height: calc(100% + 12px);
+				background-color: #98c8e2;
+				overflow-x: scroll;
+				overflow-y: hidden;
+			}
+			.m-left-head{
+				width: 100%;
+				height: 10%;
+			}
+			.m-left-content{
+				position: relative;
+				width: auto;
+				max-height:70vh;
+				background-color: #fff;
+				overflow: hidden;
+			}
+			.m-left-footer{
+				width: 100%;
+				height: 20%;
+			}
+			.u-content{
+				width: calc(100% + 12px);
+				max-height: 70vh;
+				overflow-x: hidden;
+				overflow-y: scroll;
+			}
+			td,th{
+				min-width: 95px;
+				max-width: 95px;
+				line-height: 80px;
+				text-align: center;
+			}
+			.scroll{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 2;
+				overflow-y:scroll ;
+				overflow-x: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-connaiter">
+			<aside class="g-left">
+				<header class="m-left-head">
+					<table border="" cellspacing="0" cellpadding="0"></table>
+				</header>
+				<section class="m-left-content">
+					<div id="left-scroll" class="scroll">
+						<section></section>
+					</div>
+					<div class="u-content"style="padding-top: 1px;">
+						<table border="" cellspacing="0" cellpadding="0"></table>
+					</div>
+				</section>
+				<footer class="m-left-footer">
+					<table border="" cellspacing="0" cellpadding="0"></table>
+				</footer>
+			</aside>
+			<section class="g-right">
+				<header class="m-left-head">
+					<table border="" cellspacing="0" cellpadding="0"></table>
+				</header>
+				<section class="m-left-content">
+					<div id="right-scroll" class="scroll">
+						<section></section>
+					</div>
+					<div class="u-content">
+						<table border="" cellspacing="0" cellpadding="0"></table>
+					</div>
+				</section>
+				<footer class="m-left-footer">
+					<table border="" cellspacing="0" cellpadding="0"></table>
+				</footer>
+			</section>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+		var TAB = {
+				wrap:{
+					'node':'div',
+					'class':'g-connaiter',
+					child1:[
+						{'node':'aside','class':'g-left',
+							child2:[
+								{'node':'header','class':'m-left-head',
+									child3:[
+										{'node':'table','class':''}
+									]
+								},
+								{'node':'section','class':'m-left-content',
+									child3:[
+										{'node':'div','class':'scroll','id':'left-scroll',
+											child4:[
+												{'node':'section'}
+											]
+										},
+										{'node':'div','class':'u-content',
+											child4:[
+												{'node':'table'}
+											]
+										}
+									]
+								},
+								{'node':'footer','class':'m-left-footer',
+									child3:[
+										{'node':'table','class':''}
+									]
+								}
+							]
+						},
+						{'node':'aside','class':'g-right',
+							child2:[
+								{'node':'header','class':'m-left-head',
+									child3:[
+										{'node':'table','class':''}
+									]
+								},
+								{'node':'section','class':'m-left-content',
+									child3:[
+										{'node':'div','class':'scroll','id':'left-scroll',
+											child4:[
+												{'node':'section'}
+											]
+										},
+										{'node':'div','class':'u-content',
+											child4:[
+												{'node':'table'}
+											]
+										}
+									]
+								},
+								{'node':'footer','class':'m-left-footer',
+									child3:[
+										{'node':'table','class':''}
+									]
+								}
+							]
+						}
+					]
+				}
+			}
+		
+		$(function(){
+			var wrap = TAB.wrap,
+				child1 = wrap.child1;
+			for(let n = 0; n < TAB.length; n++){
+				console.log(TAB)
+			}
+			function forin(dom,count1,count2){
+				for(var i = 1 ; i <= count1; i++){
+					var tr = $('<tr></tr>');
+					for(var n = 1; n <= count2; n++){
+						if(n == 1){
+							var td = '<td>'+i+'</td>';
+						}else{
+							var td = '<td>'+n+'</td>';
+						}
+						tr.append(td);
+					}
+					dom.append(tr);
+				}
+			}
+			forin($('.g-left').find('.m-left-head').find('table'),2,2);
+			forin($('.g-left').find('.m-left-content').find('table'),100,2);
+			forin($('.g-left').find('.m-left-footer').find('table'),4,2);
+			forin($('.g-right').find('.m-left-head').find('table'),2,30);
+			forin($('.g-right').find('.m-left-content').find('table'),100,30);
+			forin($('.g-right').find('.m-left-footer').find('table'),4,30);
+			// 左侧 td 宽度重算
+			$('.g-left').find('td').css({'min-width':($('.g-left').width()/2),'max-width':($('.g-left').width()/2)});
+			// 中间 table 最外层盒子宽度计算; 
+			$('.m-left-content').each(function(){
+				var w = $(this).find('tr').eq(0).outerWidth()+6;
+				$(this).css('width',w);
+				// 左右同时 Y 轴滚动
+				$(this).find('.scroll').each(function(){
+					var next = $(this).next();
+					$(this).css({'width':next.outerWidth(),'height':next.outerHeight()}).scroll(function(){
+						$('.g-connaiter').find('.u-content').scrollTop($(this).scrollTop());
+						if(($(this).scrollTop()+333) >= $(this).children().height())alert('已经到底了~')
+					}).children().css({'width':next.children().outerWidth(),'height':next.children().outerHeight()});
+				})
+			})
+		})
+		
+	</script>
+</html>

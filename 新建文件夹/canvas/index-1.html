@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>季度KPI完成进度</title>
+		<link rel="stylesheet" type="text/css" href="../测试/css/base.css"/>
+		<style type="text/css">
+			.g-container{
+				width: 100%;
+				height: 100%;
+				background-color: #000000;
+				overflow: hidden;
+			}
+			.g-container .titleName{
+				height: 75px;
+				line-height: 75px;
+				text-indent: 160px;
+				font-size: 27px;
+				font-weight: 100;
+				color: white;
+			}
+			.leftTop,
+			.rightBottom{
+				position: absolute;
+				width: 150px;
+				height: 150px;
+			}
+			.leftTop:before,
+			.rightBottom:before{
+				clear: both;
+			}
+			.leftTop{
+				top: 0;
+				left: 0;
+			}
+			.rightBottom{
+				right: 0;
+				bottom: 0;
+			}
+			.m-warp{
+				position: relative;
+				width: calc(100% - 150px);
+				height: calc(100% - 150px);
+				border: 2px solid hsla(184,100%,49%,.3);
+				margin: 0 auto;
+			}
+			.m-warp:after{
+				position: absolute;
+				right: -2px;
+				top: -2px;
+				content: "";
+				border: 50px solid transparent;
+				border-right-color: black;
+				border-top-color: black;
+			}
+			.m-warp:before{
+				position: absolute;
+				left: -2px;
+				bottom: -2px;
+				content: "";
+				border: 50px solid transparent;
+				border-left-color: black;
+				border-bottom-color: black;
+			}
+			.canvasItems{
+				width: 100%;
+				height: 100%;
+				clear: both;
+			}
+			.canvasItems .item{
+				position: relative;
+				display: block;
+				float: left;
+				width: calc(100% / 7);
+				height: 100%;
+			}
+			.item div{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			#item1{
+				left: 40px;
+			}
+			#item2{
+				left: 40px;
+			}
+			#item3{
+				left: -40px;
+			}
+			#item4{
+				left: -50%;
+				width: 200%;
+			}
+			#item5,#item6{
+				width: 300%;
+			}
+			#item5{
+				top: 0;
+				left: -200%;
+				height: 40%;
+			}
+			#item6{
+				top: 40%;
+				left: -200%;
+				height: 60%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-container">
+			<section class="leftTop canvas1"id="leftTop" ></section>
+			<h2 class="titleName">2017年度Q3季度KPI完成进度</h2>
+			<div class="m-warp" id="warp">
+				<ul class="canvasItems">
+					<li id="item1" class="item">
+						<div id="item1">
+							
+						</div>
+					</li>
+					<li class="item">
+						<div id="item2">
+							
+						</div>
+					</li>
+					<li class="item">
+						<div id="item3">
+							
+						</div>
+					</li>
+					<li class="item">
+						<div id="item4">
+							
+						</div>
+					</li>
+					<li class="item">
+					</li>
+					<li class="item">
+						
+					</li>
+					<li class="item">
+						<div id="item5">
+							
+						</div>
+						<div id="item6">
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+			<section class="rightBottom canvas2" id="rightBottom"></section>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="canvas.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var obj = null;
+		// 请求数据
+		function getJSON(cb){
+			$.getJSON('canvas.json',function(res,callbackCanvas){
+				obj = res;
+				cb();
+			});
+		}
+		//callback
+		function callbackCanvas(){
+			myCanvas('leftTop',obj.arc);
+			myCanvas('rightBottom',obj.arc);
+			/*myCanvas('warp',obj.border);
+			myCanvas('item1',obj.item1);
+			myCanvas('item2',obj.item2);
+			myCanvas('item3',obj.item3);
+			myCanvas('item4',obj.item4);
+			myCanvas('item5',obj.item5);
+			myCanvas('item6',obj.item6);*/
+		}
+		// 画图
+		function myCanvas(dom,data){
+			var self = document.getElementById(dom);
+				$(self).children('canvas').remove();
+			var myCanvas = new drawCanvas(self,data);
+			return myCanvas.draw();
+		}
+		//调用
+		getJSON(callbackCanvas);
+		
+		$(window).resize(callbackCanvas);
+	</script>
+</html>

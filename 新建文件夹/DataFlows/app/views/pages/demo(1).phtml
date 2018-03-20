@@ -1,0 +1,141 @@
+<div id="demo-flow-win" class="ui modal small">
+    <i class="close icon"></i>
+    <div class="header">
+        编辑节点名称
+    </div>
+    <form action="" class="ui form error" style="padding:35px">
+        <div class="ui error message"></div>
+        <div class="field inline">
+            <div class="required field">
+                <label>节点名称</label>
+                <input type="text" name="node-text" class="wide">
+            </div>
+        </div>
+    </form>
+
+    <div class="actions" >
+        <div class="ui red deny button">
+            Cancel
+        </div>
+        <div class="ui positive right labeled icon button" onclick="editNodeText()">
+            Submit
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var f00 = {};
+    page["demo"] = f00;
+    f00.id = "demo-flow-win";
+    
+    f00.init = draw;
+    
+    var count = 0;
+    var circles = [];
+    var clickedTextId = null;
+    
+
+    var sss = d3.select("#main-content").append("svg");
+    ss = document.getElementsByTagName("svg")[0];
+    ss.setAttribute("id", "demo-svg");
+
+    ss.setAttribute("width", window.innerWidth);
+    ss.setAttribute("height", window.innerHeight - $("#toolbar").height() - 10);
+
+    var svg = d3.select("svg");
+    var width = svg.attr("width");
+    var height = svg.attr("height");
+
+    var color = d3.scaleOrdinal()
+            .range(d3.schemeCategory20);
+
+    var r = 50;
+    function draw() {
+        //console.debug(width);
+        var cx = Math.round(Math.random() * (width - r * 2) + r);
+        var cy = Math.round(Math.random() * (height - r * 2) + r);
+        circle.create(r, cx, cy);
+    }
+
+    var circle = {
+        create: function (r, cx, cy) {
+            var c = {};
+            var id = drawCircle(r, [{x: cx, y: cy}]);
+            circles[id] = c;
+            c.text = svg.append("text").attr("x", cx).attr("y", cy)
+                    .text(id.replace("c-", "")).attr("id", "t-" + id.replace("c-", ""));
+            
+            //svg.append("text").attr("x", cx-14).attr("y", cy - r/2).text(id.replace("c-", ""));
+            
+            return c;
+        }
+    };
+
+    function drawCircle(r, data) {
+
+        var c = svg.append("circle")
+                .data(data)
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                })
+                .attr("r", r)
+                .attr("id", "c-" + ++count)
+                .attr("class", "trigger")
+                .style("fill", function (d, i) {
+                    return color(Math.round(Math.random() * 255));
+                })
+                .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended));
+
+        return c.attr("id");
+    }
+
+
+    function dragstarted(d) {
+        d3.select(this).raise().classed("active", true);//toFront()
+        circles[d3.select(this).attr("id")].text.raise().classed("active", true);
+    }
+
+    function dragged(d) {
+        var circleId = d3.select(this).attr("id");
+        //console.debug(Math.round(d3.event.x - $("#t-" + circleId.replace("c-", "")).width()/2));
+        circles[circleId].text.attr("x", Math.round(d3.event.x - $("#t-" + circleId.replace("c-", "")).width() / 2)).attr("y", d3.event.y);
+        d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+    }
+
+    function dragended(d) {
+        d3.select(this).classed("active", false);
+    }
+
+    $("#demo-svg").on('dblclick', function (e) {
+      
+        if (e.target.nodeName.toLowerCase() !== "text")
+            return;
+
+        //console.debug(e.target);
+        e.preventDefault();
+        $("#demo-flow-win form").form("clear");
+        $("#demo-flow-win").modal('show');
+        clickedTextId = $(e.target).attr("id");
+    });
+
+    function editNodeText() {
+        var t = $("input[name='node-text']").val();
+        if (t.length > 0) {
+            var clickNode = d3.select("#c-" + clickedTextId.replace("t-", ""));
+            var clickText = d3.select("#" + clickedTextId);
+            console.debug(clickNode.attr("cx"));
+            clickText.text(clickText.text().split("-")[0] + "-" + t);
+            console.debug(clickText.attr("x"));
+
+            clickText.attr("x", Math.round(clickNode.attr("cx") - $("#" + clickedTextId).width() / 2));
+        }
+    }
+
+</script>

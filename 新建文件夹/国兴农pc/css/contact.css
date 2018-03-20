@@ -1,0 +1,31 @@
+/*plant/ascend/market/agriculture/symAdv/gxnIntro/brandPlan/company_pro/contact相同样式*/
+.contact_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.contact_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+/*cont1*/
+.contact_content_wrap .contact_content1 #agriculture> p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.contact_content1 .contact_cont{
+	border-bottom: 1px solid #d3d3d3;
+	height: 100px;		
+}
+.contact_content1 .contact_cont li{display: table;height: 100%;}
+.contact_content1 .contact_cont li .idspan{
+	    display:table-cell;vertical-align:middle;
+}
+.contact_content1 .contact_cont li.right_li{
+	font-size: 14px;line-height: 24px;
+}
+.contact_content1 .contact_cont li.left_li .idspan .tabspan{
+	background: #efefef;font-size: 16px;font-weight: 600;padding: 8px 15px;display: inline-block; width: 146px;
+}
+.w50{width: 50%;}

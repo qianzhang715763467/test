@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .left {
+            width: 100%;
+            height: 100%;
+            background: lightyellow;
+            float: left;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        ul li {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="left">
+    <input type=""/>
+    <div class="box"></div>
+</div>
+</body>
+<script src="jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function () {
+
+        var r = [
+            {
+                "item_id": 1,
+                "item_name": "身份证是否是一代身份证",
+                "risk_level": "low",
+                "group": "个人信息核查"
+            }, {
+                "item_id": 2,
+                "item_name": "身份证是否出现在信贷逾期名单",
+                "risk_level": "high",
+                "group": "不良信息扫描",
+                "item_detail": {
+                    "discredit_times": 1,
+                    "overdue_details": [
+                        {
+                            "overdue_amount": 3475,
+                            "overdue_count": 1,
+                            "overdue_day": 69,
+                            a: [
+                                {
+                                    b: 1,
+                                    c: 2
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "discredit_count"
+                }
+            }
+        ];
+
+        var result = {
+            formatHtml: '',
+            obj: [],
+            key: '',    //用来存储key值
+            isArr: false,
+            getDataType: function (data) {
+                var self = this;
+                if (typeof data == 'object') {
+                    if (data.length) {
+                        return 'Array';
+                    } else {
+                        return 'Object';
+                    }
+                } else {
+                    return "String";
+                }
+            },
+            getData: function (data, dataName) {
+                var dataType = this.getDataType(data);
+                if (dataType == 'Array') {
+                    //this.countArr++;
+                    if (this.key) {
+                        this.formatHtml += '<ul>"' + this.key + '":[';
+                    } else {
+                        this.formatHtml += "<ul>[";
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        this.getData(data[i], dataName + "[" + i + "]");
+                    }
+                    this.formatHtml += "]</ul>";
+                } else if (dataType == 'Object') {
+                    if (!this.isArr && this.key) {
+                        this.formatHtml += '<ul>"' + this.key + '":{';
+                    } else {
+                        this.formatHtml += "<ul>{";
+                    }
+                    for (var i in data) {
+                        this.key = i;
+                        if (data[i].length) {
+                            this.isArr = true;
+                        } else {
+                            this.isArr = false;
+                        }
+                        this.getData(data[i], dataName + "." + i);
+                    }
+                    this.formatHtml += "}</ul>";
+                } else {
+                    this.formatHtml += typeof data == "number" ? '<li>"' + this.key + '":' + data + '</li>' : '<li>"' + this.key + '":"' + data + '"</li>';
+                }
+
+
+            },
+            hoverUp: function (box) {
+                $(".box").children("ul").find('li').mouseover(function (ev) {
+                    $(ev.target).css("background", "green").siblings().css("background", "");
+
+                });
+                $(".box").mouseout(function (ev) {
+                    $(ev.target).css("background","")
+                })
+            },
+            clickUp: function () {
+                $(".box>ul").click(function (ev) {
+                });
+            },
+            init: function () {
+                this.getDataType(r);
+                this.getData(r, 'r');
+                this.clickUp();
+                $(".box").html(this.formatHtml);
+                this.hoverUp();
+            }
+        };
+
+
+        result.init();
+
+    })
+</script>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			input{
+				display: inline-block;
+				padding: 4px;
+				color: #555555;
+				vertical-align: middle;
+				background-color: #ffffff;
+				border: 1px solid #cccccc;
+				border-radius: 3px;
+				margin: 3px 0;
+			}
+			.focus{
+				border-color: rgba(82, 168, 236, 0.8);
+				outline: 0;
+				outline: thin dotted \9;
+				/* IE6-9 */  
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+			}
+			.blur{
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+				transition: border linear 0.2s, box-shadow linear 0.2s;
+			}
+		</style>
+	</head>
+	<body>
+		<p>姓名：<input type="text"   onfocus="this.className='focus'" onblur="this.className='blur'"/></p>
+		<p>年龄：<input type="text"   onfocus="this.className='focus'" onblur="this.className='blur'"/></p>
+	</body>
+</html>

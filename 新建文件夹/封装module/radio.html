@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<style type="text/css">
+			#date-query{
+				position: absolute;
+				left: 50px;
+				top: 100px;
+				width: 280px;
+				height: 230px;
+				background-color: #dedee6;
+				border-radius: 5px;
+			}
+			form{
+				width: 100%;
+				height: 100%;
+				padding: 10px 5px;
+				box-sizing:border-box ;
+			}
+			hr{
+				height: 1px;
+				background-color: lightskyblue;
+				margin-top: 3px;
+				margin-bottom: 8px;
+			}
+			.u-datails{
+				position: relative;
+				width: 100%;
+				height: auto;
+				min-height: 40px;
+				padding-left: 38px;
+				box-sizing: border-box;
+			}
+			.submit{
+				width: 50px;
+				height: 50px;
+				line-height: 40px;
+				text-align: center;
+				color: white;
+				border-radius: 50%;
+				background-color: lightskyblue;
+				transform:translateX(112px) ;
+				margin-top: 30px;
+			}
+			.u-datails .query{
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				width: 18px;
+				height: 18px;
+			}
+			.datails{
+				width: 100%;
+			}
+			.datails input{
+				padding: 5px 10px;
+				border-radius: 5px;
+				margin-top: 5px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/calendar.css"/>
+	</head>
+	<body>
+		<div id="date-query">
+        	<form >
+        		<section class="u-datails">
+        			<input type="radio" class="query" value="" name="dates" checked/>
+        			<div class="datails date-datails">
+        				<input type="text" onfocus="createDate(this)" placeholder="请输入要查询的成立日期"/>
+        			</div>
+        		</section>
+        		<hr/>
+        		<section class="u-datails">
+        			<input type="radio" class="query" value="" name="dates"/>
+        			<div class="datails">
+        				<input type="text" onfocus="createDate(this)" placeholder="请输入要查询的开始日期" disabled/>
+        				<input type="text" onfocus="createDate(this)" placeholder="请输入要查询的结束日期" disabled/>
+        			</div>
+        		</section>
+        		<input type="button" value="提交" class="submit"/>
+        	</form>
+        </div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/calendar.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$(document).click(function(event){
+			// 单选选中style
+			if($(event.target).hasClass('query')){
+				$(event.target).next().addClass('date-datails')
+								.children('input').removeAttr('disabled');
+								
+				if($(event.target).parent().siblings('.u-datails').children().hasClass('date-datails'))
+				$(event.target).parent().siblings('.u-datails').children().removeClass('date-datails');
+				$(event.target).parent().siblings('.u-datails').children().children('input').attr('disabled',true);
+			}else
+			if($(event.target).hasClass('submit')){
+				// 提交
+				var list = $('.date-datails').children(),
+					val  = [],
+					tex  = $(list).eq(0).attr('placeholder');
+				for(var i = 0; i < list.length; i++){
+					val.push($(list).eq(i).val());
+				}
+				if( val[0] == ""){
+					alert('"'+ tex +'"不能为空！');
+					$(list).eq(0).focus()
+				}else{
+					
+				}
+			}
+			
+		})
+	})
+	//   Date 插件   start
+	function createDate(event) {  
+	    $("<div id='da'></div>").calendar({
+	        trigger: $(event),
+	        zIndex: 999,
+	        format: 'yyyy-mm-dd'
+	    }).appendTo($("body"));
+	}
+	</script>
+</html>

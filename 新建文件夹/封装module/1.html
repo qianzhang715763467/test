@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+			.m-content{
+				position: relative;
+				width: 1200px;
+				height: 500px;
+				margin-left: 20px;
+			}
+			section{
+				position: absolute;
+				width: 25%;
+				height: 100%;
+				border: 1px solid black;
+				box-sizing: border-box;
+			}
+			section:nth-of-type(2){
+				left: 25%;
+			}
+			section:nth-of-type(3){
+				left: 50%;
+			}
+			section:last-child{
+				left: 75%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="m-content">
+			<section></section>
+			<section></section>
+			<section></section>
+			<section></section>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var totalW   = 0,    // 总宽
+			_this    = null, // 当前对象
+			_thisW   = 0,    // 当前对象宽
+			_prevW   = 0,    // 前一个兄弟宽
+			DownX    = 0,    // 鼠标值
+			isResize = false;
+		
+		$('section').mousemove(function(e){
+			if($(this).index() < 1 ) return ;
+			if((e.pageX - $(this).offset().left) > 5){
+				$(this).css('cursor','default');
+				return;
+			} else {
+				$(this).css('cursor','e-resize');
+			}
+		}).mousedown(function(e){
+			if($(this).index() < 1 ) return ;
+			_this  = $(this);
+			if((e.pageX - _this.offset().left) > 5) return;
+			// 点击当前对象左边线时
+			isResize = true ;			
+			_this.css('cursor','e-resize')
+			_thisW = _this.outerWidth();
+			_prevW = _this.prev().outerWidth();
+			totalW = _this.outerWidth() + $(this).offset().left ;
+			DownX  = e.clientX;
+			$(this).text(DownX);
+		})
+		$(document).mousemove(function(e){
+			if( !isResize ) return;
+			var newW = totalW - e.clientX -_thisW ;
+			console.log(newW)
+			var _left = e.clientX -_this.parent().offset().left;
+			if( newW > 0){
+				_this.prev().css({'width':(_prevW - newW)});
+				_this.css({'width':(_thisW + newW),'left':_left});
+			} else {
+				_this.css({'width':(_thisW + newW),'left':_left});
+				_this.prev().css({'width':(_prevW - newW)});
+			}
+		}).mouseup(function(){
+			isResize = false ;
+		})
+		
+	</script>
+</html>

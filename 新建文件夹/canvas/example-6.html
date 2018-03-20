@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<canvas id="c" width="500px" height="500px" style="background-color: #000;"></canvas>
+	</body>
+	<script type="text/javascript">
+		var c = {
+			draw : function(p){
+				var self = this;
+				var ctx = self.ctx.getContext('2d');
+				for(var i = 0;i < p.length;i++){
+					// 默认居中
+					if(!p[i].X){
+						p[i].X = self.ctx.offsetWidth/2;
+					};
+					if(!p[i].Y){
+						p[i].Y = self.ctx.offsetHeight/2;
+					};
+					if(!p[i].animate){
+						// 作用于提升，解决层级问题
+						(function(i){
+							var x = i;
+							setTimeout(function(){
+								self.type(ctx,p[x]);									
+							},p[x].zIndex);
+						})(i);
+					}else{
+						(function(i){
+							var x = i;
+							setTimeout(function(){
+								self.animation(ctx,p[x],p);
+							},p[x].zIndex*100);
+						})(i);
+					}
+					
+				};
+			},
+			// 动画
+			animation : function(ctx,p,arr){
+				var self = this;// 定时器中 this =>> windiw,所以这里要重新定义一次
+				p.random = Math.random()*5 + p.zIndex; // 动画执行时间
+				p.count = p.S; 	//起始点
+				p.size  = 0.02;	// 起点到终点的绘制长度；
+				p.timer1 = setInterval(function(){
+					self.type(ctx, p);
+					if(p.count >= p.E){ // 起点 == 终点？ 停止动画；
+						clearInterval(p.timer1);
+						// 无限次？
+						if(p.animate == 'true'){
+							p.count = p.S + 0.01;		// 起点初始值；
+							p.size  = p.E - p.S;		// 每次绘制动画的长度；
+							// 循环动画开始
+							p.timer2 = setInterval(function(){
+								// Arr :复制一份绘图数据。目的是判断如果有与当前循环绘制图像重叠的部分，那么会用这组复制的数据将其覆盖。
+								// 并用原数据重新绘制所有覆盖的数据。So! 这份用来覆盖的数据颜色只能是与canvas背景色一致才能起到橡皮擦一样的效果。 
+								var Arr2 = []; 				// 重新绘制图像用的新数组
+								var a = p.R + p.W-5; 		// 当前弧的总半径；
+								var coverage = JSON.parse(JSON.stringify(p)); // 复制一个当前图像作为覆盖层,并修改基础参数；
+								coverage.animate = false;	// 覆盖层不能有动画
+								coverage.color = self.ctx.style.backgroundColor;// 颜色为canvas底色
+								coverage.zIndex  = 0;		// 层级为 0;
+								coverage.S = 0;		 		// 弧形起点
+								coverage.E = 2;		 		// 弧形终点
+								coverage.R = coverage.R-1;  // 半径缩小
+								coverage.W = coverage.W +3; // 扩大弧形宽度，用来覆盖散点 
+								Arr2.push(coverage);
+								for(var b = 0;b < arr.length; b++){
+									// 其他图像与当前图像有重叠就一起重绘；
+									if(a >= arr[b].R && p.R <= arr[b].R){
+										var d = arr[b];
+										if(arr[b].animate != 'true'){
+											d.animate = "";
+										}else{
+											var d = arr[b];
+										}
+										Arr2.push(d);
+									}
+								};
+								for(var c = 0;c < Arr2.length; c++){
+									self.type(ctx, Arr2[c]);
+								};
+							},60);
+						}else{
+							return;
+						}
+					}
+				},p.random);
+			},
+			// 绘制图像的类型
+			type : function(ctx,p){
+				if(p.type == 'arc'){
+					this.arc(ctx,p);
+				};
+				if(p.type == 'fill'){
+					this.fill(ctx,p);
+				};
+			},
+			// 圆弧 at= {动画次数 ，当前起点}
+			arc : function(ctx,p){
+				var ot = p.status == true ? true : false;
+				ctx.beginPath();// 开始一条新的路径，或重置当前路径；
+				// 判断当前圆环是否需要动画
+				if(!p.animate){
+					// 圆环 无动画
+					ctx.arc(p.X,p.Y,p.R,p.S*Math.PI,p.E*Math.PI,ot);
+				}else{
+					// 圆环 有动画
+					ctx.arc(p.X,p.Y,p.R,p.count*Math.PI,(p.count+p.size)*Math.PI,ot);
+					p.count += 0.01;
+				}
+				ctx.lineWidth = p.W;// 宽度
+				ctx.strokeStyle = p.color;// 颜色
+				ctx.stroke();// 绘制
+			},
+			// 文字
+			fill : function(ctx,p){
+				// w ： 文字宽度的一半；
+				var w = this.fontW(p);
+				ctx.beginPath();
+				ctx.font 	  = p.font;
+				ctx.fillStyle = p.color;
+				ctx.fillText(p.text , p.X-w , p.Y);
+			},
+			// 计算文字宽度，用于居中放置
+			fontW : function(p){
+				// 创建一个行内元素。将要绘制的文字、大小、字体 全部赋给这个行内元素。之后计算出一半的宽度再删除掉；
+				var span = document.createElement('span');
+					span.style.font 	= p.font;
+					span.style.opacity 	= 0;
+					span.innerHTML 		= p.text;
+				document.getElementsByTagName('body')[0].appendChild(span);
+				var w = span.offsetWidth/2;
+				span.remove();
+				return w;
+			},
+			canvas : function(id,data){
+				this.ctx = id;
+				// 绘制方法
+				this.draw(data);
+			}
+		};
+		var data = [
+				{
+					R: 70,
+					S: 0,
+					E: 2,
+					W: 5,
+					color:'hsla(184,100%,49%,1)',
+					type: 'arc'
+				},{
+					R: 60,
+					S: 0,
+					E: 2,
+					W: 5,
+					color:'hsla(184,100%,41%,0.5)',
+					type: 'arc',
+					animate:'1'
+				},{
+					R: 56,
+					S: 1,
+					E: 1.5,
+					W: 15,
+					color : 'hsla(184,100%,50%,1)',
+					type: 'arc',
+					animate : 'true',
+					zIndex:10
+				},{
+					R: 30,
+					S: 0,
+					E: 1,
+					W: 5,
+					color : 'hsla(184,100%,40%,1)',
+					type: 'arc',
+					animate : '1',
+					zIndex:2
+				},{
+					Y: 230,
+					color : 'hsla(240,100%,100%,1)',
+					text  : '2017-06-02',
+					font  : '12px arial black',
+					type: 'fill'
+				},{
+					Y: 253,
+					color : 'hsla(240,100%,100%,1)',
+					text  : '星期五',
+					font  : '12px arial black',
+					type: 'fill'
+				}
+		];
+		c.canvas(document.getElementById('c'),data);
+	</script>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>堆叠柱状图</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;font: italic small-caps bold 14px/24px "微软雅黑";}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.g-container{
+				width: 100%;
+				height: 100%;
+				padding: .5%;
+				box-sizing: border-box;
+			}
+			.chart{
+				display: block;
+				float: left;
+				overflow: auto;
+				width: 49%;
+				height: 48%;
+				margin: .5%;
+				border-radius: 3px;
+				box-shadow: 0 1px 6px 1px #B3B3B3;
+			}
+			.chart:first-child{
+				width: 99%;
+				height: 98%;
+				padding-top: 10px;
+				padding-left: 10px;
+				box-sizing: border-box;
+			}
+			#m-stackMaps{
+				position: static !important;
+				width:98%;
+				height:inherit;
+				border-radius: 3px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-container">
+			<section class="chart">
+				<div id="m-stackMaps"></div>
+			</section>
+			<!--<section class="chart"></section>
+			<section class="chart"></section>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="echarts.js"></script>
+	<script type="text/javascript">
+    // 指定图表的配置项和数据   
+    var myChart = echarts.init(document.getElementById('m-stackMaps'));
+	var	option = {
+		    tooltip : {
+		        trigger: 'axis',
+		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		            type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+		        }
+		    },
+		    legend: {
+		        data: ['投资级别', '当前VIP客户数（人数）','计入业绩客户AUM值（亿元）','计入业绩客户数（人数）','上报客户数注册增长率',
+		        '上月销售规模（万元）','月销售规模（万元）','月销售规模业绩目标（万元）','销售规模完成率','月获客数（折算）',
+		        '月度获客目标（折算）','获客完成率','综合完成率','综合完成率排名','投资组综合完成率']
+		    },
+		    grid: {
+		    	
+		        left: '1%',
+		        right: '1%',
+			        bottom: '1%',
+			        containLabel: true
+		    },
+		    xAxis:  {
+		        type: 'value'
+		    },
+		    yAxis: {
+		        type: 'category',
+		        data: ['张飞','李逵','鲁智深','翠花','酸菜','白云','黑土','王麻子','褚八叉','哪吒','东西','南北']
+		    },
+		    series: [
+		        {
+		            name: '投资级别',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [320, 302, 301, 334, 390, 330, 320,102,35,567,345,110]
+		        },
+		        {
+		            name: '当前VIP客户数（人数）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [120, 132, 101, 134, 90, 230, 210,102,35,567,345,110]
+		        },
+		        {
+		            name: '计入业绩客户AUM值（亿元）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [220, 182, 191, 234, 290, 330, 310,102,35,567,345,110]
+		        },
+		        {
+		            name: '计入业绩客户数（人数）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [150, 212, 201, 154, 190, 330, 410,102,35,567,345,110]
+		        },
+		        {
+		            name: '上报客户数注册增长率',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 1320,102,35,567,345,110]
+		        },
+		        {
+		            name: '上月销售规模（万元）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '月销售规模（万元）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '月销售规模业绩目标（万元）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '销售规模完成率',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '月获客数（折算）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '月度获客目标（折算）',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '获客完成率',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '综合完成率',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },
+		        {
+		            name: '综合完成率排名',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        },{
+		            name: '投资组综合完成率',
+		            type: 'bar',
+		            stack: '总量',
+		            label: {
+		                normal: {
+		                    show: false,
+		                    position: 'insideRight'
+		                }
+		            },
+		            data: [820, 832, 901, 934, 1290, 1330, 130,102,35,567,345,110]
+		        }
+		    ]
+		};
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+	</script>
+</html>

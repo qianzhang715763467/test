@@ -1,0 +1,271 @@
+<header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="/">
+        <span class="icon icon-left"></span>
+        返回
+    </a>
+    <h1 class='title'>银行支付失败率</h1>
+</header>
+<div class="chart-wrapper" style="margin:0 auto;position:relative"></div>
+<div class="chart-common" style="margin:0 auto;position:absolute;display: none"></div>
+<div class="operating" style="position:absolute;bottom: 0px;border: 1px solid #ccc;width:100%"></div>
+
+<script>
+
+    f1.initPage = function () {
+        
+        f1.flow_id = p["chartCommon"].param.flowId;
+        f1.node = p["chartCommon"].param.node;
+
+        f1.metrics = [];
+        f1.mi; //currentMetricIndex
+        f1.hide_direction;
+
+        f1.titleHeight = $("#chartCommon header").height();
+
+        f1.chartWrapper = $("#chartCommon .chart-wrapper").first();
+        f1.chartWrapper.children().remove();
+
+        f1.chartWrapper.width(g.maxWidth * 0.94).height(g.h * 0.5)
+                .css("poisition", "absolute").css("top", (f1.titleHeight + 20) + "px");
+        f1.queryMetricOptions();
+
+        f1.operatingSpace = $("#chartCommon .operating").first();
+        f1.operatingSpace.height(g.h - f1.titleHeight - f1.chartWrapper.height() - 90);
+
+        f1.operatingSpace.unbind();
+        f1.operatingSpace.bind("touchstart", function (e) {
+            var touch = e.originalEvent.targetTouches[0];
+            f1.operatingSpace.touchXStart = touch.pageX;
+            f1.operatingSpace.touchYStart = touch.pageY;
+            event.preventDefault();
+        });
+
+        f1.operatingSpace.bind("touchend", function (e) {
+            var touch = e.originalEvent.changedTouches[0];
+            if (f1.operatingSpace.touchXStart - touch.pageX > 50) {
+                if (f1.metrics[f1.mi].si === f1.metrics[f1.mi].value.length - 1) {
+                    $.toast("没有了");
+                    return;
+                }
+                f1.metrics[f1.mi].si++;
+                f1.hide_direction = "left";
+                f1.switchMetricSub();
+                return;
+            } else if (touch.pageX - f1.operatingSpace.touchXStart > 50) {
+                if (f1.metrics[f1.mi].si === 0) {
+                    $.toast("没有了");
+                    return;
+                }
+                f1.metrics[f1.mi].si--;
+                f1.hide_direction = "right";
+                f1.switchMetricSub();
+                return;
+            }
+
+            if (f1.operatingSpace.touchYStart - touch.pageY > 50) {
+                //console.debug("next1");
+                if (f1.mi === f1.metrics.length - 1) {
+                    $.toast("没有了");
+                    return;
+                }
+                f1.mi++;
+                f1.hide_direction = "up";
+                f1.switchMetric();
+            } else if (touch.pageY - f1.operatingSpace.touchYStart > 50) {
+                //console.debug("pre1");
+                if (f1.mi === 0) {
+                    $.toast("没有了");
+                    return;
+                }
+                f1.mi--;
+                f1.hide_direction = "down";
+                f1.switchMetric();
+            }
+        });
+
+    };
+
+    f1.queryMetricOptions = function () {
+        $.ajax({
+            url: "/query/metric",
+            async: true,
+            type: 'POST',
+            data: {"fid": f1.flow_id, "node": f1.node.attr("id")},
+            success: function (text, textStatus) {
+                var list = JSON.parse(text).message;
+                for (var i = 0; i < list.length; i++) {
+                    f1.metrics[list[i].orderby] = {};
+                    f1.metrics[list[i].orderby].charts = [];
+                    f1.metrics[list[i].orderby].value = [];
+                    f1.metrics[list[i].orderby].si = 0;//index
+                    for (var field in list[i]) {
+                        f1.metrics[list[i].orderby][field] = list[i][field];
+                    }
+                    f1.metrics[list[i].orderby]["chart_options"] = JSON.parse(f1.metrics[list[i].orderby]["chart_options"]);
+                }
+
+                if (list.length > 0) {
+                    f1.readyQueryMetricValue(0);
+                    f1.mi = 0;
+                }
+                //console.debug(f1.metrics);
+            }
+        });
+    };
+
+    f1.readyQueryMetricValue = function (metric_index) {
+        f1.queryMetricValue(metric_index);
+    };
+
+    f1.queryMetricValue = function (metric_index) {
+        //var url = "http://ds.idc.xiwanglife.com/dataservice/getconfig.do";
+        var url = "/query/testQueryMetricValue";
+        $.ajax({
+            url: url,
+            async: true,
+            type: 'POST',
+            data: {id: f1.metrics[metric_index].query_id, chart_type: f1.metrics[metric_index].chart_type, metric_name: f1.metrics[metric_index].metric_name},
+            success: function (text, textStatus) {
+                //var list = text.details.list.values;
+                var list = JSON.parse(text);
+                f1.formatMetricValue(list, metric_index);
+                f1.createChart(f1.metrics[metric_index].chart_options, metric_index, f1.metrics[metric_index].si);
+            }
+        });
+    };
+
+    f1.formatMetricValue = function (list, metric_index) {
+
+        var data_time = [];
+        var x = [];
+        var y = [];
+        var data_time_line = false;
+        for (var i = 0; i < list.length; i++) {
+            if ($.inArray(list[i]["data_time"], data_time) === -1) {
+                if (data_time_line) {
+                    f1.metrics[metric_index].value.push({x: x.concat(), y: y.concat()});
+                    x = [];
+                    y = [];
+                    data_time_line = false;
+                    if(!f1.metrics[metric_index].chart_options._title)
+                        f1.metrics[metric_index].chart_options._title = f1.metrics[metric_index].chart_options.title;
+                    f1.metrics[metric_index].chart_options.title = list[i - 1]["data_time"];
+                }
+                data_time.push(list[i]["data_time"]);
+                x.push(list[i]["x_axis"]);
+                y.push(list[i]["y_axis"]);
+            } else {
+                data_time_line = true;
+                x.push(list[i]["x_axis"]);
+                y.push(list[i]["y_axis"]);
+            }
+        }
+        if (data_time.length === list.length) {
+            f1.metrics[metric_index].chart_options._title = f1.metrics[metric_index].chart_options.title;
+            console.debug(f1.metrics[metric_index].chart_options._title);
+            delete f1.metrics[metric_index].chart_options.title;
+        } else {
+            f1.metrics[metric_index].chart_options.titles = [];
+            for (var i = 0; i < data_time.length; i++) {
+                f1.metrics[metric_index].chart_options.titles.push(data_time[i]);
+            }
+        }
+        f1.metrics[metric_index].value.push({x: x, y: y});
+    };
+
+    f1.createChart = function (chart_options, metric_index, value_index) {
+
+        chart_options.x = f1.metrics[metric_index].value[value_index].x;
+        chart_options.y = f1.metrics[metric_index].value[value_index].y;
+        if (chart_options.titles) {
+            chart_options.title = chart_options.titles[value_index];
+            //console.debug(chart_options.titles);
+        }
+
+        var chart = $("#chartCommon .chart-common").first().clone()
+                .removeClass("chart-common").addClass("chart-" + metric_index + "-" + value_index)
+                .width(f1.chartWrapper.width()).height(f1.chartWrapper.height());
+
+        chart.bar = bar(chart, chart_options);
+        f1.metrics[metric_index].charts[value_index] = chart;
+
+        chart.appendTo(f1.chartWrapper);
+        f1.showChart(chart);
+        f1.switchHeader(f1.metrics[metric_index].chart_options._title);
+    };
+
+    f1.showChart = function (chart) {
+
+        if (f1.hide_direction) {
+            switch (f1.hide_direction) {
+                case "up" :
+                    var t = f1.metrics[f1.mi - 1].charts[f1.metrics[f1.mi - 1].si];
+                    t.animate({top: -t.height() + "px", opacity: 0}, 150);
+                    window.setTimeout(function () {
+                        t.hide();
+                    }, 150);
+                    break;
+                case "down" :
+                    var t = f1.metrics[f1.mi + 1].charts[f1.metrics[f1.mi + 1].si];
+                    t.animate({top: t.height() + "px", opacity: 0}, 150);
+                    window.setTimeout(function () {
+                        t.hide();
+                    }, 150);
+                    break;
+                case "left" :
+                    var t = f1.metrics[f1.mi].charts[f1.metrics[f1.mi].si - 1];
+                    t.animate({left: -t.width() + "px", opacity: 0}, 150);
+                    window.setTimeout(function () {
+                        t.hide();
+                    }, 150);
+                    break;
+                case "right" :
+                    var t = f1.metrics[f1.mi].charts[f1.metrics[f1.mi].si + 1];
+                    t.animate({left: t.width() + "px", opacity: 0}, 150);
+                    window.setTimeout(function () {
+                        t.hide();
+                    }, 150);
+                    break;
+            }
+
+        } else {
+            f1.chartWrapper.children().hide();
+        }
+        window.setTimeout(function () {
+            chart.show().css("top", "0px").css("left", "0px").css("opacity", 1);
+        }, 150);
+
+    };
+
+    //up down
+    f1.switchMetric = function () {
+        var mi = f1.mi;
+        if (f1.metrics[mi].value.length > 0) {
+            if (f1.metrics[mi].charts[f1.metrics[mi].si]) {
+                f1.showChart(f1.metrics[mi].charts[f1.metrics[mi].si]);
+            } else {
+                f1.createChart(f1.metrics[mi].chart_options, mi, f1.metrics[mi].si);
+            }
+            //console.debug(f1.metrics[mi].chart_options._title);
+            f1.switchHeader(f1.metrics[mi].chart_options._title);
+        } else {
+            f1.readyQueryMetricValue(mi);
+        }
+        
+    };
+    
+    //left right
+    f1.switchMetricSub = function () {
+        var mi = f1.mi;
+        if (f1.metrics[mi].charts[f1.metrics[mi].si]) {
+            f1.showChart(f1.metrics[mi].charts[f1.metrics[mi].si]);
+        } else {
+            f1.createChart(f1.metrics[mi].chart_options, mi, f1.metrics[mi].si);
+        }
+    };
+    
+    f1.switchHeader = function(header){
+        $("#chartCommon header .title").html(header);
+    };
+
+</script>

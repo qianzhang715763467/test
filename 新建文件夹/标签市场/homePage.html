@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/homePage.css"/>
+	</head>
+	<body>
+		<div class="homePage-g-container">
+			<aside class="homePage-m-directory">
+				<h1>目录</h1>
+				<section id="u-items" class="u-items"></section>
+			</aside>
+			<article class="homePage-m-content">
+				<h1>详情</h1>
+			</article>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var homePage = {};
+			homePage.dom  = $('#u-items');
+			homePage.rightContentW = function (){
+				$('.homePage-m-content').css('padding-left',homePage.dom.outerWidth());
+			}
+			// 初始化 顶层节点
+			if(typeof homePage.initialNode != 'function'){
+				homePage.initialNode = function(){
+					homePage.aa = '1123';
+					$.ajax({
+						type:"get",
+						dataType:"json",
+						url:"http://10.127.133.91:8080/data/view/getTree.do?id=-1",
+						async:true,
+						success:function(data){
+							var ul=$('<ul class="items"></ul>');
+							for(var i=0;i<data.length;i++){
+								var li='<li id="'+data[i].id+'"><span onclick="homePage.nextNode(event)">'+data[i].text+'</span></li>';
+								ul.append(li);
+							}
+							homePage.dom.append(ul);
+							homePage.rightContentW();
+						}
+					});
+				}
+			}
+			// nav netx node
+			homePage.nextNode = function(event){
+				homePage.findId   = $(event.target).parent().attr('id');
+				homePage.findSize = $(event.target).siblings().length;
+				homePage.findStatus = $(event.target).next();
+				// 防止重复请求. 节点不存在就请求，存在就删除
+				if(homePage.findSize === 0) {
+					$.ajax({
+		              type: "post",
+		              dataType:'json', //接受数据格式
+		              url:"http://10.127.133.91:8080/data/view/getTree.do?id="+homePage.findId,
+		              success: function(data){
+		              	var ul=$('<ul class="item"></ul>');
+						for(var i=0;i<data.length;i++){
+							var li='<li id="'+data[i].id+'"><span>'+data[i].text+'</span></li>';
+							ul.append(li);
+						}
+						$(event.target).parent().append(ul);
+						homePage.rightContentW();
+		       		  }	
+					});
+				}else{
+					homePage.findStatus.remove();
+					homePage.rightContentW();
+				}
+			}
+
+			homePage.initialNode();
+			$(window).resize(homePage.rightContentW);
+			//homePage.rightContentW();
+			//if(homePage.dom.find('.item') > 0){
+			//homePage.rightContentW()
+		/* // 构造+原型
+		 	function CreateData(dom){
+			this.dom = dom;
+			this.id  = '-1';
+			if(typeof this.initialNode != 'function'){
+				CreateData.prototype.initialNode =function(){
+					$.ajax({
+						type:"get",
+						dataType:"json",
+						url:"http://10.127.133.91:8080/data/view/getTree.do?id="+this.id,
+						async:true,
+						success:function(data){
+							var ul=$('<ul class="items"></ul>');
+							for(var i=0;i<data.length;i++){
+								var li='<li id="'+data[i].id+'"><span onclick="homePage.nextNode(event)">'+data[i].text+'</span></li>';
+								ul.append(li);
+							}
+							dom.append(ul);
+						}
+					});
+				}
+			}
+			this.nextNode = function(event){
+				this.id  = $(event.target).parent().attr('id');
+				this.size=$(event.target).siblings().length;
+				this.next=$(event.target).next();
+				if(this.size === 0) {// 防止重复请求
+					$.ajax({
+		              type: "post",
+		              dataType:'json', //接受数据格式
+		              url:"http://10.127.133.91:8080/data/view/getTree.do?id="+this.id,
+		              success: function(data){
+		              	var ul=$('<ul class="item"></ul>');
+						for(var i=0;i<data.length;i++){
+							var li='<li id="'+data[i].id+'"><span>'+data[i].text+'</span></li>';
+							ul.append(li);
+						}
+						$(event.target).parent().append(ul);
+		       		  }	
+					});
+				}else{
+					if(this.next.is(':visible')){
+						this.next.remove();
+					}else{
+						this.next.show();
+					}
+				}
+			}
+			
+		}
+		var homePage = new CreateData($('#u-items'));*/
+	</script>
+</html>

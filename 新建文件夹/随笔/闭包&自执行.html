@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		function f1(){
+			var a = 10;
+			function f2(){
+				console.log('我是一个闭包 a = ' + a) // a = 10;
+			}
+			// 我是一个闭包，我无法被直接在外部调用。你需要先执行我一次；
+			//如
+			return f2();
+			// 或者
+			//f2();
+		};
+		//调用我才能执行上面的闭包
+		f1(); 
+		
+		(function(jQuery){
+			console.log('我是一个自执行')
+		})()
+		
+		// 这就好像是：我有个游戏机，周围有好多小伙伴想玩。
+		// 可是我只想让小明玩。这时候怎么办呢？当然是把游戏机放在一个只有我和小明可以知道的区域 
+		// 于是乎。。。
+		function 我 的地盘(){
+			var 游戏机;
+			function 小明的地盘(){
+				console.log('小明在玩我的'+游戏机)
+			}
+		}
+		function 小伙伴1的地盘(){}
+		function 小伙伴2的地盘(){}
+		function 小伙伴3的地盘(){}
+	</script>
+</html>

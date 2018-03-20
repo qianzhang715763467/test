@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>element</title>
+		
+	</head>
+	<body>
+		<form id="myForm">
+			Firstname: <input id="fname" type="text" value="Mickey" />
+			Lastname: <input id="lname" type="text" value="Mouse" />
+			<div id="">
+				<input id="sub" type="button" value="Submit" />
+				<span id="111"></span>
+			</div>
+			
+		</form>
+		<p>Get the value of all the elements in the form:<br />
+		
+		</p>
+	</body>
+	<script type="text/javascript">
+			/*var x=document.getElementById("myForm");
+			var child = x.children;
+			for (var i=0;i<child.length;i++)
+			  {
+			  	document.write(child[i].nodeName.toLocaleLowerCase()+"  =========> id :"+child[i].id);
+			  	document.write("<br />");
+			  	document.write("val :"+child[i].value);
+			  	document.write("<br />");
+			  	document.write("type :"+child[i].type);
+			  	document.write("<br />");
+			  }*/
+			var x=document.getElementById("myForm");
+			for (var i=0;i<x.length;i++)
+			  {
+			  	document.write(x.elements[i].nodeName.toLocaleLowerCase()+"  =========> id :"+x.elements[i].id);
+			  	document.write("val :"+x.elements[i].value);
+			  	document.write("<br />");
+			  	document.write("type :"+x.elements[i].type);
+			  	document.write("<br />");
+			  	document.write("<br />");
+			  }
+	</script>
+</html>

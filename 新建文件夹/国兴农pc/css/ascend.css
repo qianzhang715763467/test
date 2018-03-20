@@ -1,0 +1,100 @@
+/*plant/ascend相同样式*/
+.ascend_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.ascend_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.ascend_content2,.ascend_content3,.ascend_content4,.ascend_content5,.ascend_content6{
+	margin:15px 0;
+}
+/*cont1*/
+.ascend_content_wrap .ascend_content1 p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+/*cont2*/
+.ascend_content2 .cont_xitongvs,.ascend_content3 .cont_liucheng{
+	padding: 30px 0;
+}
+.ascend_content2  .cont_xitongvs img,.ascend_content3 .cont_liucheng img{
+	display: block;
+	width: 100%;
+}
+/*cont3*/
+.ascend_content3 .cont_fonts li{width: 30%;font-size: 12px; color: #999;}
+.ascend_content3 .app_caozuo li{
+	width: 24.5%;
+}
+/*cont4*/
+.ascend_content4 .cont_fuwu {
+	padding: 25px 0;
+}  
+/*ascend2流通传递解决方案*/
+.Current_passing .ascend_content3 .ascend_cont3_smalltitle{
+	line-height: 30px;
+    padding: 5px 0;
+}
+.Current_passing .ascend_content4 .cont_fuwu {
+	padding: 25px 0;
+}
+.Current_passing .ascend_content4 .cont_fuwu li{
+	width: 50%;
+}
+.Current_passing .ascend_content4 .cont_fuwu .cont_fuwu_title span{
+	display: block;
+    text-align: center;
+    width: 100px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #0ba29a;
+    color: #fff;
+    font-size: 16px;
+    margin: 5px auto;
+    padding: 5px 0;
+}
+.Current_passing .ascend_content4 .cont_fuwu .fuwu_img{
+	display:block;width: 100%;
+}
+/*ascend3溯源信息查询解决方案*/
+.traceability .ascend_content2 p.greenfont{
+	font-size: 17px;text-align: center;color:#04aca3;font-weight: 600;padding: 15px 0;
+}
+.traceability .ascend_content2 p.greenfont span{ 
+	font-size: 23px;
+}
+.traceability .ascend_content3 hr{
+	margin:35px 0 10px 0;height: 1px;border: none;background-color: #dfdfdf;
+}
+.traceability .ascend_content3 .cont_xitongvs{
+	text-align: center;
+}
+.traceability .ascend_content3 .cont_fonts li{   
+	 width: 33%;
+    font-size: 12px;
+    color: #999;
+    text-align: center;}
+/*ascend4大数据监管*/
+.data_supervise .ascend_content3 .data_list li.data_list_ul{
+	width: 50%;
+}
+.data_supervise .ascend_content3 .data_list li.data_list_ul .data_listul_tab{
+	width: 25%;
+}
+.data_supervise .ascend_content3 .data_list li.data_list_ul .data_listul_cont{
+	width: 65%;
+	*width: 63%;
+	height: 92px;
+	display: table;
+	padding: 0px 30px 0 15px;
+	*padding: 15px 30px 0 15px;
+	
+}
+.data_supervise .ascend_content3 .data_list li.data_list_ul .data_listul_cont p{
+	    display: table-cell;
+    vertical-align: middle;
+}

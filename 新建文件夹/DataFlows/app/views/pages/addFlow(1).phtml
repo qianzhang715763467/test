@@ -1,0 +1,39 @@
+<div id="add-flow-form-win" class="ui modal small">
+    <i class="close icon"></i>
+    <div class="header">
+        添加Flow
+    </div>
+    <form action="/insert/flow" class="ui form error" style="padding:35px">
+        <div class="ui error message"></div>
+        <div class="required field">
+            <label>名称</label>
+            <input type="text" name="flow-name" class="wide">
+        </div>
+        <div class="required field">
+            <label>描述</label>
+            <input type="text" name="flow-desc" class="wide">
+        </div>
+    </form>
+
+    <div class="actions" >
+        <div class="ui red deny button">
+            Cancel
+        </div>
+        <div class="ui positive right labeled icon button" onclick="submit('add-flow-form-win')">
+            Submit
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var f2 = {};
+    page["addFlow"] = f2;
+    f2.id = "add-flow-form-win";
+
+    f2.init = function () {
+        $("#add-flow-form-win form").form("clear");
+        $("#add-flow-form-win").modal('show');
+    };
+</script>

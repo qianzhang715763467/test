@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery.js" type="text/javascript"></script>
+		<script src="echarts.js" type="text/javascript"></script>
+		<style type="text/css">
+			#main{width: 1100px !important;}
+			#main>div:first-child{width: 1100px !important;}
+			span{background-color: none !important;}
+		</style>
+	</head>
+	<body>
+		  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var rr=[12,234,65,87,-456,658,234,65,87,-456,658,234,65,87,-456,658,234,65,87,-456,658]
+        var tr=[243,57,675,-4,34,-244,234,65,87,-456,658,234,65,87,-456,658,234,65,87,-456,658]
+        var option = {
+		    title: {
+		        text: '折线图'
+		    },
+		    tooltip : {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+		    },
+		    toolbox: {
+		        feature: {
+		            saveAsImage: {}
+		        }
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : false,
+		            data : ['2013-05','2013-06','2013-07','2013-08','2013-09','2013-10','2013-11','2013-12','2014-01','2014-02','2014-03','2014-04','2014-05','2014-06','2014-07','2014-08','2014-09','2014-10','2014-11','2014-12']
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value'
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'邮件营销',
+		            type:'line',
+		            stack: '总量',
+		            areaStyle: {"background-color":"rgba(0,0,0,0)"},
+		            data:rr
+		        },
+		        {
+		            name:'联盟广告',
+		            type:'line',
+		            stack: '总量',
+		            areaStyle: {"background-color":"rgba(0,0,0,0)"},
+		            data:tr
+		        }
+		    ]};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> 获取input val值长度</title>
+	</head>
+
+	<body>
+		<input type="text" id="txt1" value="abcde" onclick="getTxt1CursorPosition()">
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script>
+		function getTxt1CursorPosition() {
+			var oTxt1 = document.getElementById("txt1");
+			var cursurPosition = -1;
+			if(oTxt1.selectionStart) { //非IE浏览器
+				cursurPosition = oTxt1.selectionStart;
+			} else { //IE
+				var range = document.selection.createRange();
+				range.moveStart("character", -oTxt1.value.length);
+				cursurPosition = range.text.length;
+			}
+			console.log(cursurPosition);
+		}
+		$(function() {
+			/*for(var i = 0;i < 5;i++){  
+				(function(i){
+				    setTimeout(function(){
+				    	console.log(i);
+				    },1000*i);
+				})(i);
+			}*/
+			for(var i = 0; i < 5; i++) {
+				setTimeout((function(i) {
+					console.log(i);
+				})(i), i * 1000);
+			}
+		})
+	</script>
+
+</html>

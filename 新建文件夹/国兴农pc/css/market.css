@@ -1,0 +1,95 @@
+/*plant/ascend/market相同样式*/
+.market_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.market_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.market_content2,.market_content3,.market_content4,.market_content5,.market_content6{
+	margin:15px 0;
+}
+/*cont1*/
+.market_content_wrap .market_content1 p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+/*cont2*/
+.market_content2 .promise_quality{
+	padding: 5px 0;
+}
+.market_content2 .promise_quality .promise_quality_left{
+	width: 186px;display: inline-block;height: 417px;
+}
+.market_content2 .promise_quality .promise_quality_right{
+	width: 186px;display: inline-block;height: 417px;
+}
+.market_content2 .promise_quality .promise_quality_patent{
+	    width: 394px;
+    height: 417px;display: inline-block;
+}
+.market_content2 .promise_quality .promise_quality_left li,.promise_quality_right li{
+	padding-bottom: 15px;
+}
+.market_content2 .zhineng_quality{
+	text-align: center;
+	padding: 15px 0;	
+}
+.market_content2 .zhineng_quality li{
+	width: 33%;*width: 29%;
+}
+.market_content2 .zhineng_quality .zn_quality_bigt{
+	text-align: center;	color: #c89f62;font-weight: 600;font-size: 16px;padding:10px 0;
+
+}
+.market_content2 .zhineng_quality .zn_quality_smellt{
+	text-align: center;	font-size: 14px;padding: 5px 0;
+}
+/*cont3*/
+.market_content3 .zhengfujg .p_box1_parent{
+	display: table;
+    height: 304px;
+    width: 45%;
+    *width:41%;
+    padding-left: 60px;
+}
+.market_content3 .zhengfujg .p_box2_parent{
+	display: table;
+    height: 201px;
+}
+.market_content3 .zhengfujg .p_box{
+	    display: table-cell;
+      vertical-align: middle;
+      font-size:14px;
+      line-height: 30px;
+    
+}
+.market_content3 .zhengfujg .p_box1{  *padding: 100px 0;}
+.market_content3 .zhengfujg .p_box2{  *padding: 75px 0;}
+.market_content3 .zhengfujg .p_box p:first-child{
+	color: #c89f62;font-weight: 600;font-size: 16px;
+}
+/*cont4*/
+.market_content4 .baozhuang_box{padding-bottom:15px ;}
+/*cont5*/
+.market_content5 .market_content5_ullist{padding-bottom: 10px;}
+.market_content5 .market_content5_ullist li{width:50%;*width:48.5%;}
+/* 找渠道 ditch_find*/
+/*cont2*/
+.ditch_find .market_content2 .ditch_one,.ditch_two{
+	padding: 10px 0;
+}
+.ditch_find .market_content2 .ditch_one .ditch_one_box1,.ditch_one_box2,.ditch_two .ditch_two_list{padding: 10px 0;}
+.ditch_find .market_content2 .ditch_one  .img,.ditch_two .img{
+	padding: 10px 0;
+}
+.ditch_find .market_content2 .ditch_two .ditch_two_list li{
+	width: 32%;
+}
+/*cont3*/
+.ditch_find .market_content3 .higher_premium_box2>p,.higher_premium_box1>p{
+	padding: 20px 0;
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			html,body{
+				width: 100%;
+				height: 100%;
+				font-size: 14px;
+				font-style: initial;
+				font-weight: normal;
+			}
+			.g-container{
+				width: inherit;
+				height: inherit;
+				/* Disable selection so it doesn't get annoying */
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			    -khtml-user-select: none;
+			    -moz-user-select: moz-none;
+			    -ms-user-select: none;
+			    user-select: none;
+			}
+			.m-content{
+				position: absolute;
+				display: inline-block;
+				overflow: hidden;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				width: 700px;
+				height: 80%;
+				margin: auto;
+			}
+			.u-tab{
+				position: absolute;
+				right: 0;
+				width: 100%;
+				height: 100%;
+				background-color: yellow;
+			}
+			.u-tabShow{
+				width: 50%;
+			}
+			.u-tabHide{
+				width: 25%;
+			}
+			.handle {
+			    position: absolute;
+			    left: -4px;
+			    top: 0;
+			    bottom: 0;
+			    width: 8px;
+			    cursor: w-resize;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-container">
+			<section class="m-content">
+				<div class="u-tab">
+					<a href="javascript:;" class="f-unfold">展开</a>
+					<table border="" cellspacing="" cellpadding="">
+						<tr>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+						</tr>
+					</table>
+				</div>
+			</section>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var accordion = {};
+			accordion.dom = $('.m-content');
+			accordion.size = '1400';
+			// 切换项
+			accordion.unfold = function(){
+				accordion.dom.delegate('.u-tab a','click',function(){
+					if(accordion.dom.children().length > 2) {
+						//if(accordion.dom.children().hasClass('u-tabShow')){
+							//accordion.dom.children().removeClass('u-tabShow').addClass('u-tabHide');
+							$(this).parent().addClass('u-tabShow').removeClass('u-tabHide');
+							$(this).parent().siblings().removeClass('u-tabShow').addClass('u-tabHide');
+						//}
+					}
+				})
+				
+			}
+			// 加载项
+			accordion.findNode =function(){
+				accordion.dom.delegate('.u-tab table','click',function(){
+					accordion.dom.css('width',accordion.size);
+					var  _s = $(this).parent()
+					var count = _s.index();
+					var sizing;
+					// this 为第一个显示dom,
+					if(count == 0){
+						// 当前 this 不存在兄弟节点;
+						if ( accordion.dom.children().length < 2 ){
+							// 改变当前点击节点的居右坐标
+						    var node = _s.addClass('u-tabShow').animate({'right':_s.width()},500).clone();
+						    // 添加一个兄弟节点,并为其设置新的style；
+						    node.css({'background-color':'#89ccab','opacity':'0'}).animate({'opacity':1},1300)
+					    		.append('<div class="handle"></div>');
+							accordion.dom.append(node);
+							
+						}else{
+							if(accordion.dom.children().length > 2){
+								_s.next().addClass('u-tabShow').removeClass('u-tabHide')
+										.siblings().removeClass('u-tabShow').addClass('u-tabHide');
+							}
+							// 当前 this 存在兄弟节点，只需改变 this.next()值,并且 toggleClass(用于显示/隐藏的类名)；
+							_s.next().append('<h1>我是新加载的内容<h2>');
+						}
+					// this 为第二个显示dom
+					}else if(count == 1 ){
+						// 当前 this 不存在兄弟节点，需添加一个兄弟节点；
+						if ( accordion.dom.children().length < 3 ){
+							//添加第三个节点时需改变其兄弟元素的显示风格
+							if ( accordion.dom.children().hasClass('u-tabShow') ) accordion.dom.children().removeClass('u-tabShow');
+							var node = $(this).parent().clone().addClass('u-tabShow').css({'background-color':'#dfb3ef','opacity':'0'}).animate({'opacity':1},1300);
+							accordion.dom.children().addClass('u-tabHide');
+							accordion.dom.append(node);
+							$(this).parent().css({'right':$(this).parent().next().width()})
+									.prev().css('left',0);
+						// 当前 this 存在兄弟节点，只需改变 this.next()值,并且 toggleClass(用于显示/隐藏的类名)；
+						}else{
+							_s.next().addClass('u-tabShow').removeClass('u-tabHide').append('<h1>我是新加载的内容<h2>')
+									.siblings().removeClass('u-tabShow').addClass('u-tabHide');
+						}
+					}
+				})
+			}
+			
+		accordion.findNode();	
+		accordion.unfold();
+	
+	
+		/* */
+		var isResizing = false,
+		    lastDownX = 0;
+		
+		$(function () {
+		    var container = $('.m-content'),
+		        left,
+		        right;
+		
+			$('.g-container').delegate('.handle','mousedown', function (e) {
+		        isResizing = true;
+		        lastDownX = (e.clientX)-102;
+		        left = $(this).parent().prev();
+		        right = $(this).parent();
+		        // 鼠标按下时
+		        // 1. 当前对象宽度+当前对象前一个兄弟 的宽度 = 历史宽度
+		        // 2. 大盒子宽度+大盒子相对于父级的偏移度 -鼠标X轴位置 = new；
+		        // 3. prev()宽度 = new -原宽度；
+		        // 4. this 宽度 = 历史宽度 - new
+		    });
+		
+		    $(document).on('mousemove', function (e) {
+		        // we don't want to do anything if we aren't resizing.
+		        if (!isResizing) 
+		            return;
+		        
+		        var offsetRight = container.width() - (e.clientX - container.offset().left);
+		        console.log(offsetRight)
+		        left.css('right', offsetRight).css('width', container.width()-offsetRight);
+		        right.css('width', offsetRight);
+		    }).on('mouseup', function (e) {
+		        // stop resizing
+		        isResizing = false;
+		    });
+		});
+	</script>
+</html>

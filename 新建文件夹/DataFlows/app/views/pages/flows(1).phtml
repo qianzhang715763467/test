@@ -1,0 +1,123 @@
+<style>
+    #show-flows-win-table{width:96%;margin:0 auto}    
+</style>
+
+<div id="show-flows-win" class="ui modal small">
+    <i class="close icon"></i>
+    <div class="header">
+        Flows
+    </div>
+    <div class='fcontent'></div>
+</div>
+
+<script>
+
+    var f1 = {};
+    page["flows"] = f1;
+    f1.id = "show-flows-win";
+    f1.tableId = "show-flows-win-table";
+
+    f1.init = function () {
+        $("#show-flows-win").modal('show');
+        $("#" + f1.id).find(".fcontent").children().remove();
+        $("#" + f1.id).find(".fcontent").append("<div id='" + f1.tableId + "' style='margin-top:25px;margin-bottom:25px'></div>");
+        $.ajax({
+            url: "/query/allFlows",
+            async: true,
+            type: 'POST',
+            success: function (text, textStatus) {
+                //try {
+                var o = jQuery.parseJSON(text);
+                f1.createTable(o.message);
+//                } catch (e) {
+//                    g.alert(text);
+//                }
+            }
+        });
+    };
+
+    f1.nameClick = function (event) {
+        var id = $($(event.target).parent().children()[0]).text();
+        f1.flowId = id;
+        $("#show-flows-win").modal('hide');
+        $.ajax({
+            url: "/pages/queryEdgesData",
+            async: true,
+            type: 'POST',
+            success: function (t, s) {
+//                try {
+                var d = $("#queryEdgesData");
+                if (d.length === 0) {
+                    d = $("<div></div>");
+                    d.attr("id", "queryEdgesData");
+                    d.appendTo($("body"));
+                }
+                d.children().remove();
+                d.html(t);
+                f4.init();
+//                } catch (e) {
+//                    g.alert(e);
+//                }
+            }
+        });
+    };
+
+    f1.createTable = function (data) {
+        //console.debug(data);
+        var table = Htable.create(f1.tableId);
+        var columns = [[
+                {field: 'id', title: '编号', width: 80},
+                {field: 'name', title: '名称', width: 80, click: f1.nameClick},
+                {field: 'desc', title: '描述', width: 80},
+                //{field: 'idate', title: '创建日期', width: 80},
+                {field: 'editer', title: '操作', width: 80, formatter: f1.editerFormatter}
+            ]];
+
+        table.setMaxHeight(g.h - $("#toolbar").height() - $("#show-flows-win").height());
+        table.setColumns(columns);
+        table.loadData(data);
+
+//        $("#" + f1.tableId).click(function (e) {
+//            if (e.target.tagName === "TD") {
+//                if ($(e.target).index() === 1) {
+//                    console.debug(12);
+//
+//                }
+//            }
+//
+//        });
+    };
+
+
+    f1.editerFormatter = function (record, value, column) {
+        var html = "<span onclick='f1.editer(" + record["id"] + ")'>编辑</span>";
+        return html;
+    };
+
+    f1.editer = function (flowId) {
+        f1.flowId = flowId;
+        $("#show-flows-win").modal('hide');
+        $.ajax({
+            url: "/pages/editFlow",
+            async: true,
+            type: 'POST',
+            success: function (t, s) {
+                try {
+                    var d = $("#editFlow");
+                    if (d.length === 0) {
+                        d = $("<div></div>");
+                        d.attr("id", "queryEdgesData");
+                        d.appendTo($("body"));
+                    }
+                    d.children().remove();
+                    d.html(t);
+                    f5.init(flowId);
+                } catch (e) {
+                    g.alert(e);
+                }
+            }
+        });
+    };
+
+
+</script>

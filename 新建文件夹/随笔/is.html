@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="n1">
+		    <div id="n2">
+		        <ul id="n3" data_id="12">
+		            <li id="n4">item1</li>
+		            <li id="n5" class="foo bar">item2</li>
+		            <li id="n6" class="level-2">item3</li>
+		        </ul>
+		    </div>
+		    <div id="n7">
+		        <input id="n8" name="username" type="text" value="1">
+		        <input id="n9" name="orders" type="checkbox" checked="checked" value="1">
+		    </div>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var $n3 = $("#n3");
+		document.writeln( $n3.is("ul") ); // true
+		document.writeln( $n3.is("[data_id]") ); // true
+		
+		var $n5 = $("#n5");
+		document.writeln( $n5.is(".foo") ); // true
+		document.writeln( $n5.is("li") ); // true
+		document.writeln( $n5.is("ul li") ); // true
+		document.writeln( $n5.is("p li") ); // false
+		
+		var n5 = document.getElementById("n5");
+		document.writeln( $n5.is(n5) ); // true
+		
+		var $li = $("li");
+		document.writeln( $n5.is($li) ); // true
+		// 判断li元素是否含有类名"level-index"，这里的index表示li元素的索引值(0、1、2……)
+		document.writeln( $li.is( function(index){
+			console.log($(this).hasClass("level-" + index))
+		    return $(this).hasClass("level-" + index);      
+		} ) ); // true
+		
+		
+		var $input = $("input");
+		document.writeln( $input.is(":text") ); // true
+		document.writeln( $input.is(":checked") ); // true
+		
+		var div = document.getElementsByTagName("div");
+		var $n7 = $("#n7");
+		document.writeln( $n7.is(div) ); // true
+		$('html').load('table.html')
+	</script>
+</html>

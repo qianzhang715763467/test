@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>图文评论</title>
+    <meta name="description" content="pages">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <script type="text/javascript">
+        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                var phoneScale = parseInt(window.screen.width) / 640;
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no">');
+        }
+    </script>
+
+    <script type="text/javascript" src="../jquery-3.1.1.min.js"></script>
+    <style type="text/css">
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+        .comments .lic_con .lic_check{
+            width:36px;
+            height: 36px;
+            float: left;
+            border:3px solid #B9B9B9;
+            position: relative
+        }
+        .lic_check label {
+            cursor: pointer;
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            top: 0;
+            left: 0;
+            background: #fff;
+        }
+        .lic_check label:after {
+            opacity: 0;
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 11px;
+            background: transparent;
+            top: 5px;
+            left: 6px;
+            border: 5px solid #333;
+            border-top: none;
+            border-right: none;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        .lic_check input[type=checkbox]:checked + label:after {
+            opacity: 1;
+        }
+        .all_check .all_check_con{
+            width:350px;
+            height: 82px;
+            line-height: 82px;
+            float: left;
+            position: relative
+        }
+        .all_check_con label {
+            cursor: pointer;
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            top: 24px;
+            left: 0;
+            background: #fff;
+
+        }
+        .all_check_con label:after {
+            opacity: 0;
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 11px;
+            background: transparent;
+            top: 5px;
+            left: 6px;
+            border: 5px solid #333;
+            border-top: none;
+            border-right: none;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+
+        .all_check>.all_check_con input[type=checkbox]:checked + label:after {
+
+            opacity: 1;
+        }
+        .comments{width: 100%;margin-bottom: 85px}
+        .comments .nav_card div a img{margin-bottom: 19px}
+        .comments .nav_card .nav_right a img{margin-bottom: 23px}
+        .comments .lic_con{width: 640px;margin-bottom: 17px;overflow: hidden;background-color: #fff}
+        .comments .lic_con .lic_conent{width: 640px;overflow: hidden;background-color: #fff}
+        .comments .lic_con .lic_check{width:36px;height: 36px;margin-top: 20px;float: left;border:3px solid #B9B9B9;margin-left: 30px}
+        .comments .lic_con .lic_check input{width:38px;height: 38px; }
+        .comments .lic_con .lic_wen{width:527px;margin-top: 20px;font-size: 26px;float: left;margin-left: 15px}
+        .comments .lic_r{width:540px;font-size: 26px;margin-left: 72px;}
+        .comments .lic_r .lic_rimg{width:540px;font-size: 26px;margin-left: 72px;margin-top: -10px;}
+        .comments .lic_re{width:540px;font-size: 26px;overflow: hidden;background-color:#EEEEEE;padding-bottom: 10px }
+        .comments .lic_re .lic_re1{width:237px;height:25px;margin-top: 15px;font-size: 24px;margin-left:20px;float: left;color: #005BFF}
+        .comments .lic_re .lic_re2{width:237px;height:25px;margin-top: 15px;font-size: 24px;margin-left:20px;float: left;text-align: right;color:#656565 }
+        .comments .lic_re .lic_re3{width:504px;margin-top: 10px;font-size: 26px;margin-left: 20px;float: left}
+        .comments .lic_con .lic_yesa{width:319px;height: 60px;margin-top: 25px;text-align: center;line-height: 66px;font-size: 26px;float: left;color: #0a0a0a ;display: block}
+        .comments .lic_con .lic_yes{width:319px;height: 58px;text-align: center;line-height: 66px;font-size: 26px;float: left;border-top: 1px solid #BFBFBF;border-bottom: 1px solid #BFBFBF;border-right: 1px solid #BFBFBF; }
+        .comments .lic_con .lic_replya{width:320px;height: 60px;margin-top: 25px;text-align: center;line-height: 66px;font-size: 26px;float: left;color: #0a0a0a;display: block }
+        .comments .lic_con .lic_reply{width:320px;height: 58px;text-align: center;line-height: 66px;font-size: 26px;float: left;border-top: 1px solid #BFBFBF;border-bottom: 1px solid #BFBFBF; }
+        .all_check{width:640px;height: 82px;background-color: #212121;position: fixed;bottom: 0;left: 0;overflow: hidden}
+        .all_check .all_check_con{width:350px;height: 82px;line-height: 82px;color: #fff;font-size: 30px;float: left;margin-left: 30px}
+        .all_check .all_check_con input{width:36px;height: 36px;}
+        .all_check .check_none {width:211px;height: 82px;line-height: 82px;color: #fff;font-size: 30px;float: right;margin-right: 30px；}
+    </style>
+</head>
+<body>
+<div class="comments">    
+    <div class="lic_con">
+        <div class="lic_conent">
+            <div class="lic_check">
+                <input class="check" type="checkbox" id="count_1"  product_id="101" ><label for="count_1"></label>                
+            </div>
+            <div class="lic_wen">
+                1111111111111111111111111111111111
+            </div>
+        </div>
+        xxxxx
+       
+    </div>
+    <div class="lic_con">
+        <div class="lic_conent">
+            <div class="lic_check">
+                <input class="check" type="checkbox" id="count_2"  product_id="101" >
+                <label for="count_2"></label>
+            </div>
+            <div class="lic_wen">
+                2222222222222222222222222222
+            </div>
+        </div>
+         xxxxxx
+       
+    </div>
+    <div class="lic_con">
+        <div class="lic_conent">
+            <div class="lic_check">
+                <input class="check" type="checkbox" id="count_3"  product_id="101" >
+                <label for="count_3"></label>
+            </div>
+            <div class="lic_wen">
+                33333333333
+            </div>
+        </div>
+         xxxxxx
+       
+    </div>
+</div>
+<div class="all_check">
+    <div class="all_check_con">
+         <input type="checkbox" id="allcheck"><label for="allcheck"></label>       
+        <span style="margin-left: 20px">全选(已选中<span id="total">0</span>条)</span>
+    </div>
+    <div class="check_none">
+       <button style="padding:10px">忽略，不再显示</button>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+var oneCheck= $(".lic_con .lic_conent .lic_check") .find(".check:checkbox");
+$("#allcheck").click(function(){   
+    if(this.checked){   
+    oneCheck.prop("checked", true); 
+    $('#total').html(oneCheck.length);//显示总条数
+    }else{   
+	 oneCheck.prop("checked", false);
+	 $('#total').html(0);//显示0条消息
+    }   
+});
+
+//反选
+var num = 0;
+for(var i=0;i<oneCheck.length;i++){
+    if($(this).prop("checked")==true){
+			num++;
+	}  
+}
+if(chknum==num){//全选
+		$("#allcheck").prop("checked",true);
+}else{//不全选
+	$("#allcheck").prop("checked",false);
+}
+
+
+
+
+//点击忽略按钮，遍历判断
+$('.all_check .check_none').click(function(){
+	for(var i=0;i<oneCheck.length;i++){
+	    if($(this).is(":checked")){	    	
+	        $(this).closest(".lic_con").hide();
+	        var ss=(Number($('#total').html())-1);
+	        $('#total').html(ss);
+		}   
+	}
+  
+});
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

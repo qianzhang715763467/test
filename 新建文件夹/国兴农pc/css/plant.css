@@ -1,0 +1,227 @@
+/*bread_crumbs_nav*/
+ .bread_crumbs_nav{
+	font-size: 12px;
+    padding: 10px 0;
+    line-height: 25px;
+    position: fixed;
+    top: 134px;
+    z-index: 99;
+    background: #fff;
+    width: 100%;
+}
+
+/*plant_index*/
+.plant_index{	
+	position: relative;
+	width: 1000px;
+    margin: 150px auto 0px;
+   *padding: 150px 0 0 0;
+   _padding:0;
+   _margin:0;
+}
+.plant_index .plant_index_cont{
+    position: absolute;
+    top: 25px;
+    *top:175px;
+    width: 100%;
+    padding-bottom: 100px;
+}
+/*plant_index_cont*/
+/*左*/
+.plant_index_cont .plant_content_tab .active_cuur{
+	color: #c30d22;
+}
+.plant_index_cont .plant_content_tab{
+	width: 180px;	
+	background: #d7d5d6;
+	position: fixed;
+	*position: static;
+}
+.plant_content_tab .tab_title{
+	font-size: 36px;
+	background: #c30d22;
+	color: #fff;
+	padding: 10px 20px;
+}
+.plant_content_tab .tab_cont{
+background: #fff;
+border: 1px solid #d3d3d3;
+}
+.plant_content_tab .tab_cont li #shrink{position: absolute;left: 5px;}
+.plant_content_tab .tab_cont li{
+	line-height: 30px;
+	    padding: 10px 20px;
+}
+.plant_content_tab .tab_cont li a{
+display: block;
+}
+/*右*/
+/*plant/ascend等相同样式*/
+.plant_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.plant_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.plant_content2,.plant_content3,.plant_content4{
+	margin:15px 0;
+}
+/*plant_content1*/
+.plant_content_wrap .plant_content1 p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+/*plant单独样式*/
+.plant_content1 .plant_content1_img{
+	height:300px;
+	border-top:3px solid #C30D22;
+}
+.plant_content1  .plant_content1_img img{
+	width: 100%;height:100%;display: block;
+}
+/*plant_content2*/
+
+.plant_content2 .content_youhua{
+	padding: 30px 0;
+}
+.plant_content2 .content_youhua li{
+	width: 31%;
+}
+.plant_content2 .content_youhua li .youhua_img{
+    width: 250px;
+    _width: 245px;
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.plant_content2 .content_youhua li p{
+	line-height: 30px;
+    font-weight: bold;
+    padding: 5px 0;
+}
+.plant_content2 .content_youhua li .detail{
+	font-size: 14px;
+	line-height: 25px;
+	 overflow : hidden;
+    display: -webkit-box;          
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+/*plant_content3*/
+
+.plant_content3 .plant_add{
+	padding: 10px 0;
+}
+
+.plant_content3 .plant_add li{
+	width: 49%;
+}
+.plant_content3 .plant_add li>a>img{
+	width: 100%;
+	display: block;
+}
+.plant_content3 .content3_plant{
+	padding: 20px 0;
+}
+
+/*plant_content4*/
+.plant_content4{
+	
+}
+.plant_content4 .cont4_p{
+	font-size: 14px;
+	line-height: 30px;
+}
+.plant_content4 .cont4_imgbox{
+	padding: 20px 0;
+}
+.plant_content4 .cont4_imgbox img{
+	width: 100%;
+	display: block;
+}
+/*plant_content5*/
+.plant_content5 .cont5_left{
+	width: 32%;	
+	*width: 28%;
+	border:1px dashed #999;
+	padding:15px;font-size: 14px;
+	border-radius: 5px;
+}
+.plant_content5 ul{
+	padding: 10px 0;
+}
+.plant_content5 ul .cont5_left p{font-size: 14px;}
+.plant_content5 ul .cont5_right{
+	width: 68%;
+	text-align: center;
+}
+.plant_content5 ul .cont5_right img{
+	display: block;width: 100%;	
+}
+
+/*watermelon 西瓜--独特样式*/
+.watermelon_advantage .quality_vs{padding: 20px 0;}
+.watermelon_advantage .vs_title{
+	border-bottom: 1px solid #d3d3d3;
+	line-height: 30px;
+}
+.watermelon_advantage .vs_wrap{
+	position: relative;
+	padding: 15px 0;
+}
+.watermelon_advantage .vs_cont li{
+	width: 49.6%;
+}
+.watermelon_advantage .vs_cont li .vsleft p,.vsright  p{
+	padding: 15px 0;
+}
+.watermelon_advantage .vsleft .vsleft_img img,.vsright .vsright_img img{
+	width: 100%;display: block;
+}
+.watermelon_advantage .vs_cont li .vsleft .vsleft_p{
+	background: #5d5d5d;color: #fff;line-height: 30px;padding: 5px 0;
+}
+.watermelon_advantage .vs_cont li .vsright .vsright_p{
+	background: #c30d22;color: #fff;line-height: 30px;padding: 5px 0;
+}
+
+.watermelon_advantage .vs_wrap .vs_icon{
+	_display:none;
+	position: absolute;top: 50%;left: 50%;margin-left: -60px;margin-top: -20px;
+}
+.watermelon_advantage .quality_vs .napigua{
+	padding: 10px 0;
+}
+.watermelon_advantage .quality_vs .napigua li{
+	width: 48%;	
+}
+.quality_vs .napigua li .npright p, .npleft p{
+	padding: 15px 0;	
+}
+.quality_vs .napigua li .npright_img img,.npleft_img img{
+	width: 100%; 
+	display: block;	
+}
+/*.orange 蜜桔--独特样式*/
+.orange_advantage ul li{
+	width: 33.3%;
+	padding: 25px 0;	
+}
+/*Brocoli西兰花--独特样式*/
+.Brocoli_advantage ul li{
+	width: 33.3%;
+	padding: 25px 0;
+}
+
+
+
+
+
+
+

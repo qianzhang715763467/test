@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+
+        <script type="text/javascript" src="/js/d3.v4.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/tools.js"></script>
+        <script type="text/javascript" src="/js/global.js"></script>
+        <style>
+            html,body{margin: 0;padding: 0;overflow: hidden;background-color: #fff}
+            #container{width:100%;background-color: #fff}
+        </style>
+        <script>
+            $(document).ready(function () {
+                var flow_id = $.getUrlParam('flow_id');
+                console.debug(flow_id);
+                if (flow_id) {
+                    f0.init(flow_id);
+                }
+
+            });
+
+            var f0 = {};
+
+            f0.nodes = [];
+            f0.r = 50;
+            f0.plus = 50;
+            f0.position = 0; //0:left or right; 1:up or down
+            f0.timers = [];
+            f0.svg = null;
+
+
+            f0.random90 = function () {
+                var ran = Math.random() * 1000 % 90;
+                if (ran < 1)
+                    return f0.random90();
+                else
+                    return Math.round(ran);
+            };
+
+            f0.loadFlow = function (flow_id) {
+
+                var r = f0.r;
+                var color = d3.scaleOrdinal()
+                        .range(d3.schemeCategory20);
+
+                var cb = function (t, s) {
+
+                    var w = g.w;
+                    var h = g.h;
+             
+                    $("#container").width(w);
+                    $("#container").height(h);
+
+                    $("#container").find("svg").remove();
+                    svg = d3.select("#container").append("svg")
+                            .attr("width", w)
+                            .attr("height", h)
+                            .style("background-color", "#135586");
+
+                    if (g.terminal === "phone") {
+//                        w = g.h;
+//                        h = g.w;
+//                        svg.attr("transform", "rotate(90)");
+//                        svg.attr("width", h)
+//                                .attr("height", w);
+                        //$("body").css("transform", "rotate(90deg)");
+                    }
+
+                    svg.append("defs").append("filter")
+                            .attr("id", "f0")
+                            .attr("x", "0")
+                            .attr("y", "0").append("feGaussianBlur")
+                            .attr("in", "SourceGraphic")
+                            .attr("stdDeviation", "3");
+
+                    var width = svg.attr("width");
+                    var height = svg.attr("height");
+
+                    var nodes = eval($.parseJSON(t).message[0].node_details);
+
+                    for (var i = 0; i < nodes.length; i++) {
+
+                        var cx = nodes[i].rcx * width;
+                        var cy = nodes[i].rcy * height;
+
+                        var node = svg.append("circle")
+                                .data([{x: cx, y: cy}])
+                                .attr("cx", function (d) {
+                                    return d.x;
+                                })
+                                .attr("cy", function (d) {
+                                    return d.y;
+                                })
+                                .attr("r", r)
+                                .attr("id", nodes[i].text)
+                                .attr("class", "trigger")
+                                .style("fill", function (d, i) {
+                                    return color(Math.round(Math.random() * 255));
+                                });
+
+                        var text = (nodes[i].text).split("-")[1];
+                        var tmp = $("<a>" + text + "</a>").appendTo($("body"));
+
+                        svg.append("text").attr("x", cx - tmp.width() / 2).attr("y", cy + tmp.height() / 3)
+                                .text(text);
+                        tmp.remove();
+
+                        f0.nodes.push("#" + nodes[i].text);
+                    }
+                    f0.slider(svg);
+                };
+
+                $.ajax({
+                    url: "/query/flow",
+                    async: true,
+                    type: 'POST',
+                    data: {id: flow_id},
+                    success: cb
+                });
+            };
+
+            f0.drawLine = function (cx1, cy1, cx2, cy2) {
+
+                var path = d3.path();
+
+                for (var i = 0; i < 1; i++) {
+                    var ran = f0.relative(cx1, cy1, cx2, cy2).split(",")[0].split(" ");
+
+                    var ran1 = ran[0];
+                    var ran2 = ran[1];
+
+                    var x1 = f0.getX(cx1, 50, ran1);
+                    var y1 = f0.getY(cy1, 50, ran1);
+                    var x2 = f0.getX(cx2, 50, ran2);
+                    var y2 = f0.getY(cy2, 50, ran2);
+                    path.moveTo(x1, y1);//start xy
+                    var control = f0.randomXY(x1, y1, x2, y2).split(" ");
+                    path.quadraticCurveTo(control[0], control[1], x2, y2);
+
+                }
+
+                svg.append("path")
+                        .attr("stroke-width", 1)
+                        .style("fill", "none")
+                        .style("stroke", "#8defe1")
+                        .style("stroke-dasharray", "1000, 1000")
+                        .attr("d", path)
+                        //.attr("filter", "url(#f0)")
+                        .transition()
+                        .duration(5000)
+                        .styleTween("stroke-dashoffset", function () {
+                            return d3.interpolateNumber(1000, 500);
+                        })
+                        .transition()
+                        .delay(5000)
+                        .duration(1000)
+                        .attr("stroke-width", 0.2);
+
+//                .transition()
+//                .delay(600000)
+//                .duration(1000)
+//                .remove();
+                path.closePath();
+            };
+
+            f0.getX = function (cx, r, angle) {
+                return cx + r * Math.cos(angle * 2 * Math.PI / 360);
+            };
+
+            f0.getY = function (cy, r, angle) {
+                return cy - r * Math.sin(angle * 2 * Math.PI / 360);
+            };
+
+            f0.relative = function (cx1, cy1, cx2, cy2) {
+                var random = Math.round(Math.random() * 100) % 2;
+                //console.debug("random: " + random);
+                if (Math.abs(cx1 - cx2) >= 2 * f0.r) {
+                    f0.position = 0;
+                    if (Math.abs(cy1 - cy2) >= 2 * f0.r) {
+                        if (cx1 > cx2) {
+                            if (cy1 > cy2) {
+                                //return "2 4";
+                                f0.plus = -f0.r;
+                                return (90 + f0.random90()) + " " + (270 + f0.random90());
+                            } else {
+                                //return "3 1";
+                                f0.plus = -f0.r;
+                                return (180 + f0.random90()) + " " + (f0.random90());
+                            }
+                        } else {
+                            if (cy1 > cy2) {
+                                //return "1 3";
+                                f0.plus = -f0.r;
+                                return (f0.random90()) + " " + (180 + f0.random90());
+                            } else {
+                                //return "4 2";
+                                f0.plus = f0.r;
+                                return (270 + f0.random90()) + " " + (90 + f0.random90());
+                            }
+                        }
+                    } else {
+                        if (cx1 > cx2) {
+                            //return "2 1,3 4";
+                            if (random) {
+                                f0.plus = -f0.r;
+                                return (90 + f0.random90()) + " " + (f0.random90());
+                            } else {
+                                f0.plus = f0.r;
+                                return (180 + f0.random90()) + " " + (270 + f0.random90());
+                            }
+                        } else {
+                            //return "1 2,4 3";
+                            if (random) {
+                                f0.plus = -f0.r;
+                                return (f0.random90()) + " " + (90 + f0.random90());
+                            } else {
+                                f0.plus = f0.r;
+                                return (270 + f0.random90()) + " " + (180 + f0.random90());
+                            }
+                        }
+                    }
+                }
+
+                if (Math.abs(cy1 - cy2) >= 2 * f0.r) {
+                    f0.position = 1;
+                    if (Math.abs(cx1 - cx2) >= 2 * f0.r) {
+
+                    } else {
+                        if (cy1 > cy2) {
+                            //return "1 4,2 3";
+                            if (random) {
+                                f0.plus = f0.r;
+                                return (f0.random90()) + " " + (270 + f0.random90());
+                            } else {
+                                f0.plus = -f0.r;
+                                return (90 + f0.random90()) + " " + (180 + f0.random90());
+                            }
+
+                        } else {
+                            //return "4 1,3 2";
+                            if (random) {
+                                f0.plus = f0.r;
+                                return (270 + f0.random90()) + " " + (f0.random90());
+                            } else {
+                                f0.plus = -f0.r;
+                                return (180 + f0.random90()) + " " + (90 + f0.random90());
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            f0.randomXY = function (x1, y1, x2, y2) {
+
+                //console.debug(Math.round(x1 / x2));
+                var x, y;
+                if (f0.position) {//up-down
+                    if (y1 > y2) {
+                        f0.plus = Math.round(y1 / y2) * f0.plus;
+                        y = (y1 - y2) / 2 + y2;
+                        x = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + f0.plus;
+                    } else {
+                        f0.plus = Math.round(y2 / y1) * f0.plus;
+                        y = (y2 - y1) / 2 + y1;
+                        x = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + f0.plus;
+                    }
+                } else {//left-right
+                    if (x1 > x2) {
+                        f0.plus = Math.round(x1 / x2) * f0.plus;
+                        x = (x1 - x2) / 2 + x2;
+                        y = (x - x1) * (y2 - y1) / (x2 - x1) + y1 + f0.plus;
+                    } else {
+                        f0.plus = Math.round(x2 / x1) * f0.plus;
+                        x = (x2 - x1) / 2 + x1;
+                        y = (x - x1) * (y2 - y1) / (x2 - x1) + y1 + f0.plus;
+                    }
+                }
+
+
+                return (x + " " + y);
+            };
+
+            f0.loadEdges = function () {
+                var cb = function (t, s) {
+                    var edge = JSON.parse(t).message;
+                    console.debug(edge);
+                    for (var i = 0; i < edge.length; i++) {
+
+                        if (!edge[i].query_id)
+                            continue;
+
+                        var timer = f0.timer(edge[i].query_id, edge[i].start_node, edge[i].end_node);
+                        timer();
+                        f0.timers.push(window.setInterval(timer, 1000));
+                    }
+                };
+                $.ajax({
+                    url: "/query/edges",
+                    async: true,
+                    type: 'POST',
+                    data: {id: f1.flowId},
+                    success: cb
+                });
+            };
+
+            f0.timer = function (query_id, start_node, end_node) {
+                var start_end = {};
+                start_end.s = f0.start;
+                start_end.e = f0.end;
+                var timer = function () {
+                    $.ajax({
+                        url: "/query/list",
+                        async: true,
+                        type: 'POST',
+                        data: {id: query_id, start: start_end.s, end: start_end.e},
+                        success: function (t, s) {
+                            f0.readyDrawLine(t, s, start_node, end_node, start_end);
+                        }
+                    });
+                };
+                return timer;
+            };
+
+            f0.readyDrawLine = function (t, s, start_node, end_node, start_end) {
+
+                var list = JSON.parse(t).details.list.values;
+                console.debug(list);
+                if (list.length > 0) {
+                    //console.debug(start_node + "   " + end_node);
+
+                    start_end.s = start_end.e;
+                    start_end.e = new Date().format("yyyy-MM-dd hh:mm:ss");
+
+                    var cx1 = Math.round($("#" + start_node).attr("cx"));
+                    var cy1 = Math.round($("#" + start_node).attr("cy"));
+                    var cx2 = Math.round($("#" + end_node).attr("cx"));
+                    var cy2 = Math.round($("#" + end_node).attr("cy"));
+
+                    f0.drawLine(cx1, cy1, cx2, cy2);
+                    //console.debug(start_node + "--->" + end_node + "    " + start_end.s + "--->" + start_end.e);
+                } else {
+                    start_end.e = new Date().format("yyyy-MM-dd hh:mm:ss");
+                    //console.debug(start_node + "--->" + end_node + "    " + start_end.s + "--->" + start_end.e);
+                }
+
+            };
+
+            f0.init = function (flow_id) {
+                if (f0.timers.length > 0) {
+                    for (var i = 0; i < f0.timers.length; i++) {
+                        window.clearInterval(f0.timers[i]);
+                    }
+                    f0.timers = [];
+                }
+                f0.loadFlow(flow_id);
+
+                f0.date = new Date();
+                f0.start = f0.date.add('s', -10).format("yyyy-MM-dd hh:mm:ss");
+                f0.end = f0.date.format("yyyy-MM-dd hh:mm:ss");
+
+                //f0.loadEdges();
+
+
+                //window.setInterval(f0.times, 10000);
+            };
+
+            f0.slider = function () {
+                var width = f0.slider_width = 20;
+                if (g.terminal === "phone") {
+                    //var height = f0.slider_height = g.w * 0.7;
+                    width = f0.slider_width = 50;
+                } else {
+                    //var height = f0.slider_height = g.h * 0.7;
+                }
+                var height = f0.slider_height = g.h * 0.9;
+                var x = f0.slider_x = 30;
+                var y = f0.slider_y = (g.h - height) / 2;
+                
+                var step = height/24;
+                //alert(step);
+                for(var i=0;i<25;i++){
+                    svg.append("text").attr("x", x+width+10)
+                            .attr("y", i*step + y + 5)
+                            .text(25 - i - 1).style("font-size", "10px")
+                            .style("fill", "#00effb");
+                }
+                
+                svg.append("rect")
+                        .attr("fill", "#bbb")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("width", width)
+                        .attr("height", f0.slider_height)
+                        .attr("rx", width/2)
+                        .attr("ry", width/2);
+                
+                f0.inner_slider = svg.append("rect")
+                        .attr("fill", "#06960d")
+                        .attr("x", x)
+                        .attr("y", 200 - width / 2)
+                        .attr("width", width)
+                        .attr("height", 200 + width)
+                        .attr("rx", width/2)
+                        .attr("ry", width/2);
+
+                f0.start_slider = svg.append("circle")
+                        .attr("cx", x+width / 2)
+                        .attr("cy", 200)
+                        .attr("r", width / 2)
+                        .attr("id", "f0_start_slider")
+                        .style("fill", "#00effb")
+                        .call(d3.drag()
+                                .on("start", f0.slider_dragstarted)
+                                .on("drag", f0.slider_dragged)
+                                .on("end", f0.slider_dragended));
+
+
+                f0.end_slider = svg.append("circle")
+                        .attr("cx", x+width / 2)
+                        .attr("cy", 400)
+                        .attr("r", width / 2)
+                        .attr("id", "f0_end_slider")
+                        .style("fill", "#00effb")
+                        .call(d3.drag()
+                                .on("start", f0.slider_dragstarted)
+                                .on("drag", f0.slider_dragged)
+                                .on("end", f0.slider_dragended));
+
+            };
+
+            f0.slider_dragstarted = function () {
+                var s = d3.select(this);
+                s.raise().classed("active", true);//toFront()
+                if (s.attr("id") === "f0_start_slider") {
+
+                } else if (s.attr("id") === "f0_end_slider") {
+
+                }
+            };
+
+            f0.slider_dragged = function () {
+//                var circleId = d3.select(this).attr("id");
+//                f5.circles[circleId].text.attr("x", Math.round(d3.event.x - $("#t-" + circleId.replace("c-", "")).width() / 2)).attr("y", d3.event.y);
+//                d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+                var s = d3.select(this);
+                var y = d3.event.y;
+                if (s.attr("id") === "f0_start_slider") {
+                    if (y <= (f0.slider_y + f0.slider_width / 2)) {
+                        y = f0.slider_y + f0.slider_width / 2;
+                    } else if (y >= f0.end_slider.attr("cy")) {
+                        y = f0.end_slider.attr("cy")
+                    }
+                } else if (s.attr("id") === "f0_end_slider") {
+                    if (y >= (f0.slider_y + f0.slider_height - f0.slider_width / 2)) {
+                        y = f0.slider_y + f0.slider_height - f0.slider_width / 2;
+                    } else if (y <= f0.start_slider.attr("cy")) {
+                        y = f0.start_slider.attr("cy")
+                    }
+                }
+                s.attr("cy", y);
+                f0.inner_slider.attr("y", f0.start_slider.attr("cy") - f0.start_slider.attr("r"))
+                        .attr("height", f0.end_slider.attr("cy") - f0.start_slider.attr("cy") + f0.start_slider.attr("r") * 2);
+            };
+
+            f0.slider_dragended = function () {
+                //alert(1);
+            };
+        </script>
+
+    </head>
+    <body>
+        <div id="container"></div>
+    </body>
+</html>

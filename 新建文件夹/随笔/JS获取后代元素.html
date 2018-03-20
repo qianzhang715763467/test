@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=" utf-8">
+		<meta name="author" content="http://www.bkjia.com/" />
+		<title>javascript获取后代元素</title>
+	</head>
+	<body>
+		<div id="show"></div>
+		<div id="box">
+		  	<div class="div1">
+			    <ul>
+			      <li class="aaa">
+			      	<span>元素一</span>
+			      </li>
+			      <li class="bbb">
+			      	<span>元素2</span>
+			      </li>
+			      <li class="ccc">
+			      	<span>元素3</span>
+			      </li>
+			    </ul>
+		  	</div>
+		  	<div class="div2 Div">
+			    <ul>
+			      <li class="aaa">
+			      	<span>元素4</span>
+			      </li>
+			      <li class="bbb">
+			      	<span>元素5</span>
+			      </li>
+			      <li class="ccc">
+			      	<span>元素6</span>
+			      </li>
+			    </ul>
+		  	</div>
+		  	<div class="div3">
+			    <ul>
+			      <li class="aaa">
+			      	<span>元素7</span>
+			      </li>
+			      <li class="bbb">
+			      	<span>元素8</span>
+			      </li>
+			      <li class="ccc">
+			      	<span>元素9</span>
+			      </li>
+			    </ul>
+		  	</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+		  	var obox=document.getElementById("box");
+		  	var oshow=document.getElementById("show");
+		  	var nodes=obox.getElementsByTagName("*");
+		  	for (i in nodes) {
+		  		var className = nodes[i].className;
+		  		switch( className ){
+		  			case 'div1':
+		  				console.log(className)
+		  				break;
+		  			case 'div2':
+		  				console.log(className)
+		  				break;
+	  				default:
+	  					continue
+		  		}
+		  		
+		  		
+		  		if (nodes[i].nodeName.toLocaleLowerCase() != 'li')continue
+				if(nodes[i].className == 'aaa')console.log(nodes[i].className)
+		  	}
+		  	//console.log(nodes)
+	 	 	oshow.innerHTML = nodes.length;
+		}
+	</script>
+</html>

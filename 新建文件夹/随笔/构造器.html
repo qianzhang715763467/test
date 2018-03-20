@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1></h1>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		function Person(name,age){
+			this.name = name;
+			this.age = age;
+			$('h1').html(this.age)
+			this.growUp = function(){
+				this.age += 1;
+				$('h1').html(this.age)
+			};
+		}
+		// wangWu typeof objct
+		var wangWu = new Person('WangWu',18);
+		console.log(wangWu.name)
+		console.log(wangWu['age'])
+		//wangWu.growUp()
+		// 
+		wangWu['growUp']();
+	</script>
+</html>

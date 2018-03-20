@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+//		var arr = {
+//			a:['0','2','5','7','9','11'],
+//			max:[name:'最大值','value' : max1.max]
+//		}
+		function maxFn (a){
+			this.arr = a;
+			this.max = parseInt(this.arr[0]);
+			this.min = parseInt(this.arr[0]);
+			this.indexMax = 0;
+			this.indexMin = 0;
+		    var len = this.arr.length;
+		    for (var i = 1; i < len; i++){ 
+		        if (parseInt(this.arr[i]) > this.max) {
+		            this.max = this.arr[i];
+		            this.indexMax = i;
+		        } ;
+		        if(parseInt(this.arr[i]) < this.min){
+		        	this.min = this.arr[i];
+		        	this.indexMin = i;
+		        }
+		    }  
+		};
+		var Arr = {
+			0:['0','-1','5','7','9','11']
+		}
+		var max1 = new maxFn(Arr[0]);
+		console.log(max1)
+	</script>
+</html>

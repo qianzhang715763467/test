@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		/* chart loading animation*/
+			function getAjax(param, callback){
+				$.ajax({
+					type:"get",
+					url:"http://ds.idc.xiwanglife.com/dataservice/getconfig.do?",
+					async:true,
+					data:param,
+					success:function(data){
+						var frist = JSON.stringify(data);
+							frist = frist.replace(/null/g,"0");
+						var last = JSON.parse(frist);
+						if(callback) callback(last);
+					},
+					error:function(){
+						
+					}
+				});
+			};
+			// callback
+			function AjaxCb (data,count){
+				// 返回对象自己的属性的名称。
+				var list  = data.details[Object.getOwnPropertyNames(data.details)].values;
+				if(list == "") {
+					getData[count] = '当前页面暂时没有数据。。。';
+					// 下面开始绑定数据。。。。。
+				};
+			}
+			// 1
+			getAjax({id:133,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,0) });
+			// 2
+			getAjax({id:134,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,1) });
+			// 3
+			getAjax({id:135,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,2) });
+			// 4
+			getAjax({id:136,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,3) });
+	</script>
+</html>

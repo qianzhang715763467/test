@@ -1,0 +1,368 @@
+
+<script>
+    var f4 = {};
+//    page["edges"] = f3;
+//    f3.id = "edges-form-win";
+
+    f4.nodes = [];
+    f4.r = 50;
+    f4.plus = 50;
+    f4.position = 0; //0:left or right; 1:up or down
+    f4.timers = [];
+
+
+    f4.random90 = function () {
+        var ran = Math.random() * 1000 % 90;
+        if (ran < 1)
+            return f4.random90();
+        else
+            return Math.round(ran);
+    };
+
+    f4.loadFlow = function () {
+
+        var r = f4.r;
+        var color = d3.scaleOrdinal()
+                .range(d3.schemeCategory20);
+
+        var cb = function (t, s) {
+
+            $("#main-content").find("svg").remove();
+            d3.select("#main-content").append("svg");
+            var ss = document.getElementsByTagName("svg")[0];
+            ss.setAttribute("id", "demo-svg");
+
+            ss.setAttribute("width", window.innerWidth);
+            ss.setAttribute("height", window.innerHeight - $("#toolbar").height() - 10);
+
+
+            svg = d3.select("svg");
+            svg.append("defs").append("filter")
+                    .attr("id", "f4")
+                    .attr("x", "0")
+                    .attr("y", "0").append("feGaussianBlur")
+                    .attr("in", "SourceGraphic")
+                    .attr("stdDeviation", "3");
+
+            //svg.append(("<defs><filter id='f4' x='0' y='0'><feGaussianBlur in='SourceGraphic' stdDeviation='15'/></filter></defs>"));
+
+            var width = svg.attr("width");
+            var height = svg.attr("height");
+
+            var nodes = eval($.parseJSON(t).message[0].node_details);
+
+            for (var i = 0; i < nodes.length; i++) {
+
+                var cx = nodes[i].rcx * width;
+                var cy = nodes[i].rcy * height;
+
+                var c = {};
+
+                var node = svg.append("circle")
+                        .data([{x: cx, y: cy}])
+                        .attr("cx", function (d) {
+                            return d.x;
+                        })
+                        .attr("cy", function (d) {
+                            return d.y;
+                        })
+                        .attr("r", r)
+                        .attr("id", nodes[i].text)
+                        .attr("class", "trigger")
+                        .style("fill", function (d, i) {
+                            return color(Math.round(Math.random() * 255));
+                        });
+
+                var text = (nodes[i].text).split("-")[1];
+                var tmp = $("<a>" + text + "</a>").appendTo($("body"));
+
+                svg.append("text").attr("x", cx - tmp.width() / 2).attr("y", cy + tmp.height() / 3)
+                        .text(text);
+                tmp.remove();
+
+                f4.nodes.push("#" + nodes[i].text);
+            }
+            //console.debug(f4.nodes);
+//            var cx1 = Math.round($(f4.nodes[0]).attr("cx"));
+//            var cy1 = Math.round($(f4.nodes[0]).attr("cy"));
+//            var cx2 = Math.round($(f4.nodes[1]).attr("cx"));
+//            var cy2 = Math.round($(f4.nodes[1]).attr("cy"));
+//
+//            for (var j = 0; j < 10; j++)
+//                f4.drawLine(cx1, cy1, cx2, cy2);
+        };
+
+        $.ajax({
+            url: "/query/flow",
+            async: true,
+            type: 'POST',
+            data: {id: f1.flowId},
+            success: cb
+        });
+    };
+
+    f4.drawLine = function (cx1, cy1, cx2, cy2) {
+
+        var path = d3.path();
+
+        for (var i = 0; i < 1; i++) {
+            var ran = f4.relative(cx1, cy1, cx2, cy2).split(",")[0].split(" ");
+            
+            var ran1 = ran[0];
+            var ran2 = ran[1];
+
+            var x1 = f4.getX(cx1, 50, ran1);
+            var y1 = f4.getY(cy1, 50, ran1);
+            var x2 = f4.getX(cx2, 50, ran2);
+            var y2 = f4.getY(cy2, 50, ran2);
+            path.moveTo(x1, y1);//start xy
+            var control = f4.randomXY(x1, y1, x2, y2).split(" ");
+            path.quadraticCurveTo(control[0], control[1], x2, y2);
+
+//            svg.data([{x: x2, y: y2}])
+//                    .append("circle")
+//                    .attr("cx", function (d) {
+//                        return d.x;
+//                    })
+//                    .attr("cy", function (d) {
+//                        return d.y;
+//                    })
+//                    .attr("r", 0)
+//                    .style("fill", "#f00")
+//                    .transition()
+//                    .delay(2850)
+//                    .duration(500)
+//                    .attr("r", 5)
+//                    .style("opacity", 0);
+        }
+
+        svg.append("path")
+                .attr("stroke-width", 1)
+                .style("fill", "none")
+                .style("stroke", "#8defe1")
+                .style("stroke-dasharray", "1000, 1000")
+                .attr("d", path)
+                //.attr("filter", "url(#f4)")
+                .transition()
+                .duration(5000)
+                .styleTween("stroke-dashoffset", function () {
+                    return d3.interpolateNumber(1000, 500);
+                })
+                .transition()
+                .delay(5000)
+                .duration(1000)
+                .attr("stroke-width", 0.2);
+              
+//                .transition()
+//                .delay(600000)
+//                .duration(1000)
+//                .remove();
+        path.closePath();
+    };
+
+    f4.getX = function (cx, r, angle) {
+        return cx + r * Math.cos(angle * 2 * Math.PI / 360);
+    };
+
+    f4.getY = function (cy, r, angle) {
+        return cy - r * Math.sin(angle * 2 * Math.PI / 360);
+    };
+
+    f4.relative = function (cx1, cy1, cx2, cy2) {
+        var random = Math.round(Math.random() * 100) % 2;
+        //console.debug("random: " + random);
+        if (Math.abs(cx1 - cx2) >= 2 * f4.r) {
+            f4.position = 0;
+            if (Math.abs(cy1 - cy2) >= 2 * f4.r) {
+                if (cx1 > cx2) {
+                    if (cy1 > cy2) {
+                        //return "2 4";
+                        f4.plus = -f4.r;
+                        return (90 + f4.random90()) + " " + (270 + f4.random90());
+                    } else {
+                        //return "3 1";
+                        f4.plus = -f4.r;
+                        return (180 + f4.random90()) + " " + (f4.random90());
+                    }
+                } else {
+                    if (cy1 > cy2) {
+                        //return "1 3";
+                        f4.plus = -f4.r;
+                        return (f4.random90()) + " " + (180 + f4.random90());
+                    } else {
+                        //return "4 2";
+                        f4.plus = f4.r;
+                        return (270 + f4.random90()) + " " + (90 + f4.random90());
+                    }
+                }
+            } else {
+                if (cx1 > cx2) {
+                    //return "2 1,3 4";
+                    if (random) {
+                        f4.plus = -f4.r;
+                        return (90 + f4.random90()) + " " + (f4.random90());
+                    } else {
+                        f4.plus = f4.r;
+                        return (180 + f4.random90()) + " " + (270 + f4.random90());
+                    }
+                } else {
+                    //return "1 2,4 3";
+                    if (random) {
+                        f4.plus = -f4.r;
+                        return (f4.random90()) + " " + (90 + f4.random90());
+                    } else {
+                        f4.plus = f4.r;
+                        return (270 + f4.random90()) + " " + (180 + f4.random90());
+                    }
+                }
+            }
+        }
+
+        if (Math.abs(cy1 - cy2) >= 2 * f4.r) {
+            f4.position = 1;
+            if (Math.abs(cx1 - cx2) >= 2 * f4.r) {
+
+            } else {
+                if (cy1 > cy2) {
+                    //return "1 4,2 3";
+                    if (random) {
+                        f4.plus = f4.r;
+                        return (f4.random90()) + " " + (270 + f4.random90());
+                    } else {
+                        f4.plus = -f4.r;
+                        return (90 + f4.random90()) + " " + (180 + f4.random90());
+                    }
+
+                } else {
+                    //return "4 1,3 2";
+                    if (random) {
+                        f4.plus = f4.r;
+                        return (270 + f4.random90()) + " " + (f4.random90());
+                    } else {
+                        f4.plus = -f4.r;
+                        return (180 + f4.random90()) + " " + (90 + f4.random90());
+                    }
+                }
+            }
+        }
+    }
+
+
+    f4.randomXY = function (x1, y1, x2, y2) {
+
+        //console.debug(Math.round(x1 / x2));
+        var x, y;
+        if (f4.position) {//up-down
+            if (y1 > y2) {
+                f4.plus = Math.round(y1 / y2) * f4.plus;
+                y = (y1 - y2) / 2 + y2;
+                x = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + f4.plus;
+            } else {
+                f4.plus = Math.round(y2 / y1) * f4.plus;
+                y = (y2 - y1) / 2 + y1;
+                x = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + f4.plus;
+            }
+        } else {//left-right
+            if (x1 > x2) {
+                f4.plus = Math.round(x1 / x2) * f4.plus;
+                x = (x1 - x2) / 2 + x2;
+                y = (x - x1) * (y2 - y1) / (x2 - x1) + y1 + f4.plus;
+            } else {
+                f4.plus = Math.round(x2 / x1) * f4.plus;
+                x = (x2 - x1) / 2 + x1;
+                y = (x - x1) * (y2 - y1) / (x2 - x1) + y1 + f4.plus;
+            }
+        }
+
+
+        return (x + " " + y);
+    };
+
+    f4.loadEdges = function () {
+        var cb = function (t, s) {
+            var edge = JSON.parse(t).message;
+            console.debug(edge);
+            for (var i = 0; i < edge.length; i++) {
+
+                if (!edge[i].query_id)
+                    continue;
+
+                var timer = f4.timer(edge[i].query_id, edge[i].start_node, edge[i].end_node);
+                timer();
+                f4.timers.push(window.setInterval(timer, 10000));
+            }
+        };
+        $.ajax({
+            url: "/query/edges",
+            async: true,
+            type: 'POST',
+            data: {id: f1.flowId},
+            success: cb
+        });
+    };
+
+    f4.timer = function (query_id, start_node, end_node) {
+        var start_end = {};
+        start_end.s = f4.start;
+        start_end.e = f4.end;
+        var timer = function () {
+            $.ajax({
+                url: "/query/list",
+                async: true,
+                type: 'POST',
+                data: {id: query_id, start: start_end.s, end: start_end.e},
+                success: function (t, s) {
+                    f4.readyDrawLine(t, s, start_node, end_node, start_end);
+                }
+            });
+        };
+        return timer;
+    };
+
+    f4.readyDrawLine = function (t, s, start_node, end_node, start_end) {
+
+        var list = JSON.parse(t).details.list.values;
+        console.debug(list);
+        if (list.length > 0) {
+            //console.debug(start_node + "   " + end_node);
+            
+            start_end.s = start_end.e;
+            start_end.e = new Date().format("yyyy-MM-dd hh:mm:ss");
+
+            var cx1 = Math.round($("#" + start_node).attr("cx"));
+            var cy1 = Math.round($("#" + start_node).attr("cy"));
+            var cx2 = Math.round($("#" + end_node).attr("cx"));
+            var cy2 = Math.round($("#" + end_node).attr("cy"));
+
+            f4.drawLine(cx1, cy1, cx2, cy2);
+            //console.debug(start_node + "--->" + end_node + "    " + start_end.s + "--->" + start_end.e);
+        } else {
+            start_end.e = new Date().format("yyyy-MM-dd hh:mm:ss");
+            //console.debug(start_node + "--->" + end_node + "    " + start_end.s + "--->" + start_end.e);
+        }
+
+    };
+
+    f4.init = function () {
+        if (f4.timers.length > 0) {
+            for (var i = 0; i < f4.timers.length; i++) {
+                window.clearInterval(f4.timers[i]);
+            }
+            f4.timers = [];
+        }
+        f4.loadFlow();
+
+        f4.date = new Date();
+        f4.start = f4.date.add('s', -10).format("yyyy-MM-dd hh:mm:ss");
+        f4.end = f4.date.format("yyyy-MM-dd hh:mm:ss");
+
+        f4.loadEdges();
+
+
+        //window.setInterval(f4.times, 10000);
+    };
+
+    f4.destroy = function () {
+
+    };
+</script>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE >
+<html>
+	<head>
+		<title>Ajax 详情</title>
+	</head>
+	<body>
+		
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+		jQuery("#aUnread").click(function(){
+	       	var strIds="";//定义一个传递数据的变量
+	       	$("input[name='checkbox']").each(function (){
+	        	if(this.checked){
+	            	strIds +=this.value+",";//得到的是多个id值，拼成字符串传到action
+	       		}
+	    	})
+	     	$.ajax({
+              	type: "post",
+              	dataType:'json', //接受数据格式
+              	cache:false,
+              	data:"strIds="+strIds,
+              	url: "${ctx}/feedbackonline/updateMessageStateUnread.action",
+              	beforeSend: function(XMLHttpRequest){},
+              	success: function(data){
+                  	var str=data.str;//接收返回的数据
+                  	for(var p in str){ //遍历接受的数组对象
+                    	var x="#r"+str[p];//获取要改变的记录的图标id
+                    	$(x).attr("src","${ctx}/images/04.png");
+						//把对应的id值的图标src属性值变成相应图标的路径
+              		}
+               	},
+              	error: function(){
+              		//请求出错处理
+          			alert("Error!");
+          		}
+       		});
+    	});
+	</script>
+</html>

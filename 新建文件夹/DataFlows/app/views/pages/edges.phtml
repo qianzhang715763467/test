@@ -1,0 +1,109 @@
+<div id="edges-form-win" class="ui modal small">
+    <i class="close icon"></i>
+    <div class="header">
+        Edges
+    </div>
+    <div style="margin:20px">
+        <button class="ui green button" onclick="f3.addRow()" style="margin-bottom:10px">ADD</button>
+        <div class="ui five column grid field-temp" style="display:none">
+            <div class="row">
+                <div class="column ui input"><input type="text" name="" placeholder="start"></div>
+                <div class="column ui input"><input type="text" name="" placeholder="end"></div>
+                <div class="column ui input"><input type="text" name="" placeholder="tableName"></div>
+                <div class="two columns">
+                    <button class="ui green button sql-but" onclick="f3.openSqlText(this)">SQL</button>
+                    <button class="ui red button" onclick="f3.deleteEdge(this)">Delete</button>
+                </div>
+            </div>
+        </div>
+        <div class="edges-info" style="height:500px;overflow-y: scroll;overflow-x: hidden">
+
+        </div>
+    </div>
+
+
+
+    <div class="actions" >
+        <div class="ui red deny button">
+            Cancel
+        </div>
+        <div class="ui positive right labeled icon button" onclick="f3.submitEdges()">
+            OK
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+
+
+
+    <div class="edges-sqls-text" style="display: none">
+        <div class="two columns">
+            <div class="ui form"><textarea rows="10"></textarea></div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    var f3 = {};
+    page["edges"] = f3;
+    f3.id = "edges-form-win";
+
+    f3.init = function () {
+        //$("#edges-form-win form").form("clear");
+        $("#edges-form-win").modal('show');
+    };
+
+    f3.addRow = function () {
+        var row = $(".field-temp").first().clone().removeClass("field-temp").show();
+        $("#" + f3.id).find(".edges-info").first()
+                .prepend(row);
+        return false;
+    };
+
+    f3.deleteEdge = function (_this) {
+        //console.debug($(_this).parents(".grid"));
+        $(_this).parents(".grid").first().remove();
+    };
+
+    f3.openSqlText = function (_this) {
+        var row = $(_this).parents(".row").first();
+        var next = row.next();
+        
+        if (next.length === 0) {
+            var n = $(".edges-sqls-text").first().clone().removeClass("edges-sqls-text");
+            row.after(n);
+            n.show("show")
+        } else {
+//            next.hide("slow", function () {
+//                $(this).remove();
+//            });
+            next.toggle("slow");
+        }
+    };
+    
+    f3.submitEdges = function(){
+        //console.debug($(".edges-info"));
+        edges = [];
+        var rows = $(".edges-info").find(".row");
+        for(var i = 0;i<rows.length;i++){
+            var edge = {};
+            var inputs = $(rows[i]).find("input");
+            for(var j = 0;j<inputs.length;j++){
+                //console.debug($(inputs[j]).attr("placeholder"));
+                edge[$(inputs[j]).attr("placeholder")] = $(inputs[j]).val();
+            }
+            edge["sql"] = $(rows[i]).next().find("textarea").first().val();
+            edges.push(edge);
+        }
+        f3.edges = edges;
+        console.debug(f3.edges);
+        
+        if(edges.length === 0){
+            event.stopPropagation();
+            return false;
+        }
+        
+    };
+</script>

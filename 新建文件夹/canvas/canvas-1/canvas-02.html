@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- 优先使用最新版本IE & Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 360使用Chrome Frame -->
+		<meta name="renderer" content="webkit">
+		<!-- 360 使用 Chrome内核 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+		<meta name ="viewport" content ="width=device-width,initial-scale=0.5, maximum-scale=1, minimum-scale=0.5, user-scalable=yes">
+		<!-- 禁止数字识自动别为电话号码 -->
+		<meta name="format-detection" content="telephone=no"/> 
+		<title>季度KPI完成进度</title>
+		<script src="js/jquery.min.js"></script>
+		<style type="text/css">
+			@import url("css/base.css");
+			header,article,section,footer,hgroup,aside{display: block;}
+			.g-container{
+				width: 100%;
+				height: 100%;
+				background-color: #000000;
+				overflow: hidden;
+			}
+			.g-container .titleName{
+				height: 75px;
+				line-height: 75px;
+				text-indent: 160px;
+				font-size: 27px;
+				font-weight: 100;
+				color: white;
+			}
+			.canvasLT,
+			.canvasRB{
+				position: absolute;
+				z-index: 0;
+				width: 85px;
+				height: 85px;
+			}
+			.canvasLT:before,
+			.canvasRB:before{
+				clear: both;
+			}
+			.canvasLT{
+				top: 35px;
+				left: 2px;
+			}
+			.canvasRB{
+				right: 2px;
+				bottom: 2px;
+			}
+			.m-warp{
+				position: relative;
+				width: calc(100% - 85px);
+				height: calc(100% - 115px);
+				border: 2px solid hsla(184,100%,49%,.3);
+				margin: 0 auto;
+				z-index: 1;
+			}
+			.m-warp:after,
+			.m-warp:before{
+				position: absolute;
+				content: "";
+				border: 50px solid transparent;
+				z-index: 2;
+			}
+			.m-warp:after{
+				right: -2px;
+				top: -2px;
+				border-right-color: black;
+				border-top-color: black;
+			}
+			.m-warp:before{
+				left: -2px;
+				bottom: -2px;
+				border-left-color: black;
+				border-bottom-color: black;
+			}
+			.canvasItems{
+				width: 100%;
+				height: 100%;
+				clear: both;
+			}
+			.canvasItems .item{
+				position: relative;
+				display: block;
+				float: left;
+				width: calc(100% / 3);
+				height: 100%;
+			}
+			.item div{
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			.item .item2{
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				right: -10vw;
+				width: 17vw;
+				height: 17vw;
+			}
+			#item4{
+				width: 100%;
+				height: 40%;
+			}
+			#item5{
+				left: -8%;
+				width: 100%;
+				height: 60%;
+			}
+			.switchPage{
+				position: fixed;
+				z-index: 5;
+				width: 100px;
+				height: 100%;
+			}
+			.prePage{
+				top: 0;left: 0;
+			}
+			.nextPage{
+				top: 0;right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<a class="switchPage prePage" href="bigTV-01.html"><span id="prePage"><span></a>
+		<a class="switchPage nextPage" href="keyData.html"><span id="nextPage"><span></a>
+		<div class="g-container">
+			<h2 class="titleName">2017年度Q3季度KPI完成进度</h2>
+			<section class="canvasLT"id="canvasLT" ></section>
+			<div class="m-warp" id="warp">
+				<ul class="canvasItems">
+					<li class="item">
+						<div id="item1"></div>
+						<section class="item2">
+							<div id="item2">
+							</div>
+						</section>
+					</li>
+					<li class="item">
+						<div id="item3"></div>
+					</li>
+					<li class="item">
+						<div id="item4"></div>
+						<div id="item5"></div>
+					</li>
+				</ul>
+			</div>
+			<section class="canvasRB" id="canvasRB"></section>
+		</div>
+	</body>
+	<script src="js/canvas.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var obj = null;
+		// 请求数据
+		function getJSON(cb){
+			$.getJSON('json/canvas-02.json',function(res,callbackCanvas){
+				obj = res;
+				cb();
+			});
+		}
+		//callback
+		function callbackCanvas(){
+			var arr = ["item2","item5","item1","item4","item3","canvasLT","canvasRB","warp"];
+			Object.defineProperty(tigger,"action",{
+				get:function(){
+					console.log("我是get,调用我干啥？");
+				},
+				set:function(val){
+					if(val == null || val == "start"){
+						var size = arr.pop();
+						myCanvas(size,obj[size]);
+					}
+				}
+			});
+			tigger.action = "start";
+		}
+		$(document).ready(function(){
+			// 旋转
+			var width  = $("body").outerWidth(),
+				height = $("body").outerHeight();
+			var late = (height-width)/2+"px";
+			if(height > width){
+				$('.g-container').css({"transform":"rotate(90deg) translate("+late+","+late+")","width":height,"height":width});
+				$('#item2').css({"width":'17vh',"height":"17vh","right":"-10vh"});
+				$('.switchPage').css({"width":"100%","height":"100px"});
+				$('.switchPage.nextPage').css({"bottom":"0","left":"0","top":"auto","right":"auto"});
+			}
+			getJSON(callbackCanvas);
+		})
+		
+		/*=================================*/
+		var touchXStart,
+			touchYStart;
+		
+		$(document).bind("touchstart", function (e) {
+		    var touch = e.originalEvent.targetTouches[0];
+		    touchXStart = touch.pageX;
+		    touchYStart = touch.pageY;
+		    event.preventDefault();
+		});
+		
+		$(document).bind("touchend", touchEnd);
+		
+		function touchEnd(e) {
+		    var touch = e;
+		    if (e.originalEvent && e.originalEvent.changedTouches) {
+		        touch = e.originalEvent.changedTouches[0];
+		    }
+		
+	        if (touchYStart - touch.pageY > 100) {
+	        	$('#nextPage').trigger("click");
+	        } else if (touch.pageY - touchYStart > 100) {
+	            $('#prePage').trigger("click");
+	        }
+		}
+
+	</script>
+</html>

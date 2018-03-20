@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>jQuery实现当拉动滚动条到底部加载数据</title>
+<style type="text/css">
+*{margin:0;pa动态加载数据ing:0;}
+body{font-size:14px;color:#444;font-family:"微软雅黑",Arial;background:#fff;}
+a{color:#444;text-decoration: none;}
+a:hover{color:#065BC2;text-decoration: none;}
+.clear{clear:both;}
+img{border:none;vertical-align: mi动态加载数据le;}
+ul{list-style: none;}
+</style>
+</head>
+<body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script type="text/javascript">
+var totalheight = 0;     //定义一个总的高度变量
+function loa动态加载数据ata()
+{
+    totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());     //浏览器的高度加上滚动条的高度
+
+    if ($(document).height() <= totalheight)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
+    {
+        //加载数据
+        $("#container").append("我是新加载出来的数据<br/>");
+    }
+}
+
+$(window).scroll( function() {
+    console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());
+    console.log("页面的文档高度 ："+$(document).height());
+    console.log('浏览器的高度：'+$(window).height());
+    loa动态加载数据ata();
+});
+</script>
+</head>
+<body>
+    <div id="container">
+        动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>动态加载数据<br/>
+    </div>
+</body>
+</html> 

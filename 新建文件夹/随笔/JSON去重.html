@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var datascource = {
+				"name":"注册用户",
+				"children":[
+					{"name":"未交易用户",
+					"children":[
+						{"name":"绑卡",
+						"children":[
+							{"name":"人数","title":"200\r"},
+							{"name":"转化率","title":"0.05%\r"}
+						]},
+						{"name":"推荐返佣",
+						"children":[
+							{"name":"人数","title":"200\r"},
+							{"name":"转化率","title":"0.05%\r"}
+						]},
+						{"name":"绑卡失败",
+						"children":[
+							{"name":"人数","title":"200\r"},
+							{"name":"转化率","title":"0.05%\r"}
+						]},
+						{"name":"支付失败",
+						"children":[
+							{"name":"人数","title":"200\r"},
+							{"name":"转化率","title":"0.05%\r"}
+						]},
+						{"name":"风险评测",
+						"children":[
+							{"name":"人数","title":"200\r"},
+							{"name":"转化率","title":"0.05%\r"}
+						]}
+					]},
+					{"name":"交易用户",
+					"children":[
+						{"name":"Score 10：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 9：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 8：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 7：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 6：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 5：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 4：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 3：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 2：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用\r"}
+						]},
+						{"name":"Score 1：高价值用户",
+						"children":[
+							{"name":"基本信息","title":"人数：40000\r人均交易频次：2\r最近一次交易平均时间：5\r"},
+							{"name":"购买产品倾向","title":"365天，6.5%，交易人数50人\r365天，6%，交易人数40人\r"},
+							{"name":"券使用倾向","title":"现金券，满5000减300，30人使用\r加息券，1%，20人使用"}
+						]}
+					]}
+				]}
+			var nodeTree1=datascource.children;
+			for(var i=0;i<nodeTree1.length;i++){
+				var nodeTree2=nodeTree1[i].children;
+				for(var a=0;a<nodeTree2.length;a++){
+					var nodeTree3=nodeTree2[a].children;
+					for(var b=0;b<nodeTree3.length;b++){
+						var value=nodeTree3[b].title;
+						console.log(value.replace(/\\r/g,"一"))
+					}
+				}
+			}
+//			var aa=datascource.children[1].children[1].children[1].title;
+//			aa.replace(/\\r/g,"<br/>")
+//	   		console.log(aa)
+		})
+	</script>
+</html>

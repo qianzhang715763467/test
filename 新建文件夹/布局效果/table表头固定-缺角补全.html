@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;box-sizing: border-box;}
+			html,body{width: 100%;height: 100%;overflow: hidden;}
+			.box{width: 100%;height: 100%;}
+			.table-head{width:100%;height:auto;background-color:pink;}
+			.table-head table{width:100%;}
+			.table-head table tr th{background-color:pink;color:#000; padding: 5px 0;border:1px solid #EEEEEE;}
+			
+			.table-body{width:calc(100%); height:calc(100% - 30px);overflow-y:auto;}
+			.table-body table tr td{border:1px solid #EEEEEE; padding: 5px;}
+			.table-body table{width:100%;}
+			.table-body table tr:nth-child(2n+1){background-color:#f2f2f2;}
+			col{width: 20%;}
+			/*加16px*/
+			.x{border-right: pink!important;}	
+			.b{  
+				width: 16px;
+			    height: 33px;
+			    background: pink;
+			    display: inline-block;
+			    border-top: 1px solid #eee;
+			    border-bottom: 1px solid #eee;
+		    }	
+		    /* tab-body 出现滚动条时改变tab-head样式*/
+		   .table-head .cutStyle{
+		    	width:calc(100% - 15px);
+		    }		
+		</style>
+	</head>
+	<body>
+		<div class="box">
+	        <div class="table-head">
+		        <table style="border-collapse:collapse;">
+	                <colgroup>
+		                <col />
+		                <col />
+		                <col />
+		                <col />
+		                <col style="width:calc(20% + 16px)"/>
+		            </colgroup>
+		            <tbody>
+		            	<tr>
+		                	<th>序号</th>
+		                	<th>内容</th>
+		                	<th>内容</th>
+		                	<th>内容</th>
+		                	<th class="x">内容</th>
+		                </tr>
+		            </tbody>		            
+	            </table>
+		    </div>
+	     	<div class="table-body" style="border-collapse:collapse;">
+		     	<table cellspacing="0">
+		            <colgroup>
+		            	<col />
+		                <col />
+		                <col />
+		                <col />
+		                <col />
+		            </colgroup>
+		            <tbody>
+			           
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			              <tr>
+			             	<td>1</td><td>我只是用来测试的</td><td>我</td><td>我只是用来测试的只是用来测试的</td><td>我只是用来测试的</td>
+			             </tr>
+			       
+			             
+			   
+		            </tbody>
+		   		</table>
+	    	</div>
+	 	</div>
+	</body>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			cutStyle();
+		})
+		$(window).resize(cutStyle);
+		function cutStyle(){
+			// clientHeight与height的区别是如果有滚动条时应减去滚动条的17px不可用部分,
+			// offsetHeight与Height的区别是增加了boder的高度,
+			// ScrollHeihgt与Height的区别是火狐下与offsetHeight一致,
+			var obj = document.getElementsByClassName('table-body')[0];
+			var oH  = obj.offsetHeight;
+			var	sH  = obj.scrollHeight; // y scroll
+			//var	cH  = obj.clientHeight; // x scroll
+			if(oH === sH){
+				$(obj).prev().children('table').removeClass('cutStyle');
+			}else{
+				$(obj).prev().children('table').addClass('cutStyle');
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,225 @@
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+	vertical-align:top;
+	outline:none;
+	border:none;
+}
+html,body{
+	height: 100%;
+	background:#f5fafb;
+	font-size: 0.14rem;
+	font-weight: 400;
+	font-family: "微软雅黑";
+	overflow: auto;
+	overflow-x: hidden;
+}
+a{
+	text-decoration:none;
+	color:#666666;
+}
+ul,ol{
+		list-style:none;
+}
+i,em{
+	font-style: initial;
+}
+.in_left{
+	float:left;
+}
+.in_right{
+	float:right;
+}
+/*remove float*/
+.clearfix:after{
+	content:'';
+	height:0;
+	font-size:0;
+	visibility:hidden;
+	display:block;
+	clear:both;
+}
+/* exceed hidden */
+.ellipsis{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+/* 手型 */
+.Pointer{
+	cursor: pointer;
+}
+/* hover style */
+.mouseHover:hover{
+	color: #0999CC;
+	text-decoration: underline;
+	cursor: pointer;
+}
+/*  ==================  container   ==================*/
+/*   container header
+  -------------------*/
+.container{
+	width: 11rem;
+	margin: 0 auto;
+	overflow-x: hidden;
+	position: relative;
+}
+.container .container_show{
+	display: block;
+}
+.container>section{
+	display: none;
+	width: 100%;
+	height: 97%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+/*  container table
+ --------------------*/
+.content_table{
+	width: 100%;
+	overflow-x: hidden;
+}
+table{
+	float: left;
+	border-collapse: collapse;
+	width:11rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+th,td{
+	color: #333;
+	height: 0.6rem; 
+	line-height: 0.6rem;
+	text-align: center;
+	border: 0.01rem solid #ccc; 
+	position: relative;	
+	overflow: hidden;			
+}
+table th{	
+	color: white;
+	font-weight: 500;
+	background-color:#5bc5c5;
+	border-bottom: none;
+}
+table i{
+	position: absolute;
+	text-align: center;
+	display: inline-table;
+	line-height: 120%;
+	word-break: break-all;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+/*  table 表头固定格式
+ ------------------*/
+.table-head{
+	color:#000;
+	font-size: 0.16rem;
+}
+.table-body{
+	width:11.2rem;
+	overflow-y:scroll;
+	font-size: 0.14rem;
+	float: left;
+	border-bottom: 0.01rem solid black;
+}
+.table-head table,.table-body table{
+	width:10.99rem;
+}
+.table-body tr:nth-child(2n+1){
+	background-color:#f2f2f2;
+}
+col{
+	overflow: hidden;
+}
+/*  col private style
+ -------------------------------------------*/
+#classification_content col{
+	width: 25%;
+}
+#warning_model col{
+	width: 10%;
+}
+#warning_model table col:first-child{
+	width: 23%;
+}
+#warning_model table col:nth-child(9){
+	width: 7%;
+}
+#peopleWarning col,#moneyWarning col{
+	width:10%;
+}
+#peopleWarning table col:first-child,#moneyWarning table col:first-child{
+	width: 24%;
+}
+/* class_features
+ -----------*/
+.BG_d3f6f6 {
+    background-color: #d3f6f6;
+    color: #333;
+}
+.BG_fff1b9 {
+    background-color: #fff1b9;
+     color: #333;
+}
+#features{
+	padding-left: 0.01rem;
+	overflow-x:auto;
+}
+#features .content_table{
+  	overflow-x:hidden;
+}
+#features i{
+	width: 100%;
+	padding: 0 0.05rem;
+	box-sizing: border-box;
+}
+#features table{
+   width:auto;
+}
+#features tr{
+	display: block;
+	width: 100%;
+	height: 0.6rem;
+	overflow: hidden;
+}
+#features th,#features td{
+	width: 1.22rem;
+	float: left;
+	box-sizing: border-box;
+	margin-left: -0.01rem;
+}
+#features tr td:first-child{
+	margin: 0;
+}
+/*Strategy_analysis
+ -----------------*/
+#Strategy_analysis col{
+	width:9.2%;
+}
+#Strategy_analysis col:first-child{
+	width: 19.4%;
+}
+#Strategy_analysis col:last-child{
+	width: 7%;
+}
+#Strategy_analysis .border{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	display: block;
+	width:0.6rem;
+	height: 20%;				
+	padding:0.1rem;
+	border: 0.01rem solid #ccc;
+	border-radius: 0.05rem;
+}

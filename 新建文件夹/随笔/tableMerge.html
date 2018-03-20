@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{margin: 0;padding: 0;}
+			html,body{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			.m-tab{
+				width: 100%;
+				height: 80%;
+				padding-top: 40px;
+				box-sizing: border-box;
+			}
+			.m-tab .u-tab{
+				width: 100%;
+				overflow: auto;
+			}
+			.m-tab .tab-head{
+				overflow-y: scroll;
+			}
+			.m-tab .tab-head:after{
+				position: absolute;
+				width: 17px;
+				height:40px;
+				right: 0;
+				top: 40px;
+				content: "";
+				background-color: white;
+				border: none;
+			}
+			.m-tab .tab-body{
+				height: 100%;
+				
+			}
+			table{
+				width: 3800px;
+				text-align: center;
+			}
+			td,th{
+				padding: 5px 10px;
+			}
+			th{
+				background-color: cadetblue;
+			}
+			col{
+				width: 5.26%;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="m-tab">
+			<div style="height: 40px ;overflow-y: hidden;"> 
+				<div class="tab-head u-tab">
+					<table>
+						<colgroup>
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+							<col />
+						</colgroup>
+						
+						<tbody>
+							<tr>
+								<th>标签一</th>
+								<th>标签二</th>
+								<th>标签三</th>
+								<th>标签四</th>
+								<th>标签五</th>
+								<th>标签六</th>
+								<th>标签七</th>
+								<th>标签八</th>
+								<th>标签九</th>
+								<th>标签零</th>
+								<th>标签零1</th>
+								<th>标签零2</th>
+								<th>标签零3</th>
+								<th>标签零4</th>
+								<th>标签零5</th>
+								<th>标签零6</th>
+								<th>标签零7</th>
+								<th>标签零8</th>
+								<th>标签零9</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="tab-body u-tab">
+				<table border="1px" cellpadding="0" cellspacing="0">
+					<colgroup>
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+					</colgroup>
+					<tbody>
+						
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			// 控制滚动条；
+			$('.tab-body').scroll(function(){
+				var size=$(this).scrollLeft();
+				$(this).prev().children().scrollLeft(size)
+			})
+			getData();
+		})
+		
+		function getData(){
+			var list=data[0].datas;
+			for(var i=0;i<list.length;i++){
+				list[i]=list[i].split("|")
+				var html=$('<tr></tr>');
+				for(var n=0; n<list[i].length; n++){
+					html.append('<td>'+list[i][n]+'</td>')
+				}
+				$('tbody').append(html);
+			}
+			merge();
+		}
+		
+		
+		function merge() { //可实现合并单元格,上下行来比较
+			/*var totaCols=4;
+			var totalRows=$(".u-tab").find("tr").length;
+			for(var i = totalRows-1; i>= 1; i--){
+				for ( var j = totaCols-1; j >= 1; j--) {
+					startCell = $(".u-tab").find(".tr:eq("+i+")").find("td").eq(j);
+					targetCell = $(".u-tab").find(".tr:eq("+i+")").find("td").eq(j-1);
+					if (startCell.text() == targetCell.text() && targetCell.text() != "") {
+						targetCell.attr("colspan", (startCell.attr("colspan")==undefined)?2:(eval(startCell.attr("colspan"))+1));
+						startCell.remove();
+					}
+				}
+			}
+			*/
+			
+				// 合并指定行
+				var totalCols = $(".u-tab").find("tr:first").children('td').length-1;
+				// tr>td.length
+				var totalRows = $(".tab-body").find("tr").length;
+				// 倒序对比原因：相同值接点删除掉之后,原有的下标被打乱了
+				
+				for ( var i = totalRows-1; i >= 0; i--) {
+					for ( var j = totalCols-1; j >=0 ; j--) {
+						startCell = $(".tab-body").find("tr").eq(i).find("td").eq(j);
+						targetCell = $(".tab-body").find("tr").eq(i-1).find("td").eq(j);
+						if (startCell.text() == targetCell.text() && targetCell.html() != "") {
+							targetCell.attr("rowspan", (startCell.attr("rowspan")==undefined)?2:(eval(startCell.attr("rowspan"))+1));
+							startCell.remove();
+						}
+					}
+				}
+				// 计算并合并最后一列;
+				var rowTd = $(".tab-body").find("tr");
+				var base  = $(rowTd).eq(0).children().length;
+				// 获取 最后一列跨行合并的条件，（以某一列属性rowspan 值为条件）;
+				for(var i = 0; i < rowTd.length-1; i++){
+					// 当前 TD 存在rowspan 并且父级子节点长度与 初始对比值（base）相等; 
+					if($(rowTd).eq(i).children().eq(1).attr('rowspan') != undefined && $(rowTd).eq(i).children().length == base){
+						var size = $(rowTd).eq(i).children().eq(1).attr('rowspan');
+						var count = 0;
+						// 以 获取到的值进行新的循环，取出符合条件的 td.html()并删除；
+						for(var j = 0; j < size; j++){
+							count += Number($(rowTd).eq(j).children('td:last').html())
+							if(j > 0){
+								$(rowTd).eq(j).children('td:last').remove();
+							}
+						}
+						// 为符合条件的tr 最后一个td 跨行合并并改变text()
+						$(rowTd).eq(i).children('td:last').html(count).attr('rowspan',size);
+					}
+				}
+			}
+	</script>
+</html>

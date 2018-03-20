@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function push1(array, ...items) { 
+		  items.forEach(function(item) {
+		    array.push(item);
+		    console.log(item);
+		  });
+		}
+		var a = [];
+		push1(a, "a1", "a2", "a3", "a4"); 
+		console.log(a)
+		/*-------------*/
+		function sayHi() {
+		  if (arguments[0] == "bye") {
+		    return;
+		  }else{
+		  	alert(arguments[1]);
+		  }
+		}
+		sayHi('bye','2','3');
+	</script>
+</html>

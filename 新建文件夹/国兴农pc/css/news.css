@@ -1,0 +1,123 @@
+/*<!--cont1-->*/
+.news_content1> p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.news_content1 .news_content1_img{
+	height:200px;
+	border-top:3px solid #C30D22;
+}
+.news_content1  .news_content1 img{
+	width: 100%;height:100%;display: block;
+}
+
+.showlinebox {
+	  border-left:1px solid #ddd; border-right:1px solid #ddd;    margin-bottom: 60px;
+}
+ /*以上公用*/
+.news_content2 .news_list{
+	
+}
+.news_content2 .news_list .news_list_wrap{
+	padding-bottom: 15px;border-bottom: 1px dashed #ddd;
+}
+.news_content2 .news_list .news_list_wrap .news_list_li .news_newsfontsbox{width: 55%;margin-left: 3%;display: table;height: 126px;}
+.news_content2 .news_list .news_list_wrap .news_list_li .news_newsfontsbox .news_newsfonts{display: table-cell;vertical-align: middle;}
+.news_content2 .news_list .news_list_wrap .news_list_li .news_newsfontsbox .news_newsfonts  .clamp2{color: #9d9d9d;}
+.news_content2 .news_list .news_list_wrap .news_list_li .news_newsfontsbox .news_newsfonts  .clamp2:hover{color: #C30D22;}
+/*<!--cont3-->*/
+.pagerIcon{
+	font-size: 20px;
+	border: 1px solid #999;
+    color: #999;
+    text-align: center;
+    line-height:38px ;
+    display: inline-block;
+    width: 40px;
+    margin: 0 2px;background: #e1e0dc;color: #8d8c8b;
+    border:1px solid #eee;
+    cursor: pointer;
+}
+.pagerIcon:hover{background: #091933;color: #fff;}
+.icon_active{background: #fff;}
+.ac_active{background: #091933;color: #fff;}
+.sums{font-size: 12px ;color: #9d9d9d;}
+.sums .sumlists{padding:0  5px;}
+.sums .sumpages{padding:0  5px;}
+.inputactive{
+	margin-left: 8px;
+    width: 38px;
+    height: 38px;
+    overflow: hidden;
+    border: 1px solid #d9d9d9;
+    text-align: center;
+    line-height: 38px;
+    font-size: 18px;
+    color: #787878;
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+.inputactive:focus{
+	border: 2px solid  #B1D2EC;
+}
+/*news111*/
+.news1_content1>p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.news1_content1 .news1_content1_imgfont{ width: 100%;padding: 15px 25px;border-top:3px solid #C30D22;display: table;}
+.news1_content1 .news1_content1_imgfont .newsicon1{    
+	height: 55px;
+    width: 45px;
+    display: inline-block;}
+.news1_content1 .news1_content1_imgfont .newsfonts1{
+    font-size: 24px;
+    width: 93%;
+    vertical-align: middle;
+    display: table-cell;}
+ .share_back{
+     padding: 25px 0;
+    margin: 0 20px;border-bottom: 1px dashed #ddd;
+    }
+.share_back .bshare-custom {
+    font-size: 13px;
+    line-height: 16px !important;   
+}
+.share_back .content_info {
+    float: left;font-size: 12px;color: #9d9d9d;
+}
+.share_back li:first-child{ width: 80%;}
+.share_back .btnbackbox .btnback{ background: #091933;font-size: 14px;color: #fff;padding: 5px 10px;display: inline-block;}
+.share_back .btnbackbox .btnbackicon{background: #091933;font-size: 14px;color: #fff;padding: 5px 8px;border-left: 1px solid #fff;display: inline-block;}
+.share_back .btnbackbox:hover .btnback{ background: #C30D22;}
+.share_back .btnbackbox:hover .btnbackicon{ background: #C30D22;}
+.news1_content3,.news1_content4, .news1_content5{margin:20px 20px 0 20px;} 
+.linefooter{   
+	 box-shadow: 2px 2px 7px #666;
+    border: 1px solid #ddd;
+    }
+ .indextop{    
+ 	position: absolute;
+    bottom: 149px;
+    right: -50px;
+    line-height: 50px;
+    height: 50px;
+    color: #fff;
+    /*transform:rotate(90deg) ;*/
+    /*-moz-transform:rotate(90deg);*/
+    /*-webkit-transform:rotate(90deg);*/
+    }
+ .indextop >.pagerIcon{
+    border-radius: 3px;
+    color: #fff!important;
+}
+/*news222*/
+.greyfont{color: #9d9d9d;}
+.medianews .liList{border-bottom: 1px dashed #dedede; padding: 20px 0;}
+.medianews .liList .liListul{height: 140px;}
+.medianews .liList .liListul .liList_left{border-right: 1px solid #dedede;position: relative;width: 40%;height: 100%;}
+.medianews .liList .liListul .liList_left .liList_leftimg{display: inline-block;position: absolute;top: 0;left: 0;}
+.medianews .liList .liListul .liList_left .liList_leftdata{display: inline-block;position: absolute;right: 10%;top: 50%;margin-top: -25px;text-align: center;}
+.medianews .liList .liListul .liList_right{width: 60%;display: table;height: 100%;}
+.medianews .liList .liListul .liList_right .liList_right_box{background: url(../img/news/mtnews-icon.png) 100%  center no-repeat;display: table-cell;vertical-align: middle;padding: 0 14% 0 7%;}
+.medianews .liList .liListul .liList_right .liList_right_box .clamp1:hover,.clamp2:hover{ color: #C30D22!important;}

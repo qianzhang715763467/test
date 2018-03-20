@@ -1,0 +1,368 @@
+.marketing{
+	width:1100px;
+	margin:0 auto;
+	position: absolute;
+	transform: translateX(-50%);
+}
+.mright_box{
+	width:1100px;
+	}
+.contents{
+	background:#FFF;
+	padding: 0 10px;
+	border:1px solid  #cccccc;
+}
+.mright_center{
+	width:1100px;
+	}
+.mright_title{
+	height:56px;
+	line-height:56px;
+	font-size:15px;
+	font-weight:bold;
+	}
+.mright_section{
+	font-size:15px;
+	font-weight:bold;
+	padding: 20px 0 10px;
+}
+.mright_section li:first-child{
+	padding-left: 0;
+}
+.mright_section li{
+	height:30px;
+	line-height: 30px;
+	padding: 5px 20px;
+}
+.mright_border{
+	width:500px;
+	background:#f2f2f2;
+	border-radius:10px;
+}
+.bottom{
+	 border-bottom:#efefef 2px solid;
+}
+.mright_ma{
+	height: 28px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.scroll{
+	overflow-x:auto;
+}
+.scroll_table{
+	width: 1200px;;
+}
+table{
+	background-color: white;
+	float:left;
+    border:1px solid #ccc;
+	width:1100px;
+	border-collapse:collapse;
+	}
+#classification_tables th{
+	line-height: 30px;
+}
+td, th{
+	text-align:center;
+	border-right:1px solid #ccc; 
+	border-bottom:#cccccc 1px solid;
+	padding:2px 5px;
+	font-size:13px;
+	height:40px;
+	line-height:40px;
+	color: #333;
+}
+caption{
+	margin:0 0 .5em;
+	font-weight:bold;}
+.BG_d3f6f6{
+	background-color: #d3f6f6;
+}
+.BG_fff1b9{
+	background-color:#fff1b9;
+}
+.BG_76e4e3{
+	background:#76e4e3;
+}
+.BG_ffdc51{
+	background:#ffdc51;}
+td{
+	font-size:13px;
+	color:#666666;
+	padding:2px;
+	border-bottom:#cccccc 1px solid;}
+/*th{
+	background:#77d5d4;
+	} */
+caption{font-size:1.5em;}
+table tr:nth-child(even) td  {
+    background:#f8f8f8;
+}
+/*table tr:hover  {
+    background:#f8f8f8;
+}*/
+th.th,th.bg{
+	border-right:none;
+	background:#76e4e3;
+	font-weight: 400;
+	color: white;
+}
+.tab{
+	font-size:14px;	
+	font-weight:bold;
+	padding:10px 30px;
+	border-bottom: 2px solid #efefef;
+	margin-bottom: -2px;
+}
+.clearfix .markup{
+	border-bottom: 2px solid #76e4e3;
+	color: #5fcccb;
+}
+.projectName{
+	cursor: pointer;
+}
+._selected{
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background-color: rgba(0,0,0,.4);
+	z-index: 2;
+}
+._selected ul{
+	background-color: white;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	top: 50%;
+	left: 50%;
+	width: 0px;
+	height: 200px;
+	padding: 10px 20px;
+	border-radius: 3px;
+}
+._selected ul li{
+	display: none;
+	padding:5px 0;
+	font-size: 16px;
+}
+._selected ul li input{
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+	margin-top: -4px;
+	margin-right: 8px;	
+	color: #666;
+}
+._selected ul li .btn{
+	width:100%;
+	text-align: center;
+	line-height: 1px;
+	background:darkturquoise;
+	margin: 0 auto;
+	border-radius:3px;
+	padding: 14px 0 18px;
+	display: block;
+	color: white;
+	font-size: 18px;
+}
+/*==================================================以上是营销洞察部分===============================================*/
+
+.contents table{
+	position: relative;
+}
+.contents section{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: 300px;
+	float: right;
+}
+.contents section:nth-child(2){
+	width: 42%;
+}
+.contents section:last-child{
+	width: 57%;
+}
+.expression{
+	display: none;
+	padding: 10px;
+	border-radius: 5px;
+	width: 260px;
+	background:#fff;
+	right: 0;
+	top:80px;
+	position:absolute;
+	z-index: 9999;
+	box-shadow: 0px 2px 6px -1px #333;}
+.expression:after{
+	content: "";
+	position: absolute;
+	border:12px solid transparent;
+	border-bottom:13px solid #fff;
+	top: -24px;
+	right: 16px;
+}
+.expression:before{
+	content: "";
+	position: absolute;
+	border:11px solid transparent;
+	border-bottom:13px solid #ccc;
+	top: -25px;
+	right: 17px;
+}
+.eimg li{
+	text-align:left;
+	cursor: pointer;	
+	position: relative;
+	padding: 3px 0;
+	padding-left: 35px;
+	
+}
+.eimg li img{
+	position: absolute;
+	top:-60px;
+	left: 1px;
+	border-radius:40px;
+}
+#status{
+	cursor: pointer;
+}
+/*=======================================以上是表情的部分============================*/
+#stategy_table input{
+	background-color:rgba(0,0,0,0);
+	padding:6px 0;
+	width:76px;
+	text-align:center;
+	margin-top:6px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+/* 活动创建标签style
+ -------------------------------------------------------*/
+#left{
+    width: 100%;
+}
+#left #menu{
+    width: 100%;
+}
+#left #menu>ul{
+    width: 100%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+#left #menu>ul li{
+    width: 100%;
+}
+#left #menu li a{
+	-o-text-overflow:ellipsis;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+    padding-right: 20px;
+    box-sizing: border-box;
+    text-indent: 23px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    color: #666;
+    font-size: 1rem;
+}
+#left #menu>ul>li{
+    border-bottom: 1px solid #ccc;
+}
+#left #menu>ul>li>a{
+    z-index: 2;
+    text-align: left;
+    text-indent: 38px;
+    background: url(/image/arr.png)no-repeat 13px 16px;
+    height: 47px;
+    line-height: 47px;
+}
+#left #menu>ul>li>ul{
+    box-shadow: 0px -2px 3px -1px #ccc;
+    box-sizing: border-box;
+    padding: 0 15px;
+    background-color: aliceblue;
+}
+#left #menu>ul>li>ul>li a{
+    height: 40px;
+    line-height: 40px;
+    font-size: 0.9rem;
+}
+#left #menu>ul>li>ul>li>a{		
+    background-image: url(/image/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: 170px 18px ;
+    border-top: 1px dashed #ccc;
+}
+#left #menu>ul>li>ul>li:first-child>a{
+    border: none;
+}
+#left #menu>ul>li>ul>li>ul>li>a{	
+    text-indent: 60px;
+	background-image: url(/image/33.png);
+    background-repeat: no-repeat;
+    background-position: 36px 14px;
+    background-size: 7% 32%;
+}
+#left #menu input{
+	width: 140px;
+	padding: 5px;
+	margin-bottom: 7px;
+	margin-left: 36px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+#tip{
+	position: absolute;
+	width: 200px;
+	padding: 10px;
+	background-color:#A2F0F0;
+	border-radius: 3px;
+}
+/*   活动创建 lable style
+ --------------------------------------------------------------*/
+.group-wrapper{
+	width: 100%;
+    border-bottom: 1px dotted #ccc;
+    display: inline-block;
+    height: auto !important;
+}
+.group-wrapper>div{
+    float: left;
+    box-sizing: border-box;
+}
+.group-id{
+    width: 10%;
+    padding: 10px;
+}
+.group{
+    width: 75%;
+    padding: 10px;
+    height: auto;
+}
+.group-del{
+    width: 15%;
+    padding: 10px;
+}
+.group-del input{
+    padding: 6px 9px;
+    font-size: 1.1rem;
+    color:#44cccc;
+    border: 1px solid  #00CCCC;
+    background-color: mintcream;
+    border-radius: 50px;
+}
+.group .group-node{
+	white-space: nowrap;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    margin: 5px;
+    margin-top: 0;
+    border-radius: 50px;
+}

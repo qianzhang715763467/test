@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		/*var base = {}
+			base.plugIn = function(){
+				var obj = {
+					a:function(){
+						var html = "21314";
+						return html
+					},
+					b:function(){
+						alert(2)
+					}
+				}
+				return obj;
+			};
+			base.startup = function(){
+				var c = base.plugIn();
+				console.log(c.a())
+			}
+		base.startup();*/
+	var base1 = {};
+		base1.module = function(){
+			var contentModule = {
+				mainHtml :function(){
+					var mainHtml = '<div class="content-leftBox content-boxItem">'
+							+'<svg xmlns="http://www.w3.org/2000/svg"'
+							    +'xmlns:xlink="http://www.w3.org/1999/xlink"'
+							    +'version="1.1" width="100%" height="100%" id="svg" style="position: absolute; background-color: transparent;">'
+								+'<defs>'
+						   			+'<marker id="arrow"'
+						   				+'markerUnits="strokeWidth"'
+						   				+'markerWidth="8"'
+						   				+'markerHeight="8"'
+						   				+'viewBox="0 0 12 12"'
+						   				+'refX="6"'
+						   				+'refY="6"'
+						   				+'orient="auto">'
+						   				+'<path d="M2,2 L10,6 L2,10 L6,6 L2,2" sytle="fill:#000;"></path>'
+						   			+'</marker>'
+							   	+'</defs>'
+							+'</svg>'
+							+'<svg class="icon totalTip" aria-hidden="true">'
+			                    +'<use xlink:href="#icon-rili1"></use>'
+			                +'</svg>'
+							+'<section id="content">'
+							+'</section>'
+						+'</div>'
+						+'<div class="content-rightBox content-boxItem">'
+							+'<section id="amount"  class="echart"></section>'
+							+'<section id="peoples" class="echart"></section>'
+						+'</div>';
+					return mainHtml;
+				},
+				circularHtml : function(){
+					var circularHtml = '<div class="site-items">'
+							+'<div class="item"></div>'
+							+'<div class="item"></div>'
+							+'<div class="item"></div>'
+							+'<div class="item"></div>'
+							+'<div class="item"></div>'
+							+'<div class="item"></div>'
+							+'<div class="Withdraw">'
+								+'<h5 style="margin-bottom:5px;">总金额：<i id="totalAmount"></i></h5>'
+								+'<h6>总人数：<i id ="totalPeople"></i></h6>'
+							+'</div>'
+						+'</div>';
+					return circularHtml;
+				},
+				loginHtml : function(){
+					var loginHtml = '<article id="loading">'
+				    		+'<div class="loader">'
+							  	+'<section>'
+							  		+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+								  	+'<span></span>'
+							  	+'</section>'
+							+'</div>'
+						+'</article>';
+					return loginHtml;
+				}
+			};
+			return contentModule; 
+		}
+		$('body').append(base1.module().circularHtml())
+		console.log()
+	</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li class="clickBoxs">111111111</li>
+			<li class="clickBoxs">22222222</li>
+			<li class="clickBoxs">3333333333</li>
+			<li class="clickBoxs">44444444</li>
+			<li class="clickBoxs">44555555555</li>
+			<li class="clickBoxs">55555555556</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		document.write('<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></'+'script>');
+		var clickBoxs = document.querySelectorAll('.clickBoxs');
+		/*// JQ 写法
+		for(var i = 0; i < clickBoxs.length; i++){
+			$(clickBoxs[i]).click({size:i},function(event){
+				console.log(event.data.size)
+			})
+		}*/
+		// JS 变量作用域,
+		for(var i = 0; i < clickBoxs.length; i++){
+			// iteratorFactory(i) 先自执行一次才能将值传递进去
+			clickBoxs[i].onclick = iteratorFactory(i)
+		}
+		function iteratorFactory(i){
+			var r = i;
+		   	var onclick = function(){
+				console.log(i)
+			}
+		   return onclick;
+		}
+		
+		/*for(var i = 0; i < clickBoxs.length; i++){
+			// 根据循环将当前对象 对应的变量 i 依次传递进入方法体，
+			clickBoxs[i].onclick = (function(i){
+				// 每一次循环进入当前闭包，都会开辟新的执行环境；clickBoxs[i] 为当前新开辟执行环境的对象；（var clickBoxs = 当前执行环境）
+				var onclick = function(){
+					console.log(i);
+				}
+				return onclick;
+			})(i)
+		}*/
+	</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+			div{
+				margin: 1rem auto;
+				width: 10rem;
+				height: 10rem;
+				background-color: red;
+				font-size: .1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<pre>
+方法一：所有布局用百分比布局，这种方法是比较传统的。
+
+方法二：百分比和em（一个字符的单位）相结合的；
+
+方法三：rem为单位来写样式，需要借助JS来根据分辨率的大小调整rem;
+
+方法四：布局用rem单位，而字体用em.
+
+			</pre>
+		</div>
+	</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	(function (doc, win) {
+		  var docEl = doc.documentElement,
+		    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		    recalc = function () {
+		      var clientWidth = docEl.clientWidth;
+		      if (!clientWidth) return;
+		      docEl.style.fontSize = 40 * (clientWidth / 1080) + 'px';
+		      console.log(40 * (clientWidth / 1080))
+		    };			
+		  if (!doc.addEventListener) return;
+		  win.addEventListener(resizeEvt, recalc, false);
+		  doc.addEventListener('DOMContentLoaded', recalc, false);
+	})(document, window);
+</script>
+</html>

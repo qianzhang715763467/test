@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+			span{
+				display: block;
+				width: 50px;
+				height: 50px;
+				background-color: cornflowerblue;
+				margin: 50px;
+			}
+			#t1{
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<span id="t1">
+			1
+		</span>
+		<span id="t2">
+			2
+		</span>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		// 扩展jQuery实例函数
+		jQuery.fn.extend({
+		    /**
+		     * 交换任意两个jQuery对象的位置
+		     * @param another
+		     */
+		    swap: function(another){
+		        var me = this;
+		        var cloneMe = me.clone();
+		        var temp = $('<span/>');
+		        another.before(temp);
+		        me.replaceWith(another);
+		        temp.replaceWith(cloneMe);
+		        return this;
+		    }
+		});
+        $('span').click(function(){
+        	/* ***调用举例*** */
+			var $t1 = $("#t1");
+			var $t2 = $("#t2");
+			console.log($(this).index())
+        	if($(this)==$t1){
+        		$t1.swap($t2);
+        	}else{
+        		$t2.swap($t1);
+        	}
+        })
+		
+	</script>
+</html>

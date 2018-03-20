@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" charset="utf-8">
+		<title>CSS 鼠标响应事件</title>
+		<style type="text/css">
+			.Off{ background-color: #00FF66; padding:100px;}
+			.up{background-color: #FF0000; padding:100px}
+		</style>
+	</head>
+	<body>
+		<ul class="Off" onMouseOver="this.className='Off'" onMouseOut="this.className='Up'"> 
+			<h4>鼠标响应事件 当鼠标经过移出时切换css</h4>
+			<li>onMouseDown 按下鼠标时触发 
+			<li>onMouseOver 鼠标经过时触发 
+			<li>onMouseUp 按下鼠标松开鼠标时触发 
+			<li>onMouseOut 鼠标移出时触发 
+			<li>onMouseMove 鼠标移动时触发 </li>
+		</ul>
+	</body>
+</html>

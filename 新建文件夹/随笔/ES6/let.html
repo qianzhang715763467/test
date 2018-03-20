@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		/* 
+		 * 块级作用域 let.
+		 * let 用来声明变量，类似于var。但是声明的变量只能在let命令所在的块级作用域内生效。
+		 * let 不允许相同作用域下重复声明同一变量。 
+		 * */
+		{
+			var b = 1;
+			let a = 10;
+		}
+		// 上面代码在代码块中分别声明了let、var。然而在代码块外面调用这两个变量let会声明变量不存在，而var则返回了正确值。
+		// 这表明，let声明的变量只在它自身所在的代码块才生效。
+		document.write(b) // 1
+		//document.write(a) // a is not defined
+		
+		/*-------------------------------------------------*/
+		
+		// 解决变量作用域提升问题 		
+		var c = [];
+		for(var i = 0;i < 10; i++){
+			// i 每次自增时都会创建新的变量 d 用于接收新的 i 值;
+			var d = i;
+			c[i] = d;
+		};
+		document.write(' c = '+c);// 0 ~ 9;
+		
+		/*--------------------------------------------------*/
+		
+		
+	</script>
+</html>

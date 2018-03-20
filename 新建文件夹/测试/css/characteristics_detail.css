@@ -1,0 +1,87 @@
+@import url("commonalityStyle.css");
+#detail{
+	overflow-x:auto;
+}
+#detail .content_table{
+  	overflow-x:hidden;
+}
+#detail i{
+	width: 100%;
+	padding: 0 0.05rem;
+	box-sizing: border-box;
+}
+#detail table{
+   width:auto;
+}
+#detail tr{
+	width: auto;
+	height:0.5rem;	        	
+}
+#detail th, #detail td{
+	position: relative;	        	
+	float: left;
+	width: 1.3rem;
+	height:100%;
+	padding: 0 0.05rem;
+	margin-left: -0.01rem;
+	box-sizing: border-box;
+}
+#detail tr,#detail th,#detail td{
+	display: block;
+	overflow: hidden;
+}	        
+#detail .table-head th{
+	padding-right: 0.17rem;	        	
+}
+#detail .table-head tr th:nth-child(1),#detail tr td:nth-child(1){
+	width: 1.5rem;
+	margin: 0;
+}  
+#detail .table-head span{
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/* sort button */
+#detail .sort_item,#detail .sort img{
+   	position: absolute;
+    display: block;
+}
+#detail .sort_item{
+	width: 0.3rem;
+	height: 100%;
+	top: 0;
+	right: 0;
+	z-index: 2;
+}
+#detail .sort{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 50%;
+	float: left;
+}
+#detail .sort img{	        	
+	width: 0.12rem;
+	height: 0.12rem;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+}
+#detail .positiveSequence:before{
+    position: absolute;
+    content: "";
+	border: 0.1rem solid transparent;
+	border-bottom: 0.015rem solid white;
+	bottom: 0;
+	left: 0.05rem;
+}
+#detail .positiveSequence img{
+	top: 20%;
+}	 
+#detail .Reverse_order img{
+	top: -20%;
+}       

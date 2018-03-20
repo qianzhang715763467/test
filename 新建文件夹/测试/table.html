@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>活动总览</title>
+<link href="style.css"rel="stylesheet" type="text/css">
+<link href="css.css" rel="stylesheet" type="text/css">
+<link href="calendar.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+	#left{
+		width: 100%;
+	}
+	#left #menu{
+		width: 100%;
+	}
+	#left #menu>ul{
+		width: 100%;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+	}
+	#left #menu>ul li{
+		width: 100%;
+	}
+	#left #menu li a{
+		text-indent: 54px;
+		cursor: pointer;
+		display: block;
+		width: 100%;
+		font-weight: bold;
+		color: #666;
+		font-size: 1rem;
+	}
+	#left #menu>ul>li{
+		border-bottom: 1px solid #ccc;
+	}
+	#left #menu>ul>li>a{
+		z-index: 2;
+		text-align: left;
+		text-indent: 70px;
+		background: url(../EagleEye/EagleEye/image/arr.png)no-repeat 40px 16px;
+		height: 47px;
+		line-height: 47px;
+	}
+	#left #menu>ul>li>ul{
+		box-shadow: 0px -2px 3px -1px #ccc;
+		box-sizing: border-box;
+		padding: 0 15px;
+		background-color: aliceblue;
+	}
+	#left #menu>ul>li>ul>li a{
+		height: 40px;
+		line-height: 40px;
+	}
+	#left #menu>ul>li>ul>li>a{		
+		background-image: url(dropdown.png);
+		background-repeat: no-repeat;
+		background-position: 170px 18px ;
+		border-top: 1px dashed #ccc;
+	}
+	#left #menu>ul>li>ul>li:first-child>a{
+		border: none;
+	}
+	#left #menu>ul>li>ul>li>ul>li>a{	
+		text-indent: 68px;
+	
+	}
+	#left #menu>ul>li>ul>li>ul>li>ul>li>a{
+		text-indent: 120px;
+		background-image: url(33.png);
+		background-repeat: no-repeat;
+		background-position: 96px 12px;
+		background-size: 8% 39%;
+	}
+/*   lable
+ --------------------------------------------------------------*/
+.group-wrapper{
+		border-bottom: 1px dotted #ccc;
+		min-height: 56px;
+}
+.group-wrapper>div{
+	float: left;
+	box-sizing: border-box;
+}
+.group-id{
+	width: 10%;
+	padding: 10px;
+}
+.group{
+	width: 75%;
+	padding: 10px;
+	height: auto;
+}
+.group-del{
+	width: 15%;
+	padding: 10px;
+}
+.group-del input{
+	padding: 6px 9px;
+	font-size: 1.1rem;
+	color:#44cccc;
+	border: 1px solid  #00CCCC;
+	background-color: mintcream;
+	border-radius: 50px;
+}
+.group .group-node{
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    margin: 5px;
+    margin-top: 0;
+    border-radius: 50px;
+}
+</style>
+</head>
+<body>		
+<p class="mright_title"style="width: 1100px;margin: 0 auto;padding: 5px 0 0;font-size: 1.2rem;font-weight:500;">智能营销>活动创建</p>
+<div class="section clearfix">
+ 	 <div class="left_box fl">
+           <ul class="mylable clearfix">
+                <li class="fl mylable01 mylableBorder"><a href="#">标签</a></li>
+                <li class="fr mylable02 "onclick="promptShow()"><a href="#">我的标签</a></li>
+           </ul>  
+       <div id="left">
+            <div id="menu"></div>
+        </div>
+    </div>
+<!--==========i========================以上是左盒子===========================================-->
+     <div class="right_box fr ">
+    	<div class="right">
+            <div class="editor clearfix">
+                <p class="fl ep1">人群数量</p>
+            </div>
+            <div class="lablegroups">
+            	<div id="right">
+
+          		</div>
+            </div>
+            <div class="addlable">
+                 <p id="add_TabGroups">+添加标签组</p>
+            </div>
+             <p class="addline"></p>
+     <!--以上是添加标签组的部分-->      
+            <div class="time">           
+                <form class="form1">
+                <input type="text" placeholder="输入活动名称或描述" class="inp1 fl"/>         
+	        	<div id="demo">
+					<input type="text" id="dt" placeholder="选择活动开始日期">
+					<div id="dd"></div>
+				</div>			               
+                </form>
+               <form class="form2">
+                    <label class="fl">筛选重复活动（任选）</label>   
+                    <div class="fl"style="position: relative;">
+                    	<input type="text" name="" id=""  class="record"placeholder="历史记录"readonly/>
+                    	<div class="select_box">
+							<ul class="select slideUp">
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>
+								<li>新手大礼包</li>	
+							</ul>
+							<div class="submit_btn">确定</div>
+						</div>
+                    </div>
+                    <div class="btn">       
+                      <button value="提交" type="submit" class="time_btn" style="background:#66cccc; color:#fff;" >提交</button>
+                    </div>
+                </form>		
+            </div>        
+     <!--以上是日历的效果 <-->
+    	</div>
+    </div>
+</div>
+</body>
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="js.js" type="text/javascript"></script>
+<script src="Style.js"type="text/javascript"></script>
+<script src="Calendar.js" type="text/javascript"></script>
+<script>
+    var d = [{
+                "id": 1,
+                "text": "基本属性"                  
+       		},{
+                "id": 2,
+                "text": "社会特征",
+                "children": [{
+                    "id": 22,
+                    "text": "家庭特征",
+                    "children":[{
+                    	"text": "1-1",
+                        "type": 'input',
+                        placeholder: '请输入'
+                	}]
+	            },{
+	                "id": 11,
+	                "text": "工作特征",
+	                "children":[{
+	                	"id":111,
+	                	"text":"工作状态",
+	                	"children":[{
+	                		"id":1111,
+	                		"text":"在职",
+	                		"type":"text"
+	                	},{
+	                		"id":1112,
+	                		"text":"兼职",
+	                		"type":"text"
+	                	},{
+	                		"id":1113,
+	                		"text":"待业",
+	                		"type":"text"
+	                	}]
+                	}]
+                },{
+                	"id":112,
+                	"text":"职业归属"
+                },{
+                	"id":112,
+                	"text":"行业归属"
+                },{
+                	"id":112,
+                	"text":"职业类型"
+                }]          
+            },{
+                "id": 22,
+                "text": "通讯特征"
+            },{
+                "id": 22,
+                "text": "社交特征"
+            },{
+                "id": 22,
+                "text": "用户身份"
+        	},{
+                "id": 1,
+                "text": "产业行为"
+            }, {
+                "id": 1,
+                "text": "金服行为"
+            }, {
+                "id": 1,
+                "text": "兴趣偏好"
+            }, {
+                "id": 1,
+                "text": "产业状态"
+        	},{
+                "id": 1,  
+                "text": "风险评估"
+            }, {
+                "id": 12,
+                "text": "1-2"
+            }]
+    var count=1;
+    var d3;
+
+    var d2 = [{
+            groupId:"标签组："+1
+        }];
+
+    var hmenu = function (_id) {
+        var menu = function (id) {
+            this.dataDomMap = {};
+            this.id = id;
+            this.clickHook;
+        };
+        menu.prototype = {
+            constructor: menu,
+            loadData: function (data) {
+                this.data = data;
+                this.render();
+                return this;
+            },
+            render: function () {
+                if (this.data.lenght <= 0) {
+                    console.debug("data is empty");
+                    return;
+                }
+                $("#" + this.id).append(this.makeUl(this.data, true));
+                //console.debug($("#" + this.id).html());
+            },
+            makeUl: function (data, show, parentText) {
+                //console.debug(data.length);
+                var rootUl = $("<ul></ul>");
+                for (var i = 0; i < data.length; i++) {
+                    var text = data[i].text;
+                    var li = $("<li></li>");
+                    var leaf;
+                    if (data[i].type === "input") {
+                        leaf = $("<input type='text' class='li-input-text' placeholder='" + data[i].placeholder + "' />");
+                        li.append(leaf);
+                         console.log(leaf)
+                        	leaf.attr("data-text",text);
+                        leaf.blur({hook: this.clickHook, a: leaf},function(e){
+                            e.data.hook(e.data.a);
+                        });
+                    } else {
+                        leaf = $("<a>" + text + "</a>");
+                        
+                        li.append(leaf);
+                        var hasChildren = data[i].children;
+                        leaf.click({hook: this.clickHook, hasChildren: hasChildren, a: leaf}, function (e) {
+                            var ul = $(this).parent().find("ul:first");
+                            if (ul.length > 0) {
+                                if (ul.css("display") === "none") {
+                                    $(this).parents("li").each(function () {
+                                        $(this).find("ul:first").slideDown();
+                                    });
+                                } else {
+                                    $(this).parent().find("ul:first").slideUp();
+                                }
+
+                            }
+
+                            if (e.data.hook && !e.data.hasChildren)
+                                e.data.hook(e.data.a);
+
+                        });
+                        if (hasChildren) {
+                            li.append(this.makeUl(data[i].children, false, text));
+                        }else{
+                            leaf.attr("data-text",text)
+                            leaf.addClass("bg")
+                        }
+                    }
+
+
+                    rootUl.append(li);
+                    this.dataDomMap[text] = leaf;
+
+                    if (parentText) {
+                        leaf.parentText = parentText;
+                    }
+
+
+                }
+                if (!show)
+                    rootUl.hide();
+                return rootUl;
+            },
+            setClickHook: function (func) {
+                this.clickHook = func;
+            }
+        };
+        return new menu(_id);
+    };
+
+    var m, groups;
+    $(function () {
+        m = hmenu("menu");
+        m.setClickHook(aa);
+        m.loadData(d);
+        groups = htagGroups("right");
+        groups.setClickHook(bb);
+        groups.loadData(d2);
+        $('#add_TabGroups').click(function(){
+			count++;
+			 var d3 = [{
+                groupId:"标签组："+count
+            }];
+        	groups.addGroups(d3)
+        })
+    });
+
+    var aa = function (a) {
+        if (!groups.activeGroup) {
+            alert("先选择一个 group");
+            return;
+        }
+        
+         var text = a.text();
+        if(a[0].tagName === "INPUT"){
+            var node = groups.dataDomMap[groups.activeGroup.id][a.parentText];
+            if(node){
+                node.remove();
+                delete groups.dataDomMap[groups.activeGroup.id][a.parentText];
+            }
+            text = a.val();
+            if(text.length === 0)
+                return;
+          var oldText=a.attr("data-text");                      
+                	oldText.replace(text,"");
+            a.attr("data-text",text+oldText);
+        }else{
+        	var e=a.css("background-image")
+            console.log(e)
+           if(a.css("background-image")=='url("http://127.0.0.1:8020/EagleEye/EagleEye/image/33.png")'){
+            	a.css("background-image","url(22.png)")
+            }else{
+            	a.css("background-image","url(33.png)")
+            }
+        }
+        groups.addTag(groups.activeGroup.id, a.parentText, text);
+        
+    };
+
+    var htagGroups = function (_id) {
+        var groups = function (id) {
+            this.dataDomMap = {};
+            this.root = $("#" + id);
+            this.self = this;
+            this.activeGroup = null;
+        };
+        groups.prototype = {
+            constructor: groups,
+            loadData: function (data) {
+                this.data = data;
+                this.render();
+                return this;
+            },
+            render: function () {
+                this.addGroups(this.data);
+            },
+            addGroups: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var groupWrapper = $("<div></div>");
+                    var groupId = $("<div>" + data[i]["groupId"] + "</div>");
+                    var delBut = $("<input type='button' value='删除此标签组' />");
+                    var groupDel = $("<div></div>").append(delBut);
+                    var group = $("<div></div>");
+                    //Object.getOwnPropertyNames(a).length
+                    this.dataDomMap[data[i]["groupId"]] = group;
+                    groupId.addClass("group-id").appendTo(groupWrapper);
+                    group.addClass("group").appendTo(groupWrapper);
+                    groupDel.addClass("group-del").appendTo(groupWrapper);
+                    groupWrapper.addClass("group-wrapper").appendTo(this.root);
+                    var nodes = data[i]["nodes"];
+
+                    groupWrapper.click({gs: this.self, gid: data[i]["groupId"], dm: this.dataDomMap}, function (e) {
+                        e.data.gs.activeGroup =e.data.dm[e.data.gid];
+                        e.data.gs.activeGroup.id = e.data.gid;
+                        $(this).css("background-color", "#ddd").siblings().css("background-color", "#fff");
+                        //  A 背景初始化
+						$('#menu .bg').css("background-image","url(33.png)");
+						$('#menu input').val("")
+                        var pros = Object.getOwnPropertyNames(e.data.dm[e.data.gid]);
+                        for (var i = 0; i < pros.length; i++) {
+                            if (pros[i] === "0" || pros[i] === "length" || pros[i] === "id")
+                                continue;
+                            var pros1 = Object.getOwnPropertyNames(e.data.dm[e.data.gid][pros[i]]);
+                            for (var j = 0; j < pros1.length; j++) {
+                                if (pros1[j] === "0" || pros1[j] === "length" || pros1[j] === "prevObject" || pros1[j] === "context")
+                                    continue;
+	                                var n = m.dataDomMap[pros[i]].parent().find("[data-text*='"+pros1[j]+"']").first();      
+	                                console.log(n[0])
+	                                if(n[0].tagName === "INPUT"){
+	                                    n.val(pros1[j]);
+	                                }else if(n[0].tagName === "A") {
+	                                	n.css("background-image","url(22.png)");
+	                                }
+                            }
+                        }
+                       
+                        //hmenu.dataDomMap[e.data.dm[e.data.gid]]
+                    });
+                    delBut.click({group: groupWrapper, gid: data[i]["groupId"], dm: this.dataDomMap}, function (e) {
+                        e.data.group.remove();
+                        console.debug(e.data.dm);
+                        delete e.data.dm[e.data.gid];
+                        console.debug(e.data.dm);
+                    });
+
+                    if (!nodes)
+                        continue;
+                    for (var j = 0; j < nodes.length; j++) {
+                        var node = $("<div class='group-node'></div>").appendTo(group);
+                        node.append($("<span class='group-node-tags'>" + nodes[j]["title"] + ": </span>"));
+                        this.dataDomMap[data[i]["groupId"]][nodes[j]["title"]] = node;
+                        for (var k = 0; k < nodes[j]["tags"].length; k++) {
+                            //console.debug(nodes[j]["tags"][k]);
+                            if (k === 0) {
+                                var tag = $("<span class='group-node-tags'>" + nodes[j]["tags"][k] + "</span>");
+                                node.append(tag);
+                                this.dataDomMap[data[i]["groupId"]][nodes[j]["title"]][nodes[j]["tags"][k]] = tag;
+                            } else {
+                                var tag = $("<span class='group-node-tags'>, " + nodes[j]["tags"][k] + "</span>");
+                                node.append(tag);
+                                this.dataDomMap[data[i]["groupId"]][nodes[j]["title"]][nodes[j]["tags"][k]] = tag;
+                            }
+                        }
+                        this.nodeClick(node, nodes[j]["title"]);
+                    }
+
+                }
+            },
+            addTag: function (gid, parentText, text) {
+                if (!parentText)
+                    return;
+                
+                var node = this.dataDomMap[gid][parentText];
+                //console.debug(node);
+                if (!node) {
+                    var div = $("<div class='group-node' data-title='" + parentText + "'></div>");
+                    div.append("<span>" + parentText + ": </span>");
+                    var tag = $("<span>" + text + "</span>");
+                    div.append(tag);
+                    this.activeGroup.append(div);
+                    this.dataDomMap[gid][parentText] = div;
+                    this.dataDomMap[gid][parentText][text] = tag;
+                    
+                    this.nodeClick(div, parentText);
+                } else {
+                    var tag = this.dataDomMap[gid][parentText][text];
+                    //console.debug(text);
+                    if (!tag) {
+                        var tag = $("<span>, " + text + "</span>");
+                        node.append(tag);
+                        this.dataDomMap[gid][parentText][text] = tag;
+                    } else {
+                        tag.remove();
+                        this.dataDomMap[gid][parentText][text] = undefined;
+                        var third = this.dataDomMap[gid][parentText].children("span:eq(2)");
+                        var second = this.dataDomMap[gid][parentText].children("span:eq(1)");
+                        //console.debug(second.html());
+                        if (second.length > 0) {
+                            second.text(second.text().replace(/, /g, ""));
+                        } else if (second.length == 0) {
+                            node.remove();
+                            this.dataDomMap[gid][parentText] = undefined;
+                        }
+                    }
+                }
+            },
+            nodeClick: function (node, title) {
+                node.click({title: title, hook: this.clickHook}, function (e) {
+                    console.debug(e.data.title);
+                    e.data.hook(e.data.title);
+                });
+            },
+            setClickHook: function (func) {
+                this.clickHook = func;
+            },
+            addGroup: function () {
+                var group = $("<div></div>");
+                var length = Object.getOwnPropertyNames(this.dataDomMap).length;
+                this.dataDomMap[++length] = group;
+                group.addClass("group").appendTo(this.root);
+            }
+
+        }
+        return new groups(_id);
+    };
+
+    var bb = function (title) {
+        //console.debug(title);
+        m.dataDomMap[title].click();
+    };
+
+</script>
+<!--   Date 插件   start--> 
+<script>
+    $('#ca').calendar({
+        width: 320,
+        height: 320,
+        data: [
+			{
+			  date: '2015/12/24',
+			  value: 'Christmas Eve'
+			},
+			{
+			  date: '2015/12/25',
+			  value: 'Merry Christmas'
+			},
+			{
+			  date: '2016/01/01',
+			  value: 'Happy New Year'
+			}
+		],
+        onSelected: function (view, date, data) {
+            console.log('view:' + view)
+       /*     alert('date:' + date)*/
+            console.log('data:' + (data || 'None'));
+        }
+    });
+
+    $('#dd').calendar({
+        trigger: '#dt',
+        zIndex: 999,
+		format: 'yyyy-mm-dd',
+        onSelected: function (view, date, data) {
+            console.log('event: onSelected')
+        },
+        onClose: function (view, date, data) {
+            console.log('event: onClose')
+            console.log('view:' + view)
+            console.log('date:' + date)
+            console.log('data:' + (data || 'None'));
+        }
+    });
+</script>
+<!--   Date 插件   end-->
+<script type="text/javascript">	
+	$(function(){
+		londHtml();// 暂存弹窗
+		$('.group-wrapper').css("height",$('.group-wrapper').children('.group').height()+20);
+		// 历史记录条目 show & hide;
+		$('.record').click(function(){
+			$('.select_box').show();
+			$('.submit_btn').click(function(){
+				$('.select_box').hide();
+				if($('.select_box .slideLi').length>0){
+					$('.record').attr('placeholder',"已选择")
+					console.log($('.select_box .slideLi').length)
+				}else{
+					$('.record').attr('placeholder',"历史记录")
+				}
+			})
+		})
+		//  历史记录 选中 & 不选
+		$('.select_box li').click(function(){
+				$(this).toggleClass('slideLi')
+		})
+	});
+//  lond 弹窗页面
+function londHtml(){
+	$('#save').click(function(){
+		$('body').append($('<div class="window_box"id="tanchuang02"></div>').lond("tanchuang.html"));
+	});
+}
+// 复用 方法 -----------------------------------------------------
+function clickShow(evet,e){
+	$(evet).click(function(){
+		$(e).show();
+	})
+}
+function clickHide(evet,e){
+	$(evet).click(function(){
+		$(e).hide();
+	})
+}
+</script>
+</html>
+

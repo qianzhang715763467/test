@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+			*{  
+			    margin: 0;  
+			    padding: 0;  
+			}  
+			html,body{  
+			    height: 100%;  
+			    background: #fff;  
+			}  
+			body{  
+			    width:100%;  
+			    /*设置body为伸缩容器*/  
+			    display: -webkit-box;/*旧版本，ios6-，Safari 3.1-6*/  
+			    display: -moz-box;/*旧版本，Firefox 19-*/  
+			    display: -ms-flexbox;/*混合版本，IE10*/  
+			    display: -webkit-flex;/*新版本：Chrome*/  
+			    display: flex;/*新版本：Opera 12.1,Firefox 20+*/  
+			    /*伸缩项目换行*/  
+			    /*旧版本：设置伸缩流*/  
+			    -webkit-box-orient: vertical;  
+			    -moz-box-orient: vertical;  
+			    -webkit-box-direction: normal;  
+			    -moz-box-orient: normal;  
+			    /*旧版本：设置项目换行*/  
+			    -webkit-box-lines: multiple;  
+			    -moz-box-lines: multiple;  
+			    /*混合版本：伸缩流方向与伸缩项目换行*/  
+			    -ms-flex-flow: column wrap;  
+			    /*新版本：伸缩流方向与伸缩项目换行*/  
+			    -webkit-flex-flow: column wrap;  
+			    flex-flow: column wrap;  
+			}  
+			#m-flex{  
+			    width: 98%;  
+			    margin: 1%;
+			    /*设置section为伸缩容器*/  
+			    display: -webkit-box;  
+			    display: -moz-box;  
+			    display: -ms-flexbox;  
+			    display: -webkit-flex;  
+			    display: flex;  
+			    /*伸缩项目换行*/  
+			    -webkit-box-orient: horizontal;  
+			    -moz-box-orient: horizontal;  
+			    -webkit-box-lines: multiple;  
+			    -moz-box-lines: multiple;  
+			    -ms-flex-flow: row wrap;  
+			    -webkit-flex-flow: row wrap;  
+			    flex-flow: row wrap;  
+			    /*设置伸缩性*/  
+			    -webkit-box-flex: 1;  
+			    -moz-box-flex: 1;  
+			    -ms-flex: 1;  
+			    -webkit-flex: 1;  
+			    flex: 1;  
+			}  
+			article{  
+			    vertical-align: middle; 
+			}  
+			aside{  
+			    display: flex;  
+			    display: -webkit-flex; 
+			}  
+			.u-flex{
+				border:1px solid black;  
+				/*文字水平垂直居中*/  
+			    display: -webkit-box;  
+			    display: -moz-box;  
+			    display: -ms-flexbox;  
+			    display: -webkit-flex;  
+			    display: flex; 
+			    -webkit-flex-direction: column;/*纵向排列*/
+   				flex-direction: column; /*纵向排列*/
+			}
+			.unwanted{
+				/*水平居中*/  
+			    -webkit-box-pack: center;/*旧版本*/  
+			    -moz-box-pack: center;/*旧版本*/  
+			    -ms-flex-pack:center;/*混合版本*/  
+			    -webkit-justify-content:center;/*新版本*/  
+			    justify-content: center;/*新版本*/  
+			    /*垂直居中*/  
+			    -webkit-box-align: center;/*旧版本*/  
+			    -moz-box-align: center;/*旧版本*/  
+			    -ms-flex-align: center;/*混合版本*/  
+			    -webkit-align-items: center;/*新版本*/  
+			    align-items: center;/*新版本*/
+			}
+			.u-flex1{
+				-webkit-box-flex: 1;/*旧版本*/  
+			    -moz-box-flex: 1;/*旧版本*/  
+			    -ms-flex: 1;/*混合版本*/  
+			    -webkit-flex: 1;/*新版本*/  
+			    flex: 1;/*新版本*/
+			}
+			.u-flex2{
+				-webkit-box-ordinal-group: 2;  
+			    -moz-box-ordinal-group: 2;  
+			    -ms-flex-order: 2;  
+			    -webkit-order: 2;  
+			    order: 2; 
+			}
+			.u-flex3{
+				-webkit-box-ordinal-group: 3;/*旧版本*/  
+			    -moz-box-ordinal-group: 3;/*旧版本*/  
+			    -ms-flex-order: 3;/*混合版本*/  
+			    -webkit-order: 3;/*新版本*/  
+			    order: 3;/*新版本*/
+			}
+			.flexW50{
+				width: 50%;
+			}
+			.flexW25{
+				width: 25%;
+			}	
+			.u-butList{
+				line-height: 50px;
+				background-color: aliceblue;
+			}	
+			.u-butList a{
+				padding: 1%;
+			}
+			.u-tab{
+				position: relative;
+				padding: 1%;
+				/*设置伸缩性*/  
+			    -webkit-box-flex: 1;  
+			    -moz-box-flex: 1;  
+			    -ms-flex: 1;  
+			    -webkit-flex: 1;  
+			    flex: 1; 
+			    background-color: indianred;
+			    box-sizing: border-box;
+			}	
+			.handle {
+			    position: absolute;
+			    left: -4px;
+			    top: 0;
+			    bottom: 0;
+			    width: 8px;
+			    cursor: w-resize;
+			}
+		</style>
+	</head>
+	<body>
+	    <section id="m-flex">  
+	        <article class="u-flex u-flex1">
+	        	<p class="u-butList">
+	        		<a href="javascript:;" class="unfold">展开</a>
+		        	<a href="javascript:;" class="create">创建</a>
+		        	<a href="javascript:;" class="change">改变</a>
+	        	</p>
+	        	<section class="u-tab">
+	        		我是主内容
+	        	</section>
+	        </article>  
+	    </section>  
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var flex = {};
+			flex.content = $('#m-flex');
+			flex.parents = '.u-flex';
+			flex.html = '<p class="u-butList">'
+			        		+'<a href="javascript:;" class="unfold">展开</a>'
+				        	+'<a href="javascript:;" class="create">创建</a>'
+				        	+'<a href="javascript:;" class="change">改变</a>'
+			        	+'</p>'
+			        	+'<section class="u-tab"><div class="handle"></div>我是主内容</section>';
+			// 加载项
+			flex.addChild = function(){
+				flex.content.click(function(event){
+					// 创建新节点前盒子的长度;
+					var list = flex.content.children().length;
+					// 外层盒模型 .width()/2 / 外层盒模型 .length() == 节点创建前所有收缩起来盒子的 宽度;
+					var size = ( flex.content.width() * 0.5 ) / list;
+					// 当前点击对象的索引号;
+					var index = $(event.target).parents(flex.parents).index();
+					var name = $(event.target).attr('class');
+					switch (name) {
+						case 'create':
+							flex.create(index,list,size);
+							break;
+						case 'change':
+							flex.change(index,list,size);
+							break;
+						case 'unfold':
+							flex.unfold(list);
+						default:
+							flex.down();
+					}
+					
+				})
+			};
+			// add node
+			flex.create = function(index,list,size){
+				// 初始状态时
+				if ( index == list-1 && list == 1 ){
+					var create = $('<nav class="u-flex u-flex2"></nav>').html(flex.html).css({'width':flex.content.width() * 0.5});
+				// length > 1 时
+				}else if( index == list-1 && list > 1 && size　> 200 ){
+					flex.content.children().css({'width':size});
+					var create = $('<aside class="u-flex u-flex3"></aside>').html(flex.html).css({'width':flex.content.width() * 0.5});
+				}
+				// 创建节点
+				flex.content.append(create);
+			}
+			// 改变 this.next().html();
+			flex.change = function(index,list,size){
+				// 初始状态时
+				if (index == list-1  && size　> 200 ){
+					flex.content.children().css({'width':size});
+					var create = $('<nav class="u-flex u-flex2"></nav>').html(flex.html).css({'width':flex.content.width() * 0.5});
+					flex.content.append(create);
+				// length > 1 时
+				}else if( index < list-1 ){
+					$(event.target).parents(flex.parents).next().children(':last').append('<h1>我是新切换的内容</h1>');
+				}
+			}
+			// 切换项
+			flex.unfold = function(list){
+				if(list > 2) {
+					var size = ( flex.content.width() * 0.5 ) / ( list-1 );
+					$(event.target).parents(flex.parents).css({'width':flex.content.width() * 0.5});
+					$(event.target).parents(flex.parents).siblings().css({'width':size});
+				}
+			}
+			// 拖动改变盒子大小
+			flex.down = function(event){
+				// 边框拉动
+				var historyTotalW =0, // 当前点击对象+前面所有兄弟 = 总的宽度;
+					_thisW = 0,		  // 当前对象的宽度;
+					_prevW = 0,		  // 当前对象上一个兄弟的宽度;
+					downX = 0,        // 当前对象鼠标按下时的值;
+					_this = null,			  // 当前对象;
+					newW = null ,
+					isResizing=false,
+					isCount = false ;
+				
+				flex.content.delegate('.handle','mousedown',function(){
+					/*alert($(this))*/
+					isResizing = true;
+					_this = $(event.target).parents(flex.parents);
+					
+					_thisW = _this.width();
+					_prevW = _this.prev().width();
+					downX = event.clientX;
+//			        var list = Event.prevAll();
+//		            for(var i = 0; i < list.length; i++){
+//		            	historyTotalW += $(list).eq(i).width();
+//		            }
+		            historyTotalW = _this.offset().left + _thisW ;
+					
+				}).delegate('.handle','mouseup',function(event){
+					/*alert(2222)*/
+				})
+				$(document).mousemove(function (e) {
+				        // we don't want to do anything if we aren't resizing.
+				        if (!isResizing) return;
+			           	newW = (historyTotalW - downX) - e.pageX;
+			            if( e.clientX > (historyTotalW-200) || e.clientX < ( historyTotalW - _thisW - _prevW +200 ))return isResizing = false;
+			        	if( (_thisW + newW) > (historyTotalW-300) || (_thisW + newW) < 200 || (_prevW + newW) > (historyTotalW-300) || (_prevW + newW) < 200)
+				        	return isResizing = false;
+				        _this.css('width',_thisW + newW ).prev().css('width',_prevW - newW);
+				        console.log(newW)
+				    })
+					$(document).mouseup(function (e) {
+						if(!isResizing)return;
+						/*alert(newW)
+				    	alert((_thisW + newW) +'....'+ (_prevW - newW));*/
+				        // stop resizing
+				        isResizing = false;
+				      //  historyTotalW =0;
+						downX = 0;
+				    });
+			};
+			
+			flex.addChild();
+			
+	</script>
+</html>

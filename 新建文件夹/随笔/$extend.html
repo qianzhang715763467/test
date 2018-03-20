@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<h3 class="ye">new soul</h3>
+		<h3 class="ye">new soul</h3>
+		<h3 class="ye">new soul</h3>
+		<h3 class="ye">new soul</h3>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+ 	  // $.extend 类似于数组合并
+ 		jQuery.fn.myPlugin = function(options) {
+			$options = $.extend( {
+				html: "no messages",
+				css: {
+					"color": "red",
+					"font-size":"14px"
+				}},
+			options);
+			return $(this).css({
+				"color": $options.css.color,
+			}).html($options.html);
+		}
+		
+		
+		$('.ye').myPlugin({html:"So happy easy,yes?",css:{"color":"green","font-size":"20px"}});
+	</script>
+</html>

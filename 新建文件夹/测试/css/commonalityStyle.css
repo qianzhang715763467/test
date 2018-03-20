@@ -1,0 +1,68 @@
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+	vertical-align:top;
+	outline:none;
+	border:none;
+}
+html,body{
+	height: 100%;
+	background:#f5fafb;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: "微软雅黑";
+	overflow: auto;
+	overflow-x: hidden;
+}
+h1,h2,h3,h4,h5,h6{
+	font-size:1.6em;
+}
+a{
+	text-decoration:none;
+	color:#666666;
+}
+ul,ol{
+		list-style:none;
+}
+i,em{
+	font-style: initial;
+}
+.fl{
+	float:left;
+}
+.fr{
+	float:right;
+}
+.p_title{
+	font-size: 1.1rem !important;
+	font-weight: 500 !important;
+	color: #666666 !important;
+}
+/*清除浮动*/
+.clearfix:after{
+	content:'';
+	height:0;
+	font-size:0;
+	visibility:hidden;
+	display:block;
+	clear:both;
+}
+/* 手型 */
+.Pointer{
+	cursor: pointer;
+}
+/* 滚动条样式 */
+#scroll-1::-webkit-scrollbar {
+    width:10px;
+}
+#scroll-1::-webkit-scrollbar-track{
+    background:#efefef;
+    border-radius: 50px;
+}
+#scroll-1::-webkit-scrollbar-thumb{
+    background:#ccc;
+    border-radius:4px;
+}
+/* mouse hover */
+.mouseHover:hover{color: #0999CC;text-decoration: underline;}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>merge.html</title>
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<!--<link rel="stylesheet" href="css/jquery-ui.css" />-->
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<!--<script src="js/jquery-ui.js"></script>-->
+		<script type="text/javascript">
+			function merge1(){ //可实现单元格，通过给 开始cell的比较
+				alert(1)
+				var totalRow = $("#tbl").find("tr").length;
+				var totalCol = $("#tbl").find("tr").eq(0).find("td").length;
+				for(var col=totalCol-1;col>=1;col--){
+					spanNum =1;
+					startCell = $("#tbl").find("tr").eq(totalRow-1).find("td").eq(col);
+					for(var row = totalRow-1;row>=1;row--){
+						targetCell = $("#tbl").find("tr").eq(row-1).find("td").eq(col);
+						if(startCell.text() == targetCell.text() && startCell.text()!=""){
+							spanNum++;
+							targetCell.attr("rowSpan",spanNum);
+							startCell.remove();
+						}else{
+							spanNum =1;
+						}
+					startCell = targetCell;
+					}
+				}
+			}
+			function merge2() { //可实现合并单元格,上下行来比较
+				var totalCols = $("#tbl").find("tr:eq(0)").find("td").length;
+				var totalRows = $("#tbl").find("tr").length;
+				for ( var i = totalCols-1; i >= 1; i--) {
+					for ( var j = totalRows-1; j >= 1; j--) {
+						startCell = $("#tbl").find("tr").eq(j).find("td").eq(i);
+						targetCell = $("#tbl").find("tr").eq(j - 1).find("td").eq(i);
+						if (startCell.text() == targetCell.text() && targetCell.text() != "") {
+							targetCell.attr("rowSpan", (startCell.attr("rowSpan")==undefined)?2:(eval(startCell.attr("rowSpan"))+1));
+							startCell.remove();
+						}
+					}
+				}
+			}
+			/*先合并，使用style 的display:none将相同元素隐藏，然后再remove
+			*/
+			function merge3(){
+				var totalCols = $("#tbl").find("tr:eq(0)").find("td").length;
+				var totalRows = $("#tbl").find("tr").length;
+				for(var col=totalCols-1;col>=1;col--){
+					spanNum =1;
+					startCell = $("#tbl").find("tr").eq(totalRows-1).find("td").eq(col);
+					for(var row = totalRows-1;row>=1;row--){
+						targetCell = $("#tbl").find("tr").eq(row-1).find("td").eq(col);
+						if(startCell.text() == targetCell.text() && startCell.text()!=""){
+							spanNum++;
+							targetCell.attr("rowSpan",spanNum);
+							startCell.attr("style","visibility:hidden");
+							// startCell.attr("style","display:none");
+						}else{
+							spanNum =1;
+						}
+					startCell = targetCell;
+					}
+				}
+				for(var j=totalCols-1;j>=1;j--){
+					for(var i=totalRows-1;i>=1;i--){
+						cell = $("#tbl").find("tr").eq(i).find("td").eq(j);
+						if(cell.attr("style")!=undefined){
+							if(cell.attr("style")=="visibility:hidden"){
+								cell.remove();
+							}
+						}
+					}
+				}
+			}
+			function merge4(){ //与merge3方法类似，目的是看一下 display:none与visibility:hidden的效果区别
+				var totalCols = $("#tbl").find("tr:eq(0)").find("td").length;
+				var totalRows = $("#tbl").find("tr").length;
+				for(var col=totalCols-1;col>=1;col--){
+					spanNum =1;
+					startCell = $("#tbl").find("tr").eq(totalRows-1).find("td").eq(col);
+					for(var row = totalRows-1;row>=1;row--){
+						targetCell = $("#tbl").find("tr").eq(row-1).find("td").eq(col);
+						if(startCell.text() == targetCell.text() && startCell.text()!=""){
+							spanNum++;
+							targetCell.attr("rowSpan",spanNum);
+							startCell.attr("style","display:none");
+							// startCell.attr("style","display:none");
+						}else{
+							spanNum =1;
+						}
+						startCell = targetCell;
+					}
+				}
+				for(var j=totalCols-1;j>=1;j--){
+					for(var i=totalRows-1;i>=1;i--){
+						cell = $("#tbl").find("tr").eq(i).find("td").eq(j);
+						if(cell.attr("style")!=undefined){
+							if(cell.attr("style")=="display:none"){
+								cell.remove();
+							}
+						}
+					}
+				}
+			}
+			</script>
+		</head>
+		<body>
+			<table id="tbl" cellpadding="3" border=1>
+				</thead>
+				<tbody>
+					<tr>
+						<td>8:00-9:00</td>
+						<td>3</td>
+						<td></td>
+						<td>4</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>9:00-10:00</td>
+						<td>3</td>
+						<td>2</td>
+						<td>5</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td>10:00-11:00</td>
+						<td>3</td>
+						<td>2</td>
+						<td></td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>11:00-12:00</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="button" value="合并" id="merge" onclick="merge4();">
+		</body>
+	</html> 

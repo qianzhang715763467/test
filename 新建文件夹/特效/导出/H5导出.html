@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>js导出excel-ComingX</title>
+	</head>
+
+	<body>
+		<h1></h1>
+		<a>
+			<p><strong>数据内容:</strong></p>
+			<textarea rows="20" cols="28" id="content">
+				姓名,学号,成绩
+				王三,103020120,98
+				张四,103020218,80
+				李石磊,20085802024,100
+				JohnsonLee,123654,523
+			</textarea>
+			<p>
+				<strong>文件名</strong>: <input type="text" name="filename" id="filename" value="hello.csv" /> (.csv后缀)
+			</p>
+			<p style="color: #3300ff;">1. 使用FileSaver.js保存</p>
+			<button id="saveBtn">保存Excel文件</button>
+		</a>
+		<!--filesaver-->
+		<script async="" src="Blob.js"></script>
+		<script async="" src="FileSaver.js"></script>
+		<script>
+			(function() {
+				document.getElementById("saveBtn").onclick = function(event) {
+					event.preventDefault();
+					var BB = self.Blob;
+					var contentStr = document.getElementById("content").value; //内容
+					var fileNmae = document.getElementById("filename").value; //文件名
+					saveAs(
+						new BB(
+							["\ufeff" + contentStr] //\ufeff防止utf8 bom防止中文乱码
+							, {
+								type: "text/plain;charset=utf8"
+							}
+						), fileNmae);
+				};
+			})();
+		</script>
+	</body>
+
+</html>

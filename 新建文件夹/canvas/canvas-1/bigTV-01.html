@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- 优先使用最新版本IE & Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 360使用Chrome Frame -->
+		<meta name="renderer" content="webkit">
+		<!-- 360 使用 Chrome内核 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+		<meta name ="viewport" content ="width=device-width,initial-scale=0.5, maximum-scale=1, minimum-scale=0.5, user-scalable=no">
+		<!-- 禁止数字识自动别为电话号码 -->
+		<meta name="format-detection" content="telephone=no"/> 
+		<style type="text/css">
+			@import url("css/base.css");
+			body{background:black url(image/loading-1.gif) no-repeat center;}
+			.g-container{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				opacity: 0 ;
+			}
+			.g-nav{
+				float: left;
+				width: 12%;
+				height: 100%;
+				padding: 2%;
+				clear: right;
+			}
+			.items{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			.items li{
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 0;
+				padding-top: 100%;
+			}
+			.items i{
+				position: absolute;
+				display: block;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto;
+				width: 70%;
+				height: 70%;
+				background-position: center center; 
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
+			.g-warp{
+				float: left;
+				width: 88%;
+				height: 100%;
+				background-color: black;
+			}
+			.m-title{
+				width: 100%;
+				height: auto;
+			}
+			.m-title .titleName,
+			.m-title .titleData{
+				width: 100%;
+				text-align: center;
+				color: hsla(184,100%,49%,1);
+			}
+			.m-title .titleName{
+				padding-top: 1%;
+				font-size: 29px;
+				font-weight: 400;
+				padding-right: 10%;
+				text-shadow:white 0px 0px 3px;
+			}
+			.m-title .titleData{
+				padding-top: 1%;
+				line-height: 100%;
+				padding-right: 10%;
+				font-size: 50px;
+				font-weight: 400;
+				text-shadow:white 0px 0px 7px;
+			}
+			.m-content{
+				width: 100%;
+				height: 100%;
+				padding: 2% 3% 1% 7%;
+			}
+			.m-canvasBox{
+				position: relative;
+				width: 100%;
+				height: 100%;
+				border: 2px solid hsla(184,100%,49%,.4);
+			}
+			.m-canvasBox:after,
+			.m-canvasBox:before{
+				position: absolute;
+				content: "";
+				border: 50px solid transparent;
+			}
+			.m-canvasBox:after{
+				top: -2px;
+				right: -4px;
+				border-top-color:#000 ;
+				border-right-color:#000 ;
+			}
+			.m-canvasBox:before{
+				left: -2px;
+				bottom: -2px;
+				border-left-color:#000 ;
+				border-bottom-color:#000 ;
+			}
+			.m-canvasBox .b-leftTop1{
+				position: absolute;
+				width: 17vw;
+				height: 17vw;
+				background: url(image/icon-1-1.png) no-repeat;
+				background-size:cover;
+				transform: translate(-50%,-50%);
+				z-index: 1;
+			}
+			.m-canvasBox .m-map{
+				float: left;
+				width: 78%;
+				height: 100%;
+				padding-left: 35px;
+				overflow: hidden;
+			}
+			.map-countent{
+				width: 100%;
+				height: 100%;
+			}
+			.m-canvasBox .m-arcItem{
+				position: relative;
+				float: left;
+				width: 22%;
+				height: 100%;
+			}
+			.Arc{
+				position: absolute;
+				height: 0;
+				background: url(image/icon-1-2.png)no-repeat;
+				background-size: cover ;
+				color: hsla(184,100%,49%,1);
+				text-align: center;
+			}
+			.Arc:nth-of-type(1){
+				left: 50%;
+				top: 20%;
+				width: 40%;
+				padding-top: 40%;
+			}
+			.ArcCanvas{
+				position: relative;
+				width: 100%;
+				margin-top: -50%;
+				padding-top: 100%;
+			}
+			.Arc i {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 100%;
+				margin-top: calc(-50% - 16px);
+				font-size: 16px;
+			}
+			.Arc:nth-of-type(2){
+				width: 30%;
+				padding-top: 30%;
+				top: 50%;
+				left: 10%;
+			}
+			.Arc:nth-of-type(3){
+				top: 75%;
+				right: 10%;
+				width: 35%;
+				padding-top: 35%;
+				
+			}
+			@media all and (max-height:800px ) {
+				.Arc:nth-of-type(2){
+					margin-top: 0;
+				}
+				.Arc:nth-of-type(3){
+					margin-left: 9%;
+				}
+			}
+			.switchPage{
+				position: fixed;
+				z-index: 5;
+				width: 100px;
+				height: 100%;
+			}
+			.nextPage{
+				top: 0;right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<a class="switchPage nextPage" href="canvas-02.html"><span id="nextPage"><span></a>
+		<div class="g-container">
+			<aside class="g-nav">
+				<ul class="items">
+					<li>
+						<i style="background-image: url(image/icon-r.png);"></i>
+					</li>
+					<li>
+						<i style="background-image: url(image/icon-d.png);"></i>
+					</li>
+					<li>
+						<i style="background-image: url(image/icon-h.png);"></i>
+					</li>
+					<li>
+						<i style="background-image: url(image/icon-i.png);"></i>
+					</li>
+					<li>
+						<i style="background-image: url(image/icon-v.png);"></i>
+					</li>
+					<li>
+						<i style="background-image: url(image/icon-w.png);"></i>
+					</li>
+				</ul>
+			</aside>
+			<div class="g-warp">
+				<header class="m-title">
+					<h5 class="titleName">恒大金服实时交易金额</h5>
+					<h4 class="titleData"> 12,234,564,300</h4>
+				</header>
+				<section class="m-content">
+					<div class="m-canvasBox" id="canvasBox">
+						<div class="b-leftTop1"></div>
+						<div class="m-map">
+							<section class="map-countent" id="map-countent">
+								<svg style="position:absolute;"></svg>
+       							<canvas style="position:absolute;z-index:2"></canvas>
+							</section>
+						</div>
+						<div class="m-arcItem">
+							<div class="Arc"><i>交易金额</i><section class="ArcCanvas" id="ArcCanvas1"></section></div>
+							<div class="Arc"><i>交易人数</i></div>
+							<div class="Arc"><i>注册人数</i></div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/getREM.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		getRem();
+		$(window).resize(getRem);
+		$(function(){
+			size ();
+		})
+		$(window).resize(function(){
+			size ();
+		})
+		
+		function size (){
+			var m = $('.m-content');
+			var mchild1 = $('.m-map');
+			var mchild2 = $('.m-arcItem');
+			m.css('height',$('.g-warp').height() - $('.m-title').outerHeight());
+		}
+	</script>
+    <script src="js/d3.v4.min.js"></script>
+	<script src="js/canvas.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//调用
+			var width  = $("body").outerWidth(),
+				height = $("body").outerHeight();
+			var late = (height-width)/2+"px";
+			if(height > width){
+				$('.g-container').css({"transform":"rotate(90deg) translate("+late+","+late+")","width":height,"height":width});
+				$('.b-leftTop1').css({"width":'17vh',"height":"17vh"});
+				$('.switchPage').css({"width":"100%","height":"100px"});
+				$('.switchPage.nextPage').css({"bottom":"0","left":"0","top":"auto","right":"auto"});
+				size();
+			}
+			mainCanvasBorder();
+			map();
+		})
+		$(window).resize(function(){
+			tigger.action = null;
+		})
+		
+		function map(){
+			 var coords, coords1 = [],
+	            coords2 = [],
+	            coords3 = [];
+	        var positionCoords = [];
+	
+			var div = document.getElementById('map-countent');
+	        var width = (div.clientWidth + div.clientHeight)/2;
+	        var height = div.clientHeight;
+	        
+	        var size = width > height? height:width;
+	        var projection = d3.geoMercator()
+	            .center([104.5, 38.2])
+	            .scale((height + width) / 2)
+	            .translate([width / 2, height / 2]);
+	        $(document).ready(function() {
+	            drawMap();
+	            drawPoint();
+				$('.m-map').css('width',width);
+				$('.m-arcItem').css("width",$('.m-canvasBox').width() - width-10);
+				$(".g-container").css({"opacity":'1'});
+	        });
+	
+	        function drawPoint() {
+	            var canvas = document.getElementsByTagName("canvas")[0];
+	
+	            canvas.setAttribute("width", width);
+	            canvas.setAttribute("height", height);
+	            $.ajax({
+	                url: "json/weibo.json",
+	                async: false,
+	                type: 'get',
+	                success: function(text, textStatus) {
+	                    //try {
+	                    var time = new Date().getTime();
+	                    var ccc = 0;
+	                    var data = text;
+	                    for (var i = 0; i < data.length; i++) {
+	                        var pc = [];
+	                        for (var j = 0; j < data[i].length; j += 2) {
+	                            ccc++;
+	                            var coor = projection([data[i][j], data[i][j + 1]]);
+	                            pc.push(parseFloat(coor[0]).toFixed(3), parseFloat(coor[1]).toFixed(3));
+	                        }
+	                        positionCoords.push(pc);
+	                    }
+	
+	                    var context = d3.select("canvas").node().getContext("2d");
+	                    context.beginPath();
+	                    context.lineWidth = 0.5;
+	                    context.strokeStyle = "#2b7fd9";
+	                    for (var i = 0; i < positionCoords[0].length; i += 2) {
+	                        context.moveTo(positionCoords[0][i], positionCoords[0][i + 1]);
+	                        context.lineTo(parseFloat(positionCoords[0][i]) + 1, parseFloat(positionCoords[0][i + 1]) + 1);
+	                    }
+	                    context.stroke();
+	                    context.beginPath();
+	                    context.strokeStyle = "#18d0d4";
+	                    for (var i = 0; i < positionCoords[1].length; i += 2) {
+	                        context.moveTo(positionCoords[1][i], positionCoords[1][i + 1]);
+	                        context.lineTo(parseFloat(positionCoords[1][i]) + 1, parseFloat(positionCoords[1][i + 1]) + 1);
+	                    }
+	                    context.stroke();
+	
+	                    context.beginPath();
+	                    context.strokeStyle = "#fff";
+	                    for (var i = 0; i < positionCoords[2].length; i += 2) {
+	                        context.moveTo(positionCoords[2][i], positionCoords[2][i + 1]);
+	                        context.lineTo(parseFloat(positionCoords[2][i]) + 1, parseFloat(positionCoords[2][i + 1]) + 1);
+	                    }
+	                    context.stroke();
+	                }
+	            });
+	        }
+	
+	        function drawMap() {
+	
+	            var svg = document.getElementsByTagName("svg")[0];
+	
+	            svg.setAttribute("width", width);
+	            svg.setAttribute("height", height);
+	
+	            var color = d3.scaleOrdinal()
+	                .range(d3.schemeCategory20);
+	
+	            var path = d3.geoPath()
+	                .projection(projection);
+	
+	
+	            svg = d3.select("svg");
+	            d3.json("json/china.geojson", function(error, root) {
+	
+	                if (error) {
+	                    return console.error(error);
+	                }
+	                svg.selectAll("path")
+	                    .data(root.features)
+	                    .enter()
+	                    .append("path")
+	                    .attr("stroke", "#5494e4")
+	                    .attr("stroke-width", 1)
+	                    .attr("fill", function(d, i) {
+	                        //return "#2b7fd9";
+	                    })
+	                    .attr("d", function(d) {
+	                        return path(d);
+	                    })
+	                    .on("mouseover", function(d, i) {
+	                        d3.select(this)
+	                            .attr("fill", "yellow");
+	                    })
+	                    .on("mouseout", function(d, i) {
+	                        d3.select(this)
+	                            .attr("fill", "#1b1b1b");
+	                    });
+	
+	
+	            });
+	        }
+		}
+		
+		function mainCanvasBorder(){
+			var arr = ["canvasBox"];
+			var datas = [
+					{
+						"type":'border',
+						"path":[
+							"Sw/7,0     Ew/6*1.5,0",
+							"S0,h-100   E100,h",
+							"Sw/2+100,0 Ew-100,0 w,100 w,200",
+							"Sw,h-100   Ew,h w/7*5,h",
+							"Sw/7*2,h   Ew/2+100,h",
+							"S150,h     E100,h",
+							"Sw,h-100   Ew,h-200"
+						],
+						"width":["4","2"],
+						"color":["hsla(184,100%,49%,1)","hsla(184,100%,49%,.2)"]
+					}
+				];
+			Object.defineProperty(tigger,"action",{
+				get:function(){
+					console.log("我是get,调用我干啥？");
+				},
+				set:function(val){
+					if(val == null || val == "start"){
+						var size = arr.pop();
+						myCanvas(size,datas);
+					}
+				}
+			});
+			tigger.action = "start";
+		}
+		/*==============  touch ===================*/
+		var touchXStart,
+			touchYStart;
+		
+		$(document).bind("touchstart", function (e) {
+		    var touch = e.originalEvent.targetTouches[0];
+		    touchXStart = touch.pageX;
+		    touchYStart = touch.pageY;
+		    event.preventDefault();
+		});
+		
+		$(document).bind("touchend", touchEnd);
+		
+		function touchEnd(e) {
+		    var touch = e;
+		    if (e.originalEvent && e.originalEvent.changedTouches) {
+		        touch = e.originalEvent.changedTouches[0];
+		    }
+		
+	        if (touchYStart - touch.pageY > 100) {
+	        	$('#nextPage').trigger("click");
+	        } else if (touch.pageY - touchYStart > 100) {
+	            alert("没有了！")
+	        }
+		}
+	</script>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			canvas{
+				width: 500px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="" height=""></canvas>
+	</body>
+	<script type="text/javascript">
+			var canvas = document.getElementById("myCanvas");
+			var micky = new Image();
+				micky.src="../2.jpg";
+				micky.load(function(){
+					canvas.getContext("2d").drawImage(micky, 0, 0);
+				})
+	</script>
+</html>

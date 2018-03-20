@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=0.5,user-scalable=no"/>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/keyData.css"/>
+    <style type="text/css">
+    	.switchPage{
+			position: fixed;
+			z-index: 5;
+			width: 100px;
+			height: 100%;
+		}
+		.prePage{
+			top: 0;left: 0;
+		}
+    </style>
+</head>
+<body>
+    <div id="keyData">
+        <header id="header">2017关键数据总览</header>
+        <span class="outerLine outerH outerTopLine"></span>
+        <span class="outerLine outerV outerLeftLine"></span>
+        <span class="outerLine outerH outerBotLeftLine"></span>
+        <span class="outerLine outerH outerBotRightLine"></span>
+        <span class="outerLine outerLeftSquare"></span>
+        <span class="outerLine outerV outerRightLine"></span>
+        <main id="main">
+            <div class="upper">
+                <div class="KPI">
+                    <span>年度KPI达成百分比</span>
+                    <div id="kpiGraph" style="width:100%;height:100%"></div>
+                </div>
+                <span class="line upperLine">
+                    <span class="dot upperDot"></span>
+                    <span class="square upperSquare"></span>
+                </span>
+                <div class="registerUser">
+                    <span>每月注册交易用户数统计</span>
+                    <div id="registerUserGraph" style="width:100%;height:100%"></div>
+                </div>
+                <span class="line upperLine">
+                    <span class="dot upperDot"></span>
+                    <span class="square upperSquare"></span>
+                </span>
+                <div class="tradeAmount">
+                    <span>交易金额</span>
+                    <div id="tradeAmountGraph" style="width:100%;height:90%"></div>
+                </div>
+            </div>
+            <hr class="hrSquare midLine"/>
+            <div class="down">
+                <span class="line downLine">
+                    <span class="dot downDot"></span>
+                </span>
+                <div class="monthlyTrade">
+                    <span>每月交易金额走势</span>
+                    <div id="monthlyTradeGraph" style="width:100%;height:90%"></div>
+                </div>
+                <span class="line downLine">
+                    <span class="dot downDot"></span>
+                    <span class="square downSquare"></span>
+                </span>
+                <div class="keyIndex">
+                    <span>关键指标</span>
+                    <table>
+                        <tr>
+                            <th>监控事项</th>
+                            <th>目标数值</th>
+                            <th>当前数值</th>
+                            <th>达成率</th>
+                        </tr>
+                        <tr>
+                            <td>12个月资产</td>
+                            <td>10.6%</td>
+                            <td>10.44%</td>
+                            <td>-0.16%</td>
+                        </tr>
+                        <tr>
+                            <td>6个月资产</td>
+                            <td>10.0%</td>
+                            <td>9.99%</td>
+                            <td>-0.01%</td>
+                        </tr>
+                        <tr>
+                            <td>支付费用</td>
+                            <td>0.014%</td>
+                            <td>0.011%</td>
+                            <td>-0.003%</td>
+                        </tr>
+                    </table>
+                </div>
+                <span class="line downLine downRightLine">
+                    <span class="dot downDot"></span>
+                </span>
+                <div class="dataMonitor">
+                    <span>费比数据监控</span>
+                    <div id="dataMonitorGraph" style="width:100%;height:100%;"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <a  class="switchPage prePage"  href="canvas-02.html"> <span id="prePage"></span></a>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/keyData.js"></script>
+<!--[if It IE9]
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+![endif]-->
+</html>

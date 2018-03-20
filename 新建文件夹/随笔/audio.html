@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<audio></audio>
+		
+	</body>
+	<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+	<script type="text/javascript">
+		var audio = document.createElement("audio");  
+		var index = 1;
+	    audio.src = "msg1.wav";  
+	    audio.addEventListener('ended', function () {  
+	    	setTimeout(function () {
+	    		if(index<4){audio.play(); index++}else{
+	    			audio.play(); index--;
+	    		}
+	    		}, 500);
+	    }, false);  
+		audio.play(); 
+	</script>
+</html>

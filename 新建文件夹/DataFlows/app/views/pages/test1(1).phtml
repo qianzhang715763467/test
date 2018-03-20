@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>  
+    <head>
+        <meta http-equiv="Content-Security-Policy">  
+        <meta name="format-detection" content="telephone=no">  
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, width=device-width" />
+        <title>Hello World</title>  
+        <style>
+            .filtered{
+  filter: url(#filter);
+  fill: black;
+  font-family: 'Lemon', cursive;
+  font-size: 100px;
+}
+        </style>
+    </head>  
+    <body>  
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="100">
+          <defs>
+             <filter id="filter" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
+              <feGaussianBlur stdDeviation="5" in="SourceAlpha" result="BLUR"/>
+
+                <feSpecularLighting surfaceScale="6" specularConstant="1" specularExponent="30" lighting-color="#white" in="BLUR" result="SPECULAR">
+                  <fePointLight x="40" y="-30" z="200" />
+                </feSpecularLighting>
+                <feComposite operator="in" in="SPECULAR" in2="SourceAlpha" result="COMPOSITE"/>
+                <feMerge>
+                      <feMergeNode in="SourceAlpha" />
+                      <feMergeNode in="COMPOSITE"/>
+                    </feMerge>
+            </filter>
+          </defs>
+          <text class="filtered" x="20" y="85">Beveled</text>
+        </svg>
+    </body>  
+</html>  

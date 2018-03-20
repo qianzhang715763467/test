@@ -1,0 +1,422 @@
+@import url("base.css");
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    font-family: "微软雅黑";
+    overflow: hidden;
+}
+
+body {
+    padding-bottom: 30px;
+}
+
+#keyData {
+    height: 100%;
+    padding: 0 30px;
+}
+
+#header {
+    height: 20%;
+    text-align: center;
+    padding: 30px 20px 30px 20px;
+    box-sizing: border-box;
+    color: #3B6FA1;
+    font-size: 30px;
+}
+
+#main {
+    width: 100%;
+    height: calc(80% - 30px);
+    padding: 20px 40px 20px 20px;
+    box-sizing: border-box;
+    border: 4px solid #60D3D0;
+    font-size: 0;
+    /*overflow: hidden;*/
+    position: relative;
+}
+
+#main:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 80px solid #000;
+    border-left: 80px solid transparent;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+}
+
+#main:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 81px solid rgb(96,211,208);
+    border-left: 81px solid transparent;
+    position: absolute;
+    top: -3px;
+    right: 0;
+}
+
+.upper, .down {
+    width: 100%;
+    height: 45%;
+    color: #7E8790;
+}
+
+.down {
+    height: 55%;
+    padding-left: 20px;
+}
+
+.down {
+    font-size: 0;
+}
+
+.KPI, .tradeAmount, .registerUser, .monthlyTrade, .keyIndex, .dataMonitor {
+    font-size: 14px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    float: left;
+}
+
+@media screen and (max-width: 873px) {
+    .KPI, .tradeAmount, .registerUser, .monthlyTrade, .keyIndex, .dataMonitor {
+        font-size: 12px;
+        padding: 10px 5px;
+        box-sizing: border-box;
+        float: left;
+    }
+}
+
+.KPI, .tradeAmount, .registerUser, .monthlyTrade, .keyIndex {
+    overflow: hidden;
+}
+
+.KPI, .tradeAmount, .registerUser {
+    height: 100%;
+}
+
+.KPI, .dataMonitor {
+    width: 23.2%;
+}
+
+@media screen and (max-width: 877px) {
+    .KPI, .dataMonitor {
+        width: 22.2%;
+    }
+}
+
+.monthlyTrade, .keyIndex, .dataMonitor {
+    height: 100%;
+    padding-top: 3vh;
+    box-sizing: border-box;
+}
+
+.registerUser, .monthlyTrade, .keyIndex, .tradeAmount {
+    width: 38%;
+}
+
+@media screen and (max-width: 677px) {
+    .monthlyTrade {
+        width: 33%;
+    }
+}
+@media screen and (max-width: 630px) {
+    .registerUser, .monthlyTrade, .keyIndex, .tradeAmount {
+        width: 33%;
+    }
+    .middleLine {
+        position: relative;
+        width: calc(82% - 12px);
+        height: 2px;
+        background: #254D45;
+        margin-left: 20px;
+        border: none;
+    }
+}
+
+@media screen and (max-width: 667px) {
+    .keyIndex {
+        width: 43%;
+    }
+}
+
+/*tradeAmount*/
+/*#tradeAmountGraph canvas {
+    left: -50px !important;
+}*/
+
+/*registerUser*/
+/*#registerUserGraph canvas {
+    height: 300% !important;
+    top: -130px !important;
+}*/
+
+/*keyIndex*/
+.keyIndex table {
+    width: 100%;
+    padding-top: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+@media screen and (max-width: 837px) {
+    .keyIndex table {
+        width: 100%;
+        padding-top: 10px;
+        margin-left: -8px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
+
+.keyIndex table th {
+    padding: 10px 0;
+}
+
+.keyIndex table td {
+    padding: 5px 0;
+}
+
+/*外框线条*/
+.outerLine {
+    position: absolute;
+    display: inline-block;
+    background: #091515;
+    z-index: 1;
+}
+
+.outerH {
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    height: 2px;
+}
+
+.outerV {
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    width: 2px;
+}
+
+.outerTopLine {
+    width: 30%;
+    top: 20%;
+    left: 35%;
+}
+
+.outerLeftLine {
+    height: 15%;
+    top: 35%;
+    left: 30px;
+    background: #000;
+}
+
+.outerBotLeftLine {
+    width: 20%;
+    bottom: 30px;
+    left: 18%;
+}
+
+.outerBotRightLine {
+    width: 25%;
+    bottom: 30px;
+    left: 55%;
+}
+
+.outerRightLine {
+    height: 40%;
+    right: 30px;
+    top: 40%;
+}
+
+.outerLeftSquare {
+    width: 10%;
+    height: 14%;
+    background: #000;
+    bottom: 0;
+    left: 0;
+}
+
+/*.outerRightAngle{*/
+
+/*}*/
+/*.outerRightAngle .div1 {*/
+/*width: 0;*/
+/*height: 0;*/
+/*border-top: 100px solid rgb(11, 230, 242);*/
+/*border-left: 100px solid transparent;*/
+/*}*/
+/*.outerRightAngle .div2 {*/
+/*width: 0;*/
+/*height: 0;*/
+/*border-top: 100px solid red;*/
+/*border-left: 100px solid transparent;*/
+/*position: relative;*/
+/*top: -100px;*/
+/*left: 2px;*/
+/*}*/
+
+/*#main:before{*/
+/*position:absolute;*/
+/*display:inline-block;*/
+/*content:"";*/
+/*height:15%;*/
+/*width:15%;*/
+/*border:2px solid red;*/
+/*top:15%;*/
+/*right:0;*/
+/*z-index:1;*/
+/*}*/
+/*#main:after{*/
+
+/*}*/
+/*内框线条*/
+.midLine {
+    position: relative;
+    width: calc(76% - 12px);
+    height: 2px;
+    background: #254D45;
+    margin-left: 20px;
+    border: none;
+}
+
+
+
+@media screen and (max-width: 570px) {
+    .midLine {
+        position: relative;
+        width: calc(78% - 12px);
+        height: 2px;
+        background: #254D45;
+        margin-left: 20px;
+        border: none;
+    }
+}
+
+@media screen and (max-width: 677px) and (min-width: 667px){
+    .midLine {
+        position: relative;
+        width: calc(71% - 12px);
+        height: 2px;
+        background: #254D45;
+        margin-left: 20px;
+        border: none;
+    }
+}
+
+.hrSquare:after {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    height: 10px;
+    width: 10px;
+    top: -5.5px;
+    right: -16.5px;
+    clear: both;
+    border: 2px solid #254D45;
+    transform: rotate(45deg);
+}
+
+.hrSquare:before {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    height: 10px;
+    width: 10px;
+    top: -5.5px;
+    left: -14.5px;
+    clear: both;
+    border: 2px solid #254D45;
+    transform: rotate(45deg);
+}
+
+.dot {
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #56E7E0;
+}
+
+.line {
+    position: relative;
+    /*display:inline-block;*/
+    width: 2px;
+    background: #254D45;
+    float: left;
+}
+
+.square {
+    position: absolute;
+    display: block;
+    height: 10px;
+    width: 10px;
+    border: 2px solid #254D45;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.upperDot {
+    top: 0;
+    right: -3px;
+}
+
+.upperLine {
+    top: calc(35% - 7px);
+    right: 8px;
+    height: 65%;
+}
+
+.upperSquare {
+    bottom: -15px;
+    right: -6px;
+    background: #000;
+}
+
+.downDot {
+    bottom: 0;
+    right: -3px;
+}
+
+.downLine {
+    bottom: calc(0% - 7px);
+    left: -8px;
+    height: 80%;
+}
+
+@media screen and (max-width: 568px) {
+    .downRightLine {
+        left: 1px;
+    }
+}
+
+.downSquare {
+    top: -15px;
+    right: -6px;
+    background: #000;
+}
+
+.downRightLine {
+    /*left:calc(73% + 47px);*/
+}
+
+@media screen and (max-width: 667px) {
+    tbody {
+        font-size: 0;
+
+    }
+
+    tbody tr {
+        font-size: 12px;
+    }
+
+    tbody tr th {
+        font-size: 12px;
+    }
+
+    /*tbody tr td {*/
+    /*font-size: 12px;*/
+    /*}*/
+}

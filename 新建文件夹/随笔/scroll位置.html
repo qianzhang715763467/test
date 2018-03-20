@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>滚动加载</title>
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			#g-container{
+				overflow-y: auto;
+				width: 80%;
+				height: 95%;
+				margin: 10px auto;
+				background-color: #5F9EA0;
+			}
+			td{
+				padding: 10px 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="g-container">
+			<table border="" cellspacing="" cellpadding="">
+				
+			</table>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	var msg_list_loading=true;
+	var contentH;
+	// 页面不存在滚动条的情况下，以鼠标滚轮模拟
+	$(window).bind('mousewheel',function(){
+		var scrollFuncSize=scrollFunc();
+		if(scrollFuncSize > 0 && $('#g-container').height() > $('#g-container').children().height())
+			if(msg_list_loading){
+				lond();
+			}else{
+				alert('忙不过来了，等等嘛~')
+			}
+	})
+	
+	function lond(){
+		msg_list_loading = false;
+		var html='<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>'
+				+'<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>';
+			$('#g-container').children().append(html);
+		setTimeout(function(){
+			msg_list_loading = true
+		},3000);
+		contentH=$('#g-container').children().height();
+	}
+
+
+// 鼠标滚动
+function scrollFunc(e){ 
+    e=e || window.event; 
+    if(e.wheelDelta){//IE/Opera/Chrome 
+    	// IE 向下滚动为负数
+    	var e=(e.wheelDelta)-(e.wheelDelta)*2
+		return e 
+    }else if(e.detail){//Firefox
+        return e.detail;
+    }
+}
+/*========================================      scroll     =====================================*/
+	$('#g-container').scroll(function(){
+		var $this=$(this),
+			viewH=$(this).height(),
+			scrollTop=$(this).scrollTop();
+			if((contentH-viewH-scrollTop) < 0)
+				if(msg_list_loading == true){
+					lond();
+					alert('真的拉不出来了 ~~')
+				}else{
+					alert('忙不过来了，等等嘛~')
+				}
+	})
+
+/*	$(window).bind('mousewheel',function(){
+		//scrollFunc();
+		var scrollFuncSize=scrollFunc();
+		scrollControl($('#g-container'),scrollFuncSize);
+	})
+	
+	
+	
+			function scrollFunc(e){ 
+			    e=e || window.event; 
+			    if(e.wheelDelta){//IE/Opera/Chrome 
+			    	// IE 向下滚动为负数
+			    	var e=(e.wheelDelta)-(e.wheelDelta)*2
+					return e 
+			    }else if(e.detail){//Firefox
+			        return e.detail;
+			    }
+			}
+			// scroll
+			function scrollControl(dom,scrollFuncSize){
+				var $dom=$(dom);
+				var totalheight = 0;     //定义一个总的高度变量
+				//$dom.scrollTop(1);
+				if($dom.scrollTop() > 0 ){
+					alert(1)
+					$(window).scroll(function(){
+						alert(1)
+					    totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());     //浏览器的高度加上滚动条的高度
+					
+    				if ($(document).height() <= totalheight)  
+    				alert(1)
+							var html='<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>';
+							$('#g-container').children().append(html);
+							return
+						})
+				}else{
+					console.log(scrollFuncSize)
+					if(scrollFuncSize > 0){
+						if($dom.scrollTop() <= 1)
+						var html='<tr><td>1111</td><td>2222</td><td>3333</td><td>4444</td></tr>';
+						$('#g-container').children().append(html);
+					}
+					
+					
+					
+				}
+			}*/
+	</script>
+</html>

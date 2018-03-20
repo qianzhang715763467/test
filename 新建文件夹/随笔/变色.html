@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Insert title here</title>
+		<!-- 导入两个js文件 -->
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			var intt = setInterval("changeCo()", 1000);
+			// animate backgroundColor 需要引入jquery.animate-colors.js插件
+			function changeCo() {
+				$('#in1').animate({
+					backgroundColor:'#FF0000',
+					'padding':'50px',
+					'border-radius':'5px'
+					},500<br>,function(){
+						$('#in1').css({'background-color':'#FF0000'})
+					$('#in1').animate({
+						'border-radius':'50px'
+					}, 500);
+				})
+			}
+			function clearIntervalll() {
+				clearInterval(intt); //为什么此处无效，不能终止intt
+			}
+			var timeint = setInterval("clock1()", 50);
+
+			function clock1() {
+				var time = new Date();
+
+				var localTime = time.toLocaleTimeString();
+
+				document.getElementById("s1").innerHTML = localTime;
+			}
+
+			function closeTimeInt() {
+
+				clearInterval(timeint); //此处可终止timeint
+			}
+		</script>
+
+	</head>
+
+	<body style="background-color: pink">
+
+		<input type="text" id="in1" value="颜色渐变的value" />
+
+		<br/>
+
+		<button onclick="clearIntervalll()">停止变色</button>
+
+		<p></p>
+
+		<span id="s1">zzz</span>
+
+		<br/>
+
+		<button onclick="closeTimeInt()">停止时间</button>
+	</body>
+
+</html>

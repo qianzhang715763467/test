@@ -1,0 +1,51 @@
+/*plant/ascend/market/agriculture/symAdv相同样式*/
+.symAdv_content_wrap {
+	width: 82%;padding-left: 4%;margin-left: 18%;
+	*width: 80%;*padding-left: 2%;*margin-left:0;
+}
+.symAdv_content_wrap  .content_title{
+	font-size: 18px;
+    line-height: 30px;
+    background: #dfdfdf;
+    padding: 3px 10px;
+}
+.symAdv_content2,.symAdv_content3,.symAdv_content4,.symAdv_content5,.symAdv_content6{
+	margin:20px 0;
+}
+/*=========全产业链服务案例=======================*/
+/*cont1*/
+.symAdv_content_wrap .symAdv_content1 p{
+	font-size: 24px;
+	padding-bottom: 5px;
+}
+.symAdv_content1 .symAdv_content1_img{
+	padding-top: 10px;
+	border-top:3px solid #C30D22;
+}
+.symAdv_content1  .symAdv_content1_img img{
+	width: 100%;height:100%;display: block;
+}
+
+.symAdv_content1 .symAdv1_content_ul{background: #efefef; margin: 20px 10px; *margin: 20px 0px;}
+.symAdv_content1 .symAdv_content_cont .symAdv1_content_ul .left_li{
+	width:30%;padding-left: 10px;
+}
+.symAdv_content1 .symAdv_content_cont .symAdv1_content_ul .right_li{
+	width: 69%;*width:55%;  
+    padding: 5px 0px 5px 35px;
+}
+.symAdv_content1 .symAdv_contp_title{color: #C30D22;}
+/*================gap标准化种植================*/
+.symAdv1
+/*================智慧农业系统================*/
+.symAdv2 .symAdv_content2 .symAdv_content_cont .symAdv_checked{padding: 5px 20px 10px 32px;}
+/*================农产品质量安全追溯================*/
+.symAdv3  .symAdv_content4 .symAdv_content_cont .timeline{
+	width:206px;background: #efefef;padding: 10px;line-height: 24px;font-size:14px;display: inline-block;
+}
+/*================农产品品牌策划================*/
+.symAdv4
+/*================产销对接================*/
+.symAdv5
+
+

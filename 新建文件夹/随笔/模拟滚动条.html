@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{width: 100%;height: 100%;overflow: hidden;}
+			*{margin: 0;padding: 0;}
+			.g-container{
+				width: 500px;
+				height: 300px;
+				overflow: hidden;
+				border: 1px solid #0055AA;
+				margin: 0 auto;
+			}
+			
+			.warpper{
+				position: relative; 
+				width: calc(100% + 16px);
+				height: 300px;
+				overflow-y: auto;
+			}
+			.main{width: 100%;}
+			.sc{
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 2px;
+				background-color: #000000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-container">
+			<div class="warpper">
+				<div class="sc"></div>
+				<section class="main">
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+					<p>111</p>
+				</section>
+			</div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			// (a / b)*100 == (c / a)*100;
+			var scH = $('.warpper').height() / $('.main').height() * $('.warpper').height();
+			$('.sc').css({'height':scH});
+			$('.warpper').scroll(function(){
+				var rH1 = $('.main').height() - $('.warpper').height();// 相对于盒子，可滚动内容高度
+				var rH2 = $('.main').height() - $('.sc').outerHeight();// 相对于滚动条，可滚动内容高度
+				// $(this).scrollTop() / rH1 滚动条滚动时，内容对应上移的比例
+				var t = $(this).scrollTop() / rH1 * rH2;
+				$('.sc').css('top',t);
+			})
+		</script>
+	</body>
+</html>

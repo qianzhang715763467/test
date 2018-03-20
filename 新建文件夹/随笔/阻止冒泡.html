@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="dv" style="width: 200px;height: 200px;background-color: burlywood;"></div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).click(function(){
+		alert(1)
+	}).find('div').click(function(event){
+		alert(2)
+		// 阻止事件向祖辈元素的 冒泡传递
+		event.stopPropagation();
+	})
+	var a = [];
+	for (var i = 0; i < 10; i++) {
+	  a[i] = function () {
+	    console.log(i);
+	  };
+	}
+	a[0]();
+	  var   num_s = "1232134456.00"; 
+	  if(num_s.indexOf('.00')){
+	  	 document.write(parseFloat(num_s).toLocaleString()+'.00')
+	  }else{
+	  	 document.write(parseFloat(num_s).toLocaleString())
+	  }
+	  
+	var obj = {
+			to:function(){
+				alert(1);
+				obj.to.a = function(){
+					alert(2)
+				}
+			},
+			on:function(){
+				alert(3);
+				var a = function(){
+					return alert(4);
+				};a()
+			}
+		}
+	obj.to()
+  	obj.on()
+	  //document.write(parseFloat("1232134456.01").toLocaleString())
+//	var events={
+//				'dom':fn
+//				}
+//	events.dom=alert('2')
+//	function fn(){
+//		alert(1)
+//	}
+//		function clickEvents(dom,fn){
+//			dom.click(fn);
+//		}
+//		clickEvents($(document),function(){Downloads(event)})
+//
+//	function Downloads(event) {
+//	    var classNames = event.target.className;
+//	    if (classNames.indexOf("aside_btn") >= 0) {
+//	    } else {
+//	        alert(classNames)
+//	    }
+//	}
+    
+	</script>
+</html>

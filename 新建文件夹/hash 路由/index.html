@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				display: none;
+				width: 100px;
+				height: 100px;
+			}
+			.page1{
+				display: block;
+				background-color: red;
+			}
+			.page2{
+				display: block;
+				background-color: green;
+			}
+			.active{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var p = {
+			init:function(){
+				window.location.hash = '#';
+				window.location.hash = 'index';
+			},
+			getPage:function(name){
+				$.ajax({
+					type:"get",
+					url:name+'.html',
+					async:true,
+					success:function(req){
+						$('body').children().removeClass('active');
+						if($('body').children('#'+name).length < 1){
+							$('body').append(req);
+						}
+						$('#'+name).addClass('active');
+					}
+				});
+			}
+		}
+		// hash初始化
+		p.init();
+		// 改变hash
+		window.openUrl = function(hash){
+			window.location.hash = hash;
+		}
+		// 监听 hash，加载对应模块
+		window.onhashchange = function(){
+			var hash = window.location.hash;
+			switch (hash){
+				case '#index':
+				p.getPage('ccc');
+					break;
+				case '#aaa':
+				p.getPage('aaa');
+					break;
+				default:
+				p.getPage('bbb');
+					break;
+			}
+		}
+	</script>
+</html>
