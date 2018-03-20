@@ -1,0 +1,247 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>白名单审核</h1>
+</header>
+
+<style>
+    #submitedHistory .submitedHistory-triger-verify{text-decoration: underline;cursor:pointer}
+    .submitedHistory-verify-radio {font-size: 14px;display: block;margin-bottom: 10px}
+    .submitedHistory-verify-radio input {display:inline-block;margin-left: 15px}
+
+    .submitedHistory-triger-view{text-decoration: underline;cursor: pointer}
+
+    .submitedHistory-triger-assign{text-decoration: underline;cursor: pointer}
+
+    .submitedHistory-assign-radio {font-size: 14px;display: block;margin-bottom: 13px}
+    .submitedHistory-assign-radio input {display:inline-block;margin-left: 10px}
+
+    .submitedHistory-assign-radio b {display: inline-block;width: 50%}
+    .submitedHistory-assign-radio b:nth-child(odd){text-align: right}
+    .submitedHistory-assign-radio b:nth-child(even){text-align: left}
+    .submitedHistory-assign-div {max-height:500px;overflow-y: scroll}
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;position: relative;">
+        <div id="submitedHistory-top-bar" style="font-size:13px;width:95%;margin:0 auto;">
+            <?php $this->partial("pages/toolbar"); ?>
+        </div>
+
+        <div style="width:95%;height:500px;margin: 0 auto;position:relative">
+            <div id="submitedHistory-table" style="width:100%;height:100%"></div>
+        </div>
+
+        <div id="submitedHistory-verify-radio" style="display: none">
+            <label class="submitedHistory-verify-radio">审核通过<input name="verify" type="radio" value="审核通过" /></label>
+            <label class="submitedHistory-verify-radio">审核拒绝<input name="verify" type="radio" value="审核拒绝" /></label>
+            <label class="submitedHistory-verify-radio">&nbsp&nbsp&nbsp&nbsp待完善<input name="verify" type="radio" value="待完善" /></label>
+            <label class="submitedHistory-verify-radio">&nbsp&nbsp&nbsp&nbsp待审核<input name="verify" type="radio" value="待审核" /></label>
+            <input class="submitedHistory-desc" type="text" style="width: 250px;height: 30px" placeholder="审核备注"/>
+        </div>
+    </div>
+</div>
+   
+<script>
+    var p5 = {id:"submitedHistory",params:{}};
+    p["submitedHistory"] = p5;
+    p5.canEdit = ["未审批", "待完善"];
+    p5.fieldMap = {
+        submitter:'提交人',
+        name:'申请人',
+        status:'申请结果',
+        id_no:'身份证号',
+        mobile:'手机号',
+        province:'省',
+        city:'市',
+        projname:'楼盘名称',
+        building_num:'楼号',
+        unit:'单元号',
+        room_no:'房间号',
+        relation:'和业主关系',
+        apply_date:'申请时间',
+        check_date:'审批时间',
+        check_desc:'审批批示',
+        product:'产品',
+        role:"提交人身份",
+        assign_to:"分配给",
+        upload_img_src:"证件照"
+    };
+
+    p5.initTable = function (data, id) {
+
+        var table = htable.create(id);
+
+        var fixColumns = [[
+            {field: 'name', title: p5.fieldMap.name, width: 70,formatter:p5.triggerView},
+            {field: 'status', title: p5.fieldMap.status, width: 70,formatter:p5.triggerStatus}
+        ]];
+
+        var columns = [[
+            {field: 'submitter', title: p5.fieldMap.submitter, width: 80,formatter:p5.triggerAssign},
+            {field: 'product', title: p5.fieldMap.product, width: 80},
+            {field: 'check_desc', title: p5.fieldMap.check_desc, width: 80,formatter:p5.descHook},
+            {field: 'province', title: p5.fieldMap.province, width: 80},
+            {field: 'city', title: p5.fieldMap.city, width: 80},
+            {field: 'projname', title: p5.fieldMap.projname, width: 80},
+            {field: 'building_num', title: p5.fieldMap.building_num, width: 80},
+            {field: 'unit', title: p5.fieldMap.unit, width: 80},
+            {field: 'room_no', title: p5.fieldMap.room_no, width: 80},
+            {field: 'relation', title: p5.fieldMap.relation, width: 80},
+            {field: 'id_no', "title": p5.fieldMap.id_no, width: 140},
+            {field: 'mobile', title: p5.fieldMap.mobile, width: 100},
+            {field: 'apply_date', title: p5.fieldMap.apply_date, width: 80},
+            {field: 'check_date', title: p5.fieldMap.check_date, width: 80},
+            {field: 'role', title: p5.fieldMap.role, width: 80},
+            {field: 'assign_to', title: p5.fieldMap.assign_to, width: 80,formatter:p5.assignToHook}
+        ]];
+
+        table.setMaxHeight($("#" + id).height());
+        table.setFixcolumns(fixColumns).setColumns(columns);
+        table.loadData(data);
+
+        return table;
+    }
+
+    p5.initPage = function () {
+        g.queryData("/leader/querySubmitedHistory", {}, function (data) {
+            p5.data = data.message;
+            $("#submitedHistory-table").height(g.h - $("#submitedHistory .top-bar:first").height() - $("#submitedHistory header:first").height());
+            p5.table = p5.initTable(p5.data, "submitedHistory-table");
+            p5.table.setScroll();
+            p5.close();
+        });
+    };
+
+    p5.triggerStatus = function (row, value, column) {
+        if(row["status"] === "审核通过"){
+            return value;
+        }else if(row["role"] === "客服" && (!row["assign_to"] || row["assign_to"].length === 0)){
+            return value;
+        }else {
+            return "<b data-name='"+row["name"]+"' data-id='"+row["id"]+"' class='submitedHistory-triger-verify'>"+value+"</b>";
+        }
+    }
+
+    p5.triggerView = function (row, value, column) {
+        return "<b data-id="+row["id"]+" class='submitedHistory-triger-view'>"+value+"</b>";
+    }
+
+    $("#submitedHistory").delegate(".submitedHistory-triger-view", "click", function () {
+
+        var params = {detail:[]};
+        for(var i in p5.data){
+            if(p5.data[i]["id"] === parseInt($(this).attr("data-id"))){
+                for(var key in p5.data[i]){
+                    if(key === "id")
+                        continue;
+                    var o = {};
+                    o[p5.fieldMap[key]] = p5.data[i][key];
+                    params.detail.push(o);
+                }
+                break;
+            }
+        }
+        g.loadPage("/leader/view", "view", true, params, true, true);
+    })
+
+    //$("#submitedHistory").undelegate(".submitedHistory-triger-verify", "click");
+    $("#submitedHistory").delegate(".submitedHistory-triger-verify", "click", function () {
+        var b = $(this);
+        var ov = b.text();
+        var id = b.attr("data-id");
+        $.alert($("#submitedHistory-verify-radio").html(),function () {
+
+            var nv, desc = "";
+
+            $(".submitedHistory-desc").each(function(){
+                if($(this).val().length > 0){
+                    desc = $(this).val();
+                }
+            });
+
+            $(".submitedHistory-verify-radio input[type='radio']").each(function () {
+                if($(this).is(':checked')){
+                    nv = $(this).val();
+                    if(nv !== ov){
+                        g.queryData("/submit/editStatus", {id:id, nv:nv, desc:desc}, function (d) {
+                            if(d.code === 1){
+                                b.text(nv);
+                                $("#submitedHistory tbody span[data-id="+id+"]").text(desc);
+                            }
+                            $.toast(d.message, 700);
+                        });
+                    }
+                }
+            });
+        });
+        event.stopPropagation();
+    });
+
+    p5.descHook = function (row, value, column) {
+        if(!value)
+            value = "";
+        return "<span data-id='"+row["id"]+"'>"+value+"</span>";
+    }
+
+    p5.dateChange = function () {
+        g.queryData("/leader/submitedHistoryByDate", {date:p5.params.date}, function (data) {
+            p5.data = data.message;
+            $("#submitedHistory-table").height(g.h - $("#submitedHistory .top-bar:first").height() - $("#submitedHistory header:first").height());
+            p5.table = p5.initTable(p5.data, "submitedHistory-table");
+            p5.close();
+            p5.table.setScroll();
+        });
+    }
+
+    p5.triggerAssign = function (row, value, column) {
+        console.debug(row["role"])
+        if(row["role"] && row["role"] === "客服" && (row["status"] === "待审核" || row["status"] === "待完善")){
+            return "<strong data-id='"+row["id"]+"' data-name='"+row["assign_to"]+"' class='submitedHistory-triger-assign'>"+value+"</strong>";
+        }else {
+            return value;
+        }
+    }
+
+    $("#submitedHistory").delegate(".submitedHistory-triger-assign", "click", function () {
+        var b = $(this);
+        var ov = b.attr("assign_to");
+        var id = b.attr("data-id");
+
+        g.queryData("/query/allSaler", {}, function (d) {
+            var html = "";
+            d = d.message;
+            for(var i in d){
+                html += '<label class="submitedHistory-assign-radio"><b>'+d[i]["name"]+'</b><b><input name="verify" type="radio" value="'+d[i]["name"]+'" /></b></label>';
+            }
+            html = "<div class='submitedHistory-assign-div'>" + html + "</div>";
+            $.confirm(html,"选择分配的销售人员",function () {
+                $(".submitedHistory-assign-div input[type='radio']").each(function () {
+                    var nv = $(this).val();
+                    if($(this).is(':checked')){
+                        if(nv !== ov){
+                            g.queryData("/submit/editAssignTo", {id:id, assgin_to:nv}, function (d) {
+                                if(d.code === 1){
+                                    $("#submitedHistory tbody u[data-id="+id+"]").text(nv);
+                                    $.toast(d.message, 700);
+                                }else {
+                                    $.toast(d.message, 1200);
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        event.stopPropagation();
+    });
+
+    p5.assignToHook = function (row, value, column) {
+        if(!value)
+            value = "";
+        return "<u data-id='"+row["id"]+"'>"+value+"</u>";
+    }
+
+    p5.close = function () {
+        $.hideIndicator();
+    }
+
+</script>

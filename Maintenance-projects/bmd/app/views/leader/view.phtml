@@ -1,0 +1,57 @@
+<header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="">
+        <span class="icon icon-left"></span>
+        返回
+    </a>
+    <h1 class='title'>申请人个人信息</h1>
+</header>
+
+
+<style>
+    #view-wrapper{text-align: center;margin-top: 20px}
+    #view-wrapper img{display: block;margin: 0 auto;padding-top: 20px;}
+    #view-wrapper>div{width: 100%;margin-bottom: 10px}
+    #view-wrapper>div span:nth-child(odd){display:inline-block;width: 50%;text-align:right}
+    #view-wrapper>div span:nth-child(even){display:inline-block;width: 50%;text-align:left;font-weight:bold}
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;">
+        <div id="view-wrapper">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var p6 = {id:"view",params:{}};
+    p["view"] = p6;
+
+    p6.initPage = function () {
+        for(var i in p6.params.detail){
+            for(var key in p6.params.detail[i]){
+                var v = p6.params.detail[i][key]?p6.params.detail[i][key]:"";
+                if(!key || v.indexOf("png") > -1 || v.indexOf("jpg") > -1){
+                    var v1 = v.split(",");
+                    for(var s in v1){
+
+                        $("#view-wrapper").append($("<div><img src='/img/g/"+v1[s]+"' /></div>"));
+                    }
+                }else {
+                    if(key != "证件照"){
+                        $("#view-wrapper").append($("<div><span>"+key + "：</span><span>" + v +"</span></div>"));
+                    }
+                }
+            }
+        }
+        if(p6.params.imgsrc){
+            for(var key in p6.params.imgsrc){
+                $("#view-wrapper").append($("<img src='/img/g/"+p6.params.imgsrc[key]+"' />"));
+            }
+        }
+        $.hideIndicator();
+    }
+
+
+
+</script>

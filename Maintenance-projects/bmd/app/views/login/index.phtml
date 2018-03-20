@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="robots" content="noarchive">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <title></title>
+
+        <link rel="stylesheet" type="text/css" href="/js/slide/qap-tcha.css">
+        <script>
+            var termType = String(navigator.platform).toLocaleLowerCase();
+        </script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.touch.js"></script>
+        <script type="text/javascript" src="/js/slide/qap-tcha.js"></script>
+        <script src="/js/jquery.cookie.js"></script>
+
+        <style>
+            body {
+                font-family: "微软雅黑";
+                margin: 0;
+                background-color:#35b5d3;
+                text-align: center;
+                overflow: hidden;
+                width: 100%;
+                height:100%;
+            }
+
+            #message{
+                font-weight:bolder
+            }
+
+            .pc-form{width: 25%;min-width:350px;height: 210px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+            .pc-form .input{width: 88%;padding-top: 10px;margin-left: 6%;}
+            .pc-form .input input{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;}
+            .pc-form .submit button{width: 100%;height: 46px;font-size: 20px;color:#fff;background-color: #1FCBF0;}
+
+            .phone-form{width: 76%;max-width:400px;height: auto;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+            .phone-form .input{width: 88%;margin: 10px 6% 0 6%}
+            .phone-form .input input{width: 100%;height: 40px;font-size: 20px;border: 1px solid #aaa;box-sizing:border-box}
+            .phone-form .submit{margin-top: 35px;clear:both}
+            .phone-form .submit button{width:100%;height: 50px;font-size:23px;font-weight:bolder;color:#fff;background-color: #1FCBF0;border: 1px solid #aaa;}
+
+            .phone-form .bgMasks, .phone-form .bgSlider{height: 45px;font-size:16px}
+
+            #message{
+                height: 30px;
+                color:#ec0606;
+            }
+
+        </style>
+        <script type="text/javascript">
+
+            var splidOpt = {
+                disabledSubmit: true,
+                autoSubmit: false,
+                autoRevert: true,
+                txtLock: "请按住滑块，拖动到最右侧",
+                txtUnlock: '验证通过',
+                PHPfile: '/login/slide'
+            };
+
+            var baseHeight = 0;
+
+            $(document).ready(function () {
+
+                $('.QapTcha').QapTcha(splidOpt);
+
+                var w = $(window).width();
+                var h = $(window).height();
+
+                if (termType === "iphone" || termType.indexOf("linux ") >= 0) {//phone
+                    console.debug("phone");
+                    $("form").addClass("phone-form");
+                    slideCSS();
+                } else if (termType.indexOf("mac") >= 0 || termType.indexOf("win") >= 0) {
+                    console.debug("pc");
+                    $("form").addClass("pc-form");
+                }
+
+                var topHeight = (h - $("#message").height() - $("form").first().height()) / 2 - 50;
+
+                $("#message").css("margin-top", topHeight + "px");
+
+                $(".submit button").click(function () {
+
+                    var username = $("#username").val().replace(/ /g, '');
+                    var password = $("#password").val().replace(/ /g, '');
+
+                    if (username.length === 0 || password.length === 0) {
+                        setMessage("用户名密码不能为空");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "/login/doLogin",
+                        async: true,
+                        type: 'POST',
+                        data: {username: username, password: password},
+                        success: function (text, status) {
+                            console.debug(text);
+                            try{
+                                var o = jQuery.parseJSON(text);
+                                if (o.c === 0) {
+                                    window.location.href = o.t;
+                                } else {
+                                    setMessage(o.t);
+                                    refurbishValidate("#QapTcha");
+                                    slideCSS();
+                                    $("#submit").addClass("disabled");
+                                }
+                            }catch(e){
+                                console.error(e);
+                                refurbishValidate("#QapTcha");
+                            }
+                        }
+                    });
+                });
+
+                $("input").keydown(function () {
+                    if (event.keyCode === 13) {
+                        $(".submit button").trigger("click");
+                    }
+                });
+
+            });
+
+            function setMessage(text){
+                $("#message").text(text);
+            };
+
+            function slideCSS() {
+                $(".QapTcha .TxtStatusFont").css("font-size", "13px").css("line-height", "37px");
+                $(".QapTcha .Slider").width(50).height(44);
+                $(".QapTcha").css("box-sizing", "border-box");
+            }
+
+
+        </script>
+
+    </head>
+    <body>
+        <div id="message"></div>
+
+        <form>
+            <div class="input"><input id="username" type="text" name="username" placeholder="账号"></div>
+            <div class="input"><input id="password" type="password" name="password" placeholder="密码"></div>
+
+            <div class="input"><div id="QapTcha" class="QapTcha" style=""></div></div>
+
+            <div class="input submit">
+                <button type="button">登&nbsp&nbsp&nbsp&nbsp录</button>
+            </div>
+
+        </form>
+      
+    </body>
+</html>

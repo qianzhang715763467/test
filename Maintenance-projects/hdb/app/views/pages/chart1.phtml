@@ -1,0 +1,105 @@
+<div class="switchPage prePage"  onclick="g.loadPage('map', false,null,false, true)"> <span><</span> </div>
+<div class="switchPage nextPage" onclick="g.loadPage('echart', false,null,false)"> <span>></span>  </div>
+<div class="g-container">
+	<h2 class="titleName">2017年度Q4季度KPI完成进度</h2>
+	<section class="canvasLT"id="canvasLT" ></section>
+	<div class="m-warp" id="warp">
+		<ul class="canvasItems">
+			<li class="item">
+				<section class="item1" id="item1">
+					<div id="item1-1" class="itemCanvas1"></div>
+					<div id="item1-2" class="itemCanvas1"></div>
+					<div id="item1-3" class="itemCanvas1"></div>
+					<div id="item1-4" class="itemCanvas1"></div>
+				</section>
+			</li>
+			<li class="item">
+				<div id="item2" style="overflow: hidden;"></div>
+			</li>
+			<li class="item">
+				<section class="lastItem" id="lastItem">
+					<div id="lastItem-1" class="lastItemChild"></div>
+					<div id="lastItem-2" class="lastItemChild"></div>
+					<div id="lastItem-3" class="lastItemChild"></div>
+					<div id="lastItem-4" class="lastItemChild"></div>
+				</section>
+			</li>
+		</ul>
+	</div>
+	<section class="canvasRB" id="canvasRB"></section>
+</div>
+<script src="/js/canvasPageData.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	// 请求数据
+	p1.trigger = {};
+	
+	//dataMergence(reverseData,p1.newCanvasData);
+	Object.defineProperty(p1.trigger,"action",{
+		set:function(val){
+			if(val == null || val == "start"){
+				var firstName= p1.newCanvasData.idArr.pop();
+				var lastName = p1.newCanvasData.idSuffix.pop();
+				var data 	 = p1.newCanvasData.data[firstName+lastName];
+				// 如果 p1.newCanvasData['values'] 没有备份新数据需要的canvas样式，则进行备份程序；
+				try{
+					if(lastName && !p1.newCanvasData['values'][firstName+lastName] && lastName.indexOf('Before') > -1){
+						p1.newCanvasData['values'][firstName+lastName] = p1.newCanvasData.data[firstName+lastName]; // 备份动态数据需要的canvas样式
+					}
+                    myCanvas(firstName,data,p1.trigger,lastName);
+                    delete p1.newCanvasData.data[firstName+lastName];
+				}catch(e){
+				     console.log(e);
+//					 console.log("lastName.indexOf('Before') == undefind")
+				}
+			}
+		}
+	});
+	
+	
+	p1.initPage = function (callbackCloser) {
+        //p1.newCanvasData = null;
+
+        if(!p1.initPaged){
+            p1.initTimer();
+            p1.interval();
+            p1.initPaged = true;
+        }else{
+            p1.initTimer();
+        }
+        if(callbackCloser)
+            callbackCloser();
+    };
+
+    p1.initTimer = function(){
+        p1.interval = function(){
+            getData("u1",function(newObjData){
+                p1.rotate();
+                if(!p1.newCanvasData)
+                    p1.newCanvasData = canvasPageData(newObjData['canvas']['values']);
+                else
+                    p.dataMergence(newObjData['canvas']['values'], p1.newCanvasData['values'], p1.newCanvasData);
+
+                p1.trigger.action = "start";
+
+            });
+        };
+
+        p.intervals.chart1 = window.setInterval(p1.interval,1000*30);
+    };
+/*=======================================================    fn    ========================================================*/	
+	// 旋转
+	p1.rotate = function(){
+		var width  = $("body").outerWidth(),
+			height = $("body").outerHeight();
+		var late = (height-width)/2+"px";
+		if(height > width){
+			$('#chart1 .g-container').css({"transform":"rotate(90deg) translate("+late+","+late+")","width":height,"height":width});
+			$('#chart1 .switchPage').css({"width":"100%","height":"100px"});
+			$('#chart1 .switchPage.nextPage').css({"bottom":"0","left":"0","top":"auto","right":"auto"});
+		}
+		$('#chart1 .g-container').css("opacity","1");
+	};
+	
+	// 数据拼接 （请求到的数据，原始数据）
+
+</script>

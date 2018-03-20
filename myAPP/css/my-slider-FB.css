@@ -1,0 +1,150 @@
+.my-slider,
+.my-slider .my-slider-warp,
+.my-slider-warp .scroll-item,
+.my-slider-warp .scroll-item-content{
+	width: 100%;
+}
+.my-slider-warp{
+	position: relative;	
+	height: intrinsic;
+}
+.my-slider-warp .scroll-item{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	opacity: 0;
+	transition: all .5s;
+	background-color: #fff;
+}
+.my-slider-warp .scroll-item.scroll-active{
+	opacity: 1;
+	z-index: 2;
+}
+.my-slider-warp .scroll-item .scroll-item-content{
+	padding: 0;
+	margin: 0;
+	border-top: 1px solid #ccc;
+}
+.my-slider-warp .scroll-item .scroll-item-content .mui-table-view-cell:first-child{
+	padding-top: 10px;
+}
+.my-slider-warp .scroll-item .scroll-item-content .mui-table-view-cell{
+	display: block;
+	list-style: none;
+	width: 100%;
+	text-align: center;
+	padding: 5px 5px 0px;
+}
+.my-slider-warp .scroll-item .scroll-item-content .mui-table-view-cell:after{
+	height: 0;
+}
+.my-slider .my-slider-warp .mui-table-view-cell .mui-cardBox{
+	position: relative;
+	display: block;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 50%;
+}
+.my-slider .my-slider-warp .mui-cardBox .mui-card{
+	margin: 0 5px 5px;
+}
+.my-slider .my-slider-warp .mui-card .mui-card-content{
+}
+
+.my-slider .my-slider-warp .mui-card .mui-card-content-inner{
+	padding: 0 5px;
+}
+
+.my-slider .my-slider-warp .mui-card .mui-card-content-inner p{
+	overflow: hidden;
+	vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	font-size: 12px;
+}
+.my-slider .my-slider-warp .mui-card .mui-card-footer {
+	padding: 0 22px;
+	min-height: initial;
+}
+.my-slider .my-slider-warp .mui-card-footer .mui-card-link{
+	margin: 0;
+	height: initial;
+	line-height: 200%;
+	min-height: initial;
+}
+.my-slider .my-slider-warp .mui-card-footer .mui-card-link:first-child{
+	color: red;	
+	font-size: 18px;
+}
+.my-slider .my-slider-warp .mui-card-footer .mui-card-link:last-child{
+    text-decoration: line-through
+}
+
+/*    The following is the official definition style       */
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	z-index: 1;
+}
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border: 1px solid #ddd;
+	border-radius: 25px;
+	background-clip: padding-box;
+	box-shadow: 0 4px 10px #bbb;
+	overflow: hidden;
+}
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+-webkit-transition-duration: 400ms;
+transition-duration: 400ms;*/
+	
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	box-shadow: 0 4px 10px #bbb;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #efeff4;
+}

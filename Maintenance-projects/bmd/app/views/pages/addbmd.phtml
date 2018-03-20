@@ -1,0 +1,534 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>白名单添加</h1>
+</header>
+
+<style>
+
+    #addbmd .pc-form {
+        width: 98%;
+        min-width: 350px;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 10px;
+        padding: 20px 0;
+        background-color: #fff
+    }
+
+    #addbmd .pc-form .input {
+        width: 88%;
+        padding-bottom: 15px;
+        margin-left: 6%;
+    }
+
+    #addbmd .pc-form .input input {
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px
+    }
+
+    #addbmd .pc-form .submit button {
+        width: 100%;
+        height: 46px;
+        font-size: 20px;
+        color: #fff;
+        background-color: #1FCBF0;
+    }
+
+    #addbmd .pc-form .input select {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px
+    }
+
+    #addbmd .phone-form {
+        width: 98%;
+        min-width: 350px;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 10px;
+        padding: 20px 0;
+        background-color: #fff
+    }
+
+    #addbmd .phone-form .input {
+        width: 88%;
+        padding-bottom: 15px;
+        margin-left: 6%;
+    }
+
+    #addbmd .phone-form .input input {
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px
+    }
+
+    #addbmd .phone-form .submit button {
+        width: 100%;
+        height: 46px;
+        font-size: 20px;
+        color: #fff;
+        background-color: #1FCBF0;
+    }
+
+    #addbmd .phone-form .input select {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px
+    }
+
+    #addbmd .upload-img-trigger button {
+        height: 28px;
+        line-height: 28px;
+        border-radius: 5px;
+        border: 1px solid #ccc
+    }
+
+    #addbmd .upload-img-trigger img {
+        position: relative;
+        top: 7px;
+        left: 10px
+    }
+
+    #addbmd #upload-img {
+        width: 100px;
+        height: 30px;
+        line-height: 27px;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #addbmd #error ,#ps-text{
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bolder;
+        height: 30px;
+        color: #ec0606;
+    }
+
+    #addbmd #message {
+        max-width: 300px;
+        min-width: 300px;
+        text-align: center;
+        line-height: 25px;
+        margin: 0 auto;
+        padding-top: 25px;
+        font-size: 18px;
+        color: #f12a2a;
+    }
+
+    #addbmd .pc-form .input .red-border, #addbmd .phone-form .input .red-border {
+        border: 1px solid red
+    }
+
+    #ps-text{text-align: left;}
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;">
+        <?php $this->partial("/pages/toolbar"); ?>
+        <form>
+            <div class="input">
+                <select name="product">
+                    <option value="" disabled selected>产品</option>
+                    <option value="业主消费贷">业主消费贷</option>
+                    <option value="家私贷">家私贷</option>
+                    <option value="车位贷">车位贷</option>
+                </select>
+            </div>
+            <div class="input"><input type="text" name="name" placeholder="姓名" maxlength="20"></div>
+            <div class="input"><input type="text" name="id_no" placeholder="身份证号" maxlength="18"></div>
+            <div class="input"><input type="text" name="mobile" placeholder="手机号" maxlength="11"></div>
+            <div class="input">
+                <select name="relation">
+                    <option value="" disabled selected>与业主关系</option>
+                    <option value="本人">本人</option>
+                    <option value="配偶">配偶</option>
+                    <option value="父母">父母</option>
+                    <option value="子女">子女</option>
+                </select>
+            </div>
+            <div class="input">
+                <select id="test" name="province" data-order="1">
+                    <option value="0" disabled selected>省份</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="city" data-order="2">
+                    <option value="0" disabled selected>城市</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="projname" data-order="3">
+                    <option value="0" disabled selected>楼盘名称</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="building_num" data-order="4">
+                    <option value="0" disabled selected>楼栋号</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="unit" data-order="5">
+                    <option value="0" disabled selected>单元号</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="room_no" data-order="6">
+                    <option value="0" disabled selected>房号</option>
+                </select>
+            </div>
+            <div class="input upload-img-trigger">
+                <div id="upload-img">
+                    <span>上传证件照片</span>
+                    <input style="width: 70px;height:25px;opacity: 0; position: absolute;top:0;left:0" id="upload-img-input" type="file" onchange="p3.handleFiles(this)" class="fileToUpload" accept="image/*" multiple="multiple"/>
+                </div>
+                <img class="addbmd-preview-img" src="/imgs/id_card.png" style="width:35px;height:25px;cursor:pointer"/>
+                <img class="addbmd-clear-img" src="imgs/clear.png" style="width:23px;height:27px;cursor:pointer;margin-left:10px"/>
+            </div>
+
+            <div class="input submit">
+                <button type="button">提&nbsp&nbsp&nbsp&nbsp交</button>
+            </div>
+
+            <div>
+                <input id="upload-img-src" type="hidden" name="upload_img_src"/>
+            </div>
+
+            <div class="input" id="ps-text">
+                注：1. 添加白名单时请依次填写各项目；<br/>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2. 如无楼栋信息，请业主在物业系统登记处理。
+            </div>
+
+        </form>
+        <div id="error"></div>
+        <div id="message"></div>
+    </div>
+</div>
+
+<script>
+    var p3 = {id: "addbmd", params: {action: "add",role:"<?php echo $role ?>"}};
+    p["addbmd"] = p3;
+
+    p3.upload_imgs_count = 0;
+    p3.upload_imgs = [];
+    p3.upload_imgs_src = [];
+
+    p3.initPage = function () {
+        if (termType === "iphone" || termType.indexOf("linux ") >= 0) {//phone
+            console.debug("phone");
+            $("form").addClass("phone-form");
+        } else if (termType.indexOf("mac") >= 0 || termType.indexOf("win") >= 0) {
+            console.debug("pc");
+            $("form").addClass("pc-form");
+        }
+
+        console.debug(p3)
+
+        $.hideIndicator();
+
+        var provinceSelect = $("#addbmd form select[name='province']").first();
+
+        if (p3.params.action === "add") {
+            p3.selectChange(null, provinceSelect);
+        } else if (p3.params.action === "edit") {
+            function initForm() {
+                for (var key in p3.params) {
+                    var f = $("#addbmd form [name=" + key + "]");
+                    if (f.length > 0) {
+                        f = f[0];
+                        var tn = f.tagName.toLocaleLowerCase();
+                        f = $(f);
+                        if (tn === "input") {
+                            f.val(p3.params[key]);
+                        }
+//                        else if(tn === "select"){
+//                            if(key !== "province" && key !== "city"){
+//                                f.find("option").each(function () {
+//                                    var v = $(this).attr("value");
+//                                    if(v !== "0"){
+//                                        $(this).remove();
+//                                    }
+//                                });
+//                                f.append("<option value='" +p3.params[key]+ "'>"+p3.params[key]+"</option>");
+//                            }
+//                            f.val(p3.params[key]);
+//                        }
+                    }
+                }
+                p3.upload_imgs_src = p3.params["upload_img_src"].split(",");
+            }
+
+            p3.selectChange(function () {
+                p3.selectChange(initForm, provinceSelect);
+            }, provinceSelect);
+//            p3.selectChange(function () {
+//                provinceSelect.val(p3.params["province"]);
+//                p3.selectChange(initForm, $("#addbmd form select[name='city']").first());
+//            },provinceSelect);
+        }
+
+    }
+
+
+    $("#addbmd .submit button").click(function () {
+
+        var data = {};
+        var check = true;
+        $("#upload-img-src").val(p3.upload_imgs_src.join(","));
+
+        $("#addbmd form [name]").each(function () {
+
+            var f = $(this);
+            //p3.params.role === "servicer" &&
+            if(f.attr("name") === "upload_img_src"){
+                return;
+            }
+
+            if (!f.val() || f.val().length === 0) {
+                f.addClass("red-border");
+                check = false;
+            } else {
+                data[f.attr("name")] = f.val();
+            }
+        });
+
+        if (!check) {
+            $.toast("有未填项");
+            return;
+        }
+
+        var url = "/submit/bmd";
+        if (p3.params.action === "edit") {
+            data.id = p3.params.id;
+            url = "/submit/editbmd";
+        }
+
+        $.ajax({
+            url: url,
+            async: true,
+            type: 'POST',
+            data: data,
+            success: function (text, status) {
+                console.debug(text);
+                try {
+                    var o = jQuery.parseJSON(text);
+                    if (o.code === 1) {
+                        $("#addbmd form")[0].reset();
+                        p3.upload_imgs_count = 0;
+                        p3.upload_imgs = [];
+                        p3.upload_imgs_src = [];
+                    }
+                    $.toast(o.message);
+                } catch (e) {
+                    console.error(e);
+                    $.toast(e);
+                }
+            }
+        });
+    });
+
+    p3.selectChange = function (cb, targetSelect) {
+
+        var s, o, query_field, data;
+        if (targetSelect) {
+            s = targetSelect;
+            o = s.attr("data-order");
+            query_field = s.attr("name");
+            data = {query_field: query_field};
+        } else {
+            s = $(this).removeClass("red-border");
+            s = $("#addbmd form select[data-order='" + (parseInt(s.attr('data-order')) + 1) + "']").first();
+
+            if (s.length === 0) {
+                return;
+            }
+
+            o = s.attr("data-order");
+            query_field = s.attr("name");
+            data = {query_field: query_field};
+        }
+
+        $("#addbmd form select[data-order]").each(function () {
+            var o1 = $(this).attr("data-order");
+            if (o1 >= o) {
+                $(this).val("0");
+                $(this).find("option").each(function () {
+                    var v = $(this).attr("value");
+                    if (v !== "0") {
+                        $(this).remove();
+                    }
+                });
+            } else {
+
+                data[$(this).attr("name")] = $(this).val();
+            }
+        });
+
+        $.showIndicator();
+        g.queryData("/query/ownerinfo", data, function (d) {
+            try {
+                d = d.message;
+                for (var i in d) {
+                    s.append("<option value='" + d[i][query_field] + "'>" + d[i][query_field] + "</option>");
+                }
+                if (typeof cb === "function") {
+                    cb();
+                }
+            } catch (e) {
+                console.error(e)
+            } finally {
+                $.hideIndicator();
+            }
+        });
+    }
+
+    $("#addbmd form select").bind("change", p3.selectChange);
+
+    $("#addbmd form input").bind("change", function () {
+        $(this).removeClass("red-border");
+    });
+
+    p3.upload = function () {
+
+        $("#upload-img-input").trigger("click");
+
+    }
+
+    p3.handleFiles = function (_this) {
+        $.showIndicator();
+        window.setTimeout(function () {
+            p3.handleFilesAction(_this);
+        }, 200)
+    }
+
+    p3.handleFilesAction = function (_this) {
+
+        var files = _this.files;
+        p3.upload_imgs_count = files.length;
+        p3.upload_imgs = [];
+
+        if(p3.upload_imgs_count === 0){
+            $.hideIndicator();
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            $.toast("正在处理第 " + (parseInt(i) + 1) + " 张", 500);
+            var file = files[i];
+            var reader = new FileReader();
+            reader.file = file;
+
+            reader.image = new Image();
+
+            reader.image.onload = function () {
+
+                var w1 = this.naturalWidth;
+                var h1 = this.naturalHeight;
+
+                var w2 = 350;
+                var h2;
+
+                if (w1 < w2) {
+                    w2 = w1;
+                    h2 = h1;
+                } else {
+                    h2 = Math.ceil(w2 * h1 / w1);
+                }
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+
+                canvas.width = w2;
+                canvas.height = h2;
+
+                context.drawImage(this, 0, 0, w2, h2);
+
+                var imgdata = canvas.toDataURL(file.type);
+                p3.upload_imgs.push(imgdata);
+                p3.submit_imgs();
+
+            }
+
+            reader.readAsDataURL(file);
+
+            reader.onload = function (e) {
+                this.image.src = this.result;
+            }
+
+
+            reader.onerror = function (e) {
+                alert(e);
+            };
+
+            if (reader.file.size > 5242880) {
+                alert("图片不能大于");
+            }
+
+        }
+    }
+
+    p3.submit_imgs = function () {
+
+        if (p3.upload_imgs_count !== p3.upload_imgs.length) {
+            return;
+        }
+
+        for (var index in p3.upload_imgs) {
+            $.toast("正在上传第 " + (parseInt(index) + 1) + " 张", 500);
+            $.showIndicator();
+            $.ajax({
+                url: "/img/upload2",
+                async: true,
+                type: 'POST',
+                data: {img: p3.upload_imgs[index]},
+                success: function (text, status) {
+                    console.debug(text);
+                    var faild = true;
+                    try {
+                        $.toast("第 " + (parseInt(index) + 1) + " 张，上传成功。", 500);
+                        var res = JSON.parse(text);
+                        if (res.code === 1) {
+                            p3.upload_imgs_src.push(res.message);
+                        } else {
+                            faild = false;
+                        }
+                    } catch (e) {
+                        faild = false;
+                    } finally {
+                        if (!faild) {
+                            console.error(text);
+                            $.toast("第 " + (parseInt(index) + 1) + " 张，上传失败。", 500);
+                        }
+                    }
+                },
+                complete: function () {
+                    $.hideIndicator();
+                }
+            });
+        }
+        p3.upload_imgs_count = 0;
+        p3.upload_imgs = [];
+    }
+
+    $("#addbmd .addbmd-preview-img").click(function () {
+        g.loadPage("/pages/previewimgs", "previewimgs", true, {imgsrc: p3.upload_imgs_src}, true, true);
+    });
+
+    $("#addbmd .addbmd-clear-img").click(function () {
+        $.confirm('选择OK将删除全部图片，需要重新上传!',
+            function () {
+                p3.upload_imgs_src = [];
+            },
+            function () {
+            }
+        );
+    });
+
+</script>

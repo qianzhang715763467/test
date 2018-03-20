@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="robots" content="noarchive">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <title>白名单查询系统</title>
+
+        <script>
+            var termType = String(navigator.platform).toLocaleLowerCase();
+        </script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script src="/js/jquery.cookie.js"></script>
+
+        <style>
+            body {
+                font-family: "微软雅黑";
+                margin: 0;
+                text-align: center;
+                overflow: hidden;
+                width: 100%;
+                height:100%;
+            }
+
+            #title{
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                font-size: 20px;
+                color: #fff;
+                background-color: #1FCBF0;
+            }
+
+            .pc-form{width: 25%;min-width:350px;height: 160px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+            .pc-form .input{width: 88%;padding-top: 10px;margin-left: 6%;}
+            .pc-form .input input{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;border-radius: 5px}
+            .pc-form .submit button{width: 102%;height: 46px;font-size: 20px;color:#fff;background-color: #1FCBF0;}
+
+            .phone-form{width: 76%;max-width:400px;height: 160px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+            .phone-form .input{width: 88%;margin: 10px 6% 0 6%}
+            .phone-form .input input{width: 100%;height: 40px;font-size: 20px;border: 1px solid #aaa;box-sizing:border-box}
+            .phone-form .submit{margin-top: 35px;clear:both}
+            .phone-form .submit button{width:101%;height: 50px;font-size:23px;font-weight:bolder;color:#fff;background-color: #1FCBF0;border: 1px solid #aaa;}
+
+
+            #error{
+                font-weight:bolder
+                height: 30px;
+                color:#ec0606;
+            }
+
+            #message{
+                max-width: 300px;
+                min-width: 300px;
+                text-align: center;
+                line-height: 25px;
+                margin: 0 auto;
+                padding-top: 25px;
+                font-size: 18px;
+                color: #f12a2a;
+            }
+
+        </style>
+        <script type="text/javascript">
+
+            var baseHeight = 0;
+
+            $(document).ready(function () {
+
+                var w = $(window).width();
+                var h = $(window).height();
+
+                if (termType === "iphone" || termType.indexOf("linux ") >= 0) {//phone
+                    console.debug("phone");
+                    $("form").addClass("phone-form");
+                } else if (termType.indexOf("mac") >= 0 || termType.indexOf("win") >= 0) {
+                    console.debug("pc");
+                    $("form").addClass("pc-form");
+                }
+
+                var topHeight = (h - $("#error").height() - $("form").first().height()) / 2 - 50;
+
+                //$("#error").css("margin-top", topHeight + "px");
+
+                $(".submit button").click(function () {
+
+                    var id_no = $("#id_no").val().replace(/ /g, '');
+                    var phone_no = $("#phone_no").val().replace(/ /g, '');
+
+                    if (id_no.length === 0 || phone_no.length === 0) {
+                        seterror("身份证，手机号不能为空");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "/query/inbmd",
+                        async: true,
+                        type: 'POST',
+                        data: {username: id_no, phone_no: phone_no},
+                        success: function (text, status) {
+                            console.debug(text);
+                            try{
+                                var o = jQuery.parseJSON(text);
+                                if (o.c === 0) {
+                                    window.location.href = o.t;
+                                } else {
+                                    seterror(o.t);
+                                }
+                            }catch(e){
+                                console.error(e);
+                            }
+                        }
+                    });
+                });
+
+                $("input").keydown(function () {
+                    if (event.keyCode === 13) {
+                        $(".submit button").trigger("click");
+                    }
+                });
+
+            });
+
+            function seterror(text){
+                $("#error").text(text);
+            };
+
+
+        </script>
+
+    </head>
+    <body>
+        <div id="title">白名单查询系统</div>
+        <form>
+            <div class="input"><input id="id_no" type="text" name="id_no" placeholder="身份证号" maxlength="18"></div>
+            <div class="input"><input id="phone_no" type="text" name="phone_no" placeholder="手机号" maxlength="11"></div>
+
+
+            <div class="input submit">
+                <button type="button">查&nbsp&nbsp&nbsp&nbsp询</button>
+            </div>
+
+        </form>
+        <div id="error"></div>
+        <div id="message">该业主证件号码在白名单<br/>且证件号和手机号与金服不一致！</div>
+      
+    </body>
+</html>

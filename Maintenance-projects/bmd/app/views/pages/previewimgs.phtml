@@ -1,0 +1,37 @@
+<header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="/addbmd">
+        <span class="icon icon-left"></span>
+        返回
+    </a>
+    <h1 class='title'>证件照片预览</h1>
+</header>
+
+<style>
+    #previewimgs-wrapper{text-align: center}
+    #previewimgs-wrapper img{display: block;margin: 0 auto;padding-top: 20px;}
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;">
+        <div id="previewimgs-wrapper">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var p4 = {id:"previewimgs",params:{}};
+    p["previewimgs"] = p4;
+
+    p4.initPage = function () {
+        if(p4.params.imgsrc){
+            for(var key in p4.params.imgsrc){
+                $("#previewimgs-wrapper").append($("<img src='/img/g/"+p4.params.imgsrc[key]+"' />"));
+            }
+        }
+        $.hideIndicator();
+    }
+
+
+
+</script>

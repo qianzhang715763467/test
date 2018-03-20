@@ -1,0 +1,158 @@
+@import url("pull-loading.css");
+/*.index-mui-content{
+	height: 170vh;
+	overflow-y: auto;
+}*/
+
+/* 顶部工具栏  */
+.head-tbar {
+	display: flex !important;
+	z-index: 21;
+	flex-flow: unset;
+	align-items: flex-start;
+	background-color: #fff;
+}
+.head-tbar #location {
+	min-width: .9rem;
+}
+.head-tbar #location .heading {
+	margin-left: -5px;
+	margin-top: 8px;
+	vertical-align: text-top;
+	font-size: .12rem;
+	max-width: .6rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.head-tbar .searchBer{
+	padding: 8px;
+	height: 100%;
+	flex-grow: 2;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.head-tbar .searchBer .searchBer-content {
+	width: calc(100% + 50px);
+	height: 100%;
+}
+.head-tbar .searchBer-content #mui-search {
+	position: relative;
+	width: calc(100% - 56px);
+	height: 100%;
+	transition: all .3s;
+}
+.head-tbar #mui-search .search-icon {
+	position: absolute;
+	z-index: 2;
+}
+.head-tbar #mui-search .search-icon .mui-icon-search {
+	padding-top: 5px;
+	padding-left: 16px;
+	padding-bottom: 0;
+	font-size: 18px;
+	color: #ccc;
+}
+.head-tbar .searchBer-content #mui-search .mui-input-clear {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	border-radius: 50px;
+	border: 1px solid #dfdfdf;
+	font-size: 13px;
+	text-indent: 15px;
+	padding: 5px 12px;
+}
+.head-tbar .searchBer-content #mui-search.focus{
+	width: calc(100% - 85px);
+}
+.head-tbar .searchBer-content #mui-search .mui-icon-clear{
+	padding-top: 4px;
+	padding-right: 0;
+}
+.head-tbar .searchBer-content .search-but{
+	opacity: 0;
+	padding: 4px 10px;
+	font-size: 13px;
+	color: #0894ec;
+	transition: all .3s;
+}
+.head-tbar .searchBer-content .search-but.focus{
+	opacity: 1;
+}
+.head-tbar #sweep {
+	width: 33px;
+	padding: 10px 5px;
+}
+/* 轮播图  */
+#todays-main{
+	margin: 0;
+}
+#todays-main .mui-card-content-inner{
+	padding-bottom: 10px;
+}
+#todays-main .swiper-pageNo{
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	width: 40px;
+	height: 30px;
+}
+#todays-main .swiper-pageNo .swiper-show-count{
+	font-size:20px;
+}
+#todays-main .swiper-pageNo .swiper-count-old{
+	font-size: 13px;
+	color: #999;
+}
+#slider .mui-slider-item>a{
+	max-height: 3.5rem;
+}
+#slider .mui-slider-item .mui-slider-title{
+	padding: 5px 0;
+	height: auto;
+	line-height: initial;
+	background-color: #fff;
+	opacity: 1;
+}
+#slider .mui-slider-item .mui-slider-title h5{
+	color: #333;
+	margin-bottom: 6px;
+}
+/* 商品分类  */
+#classify{
+	margin:0;
+	padding: 5px;
+	padding-bottom: 15px;
+	border-top:1px solid #f2f2f2;
+}
+#classify .mui-card-header{
+	padding-top: 15px;
+}
+#classify .mui-card-header:after{
+	height: 0;
+}
+#classify .mui-card-header h5{
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+#classify .mui-card-content .mui-card-content-inner{
+	padding: 0;
+}
+#classify .mui-card-content .mui-bar{
+	position: static;
+	border: none;
+	box-shadow: none;
+	background-color: #fff;
+}
+#classify .mui-card-content .mui-bar .mui-icon{
+	margin-bottom: 5px;
+	width: 32px;
+	height: 32px;
+	font-size: 32px;
+}

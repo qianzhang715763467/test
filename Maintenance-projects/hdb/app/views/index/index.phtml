@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- 优先使用最新版本IE & Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 360使用Chrome Frame -->
+		<meta name="renderer" content="webkit">
+		<!-- 360 使用 Chrome内核 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+		<meta name ="viewport" content ="width=device-width,initial-scale=0.5, maximum-scale=1, minimum-scale=0.5, user-scalable=yes">
+		<!-- 禁止数字识自动别为电话号码 -->
+		<meta name="format-detection" content="telephone=no"/>
+		<title></title>
+		<!--<meta name="viewport" content="initial-scale=1, maximum-scale=1">-->
+		<link rel="stylesheet" type="text/css" href="/icon-fonts/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="/js/light7/light7.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/map.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/chart1.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/keyData.css"/>
+		<style type="text/css">
+			body {
+				height: 100%;
+				overflow: hidden;
+				background-color: black !important;
+			}
+			.page {
+				background-color: transparent;
+			}
+			.page .g-container,
+			.page #keyData {
+				opacity: 0;
+			}
+			
+			.close{
+				position: absolute;
+				z-index: 9999;
+				top: 0;
+				right: 0;
+				width: 0;
+				height: 0;
+				border:60px solid transparent;
+				opacity: 0;
+				transition: opacity 1s;
+			}
+			.close:before,
+			.close:after{
+				position: absolute;
+				content: "";
+				width: 1.4rem;
+				height: 3px;
+				border-radius:50px;
+				background-color: #00BCD4;
+				box-shadow: 0px 0px 16px #fff;
+			}	
+			.close:before{
+				transform: rotate(43deg) translate3d(-7px,0px,0px);
+			}
+			.close:after{
+				transform: rotate(-47deg) translate3d(1px,-7px,0px);
+			}
+			.big{
+				bottom:0;
+				top:auto;
+				right:15px;
+			}
+			.close.big:before,
+			.close.big:after{
+				width: 1.8rem;
+				height: 4px;
+			}	
+			.switchPage{
+				display: table;
+				font-size: 3rem;
+				font-weight: 400;
+				font-family: "微软雅黑";
+			}
+			.switchPage span{
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				color: black;
+			}
+			.switchPage:hover{
+				cursor: pointer;
+				background-color: rgba(255,255,255,.2);
+			}
+			.switchPage:hover span{
+				color: #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page-group" style="margin: 0 auto;">
+			<div class="page" id='map'></div>
+			<div class="page" id='chart1'></div>
+			<div class="page" id='echart'></div>
+			<!-- 关闭当前系统 -->
+			<a href="http://rp.xiwanglife.com/index" class="close external"></a>
+		</div>
+	</body>
+	<script type='text/javascript' src='/js/jquery.min.js'></script>
+	<script type="text/javascript" src="/js/tools.js"></script>
+	<script type="text/javascript" src="/js/bar.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script>
+		$.config = {
+			autoInit: true
+		};
+	</script>
+	<script type='text/javascript' src='/js/light7/light7.js'></script>
+	<script type='text/javascript' src='/js/light7/light7-swiper.min.js'></script>
+	<script type="text/javascript" src="/js/canvas.js"></script>
+	<script type="text/javascript" src="/js/d3.v4.min.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<script type="text/javascript" src="/js/objData.js"></script>
+	<script type="text/javascript" src="/js/hammer.min.js"></script>
+	<script type="text/javascript" src="/js/echarts.min.js"></script>
+	<script src="/js/city.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+
+        $(window).load(function() {
+            var width  = $("body").outerWidth(),
+                height = $("body").outerHeight();
+            if(height > width){
+                $('.close').addClass('big');
+            };
+            $('.close').css('opacity','1');
+            g.loadPage("map", true, null, true); //second param true means no animation
+        });
+
+//      $(document).on("pageAnimationStart", function (e, pageId, $page) {
+//          $.showIndicator();
+//      });
+
+		// 获取数据
+		/*==============  touch ===================*/
+		var touchXStart,
+			touchYStart;
+		
+		$(document).bind("touchstart", function(e) {
+			var touch = e.originalEvent.targetTouches[0];
+			touchXStart = touch.pageX;
+			touchYStart = touch.pageY;
+			event.preventDefault();
+		});
+		$(document).bind("touchend", touchEnd);
+		
+		function touchEnd(e) {
+			var id = null;
+			var touch = e;
+			if(e.originalEvent.targetTouches.length > 0) return;
+			if(e.originalEvent && e.originalEvent.changedTouches) {
+				touch = e.originalEvent.changedTouches[0];
+			}
+
+            id = $('.page-current').first();
+			if(touchXStart - touch.pageX > 100) {
+				if(id.find('.nextPage').length < 1) return;
+				id.find('.nextPage').trigger("click");
+			} else if(touch.pageX - touchXStart > 100) {
+				if(id.find('.prePage').length < 1) return;
+				id.find('.prePage').trigger("click");
+			}
+		}
+		// flicker
+//		setInterval(function() {
+//			$('.flicker1').toggle(1500);
+//			$('.flicker2').toggle(1500);
+//		}, 1500);
+		
+		
+	</script>
+</html>

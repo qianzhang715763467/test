@@ -1,0 +1,119 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>白名单查询</h1>
+</header>
+
+<style>
+
+    #querybmd .pc-form{width: 98%;min-width:350px;height: 250px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+    #querybmd .pc-form .input{width: 70%;padding-bottom: 15px;margin-left: 15%;}
+    #querybmd .pc-form .input input,#querybmd .pc-form .input select{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;border-radius: 5px}
+    /*#querybmd .pc-form .input select{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;border-radius: 5px}*/
+    #querybmd .pc-form .submit button{width: 100%;height: 46px;font-size: 20px;color:#fff;background-color: #1FCBF0;border-radius: 10px;}
+
+    #querybmd .phone-form{width: 98%;height: 250px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+    #querybmd .phone-form .input{width: 88%;padding-bottom: 15px;margin-left: 6%;}
+    #querybmd .phone-form .input input,#querybmd .phone-form .input select{border-radius: 5px;width: 100%;height: 40px;font-size: 20px;border: 1px solid #aaa;box-sizing:border-box}
+    #querybmd .phone-form .submit button{border-radius: 5px;width:100%;height: 46px;font-size:23px;font-weight:bolder;color:#fff;background-color: #1FCBF0;border: 1px solid #aaa;}
+
+
+    #querybmd  #error{
+       margin-top: 10px;
+        text-align: center;
+        font-weight:bolder;
+        height: 30px;
+        color:#ec0606;
+    }
+
+    #querybmd  #message{
+        max-width: 300px;
+        min-width: 300px;
+        text-align: center;
+        line-height: 25px;
+        margin: 0 auto;
+        padding-top: 25px;
+        font-size: 18px;
+        color: #f12a2a;
+    }
+
+    #querybmd .pc-form .input .red-border, #querybmd .phone-form .input .red-border {
+        border: 1px solid red
+    }
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;">
+        <?php $this->partial("/pages/toolbar"); ?>
+        <form>
+            <div class="input">
+                <select name="product">
+                    <option value="" disabled selected>产品</option>
+                    <option value="业主消费贷">业主消费贷</option>
+                    <option value="家私贷">家私贷</option>
+                    <option value="车位贷">车位贷</option>
+                </select>
+            </div>
+            <div class="input"><input type="text" name="id_no" placeholder="身份证号" maxlength="18"></div>
+            <div class="input"><input type="text" name="mobile" placeholder="手机号" maxlength="11"></div>
+
+
+            <div class="input submit">
+                <button type="button">查&nbsp&nbsp&nbsp&nbsp询</button>
+            </div>
+
+        </form>
+        <div id="error"></div>
+        <div id="message"></div>
+    </div>
+</div>
+
+<script>
+    var p2 = {id:"querybmd",params:{}};
+    p["querybmd"] = p2;
+
+    p2.initPage = function () {
+        if (termType === "iphone" || termType.indexOf("linux ") >= 0) {//phone
+            console.debug("phone");
+            $("form").addClass("phone-form");
+        } else if (termType.indexOf("mac") >= 0 || termType.indexOf("win") >= 0) {
+            console.debug("pc");
+            $("form").addClass("pc-form");
+        }
+
+        $.hideIndicator();
+    }
+
+    $("#querybmd .submit button").click(function () {
+
+        var data = {};
+        var check = true;
+        $("#querybmd form [name]").each(function () {
+            var f = $(this);
+            console.debug(f)
+            if (!f.val() || f.val().length === 0) {
+                f.addClass("red-border");
+                check = false;
+            } else {
+                data[f.attr("name")] = f.val();
+            }
+        });
+
+        if (!check) {
+            $.toast("有未填项", 1000);
+            return;
+        }
+        console.debug(data)
+
+        g.queryData("/query/inbmd", data, function (d) {
+            $("#error").html(d.message);
+        }, 120000);
+
+    });
+
+    $("#querybmd form input").bind("change", function () {
+        $(this).removeClass("red-border");
+    });
+
+    $("#querybmd form select").bind("change", function () {
+        $(this).removeClass("red-border");
+    });
+</script>

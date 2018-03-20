@@ -1,0 +1,212 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/update.js",
+			"js/mui.js",
+			"js/mui.min1.js"
+		],
+		"refer": [
+			"index-menu.html",
+			"examples/guide.html",
+			"examples/indexed-list.html",
+			"examples/indexed-list-select.html",
+			"examples/numbox.html",
+			"examples/im-chat.html",
+			"examples/pullrefresh_main.html",
+			"examples/pullrefresh_with_tab.html",
+			"examples/accordion.html",
+			"examples/badges.html",
+			"examples/tab-webview-main.html",
+			"examples/pagination.html",
+			"examples/tableviews-with-swipe.html",
+			"examples/range.html",
+			"examples/tab-with-segmented-control.html",
+			"examples/tabbar.html",
+			"examples/tabbar-with-submenus.html",
+			"examples/tab-top-webview-main.html",
+			"examples/tab-with-viewpagerindicator.html",
+			"examples/card.html",
+			"examples/offcanvas-drag-right-plus-main.html"
+		]
+	},
+	"index-menu.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/indexed-list.html": {
+		"resources": [
+			"css/mui.min.css",
+			"css/mui.indexedlist.css",
+			"js/mui.indexedlist.js"
+		]
+	},
+	"examples/indexed-list-select.html": {
+		"resources": [
+			"css/mui.min.css",
+			"css/mui.indexedlist.css"
+		]
+	},
+	"examples/numbox.html": {
+		"resources": [
+			"css/app.css",
+			"css/mui.min.css"
+		]
+	},
+	"examples/im-chat.html": {
+		"resources": [
+			"js/mui.imageViewer.js",
+			"images/logo.png",
+			"css/app.css",
+			"css/mui.min.css",
+			"css/mui.imageviewer.css",
+			"js/arttmpl.js"
+		]
+	},
+	"examples/pullrefresh_sub.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/pullrefresh_main.html": {
+		"resources": [
+			"examples/pullrefresh_sub.html",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"examples/pullrefresh_sub.html"
+		]
+	},
+	"examples/pullrefresh_with_tab.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/mui.min.css",
+			"js/mui.min.js"
+		]
+	},
+	"examples/card.html": {
+		"resources": [
+			"images/cbd.jpg",
+			"images/yuantiao.jpg",
+			"images/logo.png",
+			"js/mui.min.js",
+			"css/app.css",
+			"css/mui.min.css"
+		]
+	},
+	"examples/accordion.html": {
+		"resources": [
+			"images/cbd.jpg",
+			"images/muwu.jpg",
+			"images/yuantiao.jpg",
+			"css/mui.min.css",
+			"images/shuijiao.jpg"
+		]
+	},
+	"examples/badges.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tab-webview-subpage-contact.html": {
+		"resources": [
+			"images/60x60.gif"
+		]
+	},
+	"examples/tab-webview-main.html": {
+		"resources": [
+			"css/mui.min.css",
+			"examples/tab-webview-subpage-about.html"
+		],
+		"refer": [
+			"examples/tab-webview-subpage-setting.html",
+			"examples/tab-webview-subpage-chat.html",
+			"examples/tab-webview-subpage-contact.html",
+			"examples/tab-webview-subpage-about.html"
+		]
+	},
+	"examples/tab-webview-subpage-about.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/pagination.html": {
+		"resources": [
+			"css/app.css",
+			"css/mui.min.css"
+		]
+	},
+	"examples/tableviews-with-swipe.html": {
+		"resources": [
+			"css/app.css",
+			"css/mui.min.css"
+		]
+	},
+	"examples/tab-with-segmented-control.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tabbar.html": {
+		"resources": [
+			"css/app.css",
+			"images/60x60.gif"
+		]
+	},
+	"examples/tabbar-with-submenus.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tab-top-webview-main.html": {
+		"resources": [
+			"js/webviewGroup.js",
+			"css/mui.min.css",
+			"examples/tab-top-subpage-1.html"
+		],
+		"refer": [
+			"examples/tab-top-subpage-2.html",
+			"examples/tab-top-subpage-1.html",
+			"examples/tab-top-subpage-3.html",
+			"examples/tab-top-subpage-4.html",
+			"examples/tab-top-subpage-5.html"
+		]
+	},
+	"examples/tab-top-subpage-3.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tab-top-subpage-4.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tab-with-viewpagerindicator.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/offcanvas-drag-right-plus-main.html": {
+		"resources": [
+			"css/mui.min.css"
+		],
+		"refer": [
+			"examples/offcanvas-drag-right-plus-menu.html"
+		]
+	},
+	"examples/tab-top-subpage-2.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tab-top-subpage-5.html": {
+		"resources": [
+			"css/mui.min.css"
+		]
+	}
+}

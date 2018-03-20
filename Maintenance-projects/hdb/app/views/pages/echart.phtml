@@ -1,0 +1,183 @@
+<style type="text/css">
+	#echart .switchPage{
+		position: fixed;
+		z-index: 5;
+		width: 100px;
+		height: 100%;
+	}
+	#echart .prePage{
+		top: 0;left: 0;
+	}
+	#echart .nextPage{
+		bottom: 0;right: 0;
+	}
+</style>
+<div id="keyData">
+    <header id="header">2017年度关键数据总览</header>
+    <!--<span class="outerLine outerH outerTopLine"></span>-->
+    <span class="outerLine outerV outerLeftLine"></span>
+    <span class="outerLine outerH outerBotLeftLine"></span>
+    <span class="outerLine outerH outerBotRightLine"></span>
+    <span class="outerLine outerV outerRightLine"></span>
+    <main id="main">
+        <div class="upper">
+            <div class="KPI">
+                <span>年度KPI销售目标完成百分比</span>
+                <div id="kpiGraph" style="width:100%;height:100%" class="echartBox"></div>
+            </div>
+            <span class="line upperLine">
+                <span class="dot upperDot"></span>
+                <span class="square upperSquare"></span>
+            </span>
+            <div class="registerUser">
+                <span>每月注册交易用户数统计</span>
+                <div id="registerUserGraph" style="width:100%;height:100%" class="echartBox"></div>
+            </div>
+            <span class="line upperLine">
+                <span class="dot upperDot"></span>
+                <span class="square upperSquare"></span>
+            </span>
+            <div class="tradeAmount">
+                <span>交易占比</span>
+                <div id="tradeAmountGraph" style="width:100%;height:90%" class="echartBox"></div>
+            </div>
+        </div>
+        <hr class="hrSquare midLine"/>
+        <div class="down">
+            <span class="line downLine">
+                <span class="dot downDot" style="position: absolute;z-index: 2;"></span>
+            </span>
+            <div class="monthlyTrade">
+                <span>每月交易金额走势</span>
+                <div id="monthlyTradeGraph" style="width:100%;height:90%;position: relative;z-index: 5;" class="echartBox"></div>
+                <span class="outerLine outerLeftSquare"></span>
+            </div>
+            <span class="line downLine">
+                <span class="dot downDot"></span>
+                <span class="square downSquare"></span>
+            </span>
+            <div class="keyIndex" style="overflow: auto;">
+                <span>关键指标</span>
+                <table id="keyIndexTAB">
+                	<tr class="tabHead">
+                		<th data-key = "item_name">监控事项</th>
+                		<th data-key = "mubiao_values">目标数值</th>	
+                		<th data-key = "current_values">当前数值</th>
+                		<th data-key = "current_rate">达成率</th>
+                	</tr>
+                	<tbody class="keyIndexTAB_tbody"></tbody>
+                </table>
+            </div>
+            <span class="line downLine downRightLine">
+                <span class="dot downDot"></span>
+            </span>
+            <div class="dataMonitor" style="padding-right: 0;">
+                <span>费比数据监控</span>
+                <div id="dataMonitorGraph" style="width:100%;height:100%;" class="echartBox"></div>
+            </div>
+        </div>
+    </main>
+</div>
+    
+<div class="switchPage prePage" onclick="g.loadPage('chart1', false,null,false, true)"> <span><</span>  </div>
+<div class="switchPage nextPage" onclick="g.loadPage('map', false,null,false)"> <span>></span>  </div>
+<script src="/js/keyData.js"></script>
+<script>
+
+    p2.initPage = function (callbackCloser) {
+
+        if(!p2.initPaged){
+            p2.initTimer();
+            p2.interval(callbackCloser);
+            p2.initPaged = true;
+        }else {
+            p2.initTimer();
+            if(callbackCloser)
+                callbackCloser();
+        }
+    };
+
+    p2.initTimer = function () {
+
+        p2.interval = function (callbackCloser) {
+            p2.objData = getData();
+            p2.count = new Array(Object.getOwnPropertyNames(p.url).length);
+
+            for(var  ulKey in p.url){
+                getData(ulKey, function (newObjData) {
+                    p2.count.pop();
+                    if(p2.count.length === 0){
+                        p2.rotate();
+                        p2.drawEchart();
+                        p2.tab();
+                        if(callbackCloser){
+                            callbackCloser();
+                        }
+
+                    }
+                }, p2.objData);
+            }
+        };
+
+        p.intervals.echart = window.setInterval(p2.interval,1000*30);
+    }
+
+
+   	p2.rotate = function(){
+   		var width  = $("body").outerWidth(),
+			height = $("body").outerHeight();
+		var late = (height-width)/2+"px";
+		if(height > width){
+			$('#keyData').css({"transform":"rotate(90deg) translate("+late+","+late+")","width":height,"height":width});
+			$('#echart .switchPage').css({"width":"100%","height":"100px"});
+		}
+		$('#keyData').css("opacity","1");
+   	};
+   	p2.drawEchart = function(){
+	   	// 清除所有 canvas
+	   	$('.echartBox').empty();
+   		try{
+   			KPI({
+	    		id  : document.getElementById("kpiGraph"),
+	    		val : p2.objData['chart']['values']['kpiGraph']['data']
+	    	});
+		    registerUserGraph({
+		    	id  : document.getElementById("registerUserGraph"),
+	    		val1: p2.objData['chart']['values']['注册交易用户统计']['data1']['val'],
+	    		val2: p2.objData['chart']['values']['注册交易用户统计']['data2']['val'],
+	    		val3: p2.objData['chart']['values']['注册交易用户统计']['data3']
+		    });
+		    tradeAmountGraph({
+		    	id  : document.getElementById("tradeAmountGraph"),
+	    		val1: p2.objData['chart']['values']['交易金额']['data1'],
+	    		val2: p2.objData['chart']['values']['交易金额']['data2']
+		    });
+		    monthlyTradeGraph({
+		    	id  : document.getElementById("monthlyTradeGraph"),
+	    		val1: p2.objData['chart']['values']['交易额走势']['data1'],
+	    		val2: p2.objData['chart']['values']['交易额走势']['data2']
+		    });
+		    dataMonitorGraph({
+		    	id  : document.getElementById("dataMonitorGraph"),
+		    	val1: p2.objData['chart']['values']['费比监控']['data1'],
+	    		val2: p2.objData['chart']['values']['费比监控']['data2']
+		    });
+   		}catch(e){
+   			//TODO handle the exception
+   		}
+   	}
+   	
+   	p2.tab = function(){
+   		$('.keyIndexTAB_tbody').children().remove();
+		var tabData =  p2.objData['chart']['values']['关键指标'];
+		var thList = $('.tabHead').children();
+		for(var i = 0; i < tabData.length; i++){
+			var tr = $("<tr></tr>");
+			for(var n = 0; n < thList.length; n++){
+				var td = '<td>'+tabData[i][$(thList[n]).attr('data-key')]+'</td>';
+				tr.append(td);
+			};
+			$('.keyIndexTAB_tbody').append(tr);
+		}
+   	}
+</script>

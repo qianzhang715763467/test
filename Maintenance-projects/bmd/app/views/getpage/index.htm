@@ -1,0 +1,165 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>{{report_title}}</h1>
+</header>
+
+<style>
+</style>
+
+<div class="content">
+    <div id="{{report_name}}-top-bar" style="font-size:13px;width:100%;margin:0 auto;">
+        <?php $this->partial("pages/toolbar"); ?>
+    </div>
+    <div style="width:100%;height:500px;margin: 0 auto;position:relative ">
+        <div id="{{report_name}}-table" data-pageid="{{report_name}}" style="width:98%;height:100%;margin:0 auto;"></div>
+        <div id="{{report_name}}-foot-table" style="width:98%;margin:0 auto;"></div>
+    </div>
+</div>
+
+
+<script>
+
+    var p{{report_id}} = {id:"{{report_name}}",params:{ds_id:{{ds_id}}}};
+    p.{{report_name}} = p{{report_id}};
+
+    p{{report_id}}.passFields = ["i_time", "report_time"];
+
+    p{{report_id}}.close = function () {
+        $.hideIndicator();
+    }
+
+    p{{report_id}}.initTable = function (data, id) {
+
+        var table = htable.create(id);
+
+        var fixColumns = [[
+            {% for f in report_field %}
+                {% if f["fixable"] == "1" %}
+                    {"field": "{{f["field"]}}", "title": "{{f["title"]}}", "width": 100, "searchable":"{{f["searchable"]}}", "ds_id":"{{f["ds_id"]}}"},
+                {% endif %}
+            {% endfor %}
+        ]];
+
+        var columns = [[
+            {% for f in report_field %}
+                {% if f["fixable"] != "1" %}
+                    {"field": "{{f["field"]}}", "title": "{{f["title"]}}", "width": 100, "searchable":"{{f["searchable"]}}", "ds_id":"{{f["ds_id"]}}"},
+                {% endif %}
+            {% endfor %}
+        ]];
+
+        table.setMaxHeight($("#" + id).height());
+        table.setFixcolumns(fixColumns).setColumns(columns);
+        table.loadData(data);
+
+        return table;
+    }
+
+    p{{report_id}}.data = [];
+    p{{report_id}}.formatData = function (data) {
+
+        function addWrapper(obj, index) {
+            for(var key in obj){
+                if(p{{report_id}}.passFields.indexOf(key) > -1){
+                    continue;
+                }
+                p{{report_id}}.data[index + key] = obj[key];
+                obj[key] = "<span class='"+index + key+"'>" + obj[key] + "</span>";
+            }
+            return obj;
+        }
+
+        var rows = (g.fdate === p{{report_id}}.params.date ? g.hour : data.length);
+
+        var d = {table:[], foot:[]};
+        for(var i=0;i<data.length;i++){
+            if(data[i]["hours_desc"] && data[i]["hours_desc"].indexOf("累计") > -1){
+                d.foot.push(addWrapper(data[i], i));
+            }else if(data[i]["dates"] && data[i]["dates"].indexOf("累计") > -1){
+                d.foot.push(addWrapper(data[i], i));
+            }else if(data[i]["type"] && data[i]["type"].indexOf("累计") > -1){
+                d.foot.push(addWrapper(data[i], i));
+            }else{
+                if((24 - i - 1) <= rows && ({{hour_limit}} === 1)){
+                    d.table.push(data[i]);
+                }else if({{hour_limit}} === 0){
+                    d.table.push(data[i]);
+                }
+
+                if((24 - i - 1) == rows && ({{hour_limit}} === 1)){
+                    addWrapper(data[i], i)
+                }
+            }
+        }
+
+        //console.debug(d)
+        return d;
+    }
+
+    p{{report_id}}.initPage = function (pm) {
+
+        if(!pm){
+            pm = {id:{{ds_id}}, date:p{{report_id}}.params.date};
+        }
+        g.queryData("/query/ds", pm, function (data) {
+            console.debug(data)
+            data = data.details.list.values;
+            var d = p{{report_id}}.formatData(data);
+            p{{report_id}}.footTable = p{{report_id}}.initTable(d.foot, "{{report_name}}-foot-table").hideThead();
+            $("#{{report_name}}-table").height(g.h - $("#{{report_name}} .top-bar:first").height() - $("#{{report_name}} header:first").height() - p{{report_id}}.footTable.scrollTable.height() - g.pageBottomPadding);
+            p{{report_id}}.table = p{{report_id}}.initTable(d.table, "{{report_name}}-table");
+
+            if(d.foot.length > 0){
+                p{{report_id}}.table.setFootTable(p{{report_id}}.footTable);
+            }else{
+                $("#{{report_name}}-foot-table").remove();
+                p{{report_id}}.table.setScroll();
+            }
+
+            p{{report_id}}.table.createSearchePanel();
+            p{{report_id}}.footTable.removeSearchePanel();
+
+            p{{report_id}}.close();
+            console.debug(p{{report_id}}.table.searchFields)
+        });
+    };
+
+    p{{report_id}}.setInterval = function () {
+        if("{{auto_update}}" === "1"){console.debug("interval")
+            p{{report_id}}.interval = window.setInterval(function () {
+
+                if(g.hourPass || g.dayPass){
+                    g.loadPage("/getpage/{{report_name}}", "{{report_name}}", true, null, true, true);
+                    return;
+                }
+                var pm = {id:{{ds_id}}, date:p{{report_id}}.params.date};
+                g.queryData("/query/ds", pm, function (data) {
+                    p{{report_id}}.formatData(data);
+                    p{{report_id}}.update();
+                });
+            },1000*30);
+        }
+    }
+
+    p{{report_id}}.clearInterval = function () {
+        window.clearInterval(p{{report_id}}.interval);
+    }
+
+    p{{report_id}}.update = function () {
+        for(var i in p{{report_id}}.data){
+            var t = $("#{{report_name}}" + " ." + i).first();
+            var o = t.text();
+            var n = p{{report_id}}.data[i];
+            if(String(o) !== String(n)){
+                t.text(String(n)).animateCss('fadeOutDown', function () {
+                    $(this).removeClass("fadeOutDown");
+                });
+            }else{
+                t.text(String(n)).animateCss('fadeOut', function () {
+                    $(this).removeClass("fadeOut");
+                });
+            }
+            //return;
+        }
+    }
+
+</script>

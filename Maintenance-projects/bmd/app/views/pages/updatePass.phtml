@@ -1,0 +1,111 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>修改密码</h1>
+</header>
+
+<style>
+
+    #updatePass .pc-form{width: 98%;min-width:350px;height: 250px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+    #updatePass .pc-form .input{width: 88%;padding-bottom: 15px;margin-left: 6%;}
+    #updatePass .pc-form .input input,#updatePass .pc-form .input select{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;border-radius: 5px}
+    /*#updatePass .pc-form .input select{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;border-radius: 5px}*/
+    #updatePass .pc-form .submit button{width: 100%;height: 46px;font-size: 20px;color:#fff;background-color: #1FCBF0;border-radius: 10px;}
+
+    #updatePass .phone-form{width: 98%;height: 250px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+    #updatePass .phone-form .input{width: 88%;padding-bottom: 15px;margin-left: 6%;}
+    #updatePass .phone-form .input input,#updatePass .phone-form .input select{border-radius: 5px;width: 100%;height: 40px;font-size: 20px;border: 1px solid #aaa;box-sizing:border-box}
+    #updatePass .phone-form .submit button{border-radius: 5px;width:100%;height: 46px;font-size:23px;font-weight:bolder;color:#fff;background-color: #1FCBF0;border: 1px solid #aaa;}
+
+
+    #updatePass  #error{
+       margin-top: 10px;
+        text-align: center;
+        font-weight:bolder;
+        height: 30px;
+        color:#ec0606;
+    }
+
+    #updatePass  #message{
+        max-width: 300px;
+        min-width: 300px;
+        text-align: center;
+        line-height: 25px;
+        margin: 0 auto;
+        padding-top: 25px;
+        font-size: 18px;
+        color: #f12a2a;
+    }
+
+    #updatePass .pc-form .input .red-border, #updatePass .phone-form .input .red-border {
+        border: 1px solid red
+    }
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;">
+        <?php $this->partial("/pages/toolbar"); ?>
+        <form>
+            <div class="input"><input type="password" name="old_pass" placeholder="旧密码" maxlength="15"></div>
+            <div class="input"><input type="password" name="new_pass1" placeholder="新密码" maxlength="15"></div>
+            <div class="input"><input type="password" name="new_pass2" placeholder="重复新密码" maxlength="15"></div>
+
+            <div class="input submit">
+                <button type="button">提&nbsp&nbsp&nbsp&nbsp交</button>
+            </div>
+
+        </form>
+        <div id="error"><?php echo $message; ?></div>
+        <div id="message"></div>
+    </div>
+</div>
+
+<script>
+    var p7 = {id:"updatePass",params:{}};
+    p["updatePass"] = p7;
+
+    p7.initPage = function () {
+        if (termType === "iphone" || termType.indexOf("linux ") >= 0) {//phone
+            console.debug("phone");
+            $("form").addClass("phone-form");
+        } else if (termType.indexOf("mac") >= 0 || termType.indexOf("win") >= 0) {
+            console.debug("pc");
+            $("form").addClass("pc-form");
+        }
+
+        $.hideIndicator();
+    }
+
+    $("#updatePass .submit button").click(function () {
+
+        var data = {};
+        var check = true;
+        $("#updatePass form [name]").each(function () {
+            var f = $(this);
+            console.debug(f)
+            if (!f.val() || f.val().length === 0) {
+                f.addClass("red-border");
+                check = false;
+            } else {
+                data[f.attr("name")] = f.val();
+            }
+        });
+
+        if (!check) {
+            $.toast("有未填项", 1000);
+            return;
+        }
+        console.debug(data)
+
+        g.queryData("/submit/updatePass", data, function (d) {
+            $("#error").html(d.message);
+        }, 120000);
+
+    });
+
+    $("#updatePass form input").bind("change", function () {
+        $(this).removeClass("red-border");
+    });
+
+    $("#updatePass form select").bind("change", function () {
+        $(this).removeClass("red-border");
+    });
+</script>

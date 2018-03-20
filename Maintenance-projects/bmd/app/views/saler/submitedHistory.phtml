@@ -1,0 +1,114 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>白名单审核结果</h1>
+</header>
+
+<style>
+    #submitedHistory .submitedHistory-triger-edit{text-decoration: underline;cursor:pointer}
+</style>
+
+<div class="content">
+    <div style="font-size:13px;width:100%;margin:0 auto;">
+        <div id="submitedHistory-top-bar" style="font-size:13px;width:95%;margin:0 auto;">
+            <?php $this->partial("pages/toolbar"); ?>
+        </div>
+
+        <div style="width:95%;height:500px;margin: 0 auto;position:relative">
+            <div id="submitedHistory-table" style="width:100%;height:100%"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var p4 = {id:"submitedHistory",params:{}};
+    p["submitedHistory"] = p4;
+    p4.canEdit = ["待审核", "待完善"];
+
+    p4.initTable = function (data, id) {
+
+        var table = htable.create(id);
+
+        var fixColumns = [[
+            {field: 'name', title: '申请人', width: 70,formatter:p4.editerFormatter},
+            {field: 'status', title: '申请结果', width: 70}
+        ]];
+
+        var columns = [[
+            {field: 'product', title: '产品', width: 80},
+            {field: 'check_desc', title: '审核批示', width: 80},
+            {field: 'province', title: '省', width: 80},
+            {field: 'city', title: '市', width: 80},
+            {field: 'projname', title: '楼盘名称', width: 80},
+            {field: 'building_num', title: '楼号', width: 80},
+            {field: 'unit', title: '单元号', width: 80},
+            {field: 'room_no', title: '房间号', width: 80},
+            {field: 'relation', title: '和业主关系', width: 80},
+            {field: 'apply_date', title: '申请时间', width: 80},
+            {field: 'id_no', "title": '身份证号', width: 140},
+            {field: 'mobile', title: '手机号', width: 100},
+            {field: 'check_date', title: '审核时间', width: 80}
+        ]];
+
+        table.setMaxHeight($("#" + id).height());
+        table.setFixcolumns(fixColumns).setColumns(columns);
+        table.loadData(data);
+
+        return table;
+    }
+
+    p4.formatData = function (data) {
+
+        var rows = (g.fdate === p1.params.date ? g.hour : data.length);
+
+        var d = {table:[], foot:[]};
+        for(var i=0;i<data.length;i++){
+            if(data[i]["hours_desc"].indexOf("累计") > -1){
+                d.foot.push(data[i]);
+            }else{
+                if((24 - i - 1) <= rows)
+                    d.table.push(data[i]);
+            }
+        }
+
+        return d;
+    }
+
+    p4.initPage = function () {
+
+        g.queryData("/query/submitedHistory", {}, function (data) {
+            data = data.message;
+            console.debug(typeof data)
+            $("#submitedHistory-table").height(g.h - $("#submitedHistory .top-bar:first").height() - $("#submitedHistory header:first").height());
+            p4.table = p4.initTable(data, "submitedHistory-table");
+            p4.table.setScroll();
+            p4.close();
+        });
+    };
+
+    p4.editerFormatter = function (row, value, column) {
+        if(p4.canEdit.indexOf(row["status"]) > -1){
+            return "<b data-param='"+JSON.stringify(row)+"' class='submitedHistory-triger-edit'>"+value+"</b>";
+        }else {
+            return value;
+        }
+    }
+
+    $("#submitedHistory").delegate(".submitedHistory-triger-edit", "click", function () {
+        var params = JSON.parse($(this).attr("data-param"));
+        params.action = "edit";
+        g.loadPage("/pages/addbmd", "addbmd", true, params, true, true);
+    })
+
+    p4.dateChange = function () {
+        g.queryData("/query/submitedHistoryByDate", {date:p4.params.date}, function (data) {
+            p4.data = data.message;
+            $("#submitedHistory-table").height(g.h - $("#submitedHistory .top-bar:first").height() - $("#submitedHistory header:first").height());
+            p4.table = p4.initTable(p4.data, "submitedHistory-table");
+            p4.close();
+            p4.table.setScroll();
+        });
+    }
+
+    p4.close = function () {
+        $.hideIndicator();
+    }
+</script>

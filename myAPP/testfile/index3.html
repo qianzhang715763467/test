@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="../css/custom.index.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/my-extend.css"/>
+		<style type="text/css">
+			/*#tabs,
+			#slider,
+			.mui-slider-group,
+			.mui-slider-item,
+			.mui-scroll-wrapper,
+			.mui-scroll{
+				position: relative !important;
+			}
+			#slider .mui-slider-group{
+				top:0 !important;
+			}*/
+			
+			#tabs{
+				min-height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav head-tbar">
+			<a href="page/location.html" id="location" class="mui-inline">
+				<span class="mui-icon mui-icon-location" style="color: #0894ec;">
+					<h6 class="heading display-inlineBlock color-darkGrey"  data-tags="ShangHaiPuDongGuoJi">上海浦东国际机场</h6>
+				</span>
+			</a>
+			<div class="mui-ber searchBer" id="searchBer">
+				<section class="searchBer-content">
+					<div class="mui-input-row float-left" id="mui-search">
+						<a class="search-icon"><span class="mui-icon mui-icon-search"></span></a>
+						<input type="text" class="mui-input-clear" id="search-ipt" placeholder="输入商品名、商家名、商圈">
+					</div>
+					<a class="float-left search-but" id="search-but">搜索</a>
+				</section>
+			</div>
+			<a href="" id="sweep" class="mui-inline">
+				<span class="mui-icon-extra mui-icon-extra-sweep"></span>
+			</a>
+		</header>
+		<div class="mui-content index-mui-content">
+			<div class="mui-card" id="todays-main">
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<h4>今日主推</h4>
+						<h6>每日上新、精选好物、限时折扣</h6>
+						<div class="swiper-pageNo">
+							<i class="swiper-show-count">1</i><!-- swiper.min.js 152 -->
+							<i class="swiper-count-old">/</i>
+							<i class="swiper-count-old">3</i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../img/sellerBg.jpg">
+							<div class="mui-slider-title">
+								<h5>精选商品特卖上新 抄底价限时秒杀</h5>
+								<h6>超级福利限时24小时 满130减50、满240减100</h6>
+							</div>
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/sellerBg-01.jpg">
+							<div class="mui-slider-title">
+								<h5>精选商品特卖上新 抄底价限时秒杀</h5>
+								<h6>超级福利限时24小时 满130减50、满240减100</h6>
+							</div>
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/sellerBg.jpg">
+							<div class="mui-slider-title">
+								<h5>精选商品特卖上新 抄底价限时秒杀</h5>
+								<h6>超级福利限时24小时 满130减50、满240减100</h6>
+							</div>
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/sellerHeadPortrait.jpg">
+							<div class="mui-slider-title">
+								<h5>精选商品特卖上新 抄底价限时秒杀</h5>
+								<h6>超级福利限时24小时 满130减50、满240减100</h6>
+							</div>
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/sellerBg.jpg">
+							<div class="mui-slider-title">
+								<h5>精选商品特卖上新 抄底价限时秒杀</h5>
+								<h6>超级福利限时24小时 满130减50、满240减100</h6>
+							</div>
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../img/sellerBg-01.jpg">
+							<div class="mui-slider-title">
+								<h5>精选商品特卖上新 抄底价限时秒杀</h5>
+								<h6>超级福利限时24小时 满130减50、满240减100</h6>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- 商品分类 导航  -->
+			<!--<div class="mui-card" id="classify">
+				<div class="mui-card-header">
+					<h5>品质、格调、一站搜罗</h5>
+				</div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<nav class="mui-bar mui-bar-tab">
+							<a class="mui-tab-item mui-active" href="#tabbar">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">精选好物</span>
+							</a>
+							<a class="mui-tab-item" href="#tabbar-with-chat">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">家居</span>
+							</a>
+							<a class="mui-tab-item" href="#tabbar-with-map">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">下午茶</span>
+							</a>
+							<a class="mui-tab-item" href="#tabbar-with-contact">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">美妆</span>
+							</a>
+						</nav>
+						
+					</div>
+				</div>
+			</div>-->
+			
+			<div id="tabs">
+				<div id="slider" class="mui-slider mui-fullscreen">
+					<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-card-header">
+							<h5>品质、格调、一站搜罗</h5>
+						</div>
+						<div class="mui-scroll">
+							<a class="mui-control-item mui-active" href="#item1mobile">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">精选好物</span>
+							</a>
+							<a class="mui-control-item" href="#item2mobile">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">家居</span>
+							</a>
+							<a class="mui-control-item" href="#item3mobile">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">下午茶</span>
+							</a>
+							<a class="mui-control-item" href="#item4mobile">
+								<span class="mui-icon mui-icon-image"></span>
+								<span class="mui-tab-label">美妆</span>
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-group">
+						<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+							<div id="scroll1" class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/cbd.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="item2mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/muwu.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="item3mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/shuijiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="item4mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+											<a href="javascript:;" class="mui-cardBox">
+												<div class="mui-card">
+													<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../img/yuantiao.jpg)"></div>
+													<div class="mui-card-content">
+														<div class="mui-card-content-inner">
+															<p>Posted on January 18, 2016</p>
+															<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+														</div>
+													</div>
+													<div class="mui-card-footer">
+														<span class="mui-card-link">1090￥</span>
+														<span class="mui-card-link">3980￥</span>
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 底部导航栏 -->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#tabbar">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-chat">
+				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">收藏</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+	</body>
+	<script src="../js/jquery-2.1.1.min.js"></script>
+	<script src="../js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/mui.pullToRefresh.js"></script>
+	<script src="../js/mui.pullToRefresh.material.js"></script>
+	<script type="text/javascript">
+		//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+	</script>
+	<script type="text/javascript">
+		// 改变地址
+		var changeLocation = function(e){
+			$('#location').find('.heading')
+				.attr('data-tags',e.detail.tags)
+				.text(e.detail.name);
+		}
+		window.addEventListener('cl',changeLocation);
+		var m_index = {
+			// 搜索框事件
+			serachBoxEvents : function(a){
+				$(a.ipt).focus(function(){
+					$(a.main+','+a.but).addClass('focus');
+				});
+				$(a.ipt).blur(function(){
+					$(a.main+','+a.but).removeClass('focus');
+				});
+			},
+			// Search box content clearance button
+			serachBoxclearing:function(){
+				var nativeWebview, imm, InputMethodManager;
+				var initNativeObjects = function() {
+					if (mui.os.android) {
+						var main = plus.android.runtimeMainActivity();
+						var Context = plus.android.importClass("android.content.Context");
+						InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+						imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+					} else {
+						nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+					}
+				};
+				var showSoftInput = function() {
+					if (mui.os.android) {
+						imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+					} else {
+						nativeWebview.plusCallMethod({
+							"setKeyboardDisplayRequiresUserAction": false
+						});
+					}
+					setTimeout(function() {
+						var inputElem = document.querySelector('input');
+						inputElem.focus();
+						inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
+					}, 200);
+				};
+			},
+			// 打开新窗口
+			openWindow:function(){
+				mui('.mui-bar-nav').on('tap','#location',function(){
+					var dataTags = $(this).find('.heading').attr('data-tags');
+					mui.openWindow({
+						id:'location',
+						url:'../page/location.html',
+						extras:{
+							tags : dataTags
+						}
+					})
+				})
+			},
+			slider:function(){
+				//获得slider插件对象
+				var slider = mui("#slider");
+				slider.slider({
+					interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
+				});
+				// 当前轮播图的显示图片下标
+				document.querySelector('#slider').addEventListener('slide', function(event) {
+			　　　　var current_num = event.detail.slideNumber;
+			　　　　$('#todays-main .swiper-show-count').text(current_num+1);
+			　　});
+			}
+		};
+		mui.plusReady(function() {
+			var nativeWebview, imm, InputMethodManager;
+				var initNativeObjects = function() {
+					if (mui.os.android) {
+						var main = plus.android.runtimeMainActivity();
+						var Context = plus.android.importClass("android.content.Context");
+						InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+						imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+					} else {
+						nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+					}
+				};
+				var showSoftInput = function() {
+					if (mui.os.android) {
+						imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+					} else {
+						nativeWebview.plusCallMethod({
+							"setKeyboardDisplayRequiresUserAction": false
+						});
+					}
+					setTimeout(function() {
+						var inputElem = document.querySelector('input');
+						inputElem.focus();
+						inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
+					}, 200);
+				};
+		});
+		m_index.slider();
+		m_index.openWindow();
+		m_index.serachBoxEvents({
+			main:'#mui-search',
+			ipt :'#search-ipt',
+			but :'#search-but'
+		});
+		
+		mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.appendChild(createFragment(ul, index, 5));
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+						});
+					});
+					var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment();// 创建空文档，不会引起页面回流
+						var li;
+						for (var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell';
+							//li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
+							var html  = ul.querySelectorAll('li')[0].innerHTML;
+							li.innerHTML = html;
+							fragment.appendChild(li);
+						}
+						return fragment;
+					};
+				});
+			})(mui);
+	</script>
+
+</html>

@@ -1,0 +1,637 @@
+<style type="text/css">
+	.m-canvasBox .shadowBor{
+		position: absolute;
+		top: 100px;
+		left: -1px;
+		width: 0;
+		height: calc(100% - 300px);
+		border:.5px solid #fff ;
+		border-radius: 50%;
+		box-shadow:0 0 10px 1px #fff ;
+	}
+</style>
+<div class="switchPage prePage"  onclick="g.loadPage('echart', false,null,false, true)"> <span><</span>  </div>
+<div class="switchPage nextPage" onclick="g.loadPage('chart1', false,null, false)"> <span>></span>  </div>
+<div class="g-container">
+	<aside class="g-nav">
+		<ul class="items">
+			<li>
+				<i style="background-image: url(/image/icon-r.png);"></i>
+				实时报表
+			</li>
+			<li>
+				<i style="background-image: url(/image/icon-d.png);"></i>
+				数据服务
+			</li>
+			<li>
+				<i style="background-image: url(/image/icon-h.png);"></i>
+				鹰眼
+			</li>
+			<li>
+				<i style="background-image: url(/image/icon-i.png);"></i>
+				预言家
+			</li>
+			<li>
+				<i style="background-image: url(/image/icon-v.png);"></i>
+				VIP大客户
+			</li>
+			<li>
+				<i style="background-image: url(/image/icon-w.png);"></i>
+				观察者
+			</li>
+		</ul>
+	</aside>
+	<div class="g-warp">
+		<header class="m-title" id="mapTitle">
+			<h5 class="titleName" id="titleName">
+			</h5>
+			<h4 class="titleData" id="realTimeTransactionAmount"></h4>
+		</header>
+		<section class="m-content">
+			<div class="m-canvasBox" id="canvasBox">
+				<!--<span class="shadowBor"></span>-->
+				<div class="b-leftTop1" onclick="p0.exitClick(this)">
+				</div>
+				<div class="m-map"style="z-index: 20;">
+					<section class="map-countent" id="map-countent" style="position: relative;">
+						<div id="hideOptions" style="position: absolute;display: none; top: 10%;left: -35px; width: 4px;height: 0px;background-color:hsla(184,100%,49%,1); box-shadow: 0 0 1px 1px #5d5d5d;"></div>
+						<div class="svg">
+							<svg class="ab"></svg>
+							<canvas class="ab"></canvas>
+						</div>
+						<div id="puff"></div>
+					</section>
+				</div>
+				<div class="m-arcItem">
+					<div class="Arc" id="transactionAmount" onclick="p0.KpiClick(this)">
+						<span class="arcData" >
+						</span>
+					</div>
+					<div class="Arc"  id="transactionNumber" onclick="p0.transactionNumberClick(this)">
+						<span class="arcData">
+						</span>
+					</div>
+					<div class="Arc" id="registering" onclick="p0.registeringClick(this)">
+						<span class="arcData">
+						</span>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+<script src="/js/mapCanvasData.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	p0.projection = null;// 用于计算地图x,y轴的方法
+	p0.trigger = {};
+	p0.objCount= 0;
+	p0.newData = {};
+	p0.oldData = {};
+	p0.nullCount= 0;
+	p0.startTime = "";
+	p0.endTime 	 = "";
+	p0.domName = {
+		mapTitle		  : document.getElementById("mapTitle"),
+		transactionAmount : document.getElementById("transactionAmount"),
+		transactionNumber : document.getElementById("transactionNumber"),
+		registering		  : document.getElementById("registering"),
+		puffSVG           : document.getElementById('puff')
+	};
+	// 定义属性, viewModel
+	Object.defineProperties(p0.trigger,{
+		"titleData" : { // text
+			set:function(val){
+				if(val != $("#realTimeTransactionAmount").html()){
+					if(!val['mapTitle'])return;
+					$('#titleName').html(val['mapTitle']['titleName']);
+					$('#realTimeTransactionAmount').html(val['mapTitle']['titleData']);
+					for(var i in val['salesAmounts']){
+						$('#'+i).html(val['salesAmounts'][i]);
+					}
+				}
+			}
+	   	},
+	   	"action" : { //canvas
+			set:function(val){
+				if(val == null || val == "start"){
+					var firstName= p0.newCanvasData.idArr.pop();
+					var lastName = p0.newCanvasData.idSuffix.pop();
+					var data 	 = p0.newCanvasData.data[firstName+lastName];
+									// 如果 p1.newCanvasData['values'] 没有备份新数据需要的canvas样式，则进行备份程序；
+					try{
+						if( !p0.newCanvasData['values'][firstName+lastName] && lastName.indexOf('Before') > -1){
+							p0.newCanvasData['values'][firstName+lastName] = p0.newCanvasData.data[firstName+lastName]; // 备份动态数据需要的canvas样式
+						}
+					}catch(e){
+						 //console.log("lastName.indexOf('Before') == undefind")
+					}
+					myCanvas(firstName,data,p0.trigger,lastName);
+					delete p0.newCanvasData.data[firstName+lastName];
+				}
+			}
+		}
+	});
+	// call....
+	p0.initPage = function (callbackCloser) {
+
+        if(!p0.initPaged){
+            p0.rotate();
+            p0.map(callbackCloser);
+            $.ajax({
+                url: "/query/minTransTime",
+                async: true,
+                type: 'POST',
+                timeout: g.timeout,
+                success: function (text, textStatus) {
+                    try {
+                    	console.log(1);
+                        p0.startTime = JSON.parse(text)["message"]["min_time_key"];
+                       	//p0.startTime = p0.startTime.split(" ")[0] + " " + new Date().format('hh:mm');
+                        p0.endTime = new NewDate(p0.startTime).add("n",10).format('yyyy-MM-dd hh:mm');
+                        p0.initTimer();
+                        p0.interval();
+                        p0.initPaged = true;
+                    } catch (e) {
+                        console.error(e);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.toast("获取数据超时");
+                }
+            });
+        }else{
+            if(callbackCloser)
+                callbackCloser();
+            p0.initTimer();
+        }
+	};
+
+    p0.initTimer = function(){
+		function queryCoords(){
+            if(Object.getOwnPropertyNames(p0.newData).length == 0){
+                $.ajax({
+                    type:"get",
+                    url:"/query/coors?",
+                    data:{
+                        "start":p0.startTime,
+                        "end"  :p0.endTime
+                    },
+                    success:function(res){
+                        var res = JSON.parse(res).message;
+                        if(res.length < 1){
+                            p0.endTime = new NewDate(p0.endTime).add("n",10).format('yyyy-MM-dd hh:mm');
+                            console.info("no data query");
+                            p0.nullCount += 1;
+                            if(p0.nullCount >= 30){
+                            	$.ajax({
+					                url: "/query/minTransTime",
+					                async: true,
+					                type: 'POST',
+					                timeout: g.timeout,
+					                success: function (text, textStatus) {
+					                    try {
+					                        p0.startTime = JSON.parse(text)["message"]["min_time_key"];
+					                       	//p0.startTime = p0.startTime.split(" ")[0] + " " + new Date().format('hh:mm');
+					                        p0.endTime = new NewDate(p0.startTime).add("n",10).format('yyyy-MM-dd hh:mm');
+					                    } catch (e) {
+					                        console.error(e);
+					                    }
+					                },
+					                error: function (XMLHttpRequest, textStatus, errorThrown) {
+					                    $.toast("获取数据超时");
+					                }
+					            });
+                            }
+                            return;
+                        }
+                        // 修改下次请求所需时间
+                        p0.startTime = new NewDate(res[res.length-1]['time_key']).add("n",1).format('yyyy-MM-dd hh:mm');
+                        p0.endTime 	= new NewDate(p0.startTime).add("n",10).format('yyyy-MM-dd hh:mm');
+						//  解析请求到的数据                       
+                        for(var i = 0; i < res.length; i++){
+                            p0.objCount++;
+                            p0.newData[p0.objCount+""] = {
+                                "lng":res[i]['longitude'],
+                                "lat":res[i]['latitude'],
+                                "text":res[i]['area_name']+"市<br/>"+res[i]['user_name']+"投资"+" "+res[i]['amount_values']+res[i]['amount_danwei'].substring(0,1)+" "+res[i]['amount_danwei'].substring(1,2)
+                            };
+                        };
+                        creartTipDomAndSvgAnimation(p0.projection);
+                    }
+                });
+            }else{
+            	creartTipDomAndSvgAnimation(p0.projection);
+            };
+        }
+        queryCoords();
+        p0.timer = setInterval(queryCoords,1000);
+        // 实时交易金额
+
+        p0.interval = function(){
+            //p0.newCanvasData = null;
+            getData("u1",function(newObjData){
+
+                if(!p0.newCanvasData)
+                    p0.newCanvasData = mapCanvasData("canvasBox",newObjData['map']['canvasData']);
+                else
+                    p.dataMergence(newObjData['map']['canvasData'],p0.newCanvasData['values'],p0.newCanvasData);
+
+                p0.trigger.action = "start";
+                p0.trigger.titleData = newObjData['map'];
+
+            });
+        };
+
+        p.intervals.map = window.setInterval(p0.interval,1000*10);
+    };
+/*========================================================    fn     ======================================================*/	
+	p0.rotate = function(){
+		var width  = $("body").outerWidth(),
+			height = $("body").outerHeight();
+		var late = (height-width)/2+"px";
+		if(height > width){
+			$('#map .g-container').css({"transform":"rotate(90deg) translate("+late+","+late+")","width":height,"height":width});
+			$('#map .b-leftTop1').css({"width":'17vh',"height":"17vh"});
+			$('#map .switchPage').css({"width":"100%","height":"100px"});
+			$('#map .switchPage.nextPage').css({"bottom":"0","left":"0","top":"auto","right":"auto"});
+		};
+		$('#map .g-container').css("opacity","1");
+		var m = $('#map .m-content');
+		var mchild1 = $('#map .m-map');
+		var mchild2 = $('#map .m-arcItem');
+		m.css('height',$('#map .g-warp').height() - $('#map .m-title').outerHeight()-100);
+	}
+
+	p0.map = function(callbackCloser){
+		var coords, 
+			coords1 = [],
+	        coords2 = [],
+	        coords3 = [];
+	    var positionCoords = [];
+		var div 	= document.getElementById('map-countent');
+	    var width 	= (div.clientWidth + div.clientHeight)/2;
+	    var height 	= div.clientHeight;
+	    
+	    var size = width > height? height:width;
+	    var projection = d3.geoMercator()
+	        .center([104.5, 38.2])
+	        .scale((height + width) / 2-100)
+	        .translate([width / 2, height / 2]);
+	      	p0.projection = projection;
+	      	
+		    function drawPoint() {
+		        var canvas = document.getElementsByTagName("canvas")[0];
+			        canvas.setAttribute("width", width);
+			        canvas.setAttribute("height",height);
+			        //canvas.setAttribute("style","z-index:0;position:absolute");
+	
+	            var ddddd = new Date().getTime();
+	
+	            var  map_point_img_key = "map_point_img" + "_" + width + "_" + height;
+	
+	            if(localStorage && localStorage[map_point_img_key]){
+	
+	                var img = new Image();
+	                img.src = localStorage[map_point_img_key];
+	                img.width = width;
+	                img.height = height;
+
+	                img.onload = function () {
+	                    canvas.getContext("2d").drawImage(this, 0, 0);
+	                    hideOptions();
+	                }
+	
+					img.onerror = function () {
+                        fetchMapData();
+                    };
+	
+	                if(callbackCloser)
+	                    callbackCloser();
+	
+	                return;
+	            }else {
+	                fetchMapData();
+	            }
+	
+	            function fetchMapData() {
+	                $.ajax({
+	                    url: "/js/json/weibo.json",
+	                    type: 'get',
+	                    success: function(data, textStatus) {
+	
+	                        for (var i = 0; i < data.length; i++) {
+	                            var pc = [];
+	                            for (var j = 0; j < data[i].length; j += 2) {
+	                                var coor = projection([data[i][j], data[i][j + 1]]);
+	                                pc.push(parseFloat(coor[0]).toFixed(3), parseFloat(coor[1]).toFixed(3));
+	                            }
+	
+	                            positionCoords.push(pc);
+	                        }
+	                        drawAction();
+	                    }
+	                });
+	            }
+	
+		        function drawAction(){
+	
+	                var time = new NewDate().getTime();
+	
+	                d3.select("canvas").style("z-index","0").style("position","absolute");
+	                var context = d3.select("canvas").node().getContext("2d");
+	                context.beginPath();
+	                context.lineWidth = 0.5;
+	                context.strokeStyle = "#2b7fd9";
+	                for (var i = 0; i < positionCoords[0].length; i += 2) {
+	                    context.moveTo(positionCoords[0][i], positionCoords[0][i + 1]);
+	                    context.lineTo(parseFloat(positionCoords[0][i]) + 1, parseFloat(positionCoords[0][i + 1]) + 1);
+	                }
+	                context.stroke();
+	                context.beginPath();
+	                context.strokeStyle = "#18d0d4";
+	                for (var i = 0; i < positionCoords[1].length; i += 2) {
+	                    context.moveTo(positionCoords[1][i], positionCoords[1][i + 1]);
+	                    context.lineTo(parseFloat(positionCoords[1][i]) + 1, parseFloat(positionCoords[1][i + 1]) + 1);
+	                }
+	                context.stroke();
+	
+	                context.beginPath();
+	                context.strokeStyle = "#fff";
+	                for (var i = 0; i < positionCoords[2].length; i += 2) {
+	                    context.moveTo(positionCoords[2][i], positionCoords[2][i + 1]);
+	                    context.lineTo(parseFloat(positionCoords[2][i]) + 1, parseFloat(positionCoords[2][i + 1]) + 1);
+	                }
+	                context.stroke();
+	
+	                // 创建闪光点 & 提示框模块
+	                creartTipDomAndSvgAnimation(p0.projection);
+	                //alert(new Date().getTime() - ddddd);
+	
+	
+	                if(localStorage){
+	                    localStorage[map_point_img_key] = canvas.toDataURL("image/png");//.replace("image/png", "image/octet-stream");
+	
+	                }
+	
+	                if(callbackCloser)
+	                    callbackCloser();
+	            }
+	
+		    }
+
+	    function drawMap() {
+	
+	        var svg = document.getElementsByTagName("svg")[0];
+	
+	        svg.setAttribute("width", width);
+	        svg.setAttribute("height", height);
+	
+	        var color = d3.scaleOrdinal()
+	            .range(d3.schemeCategory20);
+	
+	        var path = d3.geoPath()
+	            .projection(projection);
+	
+	
+	        svg = d3.select("svg");
+
+            $.ajax({
+                url: "/js/json/china.geojson",
+                type: 'get',
+                success: function (text, textStatus) {
+                    var root = JSON.parse(text);
+
+                    svg.selectAll("path")
+                        .data(root.features)
+                        .enter()
+                        .append("path")
+                        .attr("stroke", "#5494e4")
+                        .attr("stroke-width", 1)
+                        .attr("fill", function(d, i) {
+                            //return "#2b7fd9";
+                        })
+                        .attr("d", function(d) {
+                            return path(d);
+                        })
+                        .on("mouseover", function(d, i) {
+                            d3.select(this)
+                                .attr("fill", "yellow");
+                        })
+                        .on("mouseout", function(d, i) {
+                            d3.select(this)
+                                .attr("fill", "#1b1b1b");
+                        });
+                }
+            });
+	    }
+	    drawPoint();
+	    drawMap();
+	    
+		$('#map .m-map').css('width',width);
+		$('#map .m-arcItem').css("width",$('#map .m-canvasBox').width() - width-10);
+	}
+// 创建提示框dom & svg动画
+ function creartTipDomAndSvgAnimation(projection){
+ 	this.data ={}; // 单个城市data
+    var index;
+  	if(Object.getOwnPropertyNames(p0.newData).length === 0){
+        //console.debug("没有数据消费");
+        return;
+    }
+    //console.debug("消费一条数据");
+    for(var i in p0.newData){
+        index = i;		  // 记录当前数据key 
+        this.data = p0.newData[i];// 另存当前数据
+        delete p0.newData[i];// 删除当前数据
+        break;			  // 跳出循环
+    }
+ 	// 遍历当前 newObj 计算状态坐标、边线、检测碰撞、创建dom、放入旧的 oldObj 中；
+ 	this.init = function(){
+		var coors = projection([this.data['lng'],this.data['lat']]);// 经纬度转化为X、Y
+		// 判断p0.oldData长度是否超过9
+		if(Object.getOwnPropertyNames(p0.oldData).length > 9){
+			this.deleteFirstDataAndDom();
+		};
+		this.styleOffset(coors);
+		this.collisionDetection(i);
+ 	}
+ 	// 计算4种样式的坐标、offset距离
+ 	this.styleOffset = function(coors){
+ 		var initL =  $('#map-countent').offset().left, // 要添加节点父级的offsetLeft
+			initT =  $('#map-countent').offset().top,  // 要添加节点父级的offsetTop
+			initW =  130, // 要添加dom的宽度
+			initH =  50;  // 要添加dom的高度
+		this.data.val = { // 计算出对应城市提示框的4种状态坐标 & 边线
+			"NoticeLeft":{
+				"className":"NoticeLeft",
+				"x"	: coors[0]-10,
+				"y"	: coors[1]-initH-15,
+				"t"	: coors[1]-initH-20+initT,
+				"r"	: coors[0]+initW+initL-10,
+				"b"	: coors[1]+initT-15,
+				"l"	: coors[0]+initL-10,
+				"svgX":	coors[0]-22,
+				"svgY": coors[1]-22
+			},
+			"NoticeBottom":{
+				"className":"NoticeBottom",
+				"x"	: coors[0]-initW+12,
+				"y"	: coors[1]-initH-15,
+				"t"	: coors[1]-initH-10+initT,
+				"r"	: coors[0]+initL,
+				"b"	: coors[1]+initT-20,
+				"l"	: coors[0]-initW+initL+10,
+				"svgX":	coors[0]-22,
+				"svgY": coors[1]-22
+			},
+			"NoticeTop":{
+				"x"	: coors[0]-10,
+				"className":"NoticeTop",
+				"y"	: coors[1]+15,
+				"t"	: coors[1]+initT+15,
+				"r"	: coors[0]+initW+initL-10,
+				"b"	: coors[1]+initH+initT+15,
+				"l"	: coors[0]+initL-10,
+				"svgX":	coors[0]-22,
+				"svgY": coors[1]-22
+			},
+			"NoticeRight":{
+				"className":"NoticeRight",
+				"x"	: coors[0]-initW+12,
+				"y"	: coors[1]+15,
+				"t"	: coors[1]+initT+15,
+				"r"	: coors[0]+initL+10,
+				"b"	: coors[1]+initH+initT+15,
+				"l"	: coors[0]-initW+initL+10,
+				"svgX":	coors[0]-22,
+				"svgY": coors[1]-22	
+			}
+		};
+ 	};
+ 	// 检测碰撞 & 返回错误值
+ 	this.collisionDetection = function(){
+ 		// 错误数据记录
+		var er = {
+			"count":0,
+			"domList":[],
+			"cN":""
+		}
+ 		for(var n in this.data.val){// 4种状态坐标
+ 			var adjCount  = 0; // 正确值
+ 			var errorCount= 0; // 碰撞值
+ 			var errorList = [];// p0.oldData中存在碰撞的数据
+ 			var t1 = this.data.val[n].t,
+ 				r1 = this.data.val[n].r,
+ 				b1 = this.data.val[n].b,
+ 				l1 = this.data.val[n].l,
+ 				cN = this.data.val[n]['className'];
+			// 循环已生成dom的数据 p0.oldData
+			for(var x in p0.oldData){
+				var t2 = p0.oldData[x]['val']['t'],
+					r2 = p0.oldData[x]['val']['r'],
+					b2 = p0.oldData[x]['val']['b'],
+					l2 = p0.oldData[x]['val']['l'];
+				// 检测与已生成的dom是否碰撞
+				if(b1 < t2 || l1 > r2 ||t1 > b2 ||r1 < l2){// 当前数据没有碰撞,则计数器+1
+					adjCount ++;
+				}else{
+					errorCount++;     // 多少个碰撞
+					errorList.push(x); // 存在碰撞的p0.oldData数据的key
+				}
+			};
+			if(adjCount == Object.getOwnPropertyNames(p0.oldData).length){// 如果当前数据与所有已存在数据均无碰撞,则根据当前数据生成dom。并将值写入p0.oldData中，跳出当前循环
+				this.creartDom(this.data.val[n]);
+				return;
+			}else{// 存在碰撞？ 记录下来每种状态的碰撞数量 & 碰撞dom的ID。之后进行对比获取最优样式
+				if(er['count'] == "0"){
+					er = {
+						"count":errorCount,
+						"domList":errorList,
+						"cN":cN
+					};
+				}
+				if(er['count'] >  errorCount){// 当前样式错误更少？
+					er = {
+						"count":errorCount,
+						"domList":errorList,
+						"cN":cN
+					};
+				}
+			}
+ 		};
+ 		if(er['count'] > 0){
+ 			// 获取错误最少的样式
+ 			this.deleteDataAndDom(er);
+ 			this.creartDom(this.data.val[er['cN']]);
+ 		};
+ 		
+ 		
+ 	};
+ 	//生成dom
+ 	this.creartDom = function(val){
+ 		p0.oldData[index+""] = this.data;
+		p0.oldData[index+""]['val'] = {
+			"t":val['t'],
+			"l":val['l'],
+			"r":val['r'],
+			"b":val['b'],
+			"x":val['x'],
+			"y":val['y'],
+			"svgX":	val['svgX'],
+			"svgY": val['svgY'],
+			"className":val['className']
+		};
+		// 创建dom
+		var dom = '<section class="puff-content">'
+		        	+'<div class="Notice '+ p0.oldData[index]['val']['className']+'" id="Notice'+index+'" style="left:'+ val['x'] +'px;top:'+ val['y'] +'px;">'+p0.oldData[index]['text'] +'</div>'
+		        		+'<img src="/js/puff.svg" style="left:'+ val['svgX'] +'px;top:'+ val['svgY'] +'px;"/>'
+		        	+'</section>';
+		p0.oldData[index+""]['el'] = "Notice"+index;
+		$('#puff').append($(dom));
+		
+ 	};
+ 	// 删除存在碰撞的数据 & dom
+ 	this.deleteDataAndDom = function(er){
+ 		for(var i = 0;i < er.domList.length; i++){
+ 			var id = p0.oldData[er.domList[i]].el;
+ 			$('#'+id).parent().remove();// 删除dom
+ 			delete p0.oldData[er.domList[i]];     // 删除数据
+ 		}
+ 	};
+ 	// 数据长度超出规定值，删除第一个
+ 	this.deleteFirstDataAndDom = function(){
+ 		var random = (Math.random()*10).toFixed(0);
+ 			random = random > 5? (random/2).toFixed(0) : random;
+ 		for(var n = 0; n <= random; n ++){
+ 			for(var i in p0.oldData){
+	 			$('#'+p0.oldData[i].el).parent().remove();// 删除dom
+	 			delete p0.oldData[i];  
+				break;
+			}
+ 		}
+ 	};
+ 	// 运行脚本
+ 	this.running = function(){
+ 		init();
+ 	}
+ 	return this.running();
+ };
+ function hideOptions(){
+ 	$('#hideOptions').show().height(50);
+ }
+ 
+ /*============================     click fn      ================================*/
+
+p0.KpiClick = function(e){
+	//alert($(e).attr('id'))
+};
+p0.transactionNumberClick = function(e){
+	//alert($(e).attr('id'))
+};
+p0.registeringClick = function(e){
+	//alert($(e).attr('id'))
+};
+p0.exitClick = function(e){
+	//alert($(e).attr('id'))
+};
+</script>

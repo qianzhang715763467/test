@@ -1,0 +1,67 @@
+<?php
+$showDoms = explode(" ", $this->getDI()->get("session")->get("showDoms"));
+?>
+
+<div class="top-bar" style="font-size:13px;width:100%;margin:0 auto;position:relative">
+
+    <div class="" style="height:30px;display: inline-block;font-size: 12px;">
+        <div  class="date-picker" style="display:inline-block;z-index: 10;position:relative">
+            <div style="position:absolute;z-index: -1"><span><img src="/imgs/cale.png" style="width:29px;height:29px;margin-top:2px;"/></span></div>
+            <input class="report-date" type="text" style="width:30px;height:30px;font-size:20px;opacity:0" />
+        </div>
+        <span class="span-date" style="display: inline-block;position:relative"></span>
+    </div>
+
+    <div style="height:30px;display: inline-block;margin-left:10px">
+        <div style="position:relative;top:6px"><span class="top-bar-query"><img src="/imgs/query.png" style="width:22px;height:22px;"/></span></div>
+    </div>
+
+    <div style="height:30px;display: inline-block;margin-left:14px">
+        <div style="position:relative;top:6px"><span class="top-bar-list"><img src="/imgs/list.png" style="width:22px;height:22px;"/></span></div>
+    </div>
+
+    <div style="height:30px;display: inline-block;margin-left:11px">
+        <div style="position:relative;top:5px"><span class="top-bar-add"><img src="/imgs/add.png" style="width:23px;height:21px;"/></span></div>
+    </div>
+
+    <?php
+        if(in_array("verify", $showDoms)) {
+            echo '<div style = "height:30px;display: inline-block;margin-left:11px" >
+                <div style = "position:relative;top:5px" ><span class="top-bar-verify" ><img src = "/imgs/verify.png" style = "width:23px;height:21px;" /></span ></div >
+            </div >';
+        }
+    ?>
+
+
+
+    <div style="height:30px;display: inline-block;float:right">
+        <div style="position:relative;top:5px"><span class="top-bar-exit"><img src="/imgs/exit.png" style="width:23px;height:21px;"/></span></div>
+    </div>
+
+    <div style="height:30px;display: inline-block;float:right;margin-right: 10px">
+        <div style="position:relative;top:5px"><span class="top-bar-setting"><img src="/imgs/setting.png" style="width:23px;height:21px;"/></span></div>
+    </div>
+
+<!--    <div class="" style="height:30px;display: inline-block;font-size: 12px;">-->
+<!--        <span class="span-date" style="display: inline-block;position:relative"></span>-->
+<!--        <div  class="date-picker" style="display:inline-block;z-index: 10;position:relative">-->
+<!--            <div style="position:absolute;z-index: -1"><span><img src="/imgs/cale.png" style="width:29px;height:29px;margin-top:2px;"/></span></div>-->
+<!--            <input class="report-date" type="text"  placeholder="请点击选择查询日期" style="width:30px;height:30px;font-size:20px;opacity:0" />-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+<!--    <div class="demo-3" style="height:30px;display: inline-block;font-size: 12px;position: absolute;right: 3px;top:3px;">-->
+<!--        <div class="dl-menu dl-menuwrapper" style="position:relative;top:7px;z-index: 99999">-->
+<!--            <span class="top-bar-menu dl-trigger"><img src="/imgs/menu.png" style="width:23px;height:21px;"/></span>-->
+<!--            --><?php ////echo $menu_html;?>
+<!--        </div>-->
+<!---->
+<!--    </div>-->
+
+</div>
+
+
+
+

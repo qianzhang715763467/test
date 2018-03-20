@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+        <meta name="robots" content="noarchive">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<title></title>
+		<!--<meta name="viewport" content="initial-scale=1, maximum-scale=1">-->
+		<link rel="stylesheet" type="text/css" href="/icon-fonts/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="/js/light7/light7.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/htable.css">
+
+        <link rel="stylesheet" type="text/css" href="/js/dlmenu/default.css" />
+        <link rel="stylesheet" type="text/css" href="/js/dlmenu/component.css" />
+        <link rel="stylesheet" type="text/css" href="/css/animate.css" />
+
+
+        <script type='text/javascript' src='/js/jquery.min.js'></script>
+        <script type="text/javascript" src="/js/tools.js"></script>
+        <script src="/js/jquery.cookie.js"></script>
+        <script>
+            $.config = {
+                autoInit: true
+            };
+        </script>
+        <script type='text/javascript' src='/js/light7/light7.js'></script>
+        <script type='text/javascript' src='/js/light7/light7-swiper.min.js'></script>
+        <script type="text/javascript" src="/js/dlmenu/modernizr.custom.js"></script>
+        <script type="text/javascript" src="/js/dlmenu/dlmenu.js"></script>
+        <script type="text/javascript" src="/js/global.js"></script>
+        <script type="text/javascript" src="/js/htable.js"></script>
+
+		<style type="text/css">
+			body {
+                font-size:12px;
+                height: 100%;
+                font-family: "微软雅黑";
+                -webkit-overflow-scrolling:touch;
+            }
+
+            .page .content{
+                overflow-x: hidden;
+            }
+
+            .top-bar img{
+                cursor: pointer;
+            }
+		</style>
+        <script type="text/javascript">
+
+            var bootUrl = "<?php echo $bootUrl?>";
+            var bootPage = "<?php echo $bootPage?>";
+            $(document).ready(function () {
+
+                var uri = window.location.href.split("#")[1];
+                if(!uri){
+                    uri = "querybmd";
+                }
+
+                if (g.w > g.maxWidth) {
+                    var bodyPaddingLeft = (g.w - g.maxWidth) / 2;
+                    $("body").css("margin-left", bodyPaddingLeft + "px");
+                    $("body").width(g.maxWidth);
+                    g.bodyleft = bodyPaddingLeft;
+                }
+
+                g.queryData("/index/whoami",{},function(data){
+                    g.username = data.message;
+                });
+
+                g.loadPage(bootUrl+bootPage, bootPage, true, null, true, true);
+            });
+
+            //url, pageId, noAnimation, param, force, leftToRight
+
+        </script>
+	</head>
+	<body>
+		<div class="page-group" style="margin: 0 auto;">
+            <div class="page" id="querybmd"></div>
+            <div class="page" id="addbmd"></div>
+            <div class="page" id="submitedHistory"></div>
+            <div class="page" id="previewimgs"></div>
+            <div class="page" id="submitedHistory"></div>
+            <div class="page" id="view"></div>
+            <div class="page" id="updatePass"></div>
+		</div>
+	</body>
+</html>

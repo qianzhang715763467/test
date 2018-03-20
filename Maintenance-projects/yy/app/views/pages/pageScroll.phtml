@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,must-revaildate">
+		<meta http-equiv="expires" content="0">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/scrollCutPage.css" />
+		<style type="text/css">
+			.g-popup{
+				z-index: 3;
+			}
+			.page{
+				max-height: 760px;
+			}
+			.page:nth-child(1) .title,
+			.page:nth-child(2) .title{
+				line-height: 110px !important;
+			}
+			.page:nth-child(3){
+				max-height: 430px;
+			}
+			.page:nth-child(3) #product{
+				width: calc(100% - 450px);
+				padding: 0;
+			}
+			#product+.foot-tab,
+			#regular+.foot-tab{
+				position: relative;
+				width: 450px;
+				padding: 0;
+			}
+			#product+.foot-tab table,
+			#regular+.foot-tab table{
+				right: 0;
+				bottom: 0;
+				top: auto ;
+				left: auto;
+				transform: translateY(0) ; 
+			}
+			.page:nth-child(4){
+				max-height: 560px;
+			}
+			.page:nth-child(4) #regular{
+				width: calc(100% - 450px);
+			}
+			
+			.up-content,.page-content{position: relative;}
+			.loading{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: 400px;
+				height: 200px;
+			    box-sizing: border-box;
+				background-color:rgba(255,255,255,1);
+				padding-right: 100px;
+				border-radius: 15px;
+				z-index: 2;
+				transition: all 1s; 
+				overflow: hidden;
+				opacity: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="g-container">
+			<div class="g-content">
+				<!-- 主体内容 -->
+				<ul class="userAnalysis pages">
+					<li class="page page-active">
+						<h6 class="title">到期用户分析</h6>
+						<div class="page-content">
+							<header class="chart-title">
+								<ul>
+									<li>到期日期：<i class="endDate">4月5日</i></li>
+									<li>总人数：<i class="totalMem">60,125人</i></li>
+									<li>到期总金额：<i class="totalAmount">19.9亿元</i></li>
+								</ul>
+							</header>
+							<section id="customer" class="chart"></section>
+							<footer class="foot-tab">
+								<table border="" cellspacing="0" cellpadding="0">
+								</table>
+							</footer>
+						</div>
+					</li>
+					<li class="page page-active">
+						<h6 class="title">到期利率分布</h6>
+						<div class="page-content">
+							<header class="chart-title">
+								<ul>
+									<li>到期日期：<i class="endDate">4月5日</i></li>
+									<li>总人数：<i class="totalMem">60,125人</i></li>
+									<li>到期总金额：<i class="totalAmount">19.9亿元</i></li>
+								</ul>
+							</header>
+							<section id="interestRateDistribution" class="chart"></section>
+							<footer class="foot-tab">
+								<table border="" cellspacing="0" cellpadding="0">
+								</table>
+							</footer>
+						</div>
+					</li>
+					<li class="page">
+						<h6 class="title">到期产品</h6>
+						<div class="page-content">
+							<header class="chart-title">
+								<ul>
+									<li>到期日期：<i class="endDate">4月5日</i></li>
+									<li>总人数：<i class="totalMem">60,125人</i></li>
+									<li>到期总金额：<i class="totalAmount">19.9亿元</i></li>
+								</ul>
+							</header>
+							<section id="product" class="chart"></section>
+							<footer class="foot-tab">
+								<table border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td colspan="3" style="border: none;background-color: white; text-align: right;">人群会重复</td>
+									</tr>
+								</table>
+							</footer>
+						</div>
+					</li>
+					<li class="page">
+						<h6 class="title">定期资产AUM</h6>
+						<div class="page-content">
+							<header class="chart-title">
+								<ul>
+									<li>到期日期：<i class="endDate">4月5日</i></li>
+									<li>总人数：<i class="totalMem">60,125人</i></li>
+									<li>到期总金额：<i class="totalAmount">19.9亿元</i></li>
+								</ul>
+							</header>
+							<section id="regular" class="chart"></section>
+							<footer class="foot-tab">
+								<table border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td colspan="3" style="border: none;background-color: white; text-align: right;">人群会重复</td>
+									</tr>
+								</table>
+							</footer>
+						</div>
+					</li>
+					<li class="page">
+						<h6 class="title">无定期资产用户活期AUM</h6>
+						<div class="page-content">
+							<header class="chart-title">
+								<ul>
+									<li>到期日期：<i class="endDate">4月5日</i></li>
+									<li>总人数：<i class="totalMem">60,125人</i></li>
+									<li>到期总金额：<i class="totalAmount">19.9亿元</i></li>
+								</ul>
+							</header>
+							<section id="demand" class="chart"></section>
+							<footer class="foot-tab">
+								<table border="" cellspacing="0" cellpadding="0">
+								</table>
+							</footer>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/tools.js"></script>
+	<script type="text/javascript" src="../js/echarts.min.js"></script>
+	<script type="text/javascript" src="../js/scrollCutPage.js"></script>
+	<script type="text/javascript">
+		var w = window.opener.document.getElementsByClassName('currentPosition')[0];
+		var subStartDate = $(w).attr('start-date'),
+			subEndDate   = $(w).attr('end-date');
+		// target analysis
+		var ta = {};
+		ta.tagName = {
+			main  : $('.g-content').first(),
+			pages : $('.userAnalysis').first(), // ul pages
+			ol    : $('.aside_btn li'),			// ol>li aisde
+			fixed : $('.g-popup').first(),
+			fText : $('.upText').first(),
+			close : $('.close'),
+			fs    : $('.recentlyChart'),
+			chartsDom:['customer','interestRateDistribution','product','regular','demand']
+		};
+		var initArr = {};// 初始数据；
+		var getData = {}; // 初始化后数据；
+		// 对比大小后数据；
+		var size1,	
+			size2,
+			size5;
+		var seriesName = ['到期金额','到期利率分布','到期产品','资产AUM','活期总金额'];//图表数据名字
+		var chartShow = null;// 获取当前正在显示的chart。
+		var chartsArr = chartsArr(ta.tagName.chartsDom); // chart 集合;
+		// 初始化
+		ta.initPage = function(){
+			// loading
+			var load = '<article class="loading"></article>';
+			ta.tagName.fText.addClass('m-assetMaturity');
+			for(var i = 0;i < ta.tagName.chartsDom.length; i++){
+				var x = i;
+				$('#'+ta.tagName.chartsDom[x]).parent().append(load);
+				(function(a){
+					setTimeout(function(){
+						echarts.init(document.getElementsByClassName('loading')[a]).showLoading({
+							text: '正在努力的读取数据中...'
+						});
+					},1000);
+				})(i);
+				$('body').scrollTop(0);
+			}
+			
+			/* chart loading animation*/
+			function getAjax(param, cb){
+				$.ajax({
+					type:"get",
+					url:"http://ds.idc.xiwanglife.com/dataservice/getconfig.do?",
+					async:true,
+					data:param,
+					success:function(data){
+						var frist = JSON.stringify(data);
+							frist = frist.replace(/null/g,"0");
+						var last = JSON.parse(frist);
+						if(cb) cb(last);
+					},
+					error:function(){
+						switch(param.id){
+							case 133:
+								alert('到期金额分布   请求超时！');
+								break;
+							case 248:
+								alert('新增到期利率分布   请求超时！');
+								break;
+							case 134:
+								alert('到期产品分布   请求超时！');
+								break;
+							case 135:
+								alert('到期用户定期资产AUM期限分布   请求超时！');
+								break;
+							default:
+								alert('无定期资产AUM用户活期AUM分布   请求超时！');
+								break;
+						}
+					}
+				});
+			};
+			// callback
+			function AjaxCb (data,count){
+				// 返回对象自己的属性的名称。
+				var list  = data.details[Object.getOwnPropertyNames(data.details)].values;
+				if(list == "") {
+					getData[count] = '当前页面暂时没有数据。。。';
+					// 绑定chart
+					return addChart(count);
+				};
+				if(count == 0 || count == 1 || count == 4){
+					var amount = [];
+					var dates = [];
+					// X轴排序
+					list = list.sort(sortFn);
+					for(var i = 0;i < list.length;i++){
+						if(count == 4){
+							amount.push(Number(list[i].huoqi_balance).toFixed(1));
+							
+						}else if(count == 1){
+							amount.push(Number(list[i].amount/10000).toFixed(1));
+						}else{
+							amount.push(Number(list[i].amount).toFixed(1));
+						}
+						dates.push(list[i].tag);
+					};
+					// 大小对比
+					size1 = new sizeFn(amount);
+					// 图表数据
+					getData[count] = {
+						title		:data.configName,
+						subtext		:'单位：万元',
+						seriesName	:[seriesName[count]],
+						xAxisData	:dates,
+						seriesData	:amount,
+						markPointData:[
+			                {name : '最低', value : size1.min, xAxis: size1.indexMin, yAxis: size1.min,
+				                itemStyle:{
+				                	normal:{
+		                         		label:{
+		                          			color:"red",
+		                          			position:"top",
+		                          			textStyle:{
+		                          				fontWeight:"600",
+		                          				fontSize:"16",
+		                          				textAlign:"center"
+		                          			}
+		                        		}
+	                      			}
+                      			}
+                      		},
+			                {name : '最高', value : size1.max, xAxis: size1.indexMax, yAxis: size1.max,
+				                itemStyle:{
+				                	normal:{
+		                         		label:{
+		                          			color:"#000",
+		                          			position:"top",
+		                          			textStyle:{
+		                          				fontWeight:"600",
+		                          				fontSize:"16",
+		                          				textAlign:"center"
+		                          			}
+		                        		}
+	                      			}
+                      			}
+                      		}
+                      	],
+		         	 	values      : list
+					};
+				}else{
+					var series = [];
+					var nameList = [];
+					for(var i = 0;i < list.length;i++){
+						series.push({'value':Number(list[i].amount).toFixed(1),'name':list[i].tag});
+						nameList.push(list[i].tag);
+					};
+					getData[count] = {
+						title		: data.configName,
+						seriesName	: seriesName[count],
+						legendData	: nameList,
+						seriesData	: series,
+		         	 	values      : list
+					};
+				}
+				// 绑定chart
+				addChart(count)
+			}
+			// max & min
+			function sizeFn(a){
+				this.arr = a;					 // 对比数组
+				this.max = parseInt(this.arr[0]);// 最大值
+				this.min = parseInt(this.arr[0]);// 最小值
+				this.indexMax = 0;				 // 最大值下标
+				this.indexMin = 0;				 // 最小值下标
+				var len  = this.arr.length;
+				for(var i = 1;i < len;i++){
+					if(parseInt(this.arr[i]) > this.max){
+						this.max = this.arr[i];
+						this.indexMax = i;
+					};
+					if(parseInt(this.arr[i]) < this.min){
+						this.min = this.arr[i];
+						this.indexMin = i;
+					}
+				}
+			}
+			
+			// 1
+			getAjax({id:133,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,0) });
+			// 5
+			getAjax({id:248,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,1) });
+			// 2
+			getAjax({id:134,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,2) });
+			// 3
+			getAjax({id:135,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,3) });
+			// 4
+			getAjax({id:136,date1start: subStartDate,date1end: subEndDate},function(data){ AjaxCb(data,4) });
+			
+		};
+		
+		// 执行
+		ta.initPage();
+		
+		
+/*------------------------------------------------     function      ----------------------------------------------*/
+		// resize
+		$(window).resize(function(){
+			// 窗口大小发生变化，清空chart box。
+			$('.userAnalysis .chart').empty();
+			// 重新加载当前显示的图表。
+			for(var i = 0;i < ta.tagName.chartsDom.length; i++){
+				addChart(i);
+			}
+		})
+		
+		//循环定时器；
+		var clear = {}
+		// 加载chart
+		function addChart(size){
+			// init timer
+			clear[size] = size;
+			clear[size] = setInterval(function(){
+				if(!getData[size] || !getData[size].values){
+					clearInterval(clear[size]);
+					$('#'+ta.tagName.chartsDom[size]).parent().children('.loading').remove();
+					var  div = $('<div class="pageTip"></div>').html(getData[size]);
+					$('#'+ta.tagName.chartsDom[size]).stop().show().html(div);
+				}else{
+					clearInterval(clear[size]);
+					$('#'+ta.tagName.chartsDom[size]).parent().children('.loading').remove();
+					chartsArr[size]();
+				}
+			},1000);
+		}
+		// X轴排序
+		/*function sortFn2(a,b){
+			var first=a.tag.toLowerCase();
+				if(first.indexOf('<=') > -1)first = 998; // 截取~前面的值
+		    	first = first.replace(/[\u4e00-\u9fa5]/g,"");// 去除中文
+		    	first = first.replace(/[\(]/g,'').replace(/k/g,'').replace(/%|-/g,'');		   // 去除%
+		    	if(first == "")first = 1000;				   // 值为空
+		    	if(first.indexOf(',') > -1)first = first.substring(first.indexOf(',')+1,first.length-1); // 截取~前面的值
+			var last=b.tag.toLowerCase();
+				if(last.indexOf('<=') > -1){
+					last = 999; // 截取~前面的值
+				}else{
+					last = last.replace(/[\u4e00-\u9fa5]/g,"");
+					last = last.replace(/[\(]/g,'').replace(/k/g,'').replace(/%|-/g,'');
+					if(last.indexOf(',') > -1)last = last.substring(last.indexOf(',')+1,last.length-1);
+		    		if(last == "")last = 1000;
+				}
+			return eval(first) - eval(last);
+		}*/
+	</script>
+	</html

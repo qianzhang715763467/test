@@ -1,0 +1,53 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"page/location.html",
+			"js/jquery-2.1.1.min.js",
+			"js/mui.pullToRefresh.js",
+			"img/shuijiao.jpg",
+			"img/sellerBg-01.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"img/sellerHeadPortrait.jpg",
+			"css/icons-extra.css",
+			"fonts/mui-icons-extra.ttf",
+			"css/pull-loading.css",
+			"css/custom.index.css",
+			"img/muwu.jpg",
+			"img/yuantiao.jpg",
+			"img/cbd.jpg",
+			"img/sellerBg.jpg",
+			"js/mui.js",
+			"index2.html",
+			"js/my-slider.js",
+			"css/my-slider.css",
+			"css/my-extend.css"
+		],
+		"refer": [
+			"page/location.html",
+			"index2.html"
+		]
+	},
+	"page/location.html": {
+		"resources": [
+			"css/mui.indexedlist.css",
+			"js/mui.indexedlist.js",
+			"css/mui.min.css",
+			"index.html"
+		],
+		"refer": [
+			"index.html"
+		]
+	},
+	"index2.html": {
+		"resources": [
+			"img/shuijiao.jpg",
+			"img/muwu.jpg",
+			"img/yuantiao.jpg",
+			"js/mui.js",
+			"img/cbd.jpg"
+		]
+	}
+}

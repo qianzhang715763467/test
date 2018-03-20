@@ -1,0 +1,347 @@
+<header class="bar bar-nav ">
+    <h1 class='title'>白名单添加</h1>
+</header>
+
+<style>
+
+    #addbmd .pc-form{width: 98%;min-width:350px;height: auto;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+    #addbmd .pc-form .input{width: 88%;padding-bottom: 15px;margin-left: 6%;}
+    #addbmd .pc-form .input input{width: 100%;height: 40px;font-size: 16px;border: 1px solid #ccc;border-radius: 5px}
+    #addbmd .pc-form .submit button{width: 100%;height: 46px;font-size: 20px;color:#fff;background-color: #1FCBF0;}
+    #addbmd .pc-form .input select{width: 100%;height: 40px;border: 1px solid #ccc;}
+
+
+    #addbmd .phone-form{width: 98%;max-width:400px;height: 200px;margin: 0 auto;border-radius: 10px;padding:20px 0;background-color: #fff}
+    #addbmd .phone-form .input{width: 88%;margin: 15px 6% 0 6%}
+    #addbmd .phone-form .input input{width: 100%;height: 40px;font-size: 20px;border: 1px solid #aaa;box-sizing:border-box}
+    #addbmd .phone-form .submit{margin-top: 35px;clear:both}
+    #addbmd .phone-form .submit button{width:100%;height: 50px;font-size:23px;font-weight:bolder;color:#fff;background-color: #1FCBF0;border: 1px solid #aaa;}
+
+    #addbmd .upload-img-trigger button{height:28px;line-height:28px;border-radius:5px;border: 1px solid #ccc}
+    #addbmd .upload-img-trigger img{position:relative;top:7px;left:10px}
+    #addbmd #upload-img{display: none}
+
+    #addbmd  #error{
+       margin-top: 10px;
+        text-align: center;
+        font-weight:bolder;
+        height: 30px;
+        color:#ec0606;
+    }
+
+    #addbmd  #message{
+        max-width: 300px;
+        min-width: 300px;
+        text-align: center;
+        line-height: 25px;
+        margin: 0 auto;
+        padding-top: 25px;
+        font-size: 18px;
+        color: #f12a2a;
+    }
+</style>
+
+<div class="content">
+    <div id="addbmd" style="font-size:13px;width:100%;margin:0 auto;">
+        <?php $this->partial("/pages/toolbar"); ?>
+        <form>
+            <div class="input"><input id="username" type="text" name="username" placeholder="姓名" maxlength="20"></div>
+            <div class="input"><input id="id_no" type="text" name="id_no" placeholder="身份证号" maxlength="18"></div>
+            <div class="input"><input id="phone_no" type="text" name="phone_no" placeholder="手机号" maxlength="11"></div>
+            <div class="input">
+                <select>
+                    <option value="" disabled selected>与业主关系</option>
+                    <option value="">父母</option>
+                    <option value="">子女</option>
+                </select>
+            </div>
+            <div class="input">
+                <select id="test" name="province" data-order="1">
+                    <option value="0" disabled selected>省份</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="city" data-order="2">
+                    <option value="0" disabled selected>城市</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="projname" data-order="3">
+                    <option value="0" disabled selected>楼盘名称</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="building_num" data-order="4">
+                    <option value="0" disabled selected>楼栋号</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="unit" data-order="5">
+                    <option value="0" disabled selected>单元号</option>
+                </select>
+            </div>
+            <div class="input">
+                <select name="" data-order="6">
+                    <option value="0" disabled selected>房号</option>
+                </select>
+            </div>
+            <div class="input upload-img-trigger">
+                <button type="button" value="" onclick="p3.upload()">上传证件照片</button>
+                <img src="/imgs/id_card.png" style="width:35px;height:25px;"/>
+            </div>
+            
+            <div class="input submit">
+                <button type="button">提&nbsp&nbsp&nbsp&nbsp交</button>
+            </div>
+
+            <div id="upload-img">
+                <input type="file" onchange="p3.handleFiles(this)" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera"/>
+            </div>
+
+            <div id="upload-img-src">
+                <input type="hidden" name="upload-img-src"/>
+            </div>
+
+        </form>
+        <div id="error"></div>
+        <div id="message"></div>
+    </div>
+</div>
+
+<script>
+    var p3 = {id:"addbmd",params:{}};
+    p["addbmd"] = p3;
+
+    p3.initPage = function () {
+        if (termType === "iphone" || termType.indexOf("linux ") >= 0) {//phone
+            console.debug("phone");
+            $("form").addClass("phone-form");
+        } else if (termType.indexOf("mac") >= 0 || termType.indexOf("win") >= 0) {
+            console.debug("pc");
+            $("form").addClass("pc-form");
+        }
+
+        p3.selectChange();
+        $.hideIndicator();
+    }
+
+    $("#addbmd .submit button").click(function () {
+
+        var id_no = $("#id_no").val().replace(/ /g, '');
+        var phone_no = $("#phone_no").val().replace(/ /g, '');
+
+        if (id_no.length === 0 || phone_no.length === 0) {
+            $("#error").text("身份证，手机号不能为空");
+            return;
+        }
+
+        $.ajax({
+            url: "/query/inbmd",
+            async: true,
+            type: 'POST',
+            data: {username: id_no, phone_no: phone_no},
+            success: function (text, status) {
+                console.debug(text);
+                try{
+                    var o = jQuery.parseJSON(text);
+                    if (o.c === 0) {
+                        window.location.href = o.t;
+                    } else {
+                        seterror(o.t);
+                    }
+                }catch(e){
+                    console.error(e);
+                }
+            }
+        });
+    });
+
+
+    p3.selectChange = function () {
+
+        var s = $(this), o, query_field, data;
+
+        if(!s[0].tagName || s[0].tagName.toLocaleLowerCase() !== "select"){
+            s = $("#addbmd form select[name='province']").first();
+            o = s.attr("data-order");
+            query_field = s.attr("name");
+            data = {query_field:query_field};
+        }else{
+            s = $("#addbmd form select[data-order='"+(parseInt(s.attr('data-order')) + 1)+"']").first();
+            o = s.attr("data-order");
+            query_field = s.attr("name");
+            data = {query_field:query_field};
+        }
+
+        $("#addbmd form select[data-order]").each(function(){
+            var o1 = $(this).attr("data-order");
+            if(o1 >= o){
+                $(this).val("0");
+                $(this).find("option").each(function () {
+                    var v = $(this).attr("value");
+                    if(v !== "0"){
+                        $(this).remove();
+                    }
+                });
+            }else{
+
+                data[$(this).attr("name")] = $(this).val();
+            }
+        });
+
+        //console.debug(data);
+
+        $.showIndicator();
+        g.queryData("/query/ownerinfo", data, function(d){
+
+            try{
+                d = d.details.list.values;
+                for(var i in d){
+                    s.append("<option value='" +d[i][query_field]+ "'>"+d[i][query_field]+"</option>");
+                }
+            }catch (e){
+
+            }finally {
+                $.hideIndicator();
+            }
+        });
+    }
+
+    $("#addbmd form select").bind("change", p3.selectChange);
+
+    p3.upload = function () {
+        $("#upload-img input").first().trigger("click");
+    }
+
+    p3.handleFiles = function (_this) {
+        var files = _this.files;
+        p3.files_reader = [];
+        for (var i = 0; i < files.length; i++) {
+            if (files.length) {
+                var file = files[i];
+                var reader = new FileReader();
+                reader.file = file;
+
+                reader.chunkSize = 2097152 / 2;
+                reader.blobSlice = File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice;
+
+                reader.chunks = Math.ceil(reader.file.size / reader.chunkSize);
+                reader.currentChunk = 0;
+                reader.md5 = new SparkMD5();
+                p3.files_reader.push(reader);
+
+                reader.onload = function (e) {
+
+                    this.md5.appendBinary(this.result);
+                    this.currentChunk++;
+
+                    this.readAsDataURL(this.file);
+
+                    this.onload = function(e){
+                        var img = new Image();
+                        img.src = this.result;
+                        img.reader = this;
+
+                        img.onload = function(){
+                            this.reader.width = img.width;
+                            this.reader.md5 = this.reader.md5;
+                        };
+                    };
+                    
+                    var m = this.md5.end();
+                    var id = i + "" + new Date().getTime();
+                    //$("#p3-fileslist").append("<div><span class='p3-file-name'>" + this.file.name + "</span><span class='p3-file-progress'><span id='" + id + "'class='p3-file-progress-inner'></span></span><span id='per" + id + "'class='p3-file-progress-per'></span></div>");
+
+                    this.md5 = m;
+                    this.progressID = id;
+                    this.ready = true;
+                    p3.submit_files();
+                };
+                reader.onerror = function (e) {
+                    alert(e);
+                };
+
+                if(reader.file.size > 5242880){
+                    alert("图片不能大于");
+                }
+                reader.readAsBinaryString(reader.blobSlice.call(file, 0, reader.file.size));
+            }
+        }
+    }
+
+    p3.submit_files = function () {
+
+        for(var index in p3.files_reader){
+            if(!p3.files_reader[index].ready)
+                return;
+        }
+
+        if (p3.files_reader.length === 0)
+            return;
+//        $("#p3-submit-files").attr("disabled", true);
+        var ms = "";
+        for (var i = 0; i < p3.files_reader.length; i++) {
+            var r = p3.files_reader[i];
+            ms = ms + r.md5 + " ";
+        }
+        ms = ms.trim();
+
+        p3.md5KV = undefined;
+
+        for (var i in p3.files_reader) {
+            var r = p3.files_reader[i];
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open("POST", "/img/upload");
+            xhr.withCredentials = false;
+
+            //xhr.onprogress = p3.uploadProgress;
+            xhr.upload.onprogress = p3.uploadProgress;
+            xhr.onreadystatechange = p3.uploadEnd;
+            xhr.reader = r;
+
+            xhr.upload.progressID = r.progressID;
+            $("#" + xhr.upload.progressID).parent().css("display", "inline-block");
+            //console.debug(xhr);
+            //xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
+
+            var formData = new FormData();
+
+            console.debug(r.md5);
+
+            formData.append("key", r.md5);
+            console.debug("img md5: " + r.md5);
+
+            formData.append("file", r.file);
+            xhr.send(formData);
+        }
+    };
+
+    p3.uploadProgress = function (e) {
+        if (e.lengthComputable) {
+            var percentComplete = e.loaded / e.total;
+            console.log(percentComplete);
+//            var pw = $("#" + this.progressID).parent().width();
+//            var w = Math.round(pw * percentComplete);
+//
+//            $("#" + this.progressID).css("width", w + "px");
+//            $("#per" + this.progressID).html(Math.round(percentComplete * 100) + '%');
+        } else {
+
+        }
+    };
+
+    p3.uploadEnd = function (e) {
+
+        if (e.target.readyState === 4 && e.target.status === 200) {
+            //console.debug("=====" + e.target.responseText);
+            var o = $.parseJSON(e.target.responseText);
+            if(o.key){
+
+            }else{
+
+                console.debug(e.target.responseText);
+            }
+        }
+    };
+</script>
