@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.imgshow {
+				min-height: 100px;
+				border: 1px dotted #ddd;
+				padding: 5px;
+			}
+			
+			.imgbox {
+				width: 100px;
+				height: 100px;
+				min-height: 100px;
+				border: 1px solid #ddd;
+				display: none;
+				margin: 5px;
+				position: relative;
+			}
+			
+			.imgbox .imgshowlist {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.imgbox .close {
+				position: absolute;
+				top: 0;
+				right: 0;
+				color: #000;
+				font-size: 8px;
+				display: none;
+			}
+			
+			.imgbox:hover {
+				opacity: .8;
+				background: #000;
+			}
+			
+			.imgbox:hover .close {
+				cursor: pointer;
+				opacity: 1.0;
+				background: #fff;
+				display: block;
+			}
+		</style>
+		<script src="jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--上传文件-->
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-3 tr">图片上传:</label>
+			<div class="col-md-9 col-sm-9 col-xs-8 ml-10">
+				<div class="imgshow"></div>
+				<div class="img-btn">
+					<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="icon-cloud-upload"></i> 添加图片</a>
+					<input type="file" style="display:none">
+				</div>
+			</div>
+		</div>
+		<a href="上传.html#preview">sssssssssss</a>
+		<!--<input type="file"/>-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".img-btn>.upload-btn").click(function(event) {
+					$(".img-btn").find("input[type=\'file\']").trigger("click");
+				});
+				$(".img-btn").find("input[type='file']").change(function(event) {
+					var files = event.target.files,
+						file; // 根据这个 <input> 获取文件的 HTML5 js 对象
+					if(files && files.length > 0) {
+
+						file = files[0]; // 获取目前上传的文件		      
+						if(file.size > 1024 * 1024) { // 那么我们可以做一下诸如文件大小校验的动作
+							alert('图片大小不能超过 1MB!');
+							return false;
+						}
+						var URL = window.URL || window.webkitURL; // 获取 window 的 URL 工具
+						console.log(URL)
+						var imgURL = URL.createObjectURL(file); // 通过 file 生成目标 url
+						var imgL = '<div class="imgbox"><img class="imgshowlist" src=' + imgURL + ' title="点击查看大图" /><span class="close">X</span></div>';
+						$(".imgshow").append(imgL);
+						$(".imgshow").find(".imgbox").css("display", "inline-block");
+						$(".close").on("click", function() {
+							$(this).closest(".imgbox").remove();
+							$("input[type='file']").val('');
+						})
+					}
+					$(".imgshow").find(".imgshowlist").on('click', function() { //放大看图
+						window.open($(this).attr("src"));
+					});
+				});
+			})
+		</script>
+	</body>
+
+</html>

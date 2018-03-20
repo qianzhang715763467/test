@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var a = {
+			aa: [{
+					bb: "bb"
+				},
+				{
+					cc: [
+						"cc",
+						{
+							dd: "dd"
+						}
+					]
+				}
+			]
+		};
+		var arr = false;
+		function fn(data,n){
+			var currentDataType = '';
+			if(typeof data == 'object') {
+				if(data.length) {
+					currentDataType = "array";
+				} else {
+					currentDataType = "object";
+				}
+			} else {
+				currentDataType = "string";
+			};
+			if(currentDataType == "array"){
+				for(var i = 0; i < data.length; i++){
+					fn(data[i],n + '[' + i + ']');
+				}
+			};
+			if(currentDataType == "object"){
+				for(var k in data){
+					fn(data[k],n + '.' + k);
+				}
+			};
+			if(currentDataType == "string"){
+				console.log(n+"   :   "+data);
+				if(!arr){
+					arr = ['[',']'];
+					console.log(arr)
+				}
+			};
+			
+		}
+		fn(a,"a");
+		var id = "#46576";
+		console.log(id.split("#")[1]);
+	</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		/*定义一个人类*/   
+		var Person = function() {   
+		}   
+		Person.prototype._init_ =function(name,age,grade){
+				this.name=name; 
+			    this.age=age;
+			    this.grade = grade;
+			}
+		 /*定义一个学生类*/   
+		function Student(msg) {   
+			var p = new Person();
+			p._init_.apply(this,arguments);
+		}   
+		//创建一个学生类   
+		var student=new Student("qian",21,"一年级");   
+		console.log(student)
+		//测试   
+//		alert("name:"+student.name+"\n"+"age:"+student.age+"\n"+"grade:"+student.grade); 
+	</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var count = 20;
+		function bottle(size){
+			if(size == 0)return;
+			if(size%2 == 0){
+				size = size/2;
+				count += size;
+				bottle(size);
+			}else{
+				size = (size-1)/2;
+				count += size;
+				if(size > 0 )bottle(size+1);
+			}
+		}
+		bottle(count);
+		
+		console.log(count)
+	</script>
+</html>

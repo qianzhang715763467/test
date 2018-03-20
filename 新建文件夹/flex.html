@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#tablebox{
+				width: 1100px;
+				height: 100px;
+				overflow-x: scroll;
+			}
+			table{
+				border-collapse: collapse;
+			}
+			th,td{
+				padding: 5px 20px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="tablebox">
+			<table border="1" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>Header</th>
+				<th>Header</th>
+				<th>HeadHeaderer</th>
+				<th>HeaHeaderHeaderder</th>
+				<th>Header</th>
+				<th>HeaderHeaderHeader</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>HeadHeaderHeaderHeaderHeaderer</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>HeadHeaderHeaderer</th>
+				<th>HeaHeaderder</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>HeaderHeader</th>
+				<th>Header</th>
+				<th>Her</th>
+				<th>Header</th>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>DaDataDataDataDataDataDataDatata</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+		</table>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var aa = " 1234 6%46%2 543&325 435& ";
+		var bb = ['%','&','……'];
+		var cc = "      ";
+		for(var i = 0;i < bb.length; i++){
+			var c = bb[i];
+			aa = aa.replace(new RegExp(c,'g'),"");
+		}
+		cc = cc.replace(/\ +/g,"");
+		var dd = true;
+		dd = dd? '是':'否';
+		console.log(aa)
+	</script>
+</html>

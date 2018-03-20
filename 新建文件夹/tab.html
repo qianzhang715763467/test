@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			#tmp-tabs-wrap{
+				position: absolute;
+				padding:10px;
+				width: 100%;
+				max-width: 1100px;
+				height: 100%;
+				margin: 0 auto;
+			}
+			#tmp-tabs-wrap .tab-items{
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item{
+				position: relative;
+				padding-bottom: 15px;
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item:not(1){
+				padding-bottom: 0;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item .tab-item-main{
+				display: block;
+				width: 100%;
+				height: auto;
+				max-height: 100%;
+				overflow: hidden;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item .tab-item-main table{
+				width: 100%;
+				border-color: #F2F2F2;
+				text-align: center;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item .tab-item-main table th,
+			#tmp-tabs-wrap .tab-items .tab-item .tab-item-main table td{
+				padding: 5px;
+				font-size: 14px;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item .tab-item-main table th{
+				background-color: #F2F2F2;
+			}
+			#tmp-tabs-wrap .tab-items .tab-item .tab-item-main table col{
+				width: 25%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="tmp-tabs-wrap">
+			<ul class="tab-items">
+				<li class="tab-item">
+					<section class="tab-item-main">
+						<table border="1" cellspacing="0" cellpadding="0">
+							<colgroup>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<tr>
+								<th>累计放款总金额</th>
+								<th>累计放款笔数</th>
+								<th>贷款余额(ENR)</th>
+								<th>月均贷款金额(ANR)</th>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</table>
+					</section>
+				</li>
+				<li class="tab-item">
+					<section class="tab-item-main">
+						<table border="1" cellspacing="0" cellpadding="0">
+							<colgroup>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<tr>
+								<th>逾期金额</th>
+								<th>逾期笔数</th>
+								<th>逾期率(金额)</th>
+								<th>逾期率(人数)</th>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</table>
+					</section>
+				</li>
+				<li class="tab-item">
+					<section class="tab-item-main">
+						<table border="1" cellspacing="0" cellpadding="0">
+							<colgroup>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<tr>
+								<th>本月放款金额</th>
+								<th>本月放款笔数</th>
+								<th>本月还款金额</th>
+								<th>本月还款笔数</th>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</table>
+					</section>
+				</li>
+				<li class="tab-item">
+					<section class="tab-item-main">
+						<table border="1" cellspacing="0" cellpadding="0">
+							<colgroup>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<tr>
+								<th>分类</th>
+								<th>笔数</th>
+								<th>本金金额</th>
+								<th>预期回收率</th>
+							</tr>
+							<tr>
+								<td>C</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>M1</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>M2</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>M3</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>M3+</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</table>
+					</section>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

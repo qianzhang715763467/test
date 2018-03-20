@@ -1,0 +1,239 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>上传多图片</title>
+		<script type="text/javascript">
+			function JM_wu(ob) {
+				ob.style.display = "none";
+			}
+
+			function JM_you(ob) {
+				ob.style.display = "";
+			}
+
+			function createForm(textN, number) {
+				data = "";
+				inter = "'";
+				if(number < 11 && number > -1) {
+					for(i = 1; i <= number; i++) {
+						if(i < 10) spaces = " ";
+						else spaces = " ";
+						data = data + " <input name=" + textN + i + " type=text value='' size='30' maxlength='100'>" +
+							"<INPUT TYPE='button' value='上传" + i + "' onclick=javascript:uppic('more" + i + "','more" + i + "')>";
+					}
+					if(document.layers) {
+						document.layers.cust.document.write(data);
+						document.layers.cust.document.close();
+					} else {
+						if(document.all) {
+							cust.innerHTML = data;
+						}
+					}
+				} else {
+					window.alert("请不要超过10张图片.");
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<form name="prodtable" action="" >
+			<input type="radio" name="more_pic" checked value="0" onclick="JM_wu(s1)">无
+			<input type="radio" name="more_pic" value="1" onclick="JM_you(s1)">有 <span id="s1" style="display:none">
+		    <input name="more" type="text" value='1' size='5' maxlength='2'>
+		    <input type="file" value="张大图" id="fileUpload">
+		    <span id="cust" style="position: relative;"></span></span>
+		</form>
+		<img src="" style="width: 100%;height: 100%;"/>
+	</body>
+	<script src="http://libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var upImg_config = {
+		    "e0":'上传出错，请重试！',
+		    "e2":'今日上传超过限制次数',
+		    "e3":'照片格式不符合要求！',
+		    "e4":'上传出错，请重试！',
+		    "e5":'照片大小超过限制！',
+		    "e6":'照片不能小于0M！'
+		}
+		
+		//检查是什么浏览器
+		function getExplorer() {
+		    var explorer = window.navigator.userAgent ;
+		    if (explorer.indexOf("MSIE") >= 0) {//ie 
+		        return "ie";
+		    }else if (explorer.indexOf("Firefox") >= 0) {//firefox
+		        return "Firefox"; 
+		    }else if(explorer.indexOf("Chrome") >= 0){//Chrome
+		        return "Chrome";
+		    }else if(explorer.indexOf("Opera") >= 0){//Opera
+		        return "Opera";
+		    }else if(explorer.indexOf("Safari") >= 0){//Safari
+		        return "Safari";
+		    }
+		}
+		
+		//获取选择的文件的路径
+		function getObjectURL(target){
+		    var url = null;
+		    if (window.navigator.userAgent.indexOf("MSIE")>=1){  
+		        target.select();  
+		         target.blur();
+		         url = document.selection.createRange().text;  
+		         console.log(url)
+		    } else {
+		        var file = $(target)[0].files[0];
+		        if (window.createObjectURL != undefined) {
+		            url = window.createObjectURL(file)
+		        } else if (window.URL != undefined) {
+		            url = window.URL.createObjectURL(file)
+		        } else if (window.webkitURL != undefined) {
+		            url = window.webkitURL.createObjectURL(file)
+		        }
+		    }
+		    return url;
+		}
+		
+		// 获取文件名称后缀 、不带后缀
+		function getFilePath(filePath){
+		    var path = [];
+		    var pos = filePath.lastIndexOf('.');
+		    path['fileExt'] = filePath.substring(pos);   //获取后缀
+		    path['fileName'] = filePath.substring(0,pos);//获取文件名，不带后缀
+		    return path;
+		}
+		
+		//上传图片
+		$(".showPhotosCon dt").click(function(){
+		    $(".upTips").hide();
+		    $(".upLoad").removeClass("hide");
+		    $(".shade").removeClass("hide");    
+		});
+		
+		//选择图片 判断格式、大小等
+		$("#fileUpload").on('change',function(){
+		    var _file = $(this);
+		    var fileSize = 0; 
+		    var filetypes =[".jpg",".gif",".png",".bmp"]; 
+		    var filemaxsize = 1024*1024*2;//2M 
+		    var filepath = _file.val();
+		    var u = getObjectURL(this);
+		    
+		    var img = document.getElementsByTagName('img')[0];
+				img.setAttribute('src',"file:///"+u);
+				console.log(img)
+		    $(".upTips").hide();
+		    if(filepath){ 
+		        var pathArr = getFilePath(filepath);
+		        if(filetypes && filetypes.length>0){ 
+		            if($.inArray(pathArr['fileExt'].toLowerCase(),filetypes) < 0){ 
+		                $(".upTips").html(upImg_config.e2).show(); 
+		                //清除input内容
+		                _file.after(_file.clone().val(""));
+		                _file.remove();
+		                // if(myExplorer == 'ie'){
+		                //     $(this).focus();
+		                //     this.select();  
+		                //     document.execCommand("delete");
+		                // }else{
+		                //     $(this).val(""); 
+		                // }
+		                return false; 
+		            } 
+		        } 
+		        var myExplorer = getExplorer();
+		        if(myExplorer == 'ie'){
+		            var img = new Image();
+		               img.src = filepath;
+		               fileSize = img.fileSize > 0?img.fileSize:500;
+		        }else{
+		            fileSize = $(this)[0].files[0].size || $(this)[0].files[0].fileSize;
+		        }
+		        if(fileSize>filemaxsize || fileSize <= 0){
+		            if(fileSize>filemaxsize){
+		                $(".upTips").html(upImg_config.e5).show(); 
+		            }else{
+		                $(".upTips").html(upImg_config.e6).show(); 
+		            }
+		            //清除input内容
+		            _file.after(_file.clone().val(""));
+		            _file.remove();
+		            return false;
+		        }
+		    }else{ 
+		        return false; 
+		    } 
+		    //uploadSubmit();// 直接上传。。
+		});
+		
+		//执行上传操作
+		function uploadSubmit(){
+		    //alert(11);
+		    var btn = $('.upPicShade');
+		    btn.html("上传中...");    
+		    $.ajaxFileUpload({
+		        url:wm_config.uploadImg,
+		        secureuri:false,
+		        fileElementId:'fileUpload',
+		        dataType:'json',
+		        data:{},
+		        success:function(data,status){
+		            // 固定的前置错误码
+		            var test1 = "HTTP Status 404 - No result defined for action com.henda.webma.action.MapUploadJsonAction and result";
+		            var obj = new Object();
+		            if (data.length > test1.length) {
+		                // 去掉前后空格
+		                var test2 = data.substring(test1.length).replace(/^\s+|\s+$/g, "");
+		                // 将Json串转为对象
+		                obj = eval("(" + test2 + ")");
+		            }
+		            if (obj.status == "success") {
+		                //0失败  1 成功  2 限制    3  不规范
+		                uploadImgCallBack(obj.message);
+		            } else { // 如果错了
+		                if (typeof (obj.message) != undefined) {
+		                    uploadImgCallBack(4);
+		                    if (obj.message != '') {
+		                        //alert(obj.message);
+		                    } else {
+		                        //alert("faile");
+		                    }
+		                }
+		            }
+		        },
+		        error:function(data,status,e){
+		            //console.log(e);
+		            //alert(e);
+		            uploadImgCallBack(4);
+		        }
+		    });
+		}
+		
+		//上传后回调函数
+		function uploadImgCallBack(code){
+		    switch(code){
+		        case 0:
+		            $(".upTips").html(upImg_config.e0).show();
+		            break;
+		        case 1:
+		            $(".upLoad").addClass("hide");
+		            return false;
+		            break;
+		        case 2:
+		            $(".upTips").html(upImg_config.e2).show();
+		            break;
+		        case 3:
+		            $(".upTips").html(upImg_config.e3).show();
+		            break;
+		        case 4:
+		            $(".upTips").html(upImg_config.e4).show();
+		            break;
+		        default:
+		            break;
+		    }
+		    var btn = $('.upPicShade');
+		    btn.html("选择照片");
+		}
+	</script>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>字段筛选</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				list-style: none;
+				text-decoration: none;
+				font-size: .12rem;
+			}
+			
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				font-size: 100px;
+				text-align: center;
+			}
+			/* 通用
+			 *******/
+			.align-l{
+				text-align: left;
+			}
+			
+			/* 外层
+			 *******/
+			
+			.ff-wrap {
+				display: flex;
+				flex-direction: unset;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.ff-wrap-left,
+			.ff-wrap-right {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				padding: 0 1px;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			.ff-wrap-left {
+				flex-grow: 1;
+				max-width: 30%;
+				background-color: #f2f2f2;
+			}
+			
+			.ff-wrap-right {
+				flex-grow: 2;
+				background-color: #01B070;
+			}
+			/* 标题
+			 *******/
+			
+			.ff-title {
+				flex-grow: 1;
+				padding: 10px 0;
+				max-height: 45px;
+				font-size: .17rem;
+				background-color: #01B070;
+			}
+			
+			.ff-wrap-left-title {
+				background-color: #F2F2F2;
+			}
+			
+			.ff-wrap-right-title {
+				background-color: #01B070;
+			}
+			/* 主内容
+			 *******/
+			
+			.ff-main {
+				flex-grow: 2;
+				overflow: auto;
+			}
+			
+			.main-left {
+				text-align: left;
+				background-color: white;
+			}
+			
+			/* 右侧tab
+			 *******/
+			.main-right {
+				display: flex;
+				flex-direction: column;
+				background-color: #f2f2f2;
+			}
+			.main-right .tab-box {
+				position: relative;
+			}
+			/* tab-head */
+			.main-right .tab-head {
+				flex-grow: 1;
+				max-height: 40px;
+				min-height: 40px;
+				background-color: #fbfafa;
+				overflow: hidden;
+			}
+			.main-right .tab-body {
+				flex-grow: 2;
+			}
+			.main-right .tab-box table {
+				width: 100%;
+				height: 100%;
+			}
+			.main-right .tab-head tr {
+				/*line-height: 30px;*/
+			}
+			.main-right th,
+			.main-right td {
+				padding: 5px 10px;
+			}
+			.main-right .tab-head .selectAll {
+				float: left;
+				width: 50%;
+				overflow: hidden;
+			}
+			.main-right .tab-head .selectAll input {
+				position: relative;
+				top: -1px;
+				width: 15px;
+				height: 15px;
+				margin-right: 5px;
+				vertical-align: middle;
+			}
+			/* tab-body */
+			.main-right .tab-body .select{
+				min-width: 115px;
+			}
+			.main-right .tab-body .select
+		</style>
+	</head>
+
+	<body>
+		<div class="ff-wrap">
+			<aside class="ff-wrap-left">
+				<h4 class="ff-wrap-left-title ff-title"> —— 原始字段格式  ——</h4>
+				<section class="ff-main main-left">
+				</section>
+			</aside>
+			<div class="ff-wrap-right">
+				<h4 class="ff-wrap-right-title ff-title"> —— 字段操作  ——</h4>
+				<section class="ff-main main-right">
+					<div class="tab-head tab-box">
+						<table border="1" cellspacing="0" cellpadding="0" style="border-color: #CDCDCD;">
+							<tr>
+								<th>字段名</th>
+								<th>val</th>
+								<th class="selectAll-box">
+									<div class="selectAll">
+										<input type="checkbox" name="" id="select-all" value="" /><label for="select-all">全选</label>
+									</div>
+									<div class="selectAll">
+										<input type="checkbox" name="" id="unselect-all" value="" /><label for="unselect-all">全不选</label>
+									</div>
+								</th>
+								<th>其他</th>
+							</tr>
+						</table>
+					</div>
+					<div class="tab-body tab-box">
+						<table border="1" cellspacing="0" cellpadding="0" style="border-color: #CDCDCD;">
+						</table>
+					</div>
+				</section>
+			</div>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js?time=New Date()"></script>
+	<script type="text/javascript" >
+		
+		/*var k = [{
+			"item_id": 3,
+			"item_name": "身份证是否在多平台进行借贷申请",
+			"risk_level": "medium",
+			"group": "多平台借贷申请检测",
+			"item_detail": {
+				"platform_detail": ["信贷理财:1"],
+				"platform_count": 1,
+				"platform_detail_dimension": [ //各维度多头详情
+					{
+						"dimension": "借款人手机号个数", //维度名称
+						"detail": ["信贷理财:1"], //维度多头详情
+						"count": 1
+					},
+					{
+						"dimension": "借款人身份证个数",
+						"detail": ["信贷理财:1"],
+						"count": 1
+					}
+				],
+				"type": "<i style='color:red;'>platform_detail</i>"
+			}
+		}];*/
+		//var time = new Date().getTime();
+		var format = {
+			obj: [],
+			dataName: '',
+			ct: '', //当前数据类型
+			// 判断数据类型
+			currentType: function(obj) {
+				if(typeof obj == 'object') {
+					if(obj.length) {
+						return "Arr";
+					} else {
+						return "object";
+					}
+				} else {
+					return "Str";
+				}
+			},
+			// 递归循环数据
+			dataEach: function(data, name) {
+				this.ct = this.currentType(data);
+				if(this.ct === "object") {
+					for(var k in data) {
+						dataName = name + '.' + k;
+						this.dataEach(data[k], name + '.' + k);
+					};
+				} else
+				if(this.ct === "Arr") {
+					for(var i = 0; i < data.length; i++) {
+						dataName = name + '[' + i + ']';
+						this.dataEach(data[i], name + '[' + i + ']');
+					};
+				} else {
+					this.obj.push(dataName + ':' + data);
+				}
+			},
+			startup: function(data, dataName) {
+				if(!dataName) dataName = "";
+				this.dataEach(data, dataName);
+				return this.obj;
+			}
+		};
+		var f = {
+			getData		: function(){
+				var arr = this.arr,
+					str = this.initData;
+				var html = '';
+				var lastHtml = '</td><td>删除</td></tr>';
+				for(var i = 0; i < arr.length; i++) {
+					var _key1 = arr[i].split(':')[0],
+						_key2 = arr[i].split(':')[1];
+					html += '<tr><td class="align-l">'+_key1+'</td><td class="align-l">'+eval(_key1)+
+							'</td><td><input type="checkbox" name="'+_key1+'" value="" class="select" />'+lastHtml;
+				};
+				this.mainLeft.append('<pre>' + str + "</pre>");
+				this.mainRight.find('.tab-body table').append(html);
+				this.computeSize($('.main-right'));
+			},
+			computeSize	: function(dom){
+				dom.find('.tab-body tr:first td').each(function(){
+					var index = $(this).index(),
+						sizeW = $(this).outerWidth();
+					$(this).css({'max-width':sizeW+'px','min-width':sizeW+'px'});
+					dom.find('.tab-head tr:first th').eq(index).css({'max-width':sizeW+'px','min-width':sizeW+'px'});
+				});
+			},
+			// 运行
+			startup 	: function(params){
+				this.mainLeft	= params.mainLeft,
+				this.mainRight	= params.mainRight,
+				this.initData	= JSON.stringify(params.dataVal, null, 4),
+				this.arr		= format.startup(params.dataVal,params.dataName), // 数据
+				console.log(this.arr)
+				this.getData();
+				
+			}
+		}
+		var r = {};
+		$(function(){
+			$.getJSON('aaaa.json',function(req){
+				r = req;
+				f.startup({
+					dataVal	: r,
+					dataName:'r',
+					mainLeft: $('.main-left'),
+					mainRight: $('.main-right'),
+				});
+			})
+			timestamp(document.location.href);
+		})
+		
+		function timestamp(url){
+	     //  var getTimestamp=Math.random();
+	       var getTimestamp=new Date().getTime();
+	      if(url.indexOf("?")>-1){
+	        url=url+"&timestamp="+getTimestamp
+	      }else{
+	        url=url+"?timestamp="+getTimestamp
+	      }
+	      return url;
+	    }
+		
+		
+	</script>
+
+</html>

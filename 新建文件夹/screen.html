@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>级联筛选</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+				font-size: 100px;
+				overflow: hidden;
+			}
+			li{
+				font-size: 0.13rem;
+				list-style: none;
+			}
+			i{
+				font-style: normal;
+			}
+			a{
+				text-decoration: none;
+			}
+			aside,section{
+				display: block;
+			}
+			/* aside moudel */
+			.screenModule-wrap{
+				position: absolute;
+				top: 0;
+				right: -300px;
+				z-index: 99;
+				width: 700px;
+				height: 100%;
+				background-color: #fff;
+				box-shadow: 0px 0px 20px 0px #ccc;;
+				opacity: 0;
+				transition:right .5s;
+			}
+			.screenModule-wrap.isShow{
+				right: 0px;
+				opacity: 1;
+			}
+			/* aside moudel title */
+			.screenModule-wrap .screenModule-title{
+				padding: .1rem 0;
+				font-size: .17rem;
+				text-align: center;
+				color: #333;
+				background-color: #fafafa;
+			}
+			/*aside moudel content*/
+			.screenModule-wrap .screenModule-main{
+				overflow: hidden;
+			}
+			/* aside moudel  selected upgrade box*/
+			.selectedModule{
+				width: 100%;
+				padding: .2rem;
+			}
+			/* aside moudel  selected upgrade text*/
+			.selectedModule span{
+				float: left;
+				display: inline-block;
+				padding: 4px 15px;
+				margin: 5px;
+				font-size: .14rem;
+				color: #333;
+				border: 1px solid #ff9800;
+				border-radius: 50px;
+				background-color: #fff;
+			}
+			/* aside centent lists */
+			.screen-items{
+				display: none;
+				padding:.2rem;
+				width: calc(100% + 17px);
+				height: 100%;
+				overflow-y:scroll;
+			}
+			.screen-items.selected-items{
+				display: block;
+			}
+			.screen-items .screen-item{
+				width: 100%;
+				padding: .1rem;
+			}
+			.screen-item-name{
+				padding:.1rem 0;
+				font-size: .16rem;
+			}
+			.screen-item-child  .screen-item-child-item{
+				padding: .15rem;
+				color: #666;
+				border-bottom: 1px solid #f1f1f1;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" name="screenBut" id="screenBut" value="筛选" onclick="areaSelectModuleDisplaySwitch()"/>
+		<aside class="screenModule-wrap isShow">
+			<!--<h5 class="screenMoudel-title">地址筛选</h5>-->
+			<section class="screenModule-main">
+				<div class="selectedModule"></div>
+				<ul class="screenMoudel-content">
+					<li class="provinces-list upgrade-list">
+						<ul class="screen-items provinces-items selected-items">
+							<li class="screen-item provinces-item" data-type="provinces" data-index = "1">北京</li>
+							<li class="screen-item provinces-item" data-type="provinces" data-index = "2">天津</li>
+							<li class="screen-item provinces-item" data-type="provinces" data-index = "3">上海</li>
+							<li class="screen-item provinces-item" data-type="provinces" data-index = "4">江苏</li>
+						</ul>
+					</li>
+					<li class="marketing-list upgrade-list">
+						<ul class="screen-items marketing-item"data-type="marketing" data-index = "1">
+							<li class="screen-item" data-type="marketing" data-index = "1-1">北京市</li>
+						</ul>
+						<ul class="screen-items marketing-item"data-type="marketing" data-index = "3">
+							<li class="screen-item " data-type="marketing" data-index = "3-1">上海市</li>
+						</ul>
+						<ul class="screen-items marketing-item"data-type="marketing" data-index = "2">
+							<li class="screen-item " data-type="marketing" data-index = "2-1">天津市</li>
+						</ul>
+						<ul class="screen-items marketing-item"data-type="marketing" data-index = "4">
+							<li class="screen-item" data-type="marketing" data-index="4-1">南京</li>
+							<li class="screen-item" data-type="marketing" data-index="4-2">苏州</li>
+							<li class="screen-item" data-type="marketing" data-index="4-3">连云港</li>
+							<li class="screen-item" data-type="marketing" data-index="4-4">太仓</li>
+						</ul>
+					</li>
+					<li class="county-list upgrade-list">
+						<ul class="screen-items county-item"data-type="county" data-index = "4-1">
+							<li class="screen-item" data-type="county" data-index="4-1-1">玄武区</li>
+							<li class="screen-item" data-type="county" data-index="4-1-2">鼓楼区</li>
+							<li class="screen-item" data-type="county" data-index="4-1-3">建邺区</li>
+							<li class="screen-item" data-type="county" data-index="4-1-4">白下区</li>
+							<li class="screen-item" data-type="county" data-index="4-1-5">秦淮区</li>
+							<li class="screen-item" data-type="county" data-index="4-1-6">下关区</li>
+							<li class="screen-item" data-type="county" data-index="4-1-7">雨花台</li>
+							<li class="screen-item" data-type="county" data-index="4-1-8">栖霞区</li>
+						</ul>
+					</li>
+					<li class="township-list upgrade-list">
+						<ul class="screen-items township-item"data-type="township" data-index = "4-1-1">
+							<li class="screen-item" data-type="township" data-index="4-1-1-1">1区</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-2">2区</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-3">3区</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-4">4区</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-5">5区</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-6">6区</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-7">7台</li>
+							<li class="screen-item" data-type="township" data-index="4-1-1-8">8区</li>
+						</ul>
+					</li>
+					<li class="village-list upgrade-list">
+						<ul class="screen-items village-item"data-type="village" data-index = "4-1-1-1">
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-1">赵村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-2">钱村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-3">孙村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-4">李村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-5">周村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-6">武村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-7">郑村</li>
+							<li class="screen-item" data-type="village" data-index="4-1-1-1-8">王村</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		</aside>
+	</body>
+	<script src="jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function areaSelectModule(params){
+			var wrap 						= params.wrap,						// 外层盒子
+				wrapModuleDisplaySwitch 	= params.wrapModuleDisplaySwitch,   // 控制外层盒子显示的开关
+				selectedAreaDisplaysModule 	= params.selectedAreaDisplaysModule,// 显示已选中地区盒子
+				regionalLevelModule			= params.regionalLevelModule,		// 地区级模块，（省、市、县、乡、村）
+				areaLiClassName				= params.areaLiClassName,     		// 地区名 li class="xxxxx"
+				selectedRegionalLevelModuleStyleClass = params.selectedRegionalLevelModuleStyleClass,
+				self = this;	
+			
+			// 重置已选择地区
+			self.resetSelectedLocale = function(event){
+				var index 		= $(event).index(); // 当前对象下标
+				 	typeName 	= $(event).attr("data-type"); // 当前对象对应的列表类型
+				 	typeIndex 	= $(event).attr("data-index");   // 当前对象对应的数据编号
+				$(event).nextAll().remove();
+				$(event).remove();
+				$(regionalLevelModule).removeClass(selectedRegionalLevelModuleStyleClass);
+				
+				if(index == 0){
+					$('.provinces-items').addClass(selectedRegionalLevelModuleStyleClass);
+				}else{
+					$(areaLiClassName+'[data-index ="'+ typeIndex +'"]').parent().addClass(selectedRegionalLevelModuleStyleClass);
+				}
+			}
+			// 整个模块显示/隐藏
+			$(wrapModuleDisplaySwitch).click(function(){
+				if(!$(wrap).hasClass("isShow")){
+					$(wrap).addClass('isShow');
+				}else{
+					$(wrap).removeClass('isShow');
+				}
+			});
+			// 地区选择
+			$(areaLiClassName).click(function(){
+				var val   	= $(this).text(),  			 	// text 
+				 	index 	= $(this).attr("data-index"),  	// index 
+				 	typeName= $(this).attr("data-type"),	// 类型
+				 	span 	= '<span data-type="'+typeName+'" data-index="'+index+'" onclick="self.resetSelectedLocale(event.target)">'+val+'</span>';
+				$(selectedAreaDisplaysModule).append(span);
+				$(regionalLevelModule).removeClass(selectedRegionalLevelModuleStyleClass);	
+				$(regionalLevelModule+'[data-index="'+index+'"]').addClass(selectedRegionalLevelModuleStyleClass);
+			});
+		};
+		$(function(){
+			areaSelectModule({
+				wrap: '.screenModule-wrap',
+				wrapModuleDisplaySwitch: '#screenBut',
+				selectedAreaDisplaysModule: '.selectedModule',
+				regionalLevelModule:'.screen-items',
+				areaLiClassName:".screen-item",
+				selectedRegionalLevelModuleStyleClass:'selected-items'
+			})
+		})
+	</script>
+</html>

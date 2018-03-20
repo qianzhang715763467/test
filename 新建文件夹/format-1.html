@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var k = [
+				{
+					"item_id": 3,
+					"item_name": "身份证是否在多平台进行借贷申请",
+					"risk_level": "medium",
+					"group": "多平台借贷申请检测",
+					"item_detail": {
+						"platform_detail": ["信贷理财:1"],
+						"platform_count": 1,
+						"platform_detail_dimension": [ //各维度多头详情
+							{
+								"dimension": "借款人手机号个数", //维度名称
+								"detail": ["信贷理财:1"], //维度多头详情
+								"count": 1
+							},
+							{
+								"dimension": "借款人身份证个数",
+								"detail": ["信贷理财:1"],
+								"count": 1
+							}
+						],
+						"type": "platform_detail"
+					}
+					}
+				];
+			
+			
+			
+		function format(data,dataName){
+			var o = {};
+			// 判断数据类型
+			this.isTYPE = function(obj){
+				if(typeof obj == 'object'){
+					if(obj.length){
+						return "Arr";
+					}else{
+						return "object";
+					}
+				}else{
+					return "Str";
+				}
+			};
+			var obj = [];
+			// 循环数据
+			this.Each = function(data,dataName){
+				
+				var t = this.isTYPE(data);
+				if(t === 'object'){
+					for(var k in data){
+						t = this.isTYPE(data[k]);
+						if(t === 'object'){
+							this.Each(data[k],dataName+'.'+k)
+						}else 
+						if(t === 'Arr'){
+							this.Each(data[k],dataName+'.'+k)
+						}else{
+							obj.push(dataName+'.'+k+'：'+data[k]); 
+						}
+					}
+				}else
+				if(t === 'Arr'){
+					for(var i = 0; i < data.length; i++){
+						t = this.isTYPE(data[i]);
+						if(t === 'object'){
+							this.Each(data[i],dataName+'['+i+']')
+						}else 
+						if(t === 'Arr'){
+							this.Each(data[i],dataName+'.'+i)
+						}else{
+							obj.push(dataName+'['+i+']'+'：'+data); 
+						}
+					}
+				}else{
+					obj.push('：'+data);
+				}
+			};
+			// 常规“{}”格式json处理 
+			this.keyFormat = function(){
+				
+			};
+			// 数组格式json处理
+			this.arrFormat = function(){
+				
+			}
+			this.Each(data,dataName);
+			console.log(obj)
+		};
+		format(k,'k');
+		document.write('<pre>'+JSON.stringify(k,null,4)+"</pre>")
+	</script>
+</html>

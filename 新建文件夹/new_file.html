@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<table class="tablejson">
+			<!--<tr><th>Header</th></tr>-->
+			<tbody>
+				<tr>
+					<td><input type="" name="aa" id="" value="1" /></td>
+					<td><input type="" name="bb" id="" value="2" /></td>
+					<td><input type="" name="cc" id="" value="3" /></td>
+				</tr>
+				<tr>
+					<td><input type="" name="aa" id="" value="4" /></td>
+					<td><input type="" name="bb" id="" value="5" /></td>
+					<td><input type="" name="cc" id="" value="6" /></td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="">
+			<pre>
+				(function (){  
+			        function $(){  
+			            alert("被调用到喽！");   
+			            /*alert()是JavaScript脚本语言中窗口window对象的一个常用方法； 
+			            其主要用法就是在你自己定义了一定的函数以后，通过执行相应的操作， 
+			            所弹出对话框的语言。并且alert对话框通常用于一些对用户的提示信息。*/   
+			            }  
+			            
+			          //注册命名空间 'myNameSpace' 到window对象上    
+			            window['myNameSpace'] = {}    
+			            
+			          //把$函数注册到 'myNameSpace'命名空间中  
+			          window['myNameSpace']['$']=$;  
+			            
+			        })();
+			</pre>
+		</div>
+	</body>
+	<script src="jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var Json = [{
+				aa: "11",
+				bb: "22",
+				cc: "33"
+			},
+			{
+				aa: "66",
+				bb: "55",
+				cc: "66"
+			}
+		];
+		for(var i = 0; i < Json.length; i++) {
+			for(var n in Json[i]) {
+				$('tr:eq('+i+')').find('input[name=' + n + ']').val(Json[i][n]);
+			}
+		}
+	</script>
+
+</html>

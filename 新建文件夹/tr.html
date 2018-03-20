@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<table border="" cellspacing="" cellpadding="">
+			<tr>
+				<th>Header</th>
+			</tr>
+			<tr>
+				<th>Header1</th>
+				<th>Header1-1</th>
+				<th>Header1-2</th>
+			</tr>
+			<tr>
+				<th>Header2</th>
+				<th>Header2-1</th>
+				<th>Header2-2</th>
+			</tr>
+			<tr>
+				<th>Header3</th>
+				<th>Header3-1</th>
+				<th>Header3-2</th>
+			</tr>
+		</table>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			var tr = $('table').find('th:not(:first):nth-child(1)');
+			for(var i = 0; i < tr.length; i++){
+				console.log($(tr[i]).html())
+			}
+		})
+		
+	
+	
+	
+	
+	
+	
+		
+		var a = 43630;
+		var b = 20000;
+		for(var i = 1;i < 33;i++){
+			a += a*0.0005;
+			b += b*0.0004;
+			c = a+b-63630;
+			console.log(i +'   ===  '+c)
+			//if(a > 40640)break;
+			
+		}
+		//console.log(100000 * 0.009*12)
+		
+		var a ="我是A1";
+		function fn(){
+			console.log(a);
+			var a = '我是A2';
+			console.log(a)
+		}
+		fn()
+	</script>
+</html>

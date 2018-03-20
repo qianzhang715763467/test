@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>-->
+<!--    <meta name="viewport" content="initial-scale=1, maximum-scale=1">-->
+<!--    <meta name="viewport" content="user-scalable=no, width=device-width" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title></title>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/d3.v4.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1b1b1b
+        }
+
+    </style>
+    <script type="text/javascript">
+        var count = 0;
+        var newData = {}, oldData = {};
+        function queryNewData(){
+            if(Object.getOwnPropertyNames(newData).length > 0){
+                console.debug("newData 还有未消费完的数据, 不发起 ajax...");
+                return;
+            }
+            // ajax ......
+
+
+            console.debug("发起 ajax.....");
+            for(var i = 0;i<10;i++) {
+                newData[count+""] = Math.round(Math.random() * 100);
+                if(count >=10000)
+                    count = 0;
+                else
+                    count++;
+            }
+
+        }
+
+        window.setInterval(queryNewData, 2000);
+
+        function consumeNewData(){
+            if(Object.getOwnPropertyNames(newData).length === 0){
+                console.debug("没有数据消费");
+                return;
+            }
+
+            console.debug("消费一条数据");
+            var data;
+            var index;
+            for(var i in newData){
+                index = i;
+                data = newData[i];
+                delete newData[i];
+                console.debug(Object.getOwnPropertyNames(newData).length);
+                break;
+            }
+            //碰撞检测
+            //.......
+
+            oldData[index] = data;
+        }
+
+        window.setInterval(consumeNewData, 1000);
+
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<select name="">
+			<option value="1" name="123"></option>
+		</select>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var r = [
+			{
+				"item_id": 1,
+				"item_name": "身份证是否是一代身份证",
+				"risk_level": "low",
+				"group": "个人信息核查"
+			}, {
+				"item_id": 2,
+				"item_name": "身份证是否出现在信贷逾期名单",
+				"risk_level": "high",
+				"group": "不良信息扫描",
+				"item_detail": {
+					"discredit_times": 1,
+					"overdue_details": [
+						{
+							"overdue_amount": 3475,
+							"overdue_count": 1,
+							"overdue_day": 69
+						}
+					],
+					"type": "discredit_count"
+				}
+			}
+		];
+		var format = {
+			obj: [],
+			dataName: '',
+			ct: '', //当前数据类型
+			// 判断数据类型
+			currentType: function(obj) {
+				if(typeof obj == 'object') {
+					if(obj.length) {
+						return "Arr";
+					} else {
+						return "object";
+					}
+				} else {
+					return "Str";
+				}
+			},
+			// 递归循环数据
+			dataEach: function(data, name) {
+				this.ct = this.currentType(data);
+				if(this.ct === "object") {
+					for(var k in data) {
+						dataName = name + '.' + k;
+						this.dataEach(data[k], name + '.' + k);
+					};
+				} else
+				if(this.ct === "Arr") {
+					for(var i = 0; i < data.length; i++) {
+						dataName = name + '[' + i + ']';
+						this.dataEach(data[i], name + '[' + i + ']');
+					};
+				} else {
+					this.obj.push(dataName + ':' + data);
+				}
+			},
+			startup: function(data, dataName) {
+				if(!dataName) dataName = "";
+				this.dataEach(data, dataName);
+				return this.obj;
+			}
+		};
+		var b = format.startup(r,"r");
+		var c = {};
+		var firstKey = b[0].split('.')[0];
+		for(var i = 0; i < b.length; i++){
+			if(i == 0){
+				continue;
+			};
+			var fk = b[i].split('.')[0];
+			if(fk == firstKey){
+				b[i] = b[i].replace(firstKey,"");
+			}else{
+				firstKey = fk;
+			}
+			console.log(firstKey)
+			
+//			if(b[i].indexOf('.item_name') > -1){
+//				firstKey = b[i].split('.item_name')[0];	
+//				b[i] = firstKey + b[i].split('.item_name')[1];
+//			}else if(firstKey == ""){
+//				firstKey = b[i].split('.item_name')[0];	
+//				b[i] = firstKey + b[i].split('.item_name')[1];
+//			}else{
+//				var lastKey = b[i].split(firstKey)[1];
+//				b[i] = lastKey;
+//			};
+			
+			var key1 = b[i].split(':')[0],
+				key2 = b[i].split(':')[1];
+			c[key2] = key1;
+		}
+		console.log(b)
+	</script>
+</html>
+

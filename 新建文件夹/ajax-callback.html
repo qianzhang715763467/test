@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				float: left;
+				padding: 20px;
+				border: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			我是DIV1
+		</div>
+		<div id="div2">
+			我是DIV2
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var init = {
+			ajax:function(data){
+				var el = data.el,// 对象
+					ev = data.ev,// 事件
+					url = data.url,
+					params = data.params,// AJAX请求参数
+					cb = data.cb;// 回调
+				el.on(ev,function(){
+					var self = $(this);
+					$.ajax({
+						url:url,
+						data:params,
+						success:function(res){
+							cb(self.attr('id') , res);
+						}
+					})
+				})	
+			}
+		};
+		
+		init.ajax({
+			el:$('#div1'),
+			ev:"click",
+			url:'localhost:8080/index1.text',
+			params:"2017-09-07",
+			cb:function(id,res){}
+		});
+		
+		init.ajax({
+			el:$('#div2'),
+			ev:"click",
+			url:'localhost:8080/index2.text',
+			params:"2017-09-10",
+			cb:function(id,res){}
+		})
+		
+	</script>
+</html>

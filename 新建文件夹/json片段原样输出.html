@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li{
+				list-style: none;
+			}
+		</style>
+	</head>
+
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var obj = {
+			"final_decision": "Reject",
+			"final_score": 902,
+			"hit_rules": [{
+				"decision": "Accept",
+				"id": "1166119",
+				"name": "身份证命中法院失信名单",
+				"parentUuid": "6da3c93b49e7433aa18b91ccb62c9725",
+				"score": 80,
+				"uuid": "a88aeb74a4d840a181f4a3f6fae5d947"
+			}]
+		};
+		function format_dependency_field_data(data){
+			var newData = [];// 格式化后的新数据
+			var formatData = function(datum,Key,arr){
+				if(datum instanceof Array){
+					arr.push(
+						{'key':Key,'val':'['},
+						{'key':"children",'val':[]},
+						{'key':Key,'val':']'}
+					);
+					var size = arr.length;
+					for(var i = 0; i < datum.length; i++){
+						formatData(datum[i], Key + '[' + i + ']',arr[size-2].val);
+					}
+				}else if(datum instanceof Object){
+					arr.push(
+						{'key':Key,'val':'{'},
+						{'key':"children",'val':[]},
+						{'key':Key,'val':'}'}
+					);
+					var size = arr.length;
+					for(var k in datum){
+						formatData(datum[k],Key + '.' + k,arr[size-2].val);
+					}
+				}else{
+					arr.push({
+						'key':Key,
+						'val':datum
+					});
+				}
+			}
+			formatData(data,"json",newData);// “json” : data数据的开头索引,可以不设
+			return newData;
+		};
+		var htmlText = '';
+		var  each_fieldList= function(data,tier){
+				if(htmlText.length < 1){
+					htmlText = '<ul class="items">';
+				}
+				if(tier){
+					htmlText += '<ul class="items">';
+				}
+				for(var i = 0; i < data.length; i++){
+					if(data[i].key == 'children'){// 还是数组？继续循环
+						each_fieldList(data[i].val,true);
+					}else{
+						if(data[i].val == ']' || data[i].val == '}'){
+							htmlText += '<li>'+data[i].val+'</li>';
+						}else{
+							var key = data[i].key;
+							if(key.indexOf('json') > -1){
+								key = key.substring(4,key.length);
+							}
+							if(key.indexOf('[') > 0 && key.indexOf(']') > 0){
+								key = key.substring(key.indexOf(']')+1,key.length);
+							}
+							if(key.indexOf('.') == 0){
+								key = key.substring(1,key.length);
+							}
+							if(key.length > 0){
+								key += " : ";
+								key = key.fixed();
+							}
+							if(data[i].val == '{' || data[i].val == '['){
+								htmlText += '<li>'+key+data[i].val+'</li>';
+							}else{
+								htmlText += '<li class="item">'+key+data[i].val+'</li>';
+							}
+						}
+					}
+				}
+				if(tier){
+					htmlText += '</ul>';
+				}
+			}
+		each_fieldList(format_dependency_field_data(obj));
+		htmlText += '</ul>';
+		$('body').append(htmlText)
+		
+		var a = [
+			{'key':'a','val':'{'},
+			{'key':'children','val':[
+				{'key':'decision',	'val':'Accept'},
+				{'key':'id',		'val':'1'},
+				{'key':'name',		'val':'身份'},
+				{'key':'parentUuid','val':'gdfggtr'},
+				{'key':'scote',		'val':'80'},
+				{'key':'uuid',		'val':'['},
+				{'key':'children',	'val':[
+					
+				]}
+			]}
+		];
+		
+		
+	</script>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>定义input type="file" 的样式</title>
+		<style type="text/css">
+			body {
+				font-size: 14px;
+			}
+			
+			input {
+				vertical-align: middle;
+				margin: 0;
+				padding: 0
+			}
+			
+			.file-box {
+				position: relative;
+				width: 340px
+			}
+			
+			.txt {
+				height: 22px;
+				border: 1px solid #cdcdcd;
+				width: 180px;
+			}
+			
+			.btn {
+				background-color: #FFF;
+				border: 1px solid #CDCDCD;
+				height: 24px;
+				width: 70px;
+			}
+			
+			.file {
+				position: absolute;
+				top: 0;
+				right: 80px;
+				height: 24px;
+				filter: alpha(opacity:0);
+				opacity: 0;
+				width: 260px
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="file-box">
+			<form action="" method="post" enctype="multipart/form-data">
+				<input type='text' name='textfield' id='textfield' class='txt' />
+				<input type='button' class='btn' value='浏览...' />
+				<input type="file" name="fileField" class="file" id="fileField" size="28" onchange="uploading.action('preview',event)" />
+				<input type="submit" name="submit" class="btn" value="上传" />
+				<div class="preview" id="preview"> 
+					
+				</div>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var uploading = {
+			imageData : {}, // 存储当前显示的所有img的信息
+			// 获取当前图片的所有信息
+			acquire : function(e){ 
+				document.getElementById('textfield').value = e.value; // 显示当前图片的本地信息
+				var URL   = window.URL || window.webkitURL; // 获取 window 的 URL 工具
+				var files = e.files[0];
+				var Key   = files['name'];
+				if(this.imageData[Key]){ // 当前图片已存在？
+					this.remove(Key);
+				};
+				this.imageData[Key] = {}; //为每一个预览的img图片定义私有对象；对象名 = 图片名
+				this.imageData[Key]['Url'] = URL.createObjectURL(files);// 当前图片的url
+				for(var i in files){ // 独立存储当前图片的参数
+					this.imageData[Key][i] = files[i];	
+				};
+				this.createImg(this.parentID,Key); // 生成dom 
+			},
+			// 创建预览的 img 标签
+			createImg : function(parentID,Key){ 
+				var img = document.createElement('img');
+					img.setAttribute('id',Key);
+					console.log(this.imageData[Key]['Url'])
+					img.setAttribute('src',this.imageData[Key]['Url']);
+					img.setAttribute('title','点击查看大图');
+				this.imageData[Key]['dom'] = Key; // 绑定图片dom
+				document.getElementById(parentID).appendChild(img);
+			},
+			// 删除对应的dom
+			remove 	: function(id){ 
+				document.getElementById(id).remove();
+			},
+			up : function(){ // 上传
+				
+			},
+			// 启动
+			action : function(parentID,event){ 
+				this.parentID = parentID;
+				this.e = event.target;
+				this.acquire(this.e);
+			}
+		};
+	</script>
+
+</html>

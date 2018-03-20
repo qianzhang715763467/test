@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>规则配置</title>
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			*{margin: 0;padding: 0;box-sizing: border-box;}
+			a{text-decoration: none;}
+			li{list-style: none;}
+			i{font-style: normal;}
+			.head{
+				position: fixed;
+				z-index: 2;
+				top: 0;
+				left: 0;
+				padding: 20px;
+				width: 100%;
+				background-color: #049372;
+			}
+			.head-items{
+				width: 100%;
+				height: 100%;
+			}
+			.head-items .query-item{
+				position:relative;
+				display: inline-block;
+			}
+			.head-items .query-item input[type='text']{
+				margin-top: 10px;
+				width: 300px;
+				padding: 5px 10px;
+				outline: none;
+				border-radius: 3px;
+				border-color: transparent;
+				border-bottom-color: yellow;
+			}
+			.head-items .query-item input[readonly]{
+				cursor: pointer;
+				background-color: #f2f2f2;
+			}
+			.head-items .query-item .query-button{
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				top: 11px;
+				left: 272px;
+				z-index: 2;
+				cursor: pointer;
+			}
+			.head-items .query-item .query-rule:before{
+				position: absolute;
+				content: "\2705";
+				line-height: 160%;
+				text-align: center;
+				color: green;
+			}
+			.head-items .query-item .selection-rule:before{
+				position: absolute;
+				content: "";
+				top: 10px;
+				border: 8px solid transparent;
+				border-top-color: #000;
+			}
+			.content{
+				position: relative;
+				z-index: 1;
+				padding-top: 120px;
+				width: 100%;
+				height:100%;
+				background-color: #fff3d1;
+			}
+			#ruleModule{
+				width: 100%;
+				height: 100%;
+				padding: 15px;
+				overflow: hidden;
+			}
+			#ruleModule .ruleModule-items{
+				width:100%;
+				height: 100%;
+				overflow: auto;
+			}
+			#ruleModule .ruleModule-items li{
+				font-size: 12px;
+			}
+			#JSONoutput{
+				position: absolute;
+				z-index: 2;
+				top: 120px;
+				left: 0;
+				width: 100%;
+				height: calc(100% - 125px);
+				padding: 15px;
+				overflow: hidden;
+				background-color: #fff3d1;
+				overflow: auto;
+			}
+			#JSONoutput	li{
+				padding-left: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="head">
+			<ul class="head-items">
+				<li class="query-item">
+					<input type="text" id="query-rule" 	placeholder="搜索规则名...."/>
+					<div class="query-rule query-button"></div>
+				</li>
+				<li class="query-item">
+					<input type="text" id="selection-rule"  placeholder="选择规则...." readonly/>
+					<div class="selection-rule query-button"></div>
+				</li>
+			</ul>
+		</div>
+		<section class="content">
+			
+		</section>
+	</body>
+	<script src="jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		
+		function ruleConfiguration(params){
+			this.data					= params.data; 					// 初始数据;
+			this.dataInitName           = params.dataName || ""; 		// 数据对象名
+			this.currentValueKey		= params.dataName || ""; 		// 当前值对应的索引
+			this.ruleModuleBox			= params.ruleModuleBox || "body";// 用来展示重组后的数据
+			this.dom 					= params.Dom || $('body');		// 展示用对象
+			this.queryBut				= params.queryBut;				// 搜索按钮
+			this.queryIpt				= params.queryIpt;				// 搜索输入框
+			this.selectBut				= params.selectBut				// 下拉列表
+			this.selectIpt				= params.selectIpt;				// 下拉列表输入框
+			this.ruleNameListModule		= params.ruleListId || "ruleModule";    // 规则名列表模块id
+			this.jsonOutputModule		= params.jsonOutputId || "JSONoutput";	// json展示模块id    
+			this.dataType 				= "object"; 					// 标记整个数据中是否存在数组格式
+			this.currentObjectType		= null; 						// 默认值
+			this.dataReconstitutionVal 	= [];							// 数据重组后的值,以数组形式存在 
+			this.fieldFilterKeywords 	= "";							// 用来筛选字段的关键字
+			this.html 					= "";							// 返回值 
+			this.htmllast 				= "";							// 返回值结束片段 
+			this.count					= 0; 							// 执行次数，首次执行的话会给外层盒子添加id
+			
+			var self = this; // this重定向
+			// 解析出对象类型
+			this.resolvedType = function(currentData){
+				if(typeof currentData == 'object') {
+					if(currentData.length) {
+						self.currentObjectType = "array";
+					} else {
+						self.currentObjectType = "object";
+					}
+				} else {
+					self.currentObjectType = "Str";
+				}
+			};
+			// 以html 格式展开数据
+			this.reconstitutionDatas = function(data,dataName,key){
+				self.isrecursive = 1;
+				self.count ++;
+				self.resolvedType(data);
+				if(self.currentObjectType === "object") {
+					self.mosaicHtml(false,key,dataName,true); //1
+					for(var k in data) {
+ 						self.html += "<li>";				// 2
+						self.currentValueKey = dataName + '.' + k;
+						self.reconstitutionDatas(data[k], self.currentValueKey,k);
+					};
+					self.mosaicHtml(false,false,false,false,"object");	// 4
+				} else
+				if(self.currentObjectType === "array") {
+					self.mosaicHtml(false,key,dataName,true);
+					// 递归循环
+					for(var i = 0; i < data.length; i++) {
+						self.html 			+= "<li>";
+						self.currentValueKey = dataName + '[' + i + ']';
+						self.reconstitutionDatas(data[i], currentValueKey);
+					};
+					self.mosaicHtml(false,false,false,false,"array");
+				} else {
+					self.mosaicHtml(data,key,dataName);   	// 3
+				}
+			};
+			// 拼接 html
+			this.mosaicHtml = function(data,Key,dataName,startTag,endTag){// (数据，数据下的某一个key，当前数据对应的key，结束标签)
+				//+"</ul>"
+				// 不同类型下对应的符号
+				var Fchar = '[',
+					Lchar = ']';
+				if(self.currentObjectType == "object" || endTag == "object"){
+					Fchar = '{',
+					Lchar = '}';
+				}
+				// 开始标签
+				if(startTag){
+					// 首次拼接开始标签?
+					if(self.count == 1){
+						self.html += '<ul id="'+self.jsonOutputModule+'" class="ruleModule" data-show="'+ self.selectIpt +'"><p>'+Fchar+'</p>';
+						self.htmllast = '<p>*</p></ul>';
+						return;
+					};
+					// 当前对象是数组，或者当前对象是数组里面的一个object数据
+					if(dataName.length > 0 && dataName.lastIndexOf(']') == dataName.length-1 ){
+						self.currentObjectType = "array";
+					}else{
+						self.currentObjectType = "object";
+					}
+					// 给当前ul层添加标记 type,key
+					self.html += '<ul data-type="'+ self.currentObjectType +'" data-key="'+ dataName +'">';
+					if(Key){
+						self.html += '<i data-key="'+ dataName +'">"'+Key+'":'+Fchar+'</i>';
+					}else{
+						self.html += '<p>'+Fchar+'</p>';
+					}
+				}else
+				// 结束标签
+				if(endTag){
+					if(endTag == "arr"){
+						self.html += '<p>'+ Lchar +'</p></ul></li>';
+					}else{
+						self.html += '<p>'+ Lchar +'</p></ul>';
+					}
+				}else
+				// 输出标签
+				{
+					if(dataName == undefined){
+						self.html += '<a href="javascript:;"data-key="'+ dataName +'">"'+data+'"</a></li>';
+					}else{
+						self.html += '<i data-key="'+ dataName +'">"'+Key+'" :</i>'
+									+'<a href="javascript:;"data-key="'+ dataName +'">"'+data+'"</a></li>';
+					}
+				}
+			};
+			// 重组数据结构，将数据初始化为数组形式 ["kay:val" , "kay:val"]
+			this.reconstitutionData = function(data,dataName){
+				self.resolvedType(data);
+				if(self.currentObjectType === "object") {
+					for(var k in data) {
+						self.currentValueKey = dataName + '.' + k;
+						self.reconstitutionData(data[k], self.currentValueKey);
+					};
+				} else
+				if(self.currentObjectType === "array") {
+					self.dataType = "array";
+					for(var i = 0; i < data.length; i++) {
+						self.currentValueKey = dataName + '[' + i + ']';
+						self.reconstitutionData(data[i], self.currentValueKey);
+					};
+				} else {
+					self.dataReconstitutionVal.push(self.currentValueKey + ':' + data);
+				}
+			};
+			// 创建显示模块
+			this.moduleBuilder = function(){
+				self.reconstitutionData(self.data,self.currentValueKey);
+				if(!self.dataReconstitutionVal)return;
+				var html = '';
+				for(var i = 0 ; i < self.dataReconstitutionVal.length; i++){
+					var key = self.dataReconstitutionVal[i].substr(0,self.dataReconstitutionVal[i].indexOf(":")),
+						val = self.dataReconstitutionVal[i].substr(self.dataReconstitutionVal[i].indexOf(":")+1,self.dataReconstitutionVal[i].length);
+					html += '<li data-key="'+key+'">'+val+'</li>';
+				};
+				html = '<div id="'+self.ruleNameListModule+'" class="ruleModule"  data-type="'+self.dataType+'" data-show="'+ self.queryIpt +'")><ul class="ruleModule-items">'+html+ '</ul></div>';
+				$(self.ruleModuleBox).append(html);
+			};
+			// click query
+			this.keyupQuery = function(){
+				$('#'+self.jsonOutputModule).remove();
+				$(self.queryIpt).attr("data-key","");
+				var val = $(self.queryIpt).val();
+				if(val.length < 1){
+					$('#'+self.ruleNameListModule+' li').show();
+					return;
+				}else
+				if(!isNaN(Number(val))){
+					alert("不可以用 纯数字 做规则名！");
+					return;
+				}else 
+				if(String(val) == "true" || String(val) == "false"){
+					alert("非法字段，不可以用 “true” 或  “false” 做规则名！");
+					return;
+				}else{
+					self.filterField(val);
+				}
+			};// click 规则列
+			this.keyupSelect = function(){
+				var ruleSegment = $(self.queryIpt).attr("data-key"); // 根据选择的规则类名 展示所属的规则片段
+				// 未选则规则类？
+				if($(self.queryIpt).val().length < 1){
+					// 规则数据中存在数组
+					if($('#'+self.ruleNameListModule).attr('data-type') == "array"){
+						alert("请先选择规则名！");
+						return;
+					}else{
+						$('#'+self.ruleNameListModule+' li').show();// 显示所有规则
+						ruleSegment = self.data;
+					}
+				}else{
+					// get与规则名对应的数据
+					if(String(ruleSegment) == self.dataInitName){
+						ruleSegment = self.data;
+					}else{
+						ruleSegment = eval("self.data."+ruleSegment.substr(ruleSegment.indexOf(".")+1,ruleSegment.length));
+					}
+					 
+				}
+				self.filterField(ruleSegment,true);
+			};
+			// 筛选字段
+			this.filterField = function(val,key){
+				if(key){// 当前关键字是key
+					// 格式化 json格式展示
+					self.reconstitutionDatas(val,self.dataInitName);  // 解析数据，生成对应dom结构
+					self.html = self.html; // 补全模块标签
+					$(self.ruleModuleBox).append(self.html);// 创建节点
+					self.html = ''; // 使用后消除数据
+					self.count= 0; // 使用后消除数据
+					// 点击json片段中规则名，判断是否合法
+					$('#'+self.jsonOutputModule+' a').click(function(){
+						self.queryRule(this,true);
+						$('#'+self.jsonOutputModule).remove();
+					});
+				}else{// 当前关键字是val
+					$('#'+self.ruleNameListModule+' li').each(function(){
+						if($(this).text().indexOf(val) > -1){
+							$(this).show();
+						}else{
+							$(this).hide();
+						}
+					})
+				}
+			};
+			// 选择规则
+			this.queryRule = function(event,specificRules){
+				var val 		= $(event).text(),
+					key 		= $(event).attr("data-key"),
+					currentIpt 	= $(event).parents('.ruleModule').attr('data-show'); // 当前规则列表对应的input
+				// 可转为数值型，不能作为规则类
+				if(!isNaN(Number(val))){					
+					alert("不可以用 纯数字 做规则名！");
+					return;
+				};
+				if(String(val) == "true" || String(val) == "false"){
+					alert("非法字段，不可以用 “true” 或  “false” 做规则名！");
+					return;
+				};
+				if(specificRules){ // 规则名
+					// 当前选择的规则存在数组结构，不合法
+					if($(event).parents('ul[data-type = "array"]').length > 0){
+						var k = $(event).parents('ul[data-type = "array"]').attr("data-key");
+							k = k.split("[")[0];
+							k = k.substr(k.lastIndexOf(".")+1,k.length);
+						alert("请以 '"+k+"' 上层的信息作为规则名！")
+						return;
+					};
+					key = key.substr(key.indexOf(".")+1 , key.length);
+					$('#'+self.jsonOutputModule).remove();
+					// 用于提交的完整KEY
+					k = $(self.queryIpt).val()+'_'+$(self.queryIpt).attr("data-key")+'.'+key;
+					k = k.replace(/\[.*?\]/g,'[]');
+					k = k.replace(/\"/g,"");
+					console.log(k); // 发送到后台数据  
+				}else{// 规则类
+					key = key.substr(0,key.lastIndexOf("."));
+				}
+				$(currentIpt).val(val).attr("data-key",key);
+			};
+			// 运行
+			this.startup = function(){
+				self.moduleBuilder();
+				$(self.queryBut).click(self.keyupQuery);
+				$(self.selectBut).click(self.keyupSelect);
+				$('#'+self.ruleNameListModule+' li').click(function(){self.queryRule(this)});
+			};
+			this.startup();
+		};
+		
+		$(function(){
+			var r = null;
+			$.getJSON("aaaa.json",function(req){
+				r = req;
+				ruleConfiguration({
+					data			: r,
+					dataName		: "r",
+					ruleModuleBox 	: ".content",
+					queryBut		: ".query-rule",
+					queryIpt		: "#query-rule",
+					selectBut		: ".selection-rule",
+					selectIpt  		: "#selection-rule"
+				})
+			});
+		})
+	</script>
+</html>

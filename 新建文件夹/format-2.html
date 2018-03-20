@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var k = [
+				{
+					"item_id": 3,
+					"item_name": "身份证是否在多平台进行借贷申请",
+					"risk_level": "medium",
+					"group": "多平台借贷申请检测",
+					"item_detail": {
+						"platform_detail": ["信贷理财:1"],
+						"platform_count": 1,
+						"platform_detail_dimension": [ //各维度多头详情
+							{
+								"dimension": "借款人手机号个数", //维度名称
+								"detail": ["信贷理财:1"], //维度多头详情
+								"count": 1
+							},
+							{
+								"dimension": "借款人身份证个数",
+								"detail": ["信贷理财:1"],
+								"count": 1
+							}
+						],
+						"type": "<i style='color:red;'>platform_detail</i>"
+					}
+					}
+				];
+			
+		
+		
+		
+		var format = {
+			obj	:[],
+			dataName:'',
+			ct:'', //当前数据类型
+			// 判断数据类型
+			currentType : function(obj){
+				if(typeof obj == 'object'){
+					if(obj.length){
+						return "Arr";
+					}else{
+						return "object";
+					}
+				}else{
+					return "Str";
+				}
+			},
+			// 递归循环数据
+			dataEach:function(data,name){
+				this.ct = this.currentType(data);
+				if(this.ct === "object"){
+					for(var k in data){
+						dataName = name+'.'+k;
+						this.dataEach(data[k],name+'.'+k);
+					};
+				}else
+				if(this.ct === "Arr"){
+					for(var i = 0; i < data.length; i++){
+						dataName = name+'['+i+']';
+						this.dataEach(data[i],name+'['+i+']');
+					};
+				}else{
+					this.obj.push(dataName+':'+data); 
+				}
+			},
+			startup :function(data,dataName){
+				if(!dataName)dataName = "";
+				this.dataEach(data,dataName);
+				return this.obj;
+				//console.log(this.obj)
+			}
+		};
+		var arr = format.startup(k,'k');
+		
+		for(var i = 0; i < arr.length; i++){
+			var _key1 = arr[i].split(':')[0],
+				_key2 = arr[i].split(':')[1];
+				console.log(_key1 +"     ===========     "+ eval(_key1))
+		}
+		
+		document.write('<pre>'+JSON.stringify(k,null,4)+"</pre>")
+	</script>
+</html>

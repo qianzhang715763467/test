@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<title>111111111111111111111</title>
+	<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				list-style: none;
+				text-decoration: none;
+				font-size: .12rem;
+			}
+			
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				font-size: 100px;
+				text-align: center;
+			}
+			/* 通用
+			 *******/
+			.align-l{
+				text-align: left;
+			}
+			
+			/* 外层
+			 *******/
+			
+			.ff-wrap {
+				display: flex;
+				flex-direction: unset;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.ff-wrap-left,
+			.ff-wrap-right {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				padding: 0 1px;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			.ff-wrap-left {
+				flex-grow: 1;
+				max-width: 30%;
+				background-color: #f2f2f2;
+			}
+			
+			.ff-wrap-right {
+				flex-grow: 2;
+				background-color: #01B070;
+			}
+			/* 标题
+			 *******/
+			
+			.ff-title {
+				flex-grow: 1;
+				padding: 10px 0;
+				max-height: 45px;
+				font-size: .17rem;
+				background-color: #01B070;
+			}
+			
+			.ff-wrap-left-title {
+				background-color: #F2F2F2;
+			}
+			
+			.ff-wrap-right-title {
+				background-color: #01B070;
+			}
+			/* 主内容
+			 *******/
+			
+			.ff-main {
+				flex-grow: 2;
+				overflow: auto;
+			}
+			
+			.main-left {
+				text-align: left;
+				background-color: white;
+			}
+			
+			/* 右侧tab
+			 *******/
+			.main-right {
+				display: flex;
+				flex-direction: column;
+				background-color: #f2f2f2;
+			}
+			.main-right .tab-box {
+				position: relative;
+			}
+			/* tab-head */
+			.main-right .tab-head {
+				flex-grow: 1;
+				max-height: 40px;
+				min-height: 40px;
+				background-color: #fbfafa;
+				overflow: hidden;
+			}
+			.main-right .tab-body {
+				flex-grow: 2;
+			}
+			.main-right .tab-box table {
+				width: 100%;
+				height: 100%;
+			}
+			.main-right .tab-head tr {
+				/*line-height: 30px;*/
+			}
+			.main-right th,
+			.main-right td {
+				padding: 5px 10px;
+			}
+			.main-right .tab-head .selectAll {
+				float: left;
+				width: 50%;
+				overflow: hidden;
+			}
+			.main-right .tab-head .selectAll input {
+				position: relative;
+				top: -1px;
+				width: 15px;
+				height: 15px;
+				margin-right: 5px;
+				vertical-align: middle;
+			}
+			/* tab-body */
+			.main-right .tab-body .select{
+				min-width: 115px;
+			}
+			.main-right .tab-body .select
+		</style>
+</head>
+<body>
+	<div class="ff-wrap">
+			<aside class="ff-wrap-left">
+				<h4 class="ff-wrap-left-title ff-title"> —— 原始字段格式  ——</h4>
+				<section class="ff-main main-left">
+				</section>
+			</aside>
+			<div class="ff-wrap-right">
+				<h4 class="ff-wrap-right-title ff-title"> —— 字段操作  ——</h4>
+				<section class="ff-main main-right">
+					<div class="tab-head tab-box">
+						<table border="1" cellspacing="0" cellpadding="0" style="border-color: #CDCDCD;">
+							<tr>
+								<th>字段名</th>
+								<th>val</th>
+								<th class="selectAll-box">
+									<div class="selectAll">
+										<input type="checkbox" name="" id="select-all" value="" /><label for="select-all">全选</label>
+									</div>
+									<div class="selectAll">
+										<input type="checkbox" name="" id="unselect-all" value="" /><label for="unselect-all">全不选</label>
+									</div>
+								</th>
+								<th>其他</th>
+							</tr>
+						</table>
+					</div>
+					<div class="tab-body tab-box">
+						<table border="1" cellspacing="0" cellpadding="0" style="border-color: #CDCDCD;">
+						</table>
+					</div>
+				</section>
+			</div>
+		</div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="commons.js"></script>
+<script>
+	var data1 = [ {
+		name : "hyy",
+		age : 12,
+		pets : [ {
+			name : "pig",
+			like : {
+				name : "fly",
+				color : [ {
+					name : "red",
+					count : 1,
+					isBoy : true
+				}, {
+					name : "blue",
+					count : 2
+				} ]
+			}
+		}, {
+			name : "dog",
+			like : {
+				name : "food",
+				color : [ {
+					name : "red",
+					count : 3
+				}, {
+					name : "blue",
+					count : 4
+				} ]
+			}
+		} ]
+	} ];
+
+	var data = {
+		"success" : true,
+		"final_score" : 80,
+		"final_decision" : "Review",
+		"report_id" : "<i style='color:red;'>ER2015070617512600000001</i>",
+		"apply_time" : 1436841918368,
+		"report_time" : 1436842025749,
+		"device_type" : "web",
+		"proxy_info" : [ {
+			"port" : "8082",
+			"proxyProtocol" : "HTTP",
+			"proxyType" : "HTTP"
+		}, {
+			"port" : "8081",
+			"proxyProtocol" : "PPTP",
+			"proxyType" : "VPN"
+		} ],
+		"device_info" : {
+			"accept" : "*/*",
+			"acceptEncoding" : "gzip,deflate,sdch",
+			"acceptLanguage" : "zh-CN,zh;q=0.8",
+			"browser" : "chrome",
+			"browserType" : "chrome",
+			"browserVersion" : "31.0.1650.63",
+			"canvas" : "57d1ed3766927be5de7018e7c43db5e4",
+			"cookieEnabled" : "true",
+			"deviceId" : "f14fd49ac7da52f751c791ca16391c51",
+			"deviceType" : "Windows XP",
+			"flashEnabled" : "true",
+			"fontId" : "a90699a33ca21b53ae8a4fa16d11829e",
+			"fpCookie" : "B0F75E91DAF193D39C192D6275F282E09EAF23E240ED347327C712B8BBCDBDEC4DF39C04F05E0C369788A2F483D735889A6BD108DE818070",
+			"identifier" : "1436805698330-8099812",
+			"langRes" : "zh-CN^^-^^-^^-^^-",
+			"languageRes" : "zh-CN^^-^^-^^-^^-",
+			"os" : "Windows XP",
+			"pluginList" : "ee52cdfa3df5df56001962d1ed9b6d3c",
+			"refer" : "http://www.aixuedai.com/user/authentication?refer=reg",
+			"referer" : "http://www.aixuedai.com/user/authentication?refer=reg",
+			"screenRes" : "1920^^1080^^72^^color",
+			"smartId" : "s_8e679e4d305546702c51413a14a43643",
+			"softId" : "b8cb9b155130972ca833300a65ed4db8",
+			"tcpOs" : "Windows XP",
+			"tokenId" : "aixuedaigv7ehqk0aq7sps08bchbes9qv1",
+			"trueIp" : "116.207.145.134",
+			"userAgent" : "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36",
+			"version" : "0.0.3"
+		},
+		"geo_ip" : {
+			"ip" : "49.74.194.234",
+			"lip" : 826983146,
+			"country" : "中国",
+			"province" : "江苏省",
+			"city" : "南京市",
+			"county" : "南京市",
+			"isp" : "电信",
+			"latitude" : 32.1008,
+			"longitude" : 118.926
+		},
+		"geo_trueip" : {
+			"ip" : "49.74.194.234",
+			"lip" : 826983146,
+			"country" : "中国",
+			"province" : "江苏省",
+			"city" : "南京市",
+			"county" : "南京市",
+			"isp" : "电信",
+			"latitude" : 32.1008,
+			"longitude" : 118.926
+		},
+		"kunta_call_result" : {
+			"mobile_id_number_check" : [ {
+				"result" : "暂不支持移动手机号相关服务",
+				"result_code" : "405",
+				"id_number" : "640223199801016519",
+				"flow_charge" : false,
+				"mobile" : "15205153027"
+			} ]
+		},
+		"risk_items" : [ {
+			"item_id" : 1,
+			"item_name" : "身份证是否是一代身份证",
+			"risk_level" : "low",
+			"group" : "个人信息核查"
+		}, {
+			"item_id" : 2,
+			"item_name" : "身份证是否出现在信贷逾期名单",
+			"risk_level" : "high",
+			"group" : "不良信息扫描",
+			"item_detail" : {
+				"discredit_times" : 1,
+				"overdue_details" : [ {
+					"overdue_amount" : 3475,
+					"overdue_count" : 1,
+					"overdue_day" : 69
+				} ],
+				"type" : "discredit_count"
+			}
+		}, {
+			"item_id" : 3,
+			"item_name" : "身份证是否在多平台进行借贷申请",
+			"risk_level" : "medium",
+			"group" : "多平台借贷申请检测",
+			"item_detail" : {
+				"platform_detail" : [ "信贷理财:2" ],
+				"platform_count" : 2,
+				"type" : "platform_detail"
+			}
+		}, {
+			"item_id" : 3,
+			"item_name" : "身份证是否在多平台进行借贷申请",
+			"risk_level" : "medium",
+			"group" : "多平台借贷申请检测",
+			"item_detail" : {
+				"platform_detail" : [ "信贷理财:1" ],
+				"platform_count" : 1,
+				"platform_detail_dimension" : [ {
+					"dimension" : "借款人手机号个数",
+					"detail" : [ "信贷理财:1" ],
+					"count" : 1
+				}, {
+					"dimension" : "借款人身份证个数",
+					"detail" : [ "信贷理财:1" ],
+					"count" : 1
+				} ],
+				"type" : "platform_detail"
+			}
+		}, {
+			"item_id" : 4,
+			"item_name" : "第一联系人手机号码是否出现在信贷逾期名单",
+			"risk_level" : "high",
+			"group" : "关联人信息扫描",
+			"item_detail" : {
+				"discredit_times" : 2,
+				"overdue_details" : [ {
+					"overdue_amount" : 5628.4,
+					"overdue_count" : 2,
+					"overdue_day" : 37
+				}, {
+					"overdue_amount" : 1000,
+					"overdue_count" : 1,
+					"overdue_day" : 56
+				} ],
+				"type" : "discredit_count"
+			}
+		}, {
+			"item_id" : 5,
+			"item_name" : "7天内手机号关联身份证个数",
+			"risk_level" : "medium",
+			"group" : "客户行为检测",
+			"item_detail" : {
+				"frequency_detail_list" : [ {
+					"detail" : "手机号关联身份证个数：3",
+					"data" : [ "354826xxxx", "409798xxxx", "782698xxxx" ]
+				}, {
+					"type" : "frequency_detail"
+				} ]
+			}
+		}, {
+			"item_id" : 6,
+			"item_name" : "7天内手机号出现次数过多",
+			"risk_level" : "medium",
+			"group" : "客户行为检测",
+			"item_detail" : {
+				"frequency_detail_list" : [ {
+					"detail" : "手机号出现次数：5"
+				}, {
+					"type" : "frequency_detail"
+				} ]
+			}
+		}, {
+			"item_name" : "身份证命中模糊名单",
+			"item_id" : 4321,
+			"risk_level" : "high",
+			"group" : "个人基本信息核查",
+			"item_detail" : {
+				"namelist_hit_details" : [ {
+					"fuzzy_detail_hits" : [ {
+						"fraud_type" : "AA模糊名单",
+						"fuzzy_id_number" : "341221190103****",
+						"fuzzy_name" : "张三"
+					}, {
+						"fraud_type" : "AA模糊名单",
+						"fuzzy_id_number" : "353451190309****",
+						"fuzzy_name" : "李四"
+					} ],
+					"description" : "规则描述XXX",
+					"type" : "fuzzy_list"
+				} ]
+			}
+		}, {
+			"item_name" : "身份证或手机号命中关注名单",
+			"item_id" : 1234,
+			"risk_level" : "high",
+			"group" : "个人基本信息核查",
+			"item_detail" : {
+				"fraud_type" : "AA关注名单、BB关注名单、CC关注名单、DD关注名单",
+				"namelist_hit_details" : [ {
+					"fraud_type" : "AA关注名单、BB关注名单",
+					"hit_type_displayname" : "借款人身份证",
+					"description" : "规则描述XXX",
+					"type" : "grey_list"
+				}, {
+					"fraud_type" : "CC关注名单、DD关注名单",
+					"hit_type_displayname" : "手机号",
+					"description" : "规则描述YYY",
+					"type" : "grey_list"
+				} ]
+			}
+		}, {
+			"item_name" : "身份证或手机号命中欺诈名单",
+			"item_id" : 4321,
+			"risk_level" : "high",
+			"group" : "个人基本信息核查",
+			"item_detail" : {
+				"fraud_type" : "AA风险名单、法院失信、BB风险名单、法院执行",
+				"court_details" : [ {
+					"fraud_type" : "法院失信",
+					"id_number" : "15222319910817803X",
+					"name" : "张三",
+					"age" : "37",
+					"gender" : "男",
+					"court_name" : "常熟市人民法院",
+					"province" : "江苏",
+					"filing_time" : "2013年10月17日",
+					"execution_department" : "常熟市人民法院",
+					"duty" : "被告周宏杰应于本判决发生法律效力之日起七日内归还原告贺启斌借款29500元。",
+					"situation" : "已结案",
+					"discredit_detail" : "违反财产报告制度",
+					"execution_base" : "(2013)熟辛民初字第0014号",
+					"case_number" : "(2013)熟辛执字第00400号"
+				}, {
+					"fraud_type" : "法院执行",
+					"id_number" : "15222319910817803X",
+					"name" : "张三",
+					"age" : "37",
+					"gender" : "男",
+					"court_name" : "常熟市人民法院",
+					"province" : "江苏",
+					"filing_time" : "2013年10月17日",
+					"execution_department" : "常熟市人民法院",
+					"duty" : "被告周宏杰应于本判决发生法律效力之日起七日内归还原告贺启斌借款29500元。",
+					"situation" : "已结案",
+					"discredit_detail" : "违反财产报告制度",
+					"execution_base" : "(2013)熟辛民初字第0014号",
+					"case_number" : "(2013)熟辛执字第00400号"
+				} ],
+				"namelist_hit_details" : [ {
+					"fraud_type" : "AA风险名单、法院失信",
+					"hit_type_displayname" : "借款人身份证",
+					"description" : "规则描述XXX",
+					"type" : "black_list",
+					"court_details" : [ {
+						"fraud_type" : "法院失信",
+						"id_number" : "15222319910817803X",
+						"name" : "张三",
+						"age" : "37",
+						"gender" : "男",
+						"court_name" : "常熟市人民法院",
+						"province" : "江苏",
+						"filing_time" : "2013年10月17日",
+						"execution_department" : "常熟市人民法院",
+						"duty" : "被告周宏杰应于本判决发生法律效力之日起七日内归还原告贺启斌借款29500元。",
+						"situation" : "已结案",
+						"discredit_detail" : "违反财产报告制度",
+						"execution_base" : "(2013)熟辛民初字第0014号",
+						"case_number" : "(2013)熟辛执字第00400号"
+					} ]
+				}, {
+					"fraud_type" : "BB关注名单、法院执行",
+					"hit_type_displayname" : "手机号",
+					"description" : "规则描述YYY",
+					"type" : "black_list",
+					"court_details" : [ {
+						"fraud_type" : "法院执行",
+						"id_number" : "15222319910817803X",
+						"name" : "张三",
+						"age" : "37",
+						"gender" : "男",
+						"court_name" : "常熟市人民法院",
+						"province" : "江苏",
+						"filing_time" : "2013年10月17日",
+						"execution_department" : "常熟市人民法院",
+						"duty" : "被告周宏杰应于本判决发生法律效力之日起七日内归还原告贺启斌借款29500元。",
+						"situation" : "已结案",
+						"discredit_detail" : "违反财产报告制度",
+						"execution_base" : "(2013)熟辛民初字第0014号",
+						"case_number" : "(2013)熟辛执字第00400号"
+					} ]
+				} ]
+			}
+		} ],
+		"address_detect" : {
+			"id_card_address" : "河南省漯河市临颍县",
+			"mobile_address" : "浙江省杭州市",
+			"true_ip_address" : "河南省漯河市",
+			"wifi_address" : "河南省漯河市临颍县城关镇迎宾路",
+			"cell_address" : "河南省漯河市临颍县城关镇迎宾路",
+			"bank_card_address" : "农行北京分行"
+		}
+	};
+
+	var rst = recursion(data);
+	//alert(JSON.stringify(rst));
+	console.log(rst)
+// 	alert(JSON.stringify(rst.hyy.pets.pig.like.color.red));
+// 	alert(JSON.stringify(rst.risk_items.身份证是否出现在信贷逾期名单.item_detail.overdue_details));
+	//alert(sum(rst.risk_items.身份证是否出现在信贷逾期名单.item_detail.overdue_details, "overdue_count"));
+	//alert(sum(rst.risk_items.身份证是否出现在信贷逾期名单.item_detail.overdue_details, "overdue_amount"));
+	//alert(JSON.stringify(rst.risk_items.身份证或手机号命中欺诈名单.item_detail.court_details.法院执行.duty));
+	//alert(sum(rst.risk_items.身份证或手机号命中欺诈名单.item_detail.court_details, "age"));
+	
+		var format = {
+			obj: [],
+			dataName: '',
+			ct: '', //当前数据类型
+			// 判断数据类型
+			currentType: function(obj) {
+				if(typeof obj == 'object') {
+					if(obj.length) {
+						return "Arr";
+					} else {
+						return "object";
+					}
+				} else {
+					return "Str";
+				}
+			},
+			// 递归循环数据
+			dataEach: function(data, name) {
+				this.ct = this.currentType(data);
+				if(this.ct === "object") {
+					for(var k in data) {
+						dataName = name + '.' + k;
+						this.dataEach(data[k], name + '.' + k);
+					};
+				} else
+				if(this.ct === "Arr") {
+					for(var i = 0; i < data.length; i++) {
+						dataName = name + '[' + i + ']';
+						this.dataEach(data[i], name + '[' + i + ']');
+					};
+				} else {
+					this.obj.push(dataName + ':' + data);
+				}
+			},
+			startup: function(data, dataName) {
+				if(!dataName) dataName = "";
+				this.dataEach(data, dataName);
+				return this.obj;
+			}
+		};
+		var f = {
+			getData		: function(){
+				var arr = this.arr,
+					str = this.initData;
+				var html = '';
+				var lastHtml = '</td><td>删除</td></tr>';
+				for(var i = 0; i < arr.length; i++) {
+					var _key1 = arr[i].split(':')[0],
+						_key2 = arr[i].split(':')[1];
+					html += '<tr><td class="align-l">'+_key1+'</td><td class="align-l">'+_key2+
+							'</td><td><input type="checkbox" name="'+_key1+'" value="" class="select" />'+lastHtml;
+				};
+				this.mainLeft.append('<pre>' + str + "</pre>");
+				this.mainRight.find('.tab-body table').append(html);
+				this.computeSize($('.main-right'));
+			},
+			computeSize	: function(dom){
+				dom.find('.tab-body tr:first td').each(function(){
+					var index = $(this).index(),
+						sizeW = $(this).outerWidth();
+					$(this).css({'max-width':sizeW+'px','min-width':sizeW+'px'});
+					dom.find('.tab-head tr:first th').eq(index).css({'max-width':sizeW+'px','min-width':sizeW+'px'});
+				});
+			},
+			// 运行
+			startup 	: function(params){
+				this.mainLeft	= params.mainLeft,
+				this.mainRight	= params.mainRight,
+				this.initData	= JSON.stringify(params.dataVal, null, 4),
+				this.arr		= format.startup(params.dataVal,params.dataName), // 数据
+				console.log(this.arr)
+				this.getData();
+				
+			}
+		}
+//		var r = {};
+//		$(function(){
+//			$.getJSON('aaaa.json',function(req){
+//				r = req;
+				f.startup({
+					dataVal	: rst,
+					dataName:'rst',
+					mainLeft: $('.main-left'),
+					mainRight: $('.main-right'),
+				});
+//			})
+//			console.log(new Date().getTime()-time)
+//		})
+</script>
+</html>

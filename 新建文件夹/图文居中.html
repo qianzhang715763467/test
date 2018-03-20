@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing:border-box;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+				font-size: 100px;
+			}
+			.wrap{
+				width: 900px;
+				height: 11vh;
+				min-height: 44px;
+				margin: 0 auto;		
+				background-color: #FAFAFA;		
+			}
+			
+			.wrap .items{
+				position: relative;
+				width: 100%;
+				/* 0.33rem*1.3333 是因为文本实际高度为字体设置高度的  1.33333333倍*/
+				padding-top: calc(5.5vh - 0.33rem*1.3333/2); /*盒子高度/2 - 文本内容高度/2*  !!! padding & margin 百分比是相对于父级高度来定义的*/
+			}
+			.wrap .items .item{
+				float: left;
+				display: flex;
+				flex-direction: unset;
+				width: 25%;
+				overflow: hidden;
+			}
+			.item-icon{
+				position: relative;
+				min-width: 50px;
+				width: 40%;
+			}
+			.item-icon img{
+				position: absolute;
+				top: 0;
+				right: 10px;
+				bottom: 0;
+				margin: auto;
+				width: 20px;
+			}
+			.item-content{
+				position: relative;
+				font-size: .19rem;
+			}
+			.item-title{
+				color: #999;
+				font-size: .14rem;
+				text-align: center;
+			}
+			.item-count{}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul class="items">
+				<li class="item">
+					<div class="item-icon">
+						<img src="img/riskIndex-not.png" />
+					</div>
+					<section class="item-content">
+						<h6 class="item-title">申请总额</h6>
+						<span class="item-count">
+							9909
+						</span>
+					</section>
+				</li>
+				<li class="item">
+					<div class="item-icon">
+						<img src="img/riskIndex-not.png" />
+					</div>
+					<section class="item-content">
+						<h6 class="item-title">放款总额</h6>
+						<span class="item-count">
+							2996
+						</span>
+					</section>
+				</li>
+				<li class="item">
+					<div class="item-icon">
+						<img src="img/riskIndex-not.png" />
+					</div>
+					<section class="item-content">
+						<h6 class="item-title">逾期总额</h6>
+						<span class="item-count">
+							123
+						</span>
+					</section>
+				</li>
+				<li class="item">
+					<div class="item-icon">
+						<img src="img/riskIndex-not.png" />
+					</div>
+					<section class="item-content">
+						<h6 class="item-title">逾期率</h6>
+						<span class="item-count">
+							69
+						</span>
+					</section>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

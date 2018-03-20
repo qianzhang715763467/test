@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var firstName = 'Michael';
+		var lastName = 'Jackson';
+		var year = 1958;
+		// 写法一
+		export var m = 1;
+		
+		// 写法二
+		var m = 1;
+		export {m};
+		
+		// 写法三
+		var n = 1;
+		export {n as m};
+		export {firstName, lastName, year};
+		/*export default function(){
+			console.log("1111")
+		}*/
+	</script>
+</html>

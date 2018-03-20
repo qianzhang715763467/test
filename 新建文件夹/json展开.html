@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var k = [
+				/*{
+					"item_id": 1,
+					"item_name": "身份证是否是一代身份证",
+					"risk_level": "low",
+					"group": "个人信息核查"
+				},*/
+				{
+					"item_id": 2,
+					"item_name": "身份证是否出现在信贷逾期名单",
+					"risk_level": "high",
+					"group": "不良信息扫描",
+					"item_detail": {
+						"discredit_times": 1,
+						"date":["123414",
+							"wewrew",
+							"werew"
+						],
+						"overdue_details": [{
+							"overdue_amount": 3475.0,
+							"overdue_count": 1,
+							"overdue_day": 69
+						}],
+						"type": "discredit_count"
+					}
+				},
+				{
+					"item_id": 3,
+					"item_name": "身份证是否在多平台进行借贷申请",
+					"risk_level": "medium",
+					"group": "多平台借贷申请检测",
+					"item_detail": {
+						"platform_detail": ["信贷理财:2"],
+						"platform_count": 2,
+						"type": "platform_detail"
+					}
+				},
+				{
+					"item_id": 3,
+					"item_name": "身份证是否在多平台进行借贷申请",
+					"risk_level": "medium",
+					"group": "多平台借贷申请检测",
+					"item_detail": {
+						"platform_detail": ["信贷理财:1"],
+						"platform_count": 1,
+						"platform_detail_dimension": [ //各维度多头详情
+							{
+								"dimension": "借款人手机号个数", //维度名称
+								"detail": ["信贷理财:1"], //维度多头详情
+								"count": 1
+							},
+							{
+								"dimension": "借款人身份证个数",
+								"detail": ["信贷理财:1"],
+								"count": 1
+							}
+						],
+						"type": "platform_detail"
+					}
+				}
+			];
+			var html = '';
+			for(var a = 0 ; a < k.length; a++){
+				var k1 = k[a];
+				var init1 =  'k['+a+'].';
+				var init2 = '';
+				var init3 = '';
+				var init4 = '';
+				for(var b in k1){
+					html += init1;
+					html += b;
+					if(typeof k1[b] == "object"){
+						init1 = init1+b;  // 记录当前k的展开模式
+						var k2 = k1[b];
+						for(var c in k2){
+							if(typeof k2[c] == "object"){
+								init2 = init1; // 记录当前k的展开模式
+								//html += init2+'.'+c+':'+k2[c]+'\n';
+								var k3 = k2[c];
+								init3 = init2+"."+c;// 记录当前k的展开模式
+								// 当前val属于 数组形式的json对象
+								if(JSON.stringify(k3).indexOf('[')> -1 && JSON.stringify(k3).indexOf(']') > -1){
+									if(typeof k3[0] == "object"){
+										for(var d = 0; d < k3.length; d++){
+											var k4 = k3[d];
+											for(var e in k4){
+												html += init3+'.['+d+'].'+e+':'+k4[e]+'\n';
+											}
+										}
+									}else{
+										html += init3+"："+JSON.stringify(k3)+'\n';
+									}
+								}else 
+								// 普通的json对象
+								if(typeof k2[c] == "object"){
+								}else{
+								}
+							}else{
+								html += init2+"."+c+':'+k2[c]+'\n';
+							}
+						}
+					}else{
+						html += ':'+ k1[b]+'\n'
+					}
+				}
+				html += "\n"
+			}
+			console.log(html)
+			
+			
+			function isTypeOf(args){
+				var objname = {};
+				// 当前args的val是个objct？
+				if(typeof args === 'object'){
+					// 当前 obj 是个数组形式的obj
+					if(JSON.stringify(args).indexOf('[') > -1 && JSON.stringify(args).indexOf(']') > -1){
+						// 当前数组只是一个纯粹的数组
+						if(args[0] != 'object'){
+							objname.initArr = ":"+JSON.stringify(args);
+						}else{// 当前数组是一个混合式的obj
+							for(var k in args){
+								// 又是一层obj？
+								if(typeof args[k] == 'object'){
+									
+								}else{
+									// 原样输出？
+									objname[k] = args[k];  
+								}
+							}
+						}
+					}else{
+						// 一个只有{}的标准obj格式
+						for(var i in args){
+							
+						}
+					}
+				}else{// 当前对象只是一个key？ 原样返回
+					objname = args;
+				}
+				return objname;
+			};				
+			
+			
+		var JSONformat = function(args,name){
+			// 判断数据类型
+			this.isTypeOf = function(obj){
+				if(typeof obj == 'object'){
+					if(JSON.stringify(obj).indexOf('[') > -1 && JSON.stringify(obj).indexOf(']') > -1){
+						return "Arr";
+					}else{
+						return "object";
+					}
+				}else{
+					return "Str";
+				}
+			};
+			this.ForEach = function(){
+				var objData = {};
+				var t = this.isTypeOf(args); // 当前数据类型
+				if(t === "Arr"){// 数据形式的对象
+						console.log(1)
+					for(var i = 0; i < args.length; i++){
+							console.log(2)
+						t = this.isTypeOf(args[i]);
+						if(t === 'object'){
+							console.log(3)
+							/*for(var k in args[i]){
+								t = this.isTypeOf(args[i][k]);
+								if(t === 'Str'){
+									
+								}else{
+									
+								}
+							}*/
+							//var aa = this.ForEach(args[i],i);
+							objData[i] = name+":"+aa;
+						}else if(t === "Arr"){// 数据形式的对象
+								console.log(4)
+							t = this.isTypeOf(args[i][0]);
+							if(t === "Str"){
+									console.log(6)
+								objData[i] = name+":"+JSON.stringify(args[i]);
+							}else{
+								
+							}
+						}else{// 只是一个纯粹的值
+							console.log(5)
+							objData[i] = name+":"+JSON.stringify(args[i]);
+						}
+					}
+				}else
+				if(t === "objct"){// obj 类型
+					
+				}else{ // 其他
+					objData[name] = args;
+				}
+				return objData ;
+			}	
+				
+//				if(t === 'Arr'){
+//					// 当前 obj 是个数组形式的obj
+//					t = this.isTypeOf(args[i]);
+//					if(JSON.stringify(args).indexOf('[') > -1 && JSON.stringify(args).indexOf(']') > -1){console.log(3)
+//						for(var i = 0; i < args.length; i++){
+//							if(typeof args[i] != 'object'){ // 当前数组只是一个纯粹的数组
+//								console.log(5)
+//								objData[i] = name+":"+JSON.stringify(args[i]);
+//							}else{// 当前数组是一个混合式的obj
+//								var t = this.isTypeOf(args[i]);
+//								console.log(t)
+//								
+//								objData[i] = name+":"+this.isTypeOf(args[i]);
+//							}
+//						}
+//					}else{console.log(4)
+//						// 一个只有{}的标准obj格式
+//						for(var k in args){console.log(10)
+//							// 又是一层obj？
+//							if(typeof args[k] == 'object'){
+//								console.log(11)
+//							}else{console.log(12)
+//								// 原样输出？
+//								objData[k] = k+'.'+args[i];  
+//							}
+//						}
+//					}
+//				}else{// 当前对象只是一个key？ 原样返回
+//					objData[name] = args;console.log(2)
+//				}
+//			};
+			
+			this.ForEach();
+		}
+			var str = JSONformat([
+				{'key':"213"},
+				"123",
+				["11","222","3333"]
+			],'k');
+			console.log(str);
+	</script>
+
+
+</html>

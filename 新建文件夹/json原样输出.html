@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				padding-left: 20px;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			li{
+				list-style: none;
+				padding-left: 15px;
+				padding-top: 4px ;
+				padding-bottom: 4px;
+				font-size: 12px;
+			}
+			a{
+				text-decoration: none;
+				padding-left: 10px;
+			}
+			i{
+				font-style: normal;
+				padding-right: 10px;
+			}
+			i:hover{
+				cursor: pointer;
+			}
+			.activeli{
+				background-color: #1ABC9C;
+			}
+			.head{
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 2;
+				padding: 20px;
+				width: 100%;
+				background-color: #1AA97B;
+			}
+			#activeKey{
+				width: 100%;
+				padding: 5px 10px ;
+				margin:5px 0px;
+				height: 30px;
+				border-bottom: 1px solid #BA9217;
+				background-color: #F2F2F2;
+				border-radius: 3px;
+				overflow: hidden; 
+				white-space: nowrap;  
+				text-overflow: ellipsis;
+			}
+			#JSONoutput{
+				padding-top: 110px;
+			}
+			.activeKey-rename{
+				padding-left: 5px;
+				padding-right: 5px;
+				background-color: lightskyblue;
+				cursor: pointer;
+			}
+			.alternateValue{
+				position: absolute;
+				z-index: 10;
+				padding: 10px 0;
+				background-color: white;
+				box-shadow: 0 0 10px 2px #9e9e9e;
+				border-radius: 3px;
+			}
+			.alternateValue:before{
+				position: absolute;
+				content: "";
+				top: -20px;
+				border: 10px solid transparent;
+				border-bottom-color: #cacaca;
+			}
+			.alternateValue:after{
+				position: absolute;
+				content: "";
+				top: -17px;
+				left: 1px;
+				border: 9px solid transparent;
+				border-bottom-color: white;
+			}
+			.alternateValue li{
+				cursor: pointer;
+				padding-right: 15px;
+			}
+			.alternateValue li:hover{
+				background-color: #1ABC9C;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="head">
+			<p id="activeKey"></p>
+			<input type="text" name="" id="query" placeholder="请输入搜索内容...."/>
+		</div>
+	</body>
+	<script src="jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var r = [
+			{
+				"item_id": 1,
+				"item_name": "身份证是否是一代身份证",
+				"risk_level": "low",
+				"group": "个人信息核查"
+			}, {
+				"item_id": 2,
+				"item_name": "身份证是否出现在信贷逾期名单",
+				"risk_level": "high",
+				"group": "不良信息扫描",
+				"item_detail": {
+					"discredit_times": 1,
+					"overdue_details": [
+						{
+							"overdue_amount": 3475,
+							"overdue_count": 1,
+							"overdue_day": 69
+						}
+					],
+					"type": "discredit_count"
+				}
+			}
+		];
+		function parse(param){
+			this.data 		= param.Data; // 数据
+			this.dataName 	= param.DataName || ""; // 对象数据的名字
+			this.dom 		= param.Dom || $('body');// 展示用对象
+			this.hoverClass = param.HoverClass; // 鼠标移入样式
+			this.createBoxID= param.id || "JSONoutput";// 生成的盒模型id  
+			this.DCdom 		= param.DisplayCheck; // 点击信息时显示内容的dom
+			this.SVDSClass 	= param.SelectValueDisplayStyleClass; // 选中信息显示的样式
+			this.AVL 		= param.AlternateValueListClass   // 替换信息列表 
+			this.html 		= "";// 返回值 
+			this.ct			= "";// 当前数据类型
+			this.count		= 0; // 执行次数，首次执行的话会给外层盒子添加id
+			this.AlternateValueListHtml = ""; // 替换信息列表内容 
+			// instanceof
+			this.stanceof = function(data){
+				if(typeof data == 'object') {
+					if(data.length) {
+						this.ct = "array";
+					} else {
+						this.ct = "object";
+					}
+				} else {
+					this.ct = "Str";
+				}
+			};
+			this.format = function(data,dataName,key){
+				this.count ++;
+				// 判断数据类型
+				this.stanceof(data);
+				// 递归 格式化
+				if(this.ct === "object") {
+					this.mosaicHtml(false,key,dataName);
+					for(var k in data) {
+						this.html += "<li>";
+						this.format(data[k], dataName + '.' + k,k);
+					};
+					this.mosaicHtml(false,false,false,"object");
+				} else
+				if(this.ct === "array") {
+					this.mosaicHtml(false,key,dataName);
+					// 递归循环
+					for(var i = 0; i < data.length; i++) {
+						this.html += "<li>";
+						this.format(data[i], dataName + '[' + i + ']');
+					};
+					this.mosaicHtml(false,false,false,"array");
+				} else {
+					this.mosaicHtml(data,key,dataName);
+				}
+			};
+			// 拼接 html
+			this.mosaicHtml = function(data,Key,dataName,endTag){// (数据，数据下的某一个key，当前数据对应的key，结束标签)
+				var self = this;
+				// 不同类型下对应的符号
+				var Fchar = '[',
+					Lchar = ']';
+				if(this.ct == "object" || endTag == "object"){
+					Fchar = '{',
+					Lchar = '}';
+				}
+				// 结束标签
+				if(endTag){
+					this.html += '</ul><p>'+ Lchar +'</p></li>';
+				}else
+				// 输出标签  key : val
+				if(this.ct == "Str" && data){
+					this.html += '<i data-key="'+ dataName +'" onclick="self.clickDisplayCheckValue(this)">"'+Key+'" :</i>'
+					+'<a href="javascript:;"data-key="'+ dataName +'" onclick="self.clickDisplayCheckValue(this)">"'+data+'"</a></li>';
+				}else{
+					// 开始标签
+					if(this.count == 1){ // 首次执行？
+						this.html += '<ul id="'+this.createBoxID+'"><p>'+Fchar+'</p>';
+					}else{
+						// key 是否存在？  
+						if(Key){// 存在 key+ ":开始符号 ",绑定自定义属性：当前val在json对象中的对应key
+							this.html += '<i data-key="'+ dataName +'" onclick="self.clickDisplayCheckValue(this)">"'+Key+'":'+Fchar+'</i>';
+						}else{	// 不存在 +"开始符号"
+							this.html += '<p>'+Fchar+'</p>';
+						};
+						// 当前对象是数组，或者当前对象是数组里面的一个object数据
+						if(dataName.length > 0 && dataName.lastIndexOf(']') == dataName.length-1 ){
+							this.ct = "array";
+						}else{
+							this.ct = "object";
+						}
+						// 给当前ul层添加标记 type,key
+						this.html += '<ul data-type="'+ this.ct +'" data-key="'+ dataName +'">';
+					}
+				}
+			};
+			// hover style 
+			this.hover = function(){
+				var self = this;
+				var createBox = null;
+				if(self.createBoxID.indexOf("#") < 0){
+					createBox = $("#"+self.createBoxID);
+				}else{
+					createBox = $(self.createBoxID);
+				}
+				createBox.find("i,p,a").hover(function(){
+					$(this).parent().addClass(self.hoverClass);
+				},function(){
+					$('.'+self.hoverClass).removeClass(self.hoverClass);
+				});
+			};
+			// key,val onclick
+			this.clickDisplayCheckValue = function(event){
+				var self = this;
+				var Key = $(event).attr('data-key');
+				var arr = []; 		// 当前点击对象指定祖辈的key；
+				var size = 0; 		// 索引
+				var newKey = "";  	// 新的用于显示的Key
+				// 当前key 存在数组形式
+				if(Key.indexOf("[") > -1 && Key.indexOf("]") > -1){
+					// 格式化当前key为数组
+					Key = Key.replace(/\[|]/g,',').split(",");
+					// 向上获取所有父辈 type 为 "array"的 "data-key"
+					var uls = $(event).parents("ul[data-type = 'array']");
+					for(var i = uls.length-1; i >= 0; i--){
+						arr.push($(uls[i]).attr("data-key"));
+					};
+					// 循环 key数组，组合生成用于显示的KEY
+					for(var i = 0; i < Key.length; i++){
+						if(!Number(Key[i]) && Key[i] != "0"){
+							newKey += Key[i];
+						}else{
+							newKey += '<span  class="'+ self.SVDSClass +'" data-key="'+ arr[size] +'">'+Key[i]+'</span>';
+							size++;
+						}
+					}
+				}else{
+					newKey = Key;
+				};
+				$(self.DCdom).html(newKey);
+			};
+			this.clickAlternateValue = function(event){
+				this.AlternateValueListHtml = '';
+				$('.'+this.AVL).remove();
+				$('.'+self.SVDSClass).removeAttr("data-markup");  //清除标记
+				$(event).attr("data-markup","replaceText"); // 标记当前点击对象
+				var obj = eval($(event).attr("data-key"));
+				var ol 	= $(event).offset().left,
+					ot  = $(event).offset().top+$(event).outerHeight()+7;
+				this.AlternateValueListHtml += '<div class="'+this.AVL+'" style="top:'+ot+'px;left:'+ol+'px;"><ul>';
+				this.format2(obj);
+				this.AlternateValueListHtml += '</ul></div>';
+				$('body').append(this.AlternateValueListHtml);
+			};
+			//递归
+			this.format2 = function(data){
+				this.stanceof(data);
+				if(this.ct === "object") {
+					for(var k in data) {
+						this.format2(data[k]);
+					};
+				} else
+				if(this.ct === "array") {
+					for(var i = 0; i < data.length; i++) {
+						this.format2(data[i]);
+					};
+				} else {
+					this.AlternateValueListHtml += "<li>"+data+"</li>";
+				}
+			};
+			// 启动
+			this.start = function(){
+				var self = this;
+				
+				this.format(this.data,this.dataName); // 格式化
+				this.dom.append(this.html+"</ul>");	// 创建节点
+				this.hover();
+				
+				$(document).click(function(event){
+					$('.'+self.AVL).remove(); // 点击任何按钮都会清楚页面上的 self.AVL 元素
+					if(event.target.className.indexOf(self.SVDSClass) > -1 ){
+						event.stopPropagation();
+						self.clickAlternateValue($(event.target));
+					};
+					if($(event.target).parents('.'+self.AVL).length > 0){
+						$(self.DCdom).find("span[data-markup = 'replaceText']").text('.'+$(event.target).text());
+					}
+				})
+			};
+			this.start();
+		};
+		
+		$(function(){
+			$.getJSON('aaaa.json',function(req){
+				r = req;
+				parse({
+					Data		: r,
+					DataName	: "r",
+					Dm			: $("body"),
+					HoverClass	: 'activeli',
+					DisplayCheck: "#activeKey",
+					SelectValueDisplayStyleClass : "activeKey-rename",
+					AlternateValueListClass : 'alternateValue'
+				});
+			});
+			
+			
+			// query
+			$(document).keydown(function(event){
+				if(event.keyCode == 13){
+					var liLists 	= $('#JSONoutput').children('li');
+					var queryText 	= $("#query").val();
+					for(var i = 0; i < liLists.length; i++){
+						if($(liLists[i]).text().indexOf(queryText) < 0){
+							$(liLists[i]).hide();
+						}else{
+							$(liLists[i]).show();
+						}
+					}
+				}
+			})
+		})
+	</script>
+</html>

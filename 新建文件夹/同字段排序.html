@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var arr = [
+			{'key':"json.xxxx.xxx", 'val':'AAAAAAA'},
+			{'key':1, 'val':'F'},
+			{'key':2, 'val':'C'},
+			{'key':3, 'val':'D'},
+			{'key':4, 'val':'B'},
+			{'key':5, 'val':'F'},
+			{'key':6, 'val':'Aaa'},
+			{'key':7, 'val':'B'},
+			{'key':8, 'val':'E'},
+			{'key':9, 'val':'C'},
+			{'key':10, 'val':'D'},
+			{'key':11, 'val':'F'}
+		];
+		// json遍历
+		Array.prototype.ergodic = function(key){
+			var arr = [];
+			this.map(function(item1,i){
+				this.map(function(item2,n){
+					if(item1[key] == item2[key]){
+						arr.push(n);
+					}
+				});
+			},this)
+			return arr;
+		}
+		// 数组去重
+		Array.prototype.unique =function(){
+		    var arr = [];
+		 	var json = {};
+		 	for(var i = 0; i < this.length; i++){
+			  	if(!json[this[i]]){
+			   		arr.push(this[i]);
+			   		json[this[i]] = 1;
+			  	}
+		 	}
+		 	return arr;
+		}
+		// 数据替换
+		Array.prototype.$splice = function(msg){
+			var arr = [];
+			this.map(function(index){
+				arr.push(msg[index])
+			})
+			return arr;
+		}
+		var newArr = arr.ergodic('val').unique().$splice(arr);
+		
+		console.log(newArr)
+	</script>
+</html>
