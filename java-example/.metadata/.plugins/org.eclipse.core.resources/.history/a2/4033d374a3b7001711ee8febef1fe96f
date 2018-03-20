@@ -1,0 +1,34 @@
+
+public class Instanceof {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SuperClass sup = new SuperClass();
+		SuberClass sub = new SuberClass();
+		
+		// sup 不是SuberClass类的实例
+		if(sup instanceof SuberClass) {
+			SuberClass  sub1 = (SuberClass)sup;
+		}else {
+			System.out.println("1不能转换");
+		}
+		
+		sup = sub; // 赋值
+		// 经过上面的赋值，这个时候 sup 是 SuberClass 类的实例
+		if(sup instanceof SuberClass) {
+			SuberClass sub2 = (SuberClass)sup;
+			System.out.println(sub2);
+			System.out.println(sup);
+		}else {
+			System.out.println("2不能转型");
+		}
+	}
+
+}
+
+class SuprClass {
+
+}
+class SuberClass extends SuperClass {
+	
+}

@@ -1,0 +1,33 @@
+public class Demo2 {
+	public void prit1(float a) {
+		float c = a/2,  // 升序
+			  d,		// 行数
+			  e,		// 打印*号
+			  f,		// 打印空格
+			  j,		// 升序
+			  h = a%2;	// 取模
+		if(h == 0) {
+			System.out.println("输入的数据无法形成菱形结构");
+		}else {
+			for(d = 1; d <= c; d++) {
+				for(f = c; f >= d; f--) {
+					System.out.print(f+"  ");
+				};
+				for(e = 1; e == d*2-1; e++) {
+					if(e == 1 || e == d*2-1) {
+						System.out.print("*");
+					}else {
+						System.out.print(" ");
+					}
+				};
+				System.out.println();
+			};
+		}
+	}
+	
+	public static void main(String[] args) {
+		Demo2 a = new Demo2();
+		float b = 11;
+		a.prit1(b);
+	}
+}

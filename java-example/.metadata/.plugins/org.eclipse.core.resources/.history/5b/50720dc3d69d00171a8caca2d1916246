@@ -1,0 +1,29 @@
+
+public class Demo1 {
+	static char a = '1';
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.print(a);
+		System.out.print("\n");
+		System.out.println("ssssss");
+		
+		// 整型
+		byte 	by = 127;	
+		short	sh = 32767;
+		int     in = 2147483647;
+		long 	l = 10;
+		
+		float 	f = 1.1f;// 单精度浮点型，后面+f
+		double 	d = 0.9; // 双精度浮点型
+		boolean b = true;
+		char	c = 'c'; // 字符 型 != 字符串  *值得长度只能为1，单引号
+		
+		
+		final double PI = 3.1415927;
+		int pi = (int)PI;
+		
+		String 	s = "sdsfefe"; // 字符串 双引号 
+		System.out.print(pi);
+	}
+
+}

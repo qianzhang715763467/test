@@ -1,0 +1,18 @@
+// 方法调用
+public class Demo4 {
+	
+	public static void main(String[] args) {
+		Demo4 demo = new Demo4();
+		
+		int a = 5,
+			b = 2,
+			c = demo.max(a,b);
+		System.out.println(a+" 和  "+ b +" 比较，最大的是 "+c);
+	};
+	
+	public  int max(int num1, int num2) {
+		int result;
+		result = num1 > num2 ? num1 : num2;
+		return result;
+	}
+}

@@ -1,0 +1,15 @@
+
+public class arrayDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int size = 10;
+		int[] myArr = new int[size];
+		for(int i = 0; i < size; i++) {
+			myArr[i] = i;
+			System.out.println(myArr[i]);
+		}
+		System.out.println(myArr);
+	}
+
+}

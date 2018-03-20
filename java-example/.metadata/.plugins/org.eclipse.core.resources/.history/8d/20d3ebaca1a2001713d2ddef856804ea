@@ -1,0 +1,26 @@
+
+public class Demo7 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			new p2();
+	}
+
+}
+
+class p1 {
+	public p1() {
+		System.out.println("我是p1");
+	}
+	public p1(int age) {
+		System.out.println("我是p1");
+	}
+}
+class p2 extends p1{
+	public p2() {
+		System.out.println("我是p2");
+	}
+	public p2(int age) {
+		System.out.println("我是p1");
+	}
+}

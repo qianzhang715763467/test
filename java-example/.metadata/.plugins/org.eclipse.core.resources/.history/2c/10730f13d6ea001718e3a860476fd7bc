@@ -1,0 +1,20 @@
+
+public class arrayDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int size = 10;
+		int[] myArr = new int[size];
+		// 添加数据元素
+		for(int i = 0; i < size; i++) {
+			StringBuilder s = StringBuilder.valueOf(i);
+			myArr[i] = i;
+			System.out.println(i+10);
+		}
+		// 打印数组元素
+		 for (int element: myArr) {
+	         //System.out.println(element);
+	      }
+	}
+
+}

@@ -1,0 +1,22 @@
+
+public class Instanceof {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SuperClass sup = new SuperClass();
+		SuberClass sub = new SuberClass();
+		if(sup instanceof SuberClass) {
+			SuberClass  sub1 = (SuberClass)sup;
+		}else {
+			System.out.println("²»ÄÜ×ª»»");
+		}
+	}
+
+}
+
+class SuprClass {
+
+}
+class SuberClass extends SuperClass {
+	
+}

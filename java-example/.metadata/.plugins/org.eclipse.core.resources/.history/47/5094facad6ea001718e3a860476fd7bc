@@ -1,0 +1,22 @@
+
+public class arrayDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int size = 10;
+		StringBuilder[] myArr = new StringBuilder[size];
+		// 添加数据元素
+		for(int i = 0; i < size; i++) {
+			String s = String.valueOf(i);
+			StringBuilder ss = new StringBuilder(s);
+			ss.append('0');
+			myArr[i] = ss;
+			//System.out.println(i+10);
+		}
+		// 打印数组元素
+		 for (StringBuilder element: myArr) {
+	         System.out.println(element);
+	      }
+	}
+
+}
